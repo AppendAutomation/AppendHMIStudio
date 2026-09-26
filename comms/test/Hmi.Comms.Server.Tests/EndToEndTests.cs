@@ -228,6 +228,37 @@ public sealed class EndToEndTests : IAsyncLifetime
 	}
 
 	[Fact]
+	public async Task ProbeTriesAConnection()
+	{
+		using var ws = await TestClient.OpenAsync(url, Token);
+		var ok = await TestClient.RequestAsync(ws, new JsonObject
+		{
+			["t"] = "probe", ["id"] = 1,
+			["device"] = new JsonObject { ["name"] = "P", ["protocol"] = "modbus", ["host"] = "127.0.0.1", ["port"] = plc.Port }
+		});
+		Assert.True((bool)ok["ok"]!);
+
+		var l = new TcpListener(IPAddress.Loopback, 0);
+		l.Start();
+		int dead = ((IPEndPoint)l.LocalEndpoint).Port;
+		l.Stop();
+
+		var bad = await TestClient.RequestAsync(ws, new JsonObject
+		{
+			["t"] = "probe", ["id"] = 2,
+			["device"] = new JsonObject { ["name"] = "P", ["protocol"] = "modbus", ["host"] = "127.0.0.1", ["port"] = dead }
+		});
+		Assert.False((bool)bad["ok"]!);
+		Assert.NotNull((string?)bad["error"]);
+
+		var invalid = await TestClient.RequestAsync(ws, new JsonObject
+		{
+			["t"] = "probe", ["id"] = 3, ["device"] = new JsonObject { ["name"] = "P", ["protocol"] = "modbus" }
+		});
+		Assert.Equal("Host is required", (string?)invalid["error"]);
+	}
+
+	[Fact]
 	public async Task MalformedConfigureIsAnErrorNotACrash()
 	{
 		using var ws = await TestClient.OpenAsync(url, Token);

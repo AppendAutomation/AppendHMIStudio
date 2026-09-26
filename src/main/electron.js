@@ -19,6 +19,7 @@ import contextMenu from 'electron-context-menu';
 import {spawn, exec} from 'child_process';
 import {disableUpdate as disUpPkg} from './disableUpdate.js';
 import {CommsSupervisor, resolveExecutable as resolveCommsExecutable} from './comms/CommsSupervisor.js';
+import {CommsSession, validateCommsArgs} from './comms/CommsSession.js';
 
 let store;
 
@@ -2006,6 +2007,81 @@ function getCommsSupervisor()
 	}
 
 	return commsSupervisor;
+}
+
+// One connection to hmi-comms per window, closed with the window so the
+// server releases its devices.
+const commsSessions = new Map();
+
+function commsSessionFor(contents)
+{
+	let session = commsSessions.get(contents.id);
+
+	if (session == null)
+	{
+		session = new CommsSession(getCommsSupervisor(), (ev) =>
+		{
+			if (!contents.isDestroyed())
+			{
+				contents.send('hmiCommsEvent', ev);
+			}
+		});
+
+		commsSessions.set(contents.id, session);
+
+		const drop = () =>
+		{
+			session.close();
+			commsSessions.delete(contents.id);
+		};
+
+		contents.once('destroyed', drop);
+		contents.once('render-process-gone', drop);
+	}
+
+	return session;
+}
+
+async function handleCommsRequest(contents, args)
+{
+	validateCommsArgs(args.action, args);
+
+	if (args.action === 'hmiComms.disconnect')
+	{
+		const existing = commsSessions.get(contents.id);
+
+		if (existing != null)
+		{
+			existing.close();
+			commsSessions.delete(contents.id);
+		}
+
+		return {ok: true};
+	}
+
+	const session = commsSessionFor(contents);
+
+	switch (args.action)
+	{
+		case 'hmiComms.configure':
+			return session.configure(args.devices, args.tags);
+		case 'hmiComms.subscribe':
+			return session.subscribe(args.ids, args.rateMs);
+		case 'hmiComms.unsubscribe':
+			return session.unsubscribe();
+		case 'hmiComms.read':
+			return session.read(args.ids);
+		case 'hmiComms.write':
+			return session.write(args.values, args.timeoutMs);
+		case 'hmiComms.validate':
+			return session.validate(args.protocol, args.addresses, args.options, args.dataType);
+		case 'hmiComms.probe':
+			return session.probe(args.device);
+		case 'hmiComms.status':
+			return session.status();
+		case 'hmiComms.diag':
+			return session.diag();
+	}
 }
 
 app.on('will-quit', function ()
@@ -4373,6 +4449,14 @@ ipcMain.on("rendererReq", async (event, args) =>
 			break;
 		case 'isFullscreen':
 			ret = BrowserWindow.getFocusedWindow()?.isFullScreen() ?? false;
+			break;
+		default:
+			// PLC communications for the HMI runtime, relayed to hmi-comms.
+			if (typeof args.action === 'string' && args.action.startsWith('hmiComms.'))
+			{
+				ret = await handleCommsRequest(event.sender, args);
+			}
+
 			break;
 		};
 

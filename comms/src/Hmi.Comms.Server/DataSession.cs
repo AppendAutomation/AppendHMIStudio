@@ -61,6 +61,9 @@ internal sealed class DataSession : ISessionHandler
 			case "diag":
 				Diag(id);
 				return true;
+			case "probe":
+				await ProbeAsync(id, msg);
+				return true;
 			default:
 				return false;
 		}
@@ -483,6 +486,62 @@ internal sealed class DataSession : ISessionHandler
 			}
 
 			w.WriteEndArray();
+		});
+	}
+
+	// ------------------------------------------------------------ probe
+
+	/// <summary>
+	/// Tries a device's connection without configuring anything: connect,
+	/// report, disconnect. What a "Test" button in a device editor calls.
+	/// </summary>
+	private async Task ProbeAsync(long? id, JsonObject msg)
+	{
+		if (Json.Object(msg, "device") is not JsonObject d)
+		{
+			throw new ProtocolException("bad_request", "probe needs a device");
+		}
+
+		var device = ParseDevice(d);
+		var driver = commsEngine.Driver(device.Protocol);
+		string? error = driver == null ? $"Unknown protocol '{device.Protocol}'" : driver.ValidateDevice(device);
+		var sw = System.Diagnostics.Stopwatch.StartNew();
+
+		if (error == null)
+		{
+			var attempt = Task.Run(() =>
+			{
+				using var conn = driver!.Create(device);
+				conn.Connect();
+			});
+
+			try
+			{
+				if (await Task.WhenAny(attempt, Task.Delay(device.TimeoutMs + 2000)) != attempt)
+				{
+					error = "Timed out";
+				}
+				else
+				{
+					await attempt;
+				}
+			}
+			catch (Exception e)
+			{
+				error = e.Message;
+			}
+		}
+
+		session.Reply(id, "probeResult", w =>
+		{
+			w.WriteBoolean("ok", error == null);
+
+			if (error != null)
+			{
+				w.WriteString("error", error);
+			}
+
+			w.WriteNumber("ms", Math.Round(sw.Elapsed.TotalMilliseconds, 1));
 		});
 	}
 
