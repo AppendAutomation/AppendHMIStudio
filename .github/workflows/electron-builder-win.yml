@@ -78,6 +78,8 @@ jobs:
       run: |
         git config --global url."https://github.com/".insteadOf "git@github.com:"
         npm ci
+        # HMI > Publish runs the bundled NSIS compiler (the installed app is the template)
+        npm run fetch-nsis
     - name: Set up signing dependencies (Azure Trusted Signing)
       shell: powershell
       run: |

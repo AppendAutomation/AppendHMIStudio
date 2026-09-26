@@ -14,7 +14,9 @@
     "!drawio/src/main/webapp/mxgraph/mxClient.js",
     "!node_modules/@cantoo/pdf-lib/{cjs,dist,src,ts3.4}{,/**}",
     "!**/*.map",
-    "!comms{,/**}"
+    "!comms{,/**}",
+    "!scripts{,/**}",
+    "!dist-win-runtime{,/**}"
   ],
   "artifactName": "${productName}-${arch}-${version}.${ext}",
   "directories": {
@@ -29,8 +31,21 @@
       {
         "from": "comms/publish/mac",
         "to": "comms"
+      },
+      {
+        "from": "dist-win-runtime/win-unpacked",
+        "to": "runtime/win-x64"
+      },
+      {
+        "from": "build/nsis/share",
+        "to": "nsis"
+      },
+      {
+        "from": "build/nsis/mac",
+        "to": "nsis/bin"
       }
     ],
+    "signIgnore": ["Contents/Resources/runtime/"],
   	"hardenedRuntime": true,
   	"gatekeeperAssess": false,
   	"entitlements": "build/entitlements.mac.plist",
@@ -103,6 +118,18 @@
       {
         "from": "comms/publish/linux-${arch}",
         "to": "comms"
+      },
+      {
+        "from": "dist-win-runtime/win-unpacked",
+        "to": "runtime/win-x64"
+      },
+      {
+        "from": "build/nsis/share",
+        "to": "nsis"
+      },
+      {
+        "from": "build/nsis/linux",
+        "to": "nsis/bin"
       }
     ],
   	"executableName": "drawio",

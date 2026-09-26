@@ -314,7 +314,8 @@ describe('packaging', () =>
 
 	test('every platform ships the server as an extra resource', () =>
 	{
-		const from = (cfg) => (cfg.extraResources || []).map((r) => r.from);
+		// Other entries (HMI > Publish's NSIS and runtime template) sit alongside
+		const from = (cfg) => (cfg.extraResources || []).filter((r) => r.to == 'comms').map((r) => r.from);
 
 		for (const name of ['electron-builder-win.json', 'electron-builder-win-arm64.json',
 			'electron-builder-appx.json'])

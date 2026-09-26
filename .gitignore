@@ -12,3 +12,5 @@ comms/src/*/obj/
 comms/test/*/bin/
 comms/test/*/obj/
 comms/test/*/TestResults/
+build/nsis/
+dist-win-runtime/

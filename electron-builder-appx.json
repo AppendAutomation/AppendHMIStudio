@@ -14,12 +14,22 @@
     "!drawio/src/main/webapp/mxgraph/mxClient.js",
     "!node_modules/@cantoo/pdf-lib/{cjs,dist,src,ts3.4}{,/**}",
     "!**/*.map",
-    "!comms{,/**}"
+    "!comms{,/**}",
+    "!scripts{,/**}",
+    "!dist-win-runtime{,/**}"
   ],
   "extraResources": [
     {
       "from": "comms/publish/win-${arch}",
       "to": "comms"
+    },
+    {
+      "from": "build/nsis/share",
+      "to": "nsis"
+    },
+    {
+      "from": "build/nsis/win",
+      "to": "nsis/bin"
     }
   ],
   "artifactName": "${productName}-${arch}-${version}.${ext}",

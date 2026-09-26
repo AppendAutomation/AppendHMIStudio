@@ -127,6 +127,10 @@ jobs:
         npm ci
         if [ "$OS_NAME" = "ubuntu-latest" ]; then sed -ie 's/"asar": true,/"asar": true,\n"productName": "drawio",/' electron-builder-linux-mac.json; fi 
         npm run sync
+        # HMI > Publish: the NSIS compiler and the Windows runtime template it
+        # packs into installers both ship inside the Linux and macOS editors
+        npm run fetch-nsis
+        npm run build-win-runtime
         npm run release-linux
     - name: Build for Snap
       if: ${{ matrix.os == 'ubuntu-latest' }}

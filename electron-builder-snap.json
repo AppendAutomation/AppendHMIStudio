@@ -14,7 +14,9 @@
     "!drawio/src/main/webapp/mxgraph/mxClient.js",
     "!node_modules/@cantoo/pdf-lib/{cjs,dist,src,ts3.4}{,/**}",
     "!**/*.map",
-    "!comms{,/**}"
+    "!comms{,/**}",
+    "!scripts{,/**}",
+    "!dist-win-runtime{,/**}"
   ],
   "artifactName": "${productName}-${arch}-${version}.${ext}",
   "directories": {

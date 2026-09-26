@@ -66,6 +66,10 @@ jobs:
           # disableUpdate stops the app replacing itself with the official
           # (unmodified) release via auto-update
           npm run sync -- disableUpdate
+          # HMI > Publish: NSIS everywhere, plus the Windows runtime template
+          # on Linux and macOS (a Windows editor uses its own install)
+          npm run fetch-nsis
+          if [ "${{ inputs.platform }}" != "windows" ]; then npm run build-win-runtime; fi
           if [ "${{ inputs.platform }}" = "windows" ]; then
             npx electron-builder --config electron-builder-win.json --publish never
           else
