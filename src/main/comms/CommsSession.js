@@ -268,10 +268,10 @@ export class CommsSession
 		};
 	}
 
-	async subscribe(ids, rateMs)
+	async subscribe(ids, rateMs, rates)
 	{
-		this.lastSubscribe = {ids: ids, rateMs: rateMs};
-		const reply = await this.request({t: 'subscribe', tags: ids, rateMs: rateMs});
+		this.lastSubscribe = {ids: ids, rateMs: rateMs, rates: rates};
+		const reply = await this.request({t: 'subscribe', tags: ids, rateMs: rateMs, rates: rates});
 
 		return {ok: reply.ok, unknown: reply.unknown || []};
 	}
@@ -337,7 +337,7 @@ export class CommsSession
 
 		if (sub != null)
 		{
-			await this.subscribe(sub.ids, sub.rateMs);
+			await this.subscribe(sub.ids, sub.rateMs, sub.rates);
 		}
 
 		this.emit({t: 'server', state: 'ready'});
@@ -419,6 +419,12 @@ export function validateCommsArgs(action, args)
 			if (typeof args.rateMs !== 'number' || !(args.rateMs >= 10 && args.rateMs <= 3600000))
 			{
 				bad('rateMs');
+			}
+
+			if (args.rates != null && (!isPlainObject(args.rates) ||
+				!Object.values(args.rates).every((r) => typeof r === 'number')))
+			{
+				bad('rates');
 			}
 
 			break;

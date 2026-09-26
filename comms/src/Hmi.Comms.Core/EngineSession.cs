@@ -21,6 +21,7 @@ public sealed class EngineSession : IPointListener, IDisposable
 	private Dictionary<string, DeviceWorker> deviceWorkers = new(StringComparer.OrdinalIgnoreCase);
 	private readonly List<DeviceWorker> heldWorkers = new();
 	private readonly HashSet<int> subscribed = new();
+	private readonly Dictionary<int, int> tagRates = new();
 	private readonly Dictionary<int, TagValue> pending = new();
 	private int rateMs;
 	private bool disposed;
@@ -224,9 +225,12 @@ public sealed class EngineSession : IPointListener, IDisposable
 
 	/// <summary>
 	/// Replaces the subscription. Returns the snapshot of every requested tag,
-	/// which the caller must send before any change.
+	/// which the caller must send before any change. Tags are polled at rate,
+	/// or at their entry in rates when there is one -- so each device can keep
+	/// its own scan rate within one subscription.
 	/// </summary>
-	public IReadOnlyList<(int Handle, TagValue Value)> Subscribe(IReadOnlyList<int> handles, int rate)
+	public IReadOnlyList<(int Handle, TagValue Value)> Subscribe(IReadOnlyList<int> handles, int rate,
+		IReadOnlyDictionary<int, int>? rates = null)
 	{
 		lock (sync)
 		{
@@ -242,11 +246,27 @@ public sealed class EngineSession : IPointListener, IDisposable
 			}
 
 			subscribed.Clear();
+			tagRates.Clear();
 			rateMs = Math.Clamp(rate, 10, 3_600_000);
+
+			if (rates != null)
+			{
+				foreach (var (h, r) in rates)
+				{
+					if (wanted.Contains(h))
+					{
+						tagRates[h] = Math.Clamp(r, 10, 3_600_000);
+					}
+				}
+			}
 
 			foreach (int h in wanted)
 			{
 				subscribed.Add(h);
+			}
+
+			foreach (int h in wanted)
+			{
 				UpdateSubscription(Tag(h)!, wanted, rateMs);
 			}
 
@@ -269,8 +289,19 @@ public sealed class EngineSession : IPointListener, IDisposable
 			return;
 		}
 
-		bool stillWanted = byPoint[tag.Point].Any(t => wanted.Contains(t.Handle));
-		tag.Worker.Subscribe(tag.Point, this, stillWanted ? rate : 0);
+		// A point read for several of this session's tags goes at the fastest of them.
+		int fastest = 0;
+
+		foreach (var t in byPoint[tag.Point])
+		{
+			if (wanted.Contains(t.Handle))
+			{
+				int r = rate > 0 && tagRates.TryGetValue(t.Handle, out var own) ? own : rate;
+				fastest = fastest == 0 ? r : Math.Min(fastest, r);
+			}
+		}
+
+		tag.Worker.Subscribe(tag.Point, this, fastest);
 	}
 
 	public IReadOnlyList<(int Handle, TagValue Value)> Snapshot(IReadOnlyList<int> handles)

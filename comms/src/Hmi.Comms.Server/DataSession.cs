@@ -233,13 +233,28 @@ internal sealed class DataSession : ISessionHandler
 	{
 		var (handles, unknown) = ResolveTags(Json.Array(msg, "tags"));
 		int rate = (int)(Json.Long(msg, "rateMs") ?? 1000);
+		Dictionary<int, int>? rates = null;
+
+		// "rates": {"TagId": ms} -- per-tag rates, e.g. each device's scan rate.
+		if (Json.Object(msg, "rates") is JsonObject r)
+		{
+			rates = new Dictionary<int, int>();
+
+			foreach (var kv in r)
+			{
+				if (engine.HandleOf(kv.Key) is int h && kv.Value is JsonValue v && v.TryGetValue<double>(out var ms))
+				{
+					rates[h] = (int)ms;
+				}
+			}
+		}
 
 		// The reply and the snapshot are queued together, under the same lock
 		// that draining changes takes, so the client sees the snapshot for its
 		// new subscription before any change to it.
 		lock (gate)
 		{
-			var snapshot = engine.Subscribe(handles, rate);
+			var snapshot = engine.Subscribe(handles, rate, rates);
 
 			session.Reply(id, "subscribeResult", w =>
 			{

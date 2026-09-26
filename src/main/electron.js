@@ -2066,7 +2066,7 @@ async function handleCommsRequest(contents, args)
 		case 'hmiComms.configure':
 			return session.configure(args.devices, args.tags);
 		case 'hmiComms.subscribe':
-			return session.subscribe(args.ids, args.rateMs);
+			return session.subscribe(args.ids, args.rateMs, args.rates);
 		case 'hmiComms.unsubscribe':
 			return session.unsubscribe();
 		case 'hmiComms.read':

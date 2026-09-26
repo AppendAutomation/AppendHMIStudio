@@ -112,6 +112,28 @@ public sealed class SchedulerTests
 	}
 
 	[Fact]
+	public void PerTagRatesKeepEachDevicesPace()
+	{
+		using var rig = new Rig();
+		var s = rig.Engine.CreateSession();
+		var c = s.Configure(new[] { Rig.Device() }, new[] { Rig.Tag("fast", "A"), Rig.Tag("slow", "B") });
+		s.Subscribe(new[] { 1, 2 }, 100, new Dictionary<int, int> { [2] = 1000 });
+
+		rig.Step();
+		var conn = rig.Driver.Connections.Single();
+		Assert.Equal(new[] { "A", "B" }, conn.Reads[0]);
+
+		for (int i = 0; i < 9; i++)
+		{
+			rig.Step(100);
+			Assert.Equal(new[] { "A" }, conn.Reads[^1]);
+		}
+
+		rig.Step(100);
+		Assert.Equal(new[] { "A", "B" }, conn.Reads[^1]);
+	}
+
+	[Fact]
 	public void MinimumScanRateIsEnforced()
 	{
 		using var rig = new Rig();
