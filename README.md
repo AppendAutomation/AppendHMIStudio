@@ -1,108 +1,59 @@
-About
------ 
+Append HMI Studio
+=================
 
-**drawio-desktop** is a diagramming desktop app based on [Electron](https://electronjs.org/) that wraps the [core draw.io editor](https://github.com/jgraph/drawio).
+**Append HMI Studio** designs operator screens (HMIs) for PLCs, runs them against live equipment, and publishes them as Windows installers for the target PC.
 
-Download built binaries from the [releases section](https://github.com/jgraph/drawio-desktop/releases).
+- **Design** screens on a diagram canvas, with tags, animation links, window properties and scripts.
+- **Run** them in the editor against real devices through the bundled comms server:
+  - EtherNet/IP ControlLogix/CompactLogix;
+  - SLC 5/05 and MicroLogix;
+  - Modbus TCP;
+  - a built-in simulator.
+- **Publish** a project as a Windows installer (HMI > Publish). It installs a locked, run-only copy of the app with the comms server, built on any platform. See [doc/HMI_PUBLISH.md](doc/HMI_PUBLISH.md).
 
-**Can I use this app for free?** Yes, under the apache 2.0 license. If you don't change the code and accept it is provided "as-is", you can use it for any purpose.
+Projects are saved as `.ahmi` files. Files saved as `.drawio-hmi` by earlier builds still open.
 
-Windows installation
---------------------
+Download
+--------
 
-Three flavours of Windows download are published on the [releases page](https://github.com/jgraph/drawio-desktop/releases):
+Releases are published at [github.com/AppendAutomation/append-hmi-studio/releases](https://github.com/AppendAutomation/append-hmi-studio/releases):
 
-- `draw.io-<version>-windows-installer.exe` — NSIS installer. Installs **per-machine** into `Program Files` and **requires administrator privileges**.
-- `draw.io-<version>.msi` — MSI installer. Installs **per-user** into the user's profile and **does not require administrator privileges**. Use this one if you don't have admin rights on your machine.
-- `draw.io-<version>-windows-no-installer.exe` — portable build that runs without any installation (and therefore without admin rights). File-type associations are not registered.
+- `Append-HMI-Studio-<version>-Setup.exe`
+  - Windows 10/11 x64 installer, for all users (administrator rights).
+  - Silent install: `/S`. Silent uninstall: `"C:\Program Files\Append HMI Studio\Uninstall.exe" /S`.
+- `Append-HMI-Studio-<version>-x86_64.AppImage`: Linux, runs without installing.
+- `Append-HMI-Studio-<version>-amd64.deb`: Debian and Ubuntu (`sudo apt install ./Append-HMI-Studio-*.deb`).
 
-The Microsoft Store (APPX) build is also installable per-user without admin rights via the Store.
+The installers are not code-signed yet, so Windows SmartScreen asks for confirmation on first run.
 
-### Windows on Arm
+There is no automatic update: install a newer version over the old one.
 
-draw.io Desktop is built natively for Windows on Arm (ARM64) and is supported on Windows 11 ARM64 devices. Two native ARM64 downloads are published with every release:
-
-- `draw.io-arm64-<version>-windows-arm64-installer.exe` — NSIS installer, per-machine, requires administrator privileges.
-- `draw.io-arm64-<version>-windows-arm64-no-installer.exe` — portable build, no installation or admin rights needed.
-
-The MSI and Microsoft Store builds are x64 only and run under emulation on ARM64 devices. ARM64 builds up to and including 31.4.4 were shipped with auto-update disabled; install a newer release manually once, after which the ARM64 build updates itself like x64.
-
-Linux installation
-------------------
-
-If you manage AppImages with [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher), you need a 3.0 release of it (currently labelled beta). Since 31.4.2 the AppImage uses the static AppImage runtime so that it no longer depends on the end-of-life `libfuse2`, and AppImageLauncher 2.2.0, the last stable release, cannot load a static runtime. The app then fails to start with:
-
-```
-fuse: memory allocation failed
-squashfuse 0.5.2 (c) 2012 Dave Vasilevsky
-...
-Can't open squashfs image: Bad address
-```
-
-Install a current AppImageLauncher from its [releases page](https://github.com/TheAssassin/AppImageLauncher/releases), which provides .deb packages, or uninstall AppImageLauncher altogether. It is not needed to run the AppImage. See [#2538](https://github.com/jgraph/drawio-desktop/issues/2538) for the detail.
-
-HMI > Publish
--------------
-
-This fork's HMI editor can publish a project as a Windows installer that runs it full time on a target PC, with the PLC comms server, built on any platform. See [doc/HMI_PUBLISH.md](doc/HMI_PUBLISH.md).
+Settings and logs are kept in `%APPDATA%\Append HMI Studio` (Windows) and `~/.config/Append HMI Studio` (Linux).
 
 Security
 --------
 
-draw.io Desktop is designed to be completely isolated from the Internet, apart from the update process. This checks github.com at startup for a newer version and downloads it from an AWS S3 bucket owned by Github. To disable the update check entirely (e.g. for centrally-managed installs), set the `DRAWIO_DISABLE_UPDATE=true` environment variable or pass `--disable-update` on launch. All JavaScript files are self-contained, the Content Security Policy forbids running remotely loaded JavaScript.
+The app works offline. Diagram and project data never leave the machine, and the Content Security Policy forbids remotely loaded code. The only network traffic is to the PLCs a project is configured to talk to, through the local `hmi-comms` server.
 
-No diagram data is ever sent externally, nor do we send any analytics about app usage externally. The Content Security Policy on the web part of the interface forbids remotely-loaded JavaScript and restricts the application's own network connections to itself, so the app cannot transmit your diagrams or otherwise phone home. Note that a diagram can reference external media - for example an image, background or font loaded from a URL embedded in the diagram - and these are fetched when the diagram is opened so that it renders correctly. Opening a diagram from an untrusted source may therefore trigger a request to the referenced URL, which can reveal metadata such as your IP address to that server; no diagram content is transmitted.
+A diagram can still reference external media (an image or font by URL). That media is fetched when the diagram is opened, so the remote server sees the request, but no diagram content is sent.
 
-Security and isolating the app are the primarily objectives of draw.io desktop. If you ask for anything that involves external connections enabled in the app by default, the answer will be no.
+Building
+--------
 
-Support
--------
+See [doc/BUILDING.md](doc/BUILDING.md). In short, with Node.js 22.12+ and the .NET 8 SDK:
 
-Support is provided on a reasonable business constraints basis, but without anything contractually binding. All support is provided via this repo. There is no private ticketing support for non-paying users.
+```
+git clone --recursive https://github.com/AppendAutomation/append-hmi-studio.git
+cd append-hmi-studio
+npm install
+npm start                 # run from source
+npm run dist-win          # Windows installer (on Linux too, no wine)
+npm run dist-linux        # AppImage and deb
+```
 
-Purchasing draw.io for Confluence or Jira does not entitle you to commercial support for draw.io desktop.
+Licence and attribution
+-----------------------
 
-Developing
-----------
+Append HMI Studio is © 2026 Append Automation and is licensed under the Apache License 2.0 (see [LICENSE](LICENSE)).
 
-**draw.io** is a git submodule of **drawio-desktop**. To get both you need to clone recursively:
-
-`git clone --recursive https://github.com/jgraph/drawio-desktop.git`
-
-To run this:
-1. `npm install` (in the root directory of this repo)
-2. [internal use only] export DRAWIO_ENV=dev if you want to develop/debug in dev mode.
-3. `npm start` _in the root directory of this repo_ runs the app. For debugging, use `npm start --enable-logging`.
-
-Note: If a symlink is used to refer to drawio repo (instead of the submodule), then symlink the `node_modules` directory inside `drawio/src/main/webapp` also.
-
-To fork the project, make your own changes and build an (unsigned) app for personal use, see [doc/BUILDING_FOR_PERSONAL_USE.md](doc/BUILDING_FOR_PERSONAL_USE.md).
-
-To release:
-1. Update the draw.io sub-module and push the change. Add version tag before pushing to origin.
-2. Wait for the builds to complete (https://travis-ci.org/jgraph/drawio-desktop and https://ci.appveyor.com/project/davidjgraph/drawio-desktop)
-3. Go to https://github.com/jgraph/drawio-desktop/releases, edit the preview release.
-4. Download the windows exe and windows portable, sign them using `signtool sign /a /tr http://rfc3161timestamp.globalsign.com/advanced /td SHA256 c:/path/to/your/file.exe`
-5. Re-upload signed file as `draw.io-windows-installer-x.y.z.exe` and `draw.io-windows-no-installer-x.y.z.exe`
-6. Add release notes
-7. Publish release
-
-Local Storage and Session Storage is stored in the AppData folder:
-
-- macOS: `~/Library/Application Support/draw.io`
-- Windows: `C:\Users\<USER-NAME>\AppData\Roaming\draw.io\`
-
-Not open-contribution
----------------------
-
-draw.io is closed to contributions (unless a maintainer permits it, which is extremely rare).
-
-The level of complexity of this project means that even simple changes 
-can break a _lot_ of other moving parts. The amount of testing required 
-is far more than it first seems. If we were to receive a PR, we'd have 
-to basically throw it away and write it how we want it to be implemented.
-
-We are grateful for community involvement, bug reports, & feature requests. We do
-not wish to come off as anything but welcoming, however, we've
-made the decision to keep this project closed to contributions for 
-the long term viability of the project.
+It is built on the [draw.io](https://github.com/jgraph/drawio) diagram editor and [drawio-desktop](https://github.com/jgraph/drawio-desktop) by JGraph Ltd, used and modified under the Apache License 2.0. [NOTICE](NOTICE) lists the third-party works and the changes made. Append HMI Studio is not affiliated with or endorsed by JGraph Ltd; "draw.io" is a trademark of its owner.

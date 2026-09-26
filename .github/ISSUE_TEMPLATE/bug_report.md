@@ -7,7 +7,7 @@ about: Create a report to help us improve
 ### Preflight Checklist
 <!-- Please ensure you've completed the following steps by replacing [ ] with [x]-->
 
-* [ ] I agree to follow the [Code of Conduct](https://github.com/jgraph/drawio-desktop/blob/master/CODE_OF_CONDUCT.md) that this project adheres to.
+* [ ] I agree to follow the [Code of Conduct](https://github.com/AppendAutomation/append-hmi-studio/blob/main/CODE_OF_CONDUCT.md) that this project adheres to.
 * [ ] I have searched the issue tracker for a feature request that matches the one I want to file, without success.
 
 You must agree to search and the code of conduct. You must fill in this entire template. If you delete part/all or miss parts out your issue will be closed.
@@ -28,12 +28,15 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**draw.io version (In the Help->About menu of the draw.io editor):**
+**Append HMI Studio version (Help > About):**
 
-- draw.io version x.y.z
+- Version x.y.z
+
+**PLC / device (if the problem involves communications):**
+- Protocol and model, e.g. EtherNet/IP ControlLogix 5069-L330ER
 
 **Desktop (please complete the following information):**
- - OS: Windows, MacOS, Linux...
+ - OS: Windows, Linux...
 
 **Additional context**
 Add any other context about the problem here.

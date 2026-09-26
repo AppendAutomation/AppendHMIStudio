@@ -5,8 +5,8 @@ by device and polls each device efficiently over **EtherNet/IP (Logix)**,
 **SLC 500 / MicroLogix (PCCC)** or **Modbus TCP**, and serves the values over a
 WebSocket.
 
-drawio-desktop-hmi ships it and starts it on demand (the Electron main process
-relays for the HMI), but nothing in it depends on draw.io or Electron: any
+Append HMI Studio ships it and starts it on demand (the Electron main process
+relays for the HMI), but nothing in it depends on the editor or Electron: any
 WebSocket client that speaks the protocol below can use it, including the
 published-application runtime.
 

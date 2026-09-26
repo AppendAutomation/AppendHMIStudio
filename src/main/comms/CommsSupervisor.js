@@ -2,7 +2,7 @@
 //
 // hmi-comms is a separate executable (a .NET single-file build shipped under
 // resources/comms). It is spawned lazily -- only when something first needs
-// it -- so running plain draw.io never starts it. It is told a random token
+// it -- so editing a plain diagram never starts it. It is told a random token
 // on its stdin, prints one JSON line announcing the port it bound, and exits
 // by itself when its stdin closes, so it cannot outlive a crashed parent.
 

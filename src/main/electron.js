@@ -138,7 +138,7 @@ contextMenu({
 	]
 });
 
-const __DEV__ = process.env.DRAWIO_ENV === 'dev'
+const __DEV__ = process.env.HMI_ENV === 'dev'
 		
 let windowsRegistry = []
 let cmdQPressed = false
@@ -556,7 +556,7 @@ let isGoogleFontsEnabled = store != null ? (store.get('isGoogleFontsEnabled') !=
 
 // dev=1 makes bootstrap.js load the unminified editor sources, which the
 // packaged app.asar leaves out (see files in electron-builder-*.json), so a
-// packaged build started with DRAWIO_ENV=dev keeps the minified bundles
+// packaged build started with HMI_ENV=dev keeps the minified bundles
 const devSources = __DEV__ && fs.existsSync(path.join(codeDir, 'js', 'diagramly', 'Devel.js'));
 
 //Read config file

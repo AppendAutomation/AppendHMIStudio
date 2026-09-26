@@ -173,7 +173,7 @@ export function formatHelp(version)
 }
 
 /**
- * Parse draw.io CLI arguments.
+ * Parse the command-line arguments.
  *
  * argv is process.argv, possibly with a leading null inserted by the Electron
  * packaged-app workaround (github.com/electron/electron/issues/4690).

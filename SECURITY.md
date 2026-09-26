@@ -9,4 +9,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in axios please disclose it via our [huntr page](https://huntr.dev/repos/jgraph/drawio-desktop/). Bounty eligibility, CVE assignment, response times and past reports are all there.
+Please report security problems privately through GitHub's
+[private vulnerability reporting](https://github.com/AppendAutomation/append-hmi-studio/security/advisories/new)
+rather than a public issue. Include the version (Help > About), the platform
+and steps to reproduce.

@@ -1,7 +1,7 @@
 [submodule "drawio"]
 	path = drawio
-	url = https://github.com/jgraph/drawio.git
-	branch = dev
+	url = https://github.com/AppendAutomation/drawio.git
+	branch = hmi
 [submodule "comms/lib/cslogix"]
 	path = comms/lib/cslogix
 	url = https://github.com/AppendAutomation/cslogix.git
