@@ -3,11 +3,21 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Hmi.Comms.Server</RootNamespace>
     <AssemblyName>hmi-comms</AssemblyName>
-    <PublishTrimmed>false</PublishTrimmed>
+    <!-- Publishing (npm run build-comms) makes one self-contained, trimmed file.
+         Set here rather than on the command line, where it would reach the
+         libraries too, and netstandard2.0 cannot be trimmed. -->
+    <SelfContained Condition="'$(RuntimeIdentifier)' != ''">true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>partial</TrimMode>
+    <IncludeNativeLibrariesForSelfExtract>false</IncludeNativeLibrariesForSelfExtract>
+    <PublishDocumentationFiles>false</PublishDocumentationFiles>
+    <PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hmi.Comms.Core\Hmi.Comms.Core.csproj" />
     <ProjectReference Include="..\Hmi.Comms.Modbus\Hmi.Comms.Modbus.csproj" />
+    <ProjectReference Include="..\Hmi.Comms.Logix\Hmi.Comms.Logix.csproj" />
   </ItemGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="Hmi.Comms.Server.Tests" />

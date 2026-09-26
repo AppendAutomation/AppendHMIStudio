@@ -52,6 +52,7 @@ if (string.IsNullOrEmpty(token))
 
 var engine = new CommsEngine(new IProtocolDriver[]
 {
+	new Hmi.Comms.Logix.LogixDriver(),
 	new Hmi.Comms.Modbus.ModbusDriver()
 });
 

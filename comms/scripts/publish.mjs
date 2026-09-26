@@ -1,4 +1,5 @@
-// Publishes hmi-comms as a self-contained single-file executable per runtime.
+// Publishes hmi-comms as a self-contained single-file executable per runtime
+// (the single-file and trimming settings live in Hmi.Comms.Server.csproj).
 //
 //   node comms/scripts/publish.mjs              host platform and architecture
 //   node comms/scripts/publish.mjs --rid linux-arm64
@@ -82,11 +83,6 @@ function publish(rid)
 	const res = spawnSync('dotnet', ['publish', project,
 		'-c', 'Release',
 		'-r', rid,
-		'--self-contained',
-		'-p:PublishSingleFile=true',
-		'-p:PublishTrimmed=true',
-		'-p:TrimMode=partial',
-		'-p:InvariantGlobalization=true',
 		'-p:DebugType=none',
 		'-p:DebugSymbols=false',
 		'-o', out], {stdio: 'inherit', shell: process.platform === 'win32'});

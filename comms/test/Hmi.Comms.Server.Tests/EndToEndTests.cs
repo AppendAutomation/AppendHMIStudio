@@ -291,6 +291,87 @@ public sealed class EndToEndTests : IAsyncLifetime
 	}
 
 	[Fact]
+	public async Task RealExecutableReadsAndWritesLogix()
+	{
+		using var sim = new CSLogix.Tests.Integration.LogixSimulator();
+		sim.Set("Speed", CSLogix.Tests.Integration.LogixSimulator.DINT, 1200);
+		sim.Set("Name", CSLogix.Tests.Integration.LogixSimulator.STRUCT, "Line 1");
+
+		using var p = StartServer(out int port);
+		using var ws = await TestClient.OpenAsync(new Uri($"ws://127.0.0.1:{port}/v1"), "proc");
+
+		var cfg = new JsonObject
+		{
+			["t"] = "configure", ["id"] = 1,
+			["devices"] = new JsonArray(new JsonObject
+			{
+				["name"] = "L1", ["protocol"] = "logix", ["host"] = "127.0.0.1", ["port"] = sim.Port
+			}),
+			["tags"] = new JsonArray(
+				new JsonObject { ["id"] = "Speed", ["device"] = "L1", ["address"] = "Speed" },
+				new JsonObject { ["id"] = "Name", ["device"] = "L1", ["address"] = "Name" })
+		};
+		await TestClient.RequestAsync(ws, cfg);
+		await TestClient.SendAsync(ws, new JsonObject
+		{
+			["t"] = "subscribe", ["id"] = 2, ["tags"] = new JsonArray("Speed", "Name"), ["rateMs"] = 50
+		});
+
+		var v = await ValuesUntil(ws, x => x.TryGetValue(1, out var a) && (int?)a[2] == 192 &&
+			x.TryGetValue(2, out var b) && (int?)b[2] == 192);
+		Assert.Equal(1200, (int)v[1][1]!);
+		Assert.Equal("Line 1", (string?)v[2][1]);
+
+		var w = await TestClient.RequestAsync(ws, new JsonObject
+		{
+			["t"] = "write", ["id"] = 3, ["values"] = new JsonObject { ["Speed"] = 1300, ["Name"] = "Mixer" }
+		});
+		Assert.True((bool)w["results"]!["Speed"]!["ok"]!);
+		Assert.True((bool)w["results"]!["Name"]!["ok"]!);
+		Assert.Equal(1300, sim.Get("Speed"));
+		Assert.Equal("Mixer", sim.Get("Name"));
+
+		p.StandardInput.Close();
+		Assert.True(p.WaitForExit(5000));
+	}
+
+	/// <summary>
+	/// Starts hmi-comms as the Electron main process does. HMI_COMMS_EXE points
+	/// this at a published (trimmed, single-file) build instead of the dll.
+	/// </summary>
+	private static Process StartServer(out int port)
+	{
+		string? exe = Environment.GetEnvironmentVariable("HMI_COMMS_EXE");
+		var psi = new ProcessStartInfo(exe ?? "dotnet")
+		{
+			RedirectStandardInput = true,
+			RedirectStandardOutput = true,
+			RedirectStandardError = true,
+			UseShellExecute = false
+		};
+
+		if (exe == null)
+		{
+			psi.ArgumentList.Add(Path.Combine(AppContext.BaseDirectory, "hmi-comms.dll"));
+		}
+
+		psi.ArgumentList.Add("--listen");
+		psi.ArgumentList.Add("127.0.0.1:0");
+		psi.ArgumentList.Add("--token-stdin");
+
+		var p = Process.Start(psi)!;
+		p.ErrorDataReceived += (_, _) => { };
+		p.BeginErrorReadLine();
+		p.StandardInput.WriteLine("proc");
+		p.StandardInput.Flush();
+
+		string? line = p.StandardOutput.ReadLineAsync().WaitAsync(TimeSpan.FromSeconds(20)).GetAwaiter().GetResult();
+		port = (int)JsonNode.Parse(line!)!["port"]!;
+
+		return p;
+	}
+
+	[Fact]
 	public async Task RealExecutableEndToEnd()
 	{
 		plc.Set(7, 700);

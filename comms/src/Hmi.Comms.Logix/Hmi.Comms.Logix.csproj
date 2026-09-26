@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Hmi.Comms.Logix</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hmi.Comms.Core\Hmi.Comms.Core.csproj" />
+    <ProjectReference Include="..\..\lib\cslogix\src\CSLogix\CSLogix.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Hmi.Comms.Logix.Tests" />
+  </ItemGroup>
+</Project>

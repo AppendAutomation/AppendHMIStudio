@@ -512,10 +512,13 @@ public sealed class DeviceWorker : IDisposable
 				{
 					fastest = Math.Min(fastest, p.RateMs);
 
-					// Keep to the schedule, but after falling behind start afresh
-					// rather than firing a burst of catch-up reads.
-					long next = p.NextDue + p.RateMs;
-					p.NextDue = next > now ? next : now + p.RateMs;
+					// Next read on the next multiple of the rate. Aligning to the
+					// clock rather than to when the point was subscribed keeps
+					// points of one rate in phase -- they arrive a few ms apart
+					// but are read together from then on -- and puts a 250 ms
+					// point's reads on its 1 s neighbours' too. Falling behind
+					// skips missed slots rather than bursting to catch up.
+					p.NextDue = (now / p.RateMs + 1) * p.RateMs;
 				}
 			}
 

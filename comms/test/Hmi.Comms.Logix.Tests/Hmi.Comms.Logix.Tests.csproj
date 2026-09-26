@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Hmi.Comms.Server\Hmi.Comms.Server.csproj" />
+    <ProjectReference Include="..\..\src\Hmi.Comms.Logix\Hmi.Comms.Logix.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <!-- The controller simulator lives with the library's own tests. -->
     <Compile Include="..\..\lib\cslogix\tests\CSLogix.Tests\Integration\LogixSimulator.cs" Link="LogixSimulator.cs" />
   </ItemGroup>
 </Project>
