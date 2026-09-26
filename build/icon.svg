@@ -1,22 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 161.6 161.6" style="enable-background:new 0 0 161.6 161.6;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#F08705;}
-	.st1{fill:#DF6C0C;}
-	.st2{fill:#FFFFFF;}
-	.st3{fill:#333333;}
-</style>
-<g>
-	<path class="st0" d="M161.6,154.7c0,3.9-3.2,6.9-6.9,6.9H6.9c-3.9,0-6.9-3.2-6.9-6.9V6.9C0,3,3.2,0,6.9,0h147.8
-		c3.9,0,6.9,3.2,6.9,6.9L161.6,154.7L161.6,154.7z"/>
-	<g>
-		<path class="st1" d="M161.6,154.7c0,3.9-3.2,6.9-6.9,6.9H55.3l-32.2-32.7l20-32.7l59.4-73.8l58.9,60.7L161.6,154.7z"/>
-	</g>
-	<path class="st2" d="M132.7,90.3h-17l-18-30.6c4-0.8,7-4.4,7-8.6V28c0-4.9-3.9-8.8-8.8-8.8h-30c-4.9,0-8.8,3.9-8.8,8.8v23.1
-		c0,4.3,3,7.8,6.9,8.6L46,90.4H29c-4.9,0-8.8,3.9-8.8,8.8v23.1c0,4.9,3.9,8.8,8.8,8.8h30c4.9,0,8.8-3.9,8.8-8.8V99.2
-		c0-4.9-3.9-8.8-8.8-8.8h-2.9L73.9,60h13.9l17.9,30.4h-3c-4.9,0-8.8,3.9-8.8,8.8v23.1c0,4.9,3.9,8.8,8.8,8.8h30
-		c4.9,0,8.8-3.9,8.8-8.8V99.2C141.5,94.3,137.6,90.3,132.7,90.3z"/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>Append HMI Studio</title>
+  <defs>
+    <linearGradient id="bezel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a4a57"/>
+      <stop offset="1" stop-color="#1f2a33"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2f8df0"/>
+      <stop offset="1" stop-color="#0d5bb8"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.35" r="0.6">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- panel bezel -->
+  <rect x="48" y="48" width="928" height="928" rx="168" fill="url(#bezel)"/>
+  <rect x="48" y="48" width="928" height="928" rx="168" fill="none" stroke="#56687a" stroke-width="10"/>
+  <!-- screen -->
+  <rect x="128" y="128" width="768" height="560" rx="56" fill="url(#screen)"/>
+  <rect x="128" y="128" width="768" height="560" rx="56" fill="url(#glow)"/>
+  <!-- gauge: track, value arc, ticks, needle -->
+  <path d="M 312 560 A 200 200 0 0 1 712 560" fill="none" stroke="#0a3f80" stroke-width="56" stroke-linecap="round"/>
+  <path d="M 312 560 A 200 200 0 0 1 612 387" fill="none" stroke="#ffffff" stroke-width="56" stroke-linecap="round"/>
+  <path d="M 672 460 A 200 200 0 0 1 712 560" fill="none" stroke="#ffb300" stroke-width="56" stroke-linecap="round"/>
+  <line x1="512" y1="560" x2="610" y2="400" stroke="#ffffff" stroke-width="30" stroke-linecap="round"/>
+  <circle cx="512" cy="560" r="44" fill="#ffffff"/>
+  <circle cx="512" cy="560" r="18" fill="#0d5bb8"/>
+  <!-- indicator lights -->
+  <circle cx="352" cy="832" r="54" fill="#2ecc71"/>
+  <circle cx="512" cy="832" r="54" fill="#ffb300"/>
+  <circle cx="672" cy="832" r="54" fill="#e74c3c"/>
+  <circle cx="336" cy="814" r="16" fill="#ffffff" fill-opacity="0.45"/>
+  <circle cx="496" cy="814" r="16" fill="#ffffff" fill-opacity="0.45"/>
+  <circle cx="656" cy="814" r="16" fill="#ffffff" fill-opacity="0.45"/>
 </svg>

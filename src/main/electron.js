@@ -104,6 +104,10 @@ log.transports.console.level = 'warn';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
+// The product icon for windows (packaged as an extra resource)
+const appIcon = app.isPackaged ? path.join(process.resourcesPath, 'icon.png') :
+	path.join(__dirname, '..', '..', 'build', 'icon.png');
+
 //Command option to disable hardware acceleration
 if (process.argv.indexOf('--disable-acceleration') !== -1)
 {
@@ -628,7 +632,7 @@ function createWindow (opt = {})
 		backgroundColor: '#FFF',
 		width: lastWinSize.width,
 		height: lastWinSize.height,
-		icon: `${codeDir}/images/drawlogo256.png`,
+		icon: appIcon,
 		webPreferences: {
 			preload: `${__dirname}/electron-preload.js`,
 			spellcheck: enableSpellCheck,
@@ -1888,7 +1892,7 @@ function createRuntimeWindow()
 	// The package's own icon; on Windows the exe's icon otherwise
 	const win = new BrowserWindow(Object.assign(runtimeWindowOptions(hmiRuntime),
 	{
-		icon: hmiRuntime.iconPath || (isWin ? undefined : `${codeDir}/images/drawlogo256.png`),
+		icon: hmiRuntime.iconPath || (isWin ? undefined : appIcon),
 		webPreferences: {
 			preload: `${__dirname}/electron-preload.js`,
 			spellcheck: false,
