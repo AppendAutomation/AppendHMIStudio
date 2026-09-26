@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Hmi.Comms.Slc</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hmi.Comms.Core\Hmi.Comms.Core.csproj" />
+    <ProjectReference Include="..\..\lib\cscomm3_slc\src\CSComm3.SLC\CSComm3.SLC.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Hmi.Comms.Slc.Tests" />
+  </ItemGroup>
+</Project>

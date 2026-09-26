@@ -18,6 +18,7 @@
     <ProjectReference Include="..\Hmi.Comms.Core\Hmi.Comms.Core.csproj" />
     <ProjectReference Include="..\Hmi.Comms.Modbus\Hmi.Comms.Modbus.csproj" />
     <ProjectReference Include="..\Hmi.Comms.Logix\Hmi.Comms.Logix.csproj" />
+    <ProjectReference Include="..\Hmi.Comms.Slc\Hmi.Comms.Slc.csproj" />
   </ItemGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="Hmi.Comms.Server.Tests" />

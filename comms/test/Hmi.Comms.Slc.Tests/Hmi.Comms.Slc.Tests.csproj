@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Hmi.Comms.Slc\Hmi.Comms.Slc.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The processor simulator lives with the library's own tests. -->
+    <Compile Include="..\..\lib\cscomm3_slc\tests\CSComm3.SLC.Tests\Integration\SlcSimulator.cs" Link="SlcSimulator.cs" />
+  </ItemGroup>
+</Project>
