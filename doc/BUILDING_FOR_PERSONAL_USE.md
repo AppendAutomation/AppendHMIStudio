@@ -108,6 +108,19 @@ where the packaging picks it up; the Linux packages target x64 and arm64, so
 for those run `npm run build-comms -- --rid linux-x64 --rid linux-arm64`,
 and on macOS `npm run build-comms -- --mac`.
 
+HMI > Publish (see [HMI_PUBLISH.md](HMI_PUBLISH.md)) needs two more pieces in
+the package. Build them before packaging, or leave them out and Publish says
+what is missing:
+
+```
+npm run fetch-nsis          # the NSIS compiler, into build/nsis (every platform)
+npm run build-win-runtime   # Linux and macOS only: the Windows app it installs
+```
+
+`build-win-runtime` builds the unpacked Windows x64 app with `hmi-comms.exe`
+into `dist-win-runtime/` without wine; the Linux and macOS packages carry it
+(about 490 MB unpacked). A Windows build uses its own install instead.
+
 Then build for your platform. Note these commands call `electron-builder`
 directly — the `npm run release-*` scripts are for CI and (apart from
 `release-snap`) try to publish the result to GitHub releases. Output

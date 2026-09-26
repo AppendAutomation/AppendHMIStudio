@@ -41,6 +41,11 @@ Can't open squashfs image: Bad address
 
 Install a current AppImageLauncher from its [releases page](https://github.com/TheAssassin/AppImageLauncher/releases), which provides .deb packages, or uninstall AppImageLauncher altogether. It is not needed to run the AppImage. See [#2538](https://github.com/jgraph/drawio-desktop/issues/2538) for the detail.
 
+HMI > Publish
+-------------
+
+This fork's HMI editor can publish a project as a Windows installer that runs it full time on a target PC, with the PLC comms server, built on any platform. See [doc/HMI_PUBLISH.md](doc/HMI_PUBLISH.md).
+
 Security
 --------
 
