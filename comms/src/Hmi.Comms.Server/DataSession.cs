@@ -30,14 +30,32 @@ internal sealed class DataSession : ISessionHandler
 		engine.ChangesAvailable = session.SignalChanges;
 		engine.StatusChanged = PushStatus;
 		session.PullChanges = PullChanges;
+
+		if (session.Host.FileConfig is { } file)
+		{
+			configured = engine.Configure(file.Devices, file.Tags);
+		}
 	}
+
+	private IReadOnlyList<ConfiguredTag> configured = Array.Empty<ConfiguredTag>();
+
+	private bool FixedConfiguration => session.Host.FileConfig != null && session.Host.Options.ConfigMode == "file";
 
 	public async Task<bool> HandleAsync(string type, long? id, JsonObject msg)
 	{
 		switch (type)
 		{
 			case "configure":
+				if (FixedConfiguration)
+				{
+					throw new ProtocolException("forbidden",
+						"This server serves a fixed configuration (--config-mode file)");
+				}
+
 				Configure(id, msg);
+				return true;
+			case "tags":
+				session.Reply(id, "tagsResult", w => WriteConfigured(w, configured));
 				return true;
 			case "subscribe":
 				Subscribe(id, msg);
@@ -97,47 +115,54 @@ internal sealed class DataSession : ISessionHandler
 		}
 
 		var result = engine.Configure(devices, tags);
+		configured = result;
 
 		session.Reply(id, "configureResult", w =>
 		{
 			w.WriteBoolean("ok", true);
-			w.WriteStartArray("tags");
-
-			foreach (var t in result)
-			{
-				w.WriteStartObject();
-				w.WriteString("id", t.Id);
-				w.WriteNumber("h", t.Handle);
-
-				if (t.Normalized != null)
-				{
-					w.WriteString("normalized", t.Normalized);
-				}
-
-				if (t.Error != null)
-				{
-					w.WriteString("error", t.Error);
-				}
-
-				w.WriteEndObject();
-			}
-
-			w.WriteEndArray();
-			w.WriteStartArray("errors");
-
-			foreach (var t in result.Where(t => t.Error != null))
-			{
-				w.WriteStartObject();
-				w.WriteString("id", t.Id);
-				w.WriteString("error", t.Error);
-				w.WriteEndObject();
-			}
-
-			w.WriteEndArray();
+			WriteConfigured(w, result);
 		});
 
 		Log.Info($"session {session.Id} configured {devices.Count} devices, {tags.Count} tags " +
 			$"({result.Count(t => t.Error != null)} with errors)");
+	}
+
+	/// <summary>"tags": [{id, h, normalized?, error?}], "errors": [{id, error}].</summary>
+	private static void WriteConfigured(Utf8JsonWriter w, IReadOnlyList<ConfiguredTag> result)
+	{
+		w.WriteStartArray("tags");
+
+		foreach (var t in result)
+		{
+			w.WriteStartObject();
+			w.WriteString("id", t.Id);
+			w.WriteNumber("h", t.Handle);
+
+			if (t.Normalized != null)
+			{
+				w.WriteString("normalized", t.Normalized);
+			}
+
+			if (t.Error != null)
+			{
+				w.WriteString("error", t.Error);
+			}
+
+			w.WriteEndObject();
+		}
+
+		w.WriteEndArray();
+		w.WriteStartArray("errors");
+
+		foreach (var t in result.Where(t => t.Error != null))
+		{
+			w.WriteStartObject();
+			w.WriteString("id", t.Id);
+			w.WriteString("error", t.Error);
+			w.WriteEndObject();
+		}
+
+		w.WriteEndArray();
 	}
 
 	internal static DeviceConfig ParseDevice(JsonObject d)

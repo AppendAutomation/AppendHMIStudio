@@ -43,6 +43,17 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
+      - name: Installing .NET (hmi-comms)
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Build hmi-comms
+        run: |
+          case "${{ inputs.platform }}" in
+            windows) npm run build-comms -- --rid win-x64 ;;
+            macos) npm run build-comms -- --mac ;;
+            *) npm run build-comms -- --rid linux-x64 --rid linux-arm64 ;;
+          esac
       - name: Install Linux packaging tools
         if: ${{ inputs.platform == 'linux' }}
         run: |

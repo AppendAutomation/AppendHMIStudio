@@ -67,6 +67,12 @@ jobs:
       uses: actions/setup-node@v6
       with:
         node-version: 24
+    - name: Installing .NET (hmi-comms)
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Build hmi-comms
+      run: npm run build-comms -- --rid win-x64 --rid win-arm64
     - name: Prepare for Windows Build
       shell: powershell
       run: |

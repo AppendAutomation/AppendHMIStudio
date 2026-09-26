@@ -28,10 +28,33 @@ catch (Exception e) when (e is ArgumentException or FormatException or OverflowE
 Log.Configure(options.LogLevel, options.LogFile);
 
 string? token = options.Token;
+(IReadOnlyList<DeviceConfig> Devices, IReadOnlyList<TagConfig> Tags)? fileConfig = null;
+
+// Standalone use -- the published runtime, or a server on a plant network --
+// takes its devices and tags (and optionally its token) from a file.
+if (options.ConfigPath != null)
+{
+	try
+	{
+		var (devices, tags, fileToken) = ConfigFile.Load(options.ConfigPath);
+		fileConfig = (devices, tags);
+		token ??= fileToken;
+	}
+	catch (Exception e) when (e is IOException or System.Text.Json.JsonException or ProtocolException or
+		UnauthorizedAccessException)
+	{
+		return Fatal($"--config {options.ConfigPath}: {e.Message}");
+	}
+}
 
 if (options.TokenFromStdin)
 {
 	token = Console.In.ReadLine()?.Trim();
+
+	if (options.ConfigPath != null && string.IsNullOrEmpty(token))
+	{
+		return Fatal("--token-stdin: no token on the first line of stdin");
+	}
 
 	if (string.IsNullOrEmpty(token))
 	{
@@ -60,6 +83,7 @@ var engine = new CommsEngine(new IProtocolDriver[]
 var host = new CommsHost(options, token);
 
 host.Protocols = engine.Protocols;
+host.FileConfig = fileConfig;
 host.HandlerFactory = session => new DataSession(session, engine);
 
 IPEndPoint endpoint;

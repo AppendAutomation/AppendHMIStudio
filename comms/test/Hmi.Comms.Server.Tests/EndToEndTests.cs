@@ -302,6 +302,76 @@ public sealed class EndToEndTests : IAsyncLifetime
 	}
 
 	[Fact]
+	public async Task StandaloneConfigFileServesAFixedTagSet()
+	{
+		plc.Set(3, 303);
+		string file = Path.Combine(Path.GetTempPath(), $"hmi-comms-{Guid.NewGuid():N}.json");
+		File.WriteAllText(file, new JsonObject
+		{
+			["token"] = "from-file",
+			["devices"] = new JsonArray(new JsonObject
+			{
+				["name"] = "Pump", ["protocol"] = "modbus", ["host"] = "127.0.0.1", ["port"] = plc.Port,
+				["options"] = new JsonObject { ["unitId"] = 0 }
+			}),
+			["tags"] = new JsonArray(new JsonObject { ["id"] = "Level", ["device"] = "Pump", ["address"] = "HR:3" })
+		}.ToJsonString());
+
+		try
+		{
+			var psi = new ProcessStartInfo(Environment.GetEnvironmentVariable("HMI_COMMS_EXE") ?? "dotnet")
+			{
+				RedirectStandardOutput = true,
+				RedirectStandardError = true,
+				RedirectStandardInput = true,
+				UseShellExecute = false
+			};
+
+			if (Environment.GetEnvironmentVariable("HMI_COMMS_EXE") == null)
+			{
+				psi.ArgumentList.Add(Path.Combine(AppContext.BaseDirectory, "hmi-comms.dll"));
+			}
+
+			foreach (var a in new[] { "--listen", "127.0.0.1:0", "--config", file, "--config-mode", "file" })
+			{
+				psi.ArgumentList.Add(a);
+			}
+
+			using var p = Process.Start(psi)!;
+			p.ErrorDataReceived += (_, _) => { };
+			p.BeginErrorReadLine();
+
+			var ev = JsonNode.Parse((await p.StandardOutput.ReadLineAsync().WaitAsync(TimeSpan.FromSeconds(20)))!)!;
+			Assert.Equal("listening", (string?)ev["event"]);
+
+			using var ws = await TestClient.OpenAsync(new Uri($"ws://127.0.0.1:{(int)ev["port"]!}/v1"), "from-file");
+
+			var tags = await TestClient.RequestAsync(ws, new JsonObject { ["t"] = "tags", ["id"] = 1 });
+			Assert.Equal("HR:3:INT16:BE", (string?)tags["tags"]![0]!["normalized"]);
+
+			var refused = await TestClient.RequestAsync(ws, new JsonObject
+			{
+				["t"] = "configure", ["id"] = 2, ["devices"] = new JsonArray(), ["tags"] = new JsonArray()
+			});
+			Assert.Equal("forbidden", (string?)refused["code"]);
+
+			await TestClient.SendAsync(ws, new JsonObject
+			{
+				["t"] = "subscribe", ["id"] = 3, ["tags"] = new JsonArray("Level"), ["rateMs"] = 50
+			});
+			var v = await ValuesUntil(ws, x => x.TryGetValue(1, out var a) && (int?)a[1] == 303);
+			Assert.Equal(192, (int)v[1][2]!);
+
+			p.Kill();
+			p.WaitForExit(5000);
+		}
+		finally
+		{
+			File.Delete(file);
+		}
+	}
+
+	[Fact]
 	public void LargeIntegersTravelAsStrings()
 	{
 		var buffer = new System.Buffers.ArrayBufferWriter<byte>();

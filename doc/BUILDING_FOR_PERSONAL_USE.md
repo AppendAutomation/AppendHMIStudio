@@ -39,7 +39,9 @@ If you already cloned without `--recursive`, run
 `git submodule update --init`.
 
 You need [Node.js](https://nodejs.org/) 22.12 or later (the official
-builds use Node 24) and npm.
+builds use Node 24) and npm, and the [.NET SDK](https://dotnet.microsoft.com/download)
+8 or later to build `hmi-comms`, the PLC communications server the HMI runs
+against (see `comms/README.md`).
 
 ## 2. Make your change
 
@@ -95,11 +97,16 @@ First, on any platform, sync the version and disable auto-update:
 ```
 npm install
 npm run sync -- disableUpdate
+npm run build-comms
 ```
 
 `sync` stamps the version from `drawio/VERSION` into `package.json`;
 `disableUpdate` stops the app from auto-updating itself back to the
 official (unmodified) release, which would silently undo your change.
+`build-comms` publishes `hmi-comms` for this machine into `comms/publish/`,
+where the packaging picks it up; the Linux packages target x64 and arm64, so
+for those run `npm run build-comms -- --rid linux-x64 --rid linux-arm64`,
+and on macOS `npm run build-comms -- --mac`.
 
 Then build for your platform. Note these commands call `electron-builder`
 directly — the `npm run release-*` scripts are for CI and (apart from

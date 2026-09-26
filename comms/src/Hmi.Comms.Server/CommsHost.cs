@@ -28,6 +28,12 @@ internal sealed class CommsHost
 	public string Token { get; }
 	public IReadOnlyList<string> Protocols { get; set; } = System.Array.Empty<string>();
 
+	/// <summary>
+	/// Devices and tags from --config: every session starts configured with
+	/// them. In config mode "file" they are all a session gets.
+	/// </summary>
+	public (IReadOnlyList<DeviceConfig> Devices, IReadOnlyList<TagConfig> Tags)? FileConfig { get; set; }
+
 	/// <summary>Creates the data plane for an authenticated session.</summary>
 	public Func<Session, ISessionHandler?> HandlerFactory { get; set; } = _ => null;
 

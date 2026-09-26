@@ -38,6 +38,8 @@ internal sealed class Session
 	private readonly CancellationTokenSource cts;
 
 	public string Id { get; } = "s" + Interlocked.Increment(ref counter);
+
+	public CommsHost Host => host;
 	public EndPoint? Remote { get; }
 	public bool Authenticated { get; private set; }
 
