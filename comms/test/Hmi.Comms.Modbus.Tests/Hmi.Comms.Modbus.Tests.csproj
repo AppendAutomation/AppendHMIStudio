@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Hmi.Comms.Modbus\Hmi.Comms.Modbus.csproj" />
+  </ItemGroup>
+</Project>

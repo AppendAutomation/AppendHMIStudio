@@ -50,10 +50,15 @@ if (string.IsNullOrEmpty(token))
 	return Fatal("A token is required (--token or --token-stdin)");
 }
 
+var engine = new CommsEngine(new IProtocolDriver[]
+{
+	new Hmi.Comms.Modbus.ModbusDriver()
+});
+
 var host = new CommsHost(options, token);
 
-host.Protocols = Array.Empty<string>();
-host.HandlerFactory = session => null;
+host.Protocols = engine.Protocols;
+host.HandlerFactory = session => new DataSession(session, engine);
 
 IPEndPoint endpoint;
 
@@ -107,6 +112,7 @@ using var sigint = PosixSignalRegistration.Create(PosixSignal.SIGINT, ctx =>
 });
 
 await host.WaitForShutdownAsync();
+engine.Dispose();
 Log.Info("stopped");
 
 return 0;

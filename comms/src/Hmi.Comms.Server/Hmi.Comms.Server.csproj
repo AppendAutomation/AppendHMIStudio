@@ -7,6 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hmi.Comms.Core\Hmi.Comms.Core.csproj" />
+    <ProjectReference Include="..\Hmi.Comms.Modbus\Hmi.Comms.Modbus.csproj" />
   </ItemGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="Hmi.Comms.Server.Tests" />

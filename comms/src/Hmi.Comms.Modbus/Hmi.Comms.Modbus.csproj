@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Hmi.Comms.Modbus</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentModbus" Version="5.3.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hmi.Comms.Core\Hmi.Comms.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Hmi.Comms.Modbus.Tests" />
+  </ItemGroup>
+</Project>
