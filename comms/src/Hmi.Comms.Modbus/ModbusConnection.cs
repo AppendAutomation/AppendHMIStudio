@@ -175,13 +175,36 @@ public sealed class ModbusConnection : IDeviceConnection
 		}
 
 		var result = new List<ModbusBlock>(plan.Blocks.Count);
+		bool split = false;
 
 		foreach (var block in plan.Blocks)
 		{
-			ReadBlock(plan, block, sink, result, now);
+			split |= ReadBlock(plan, block, sink, result, now);
 		}
 
-		plan.Blocks = result;
+		// Splitting isolates what the device refused but leaves the rest in
+		// pieces; merge the good points back, without reaching over a refusal.
+		plan.Blocks = split ? Remerge(result, now) : result;
+	}
+
+	private List<ModbusBlock> Remerge(List<ModbusBlock> blocks, long now)
+	{
+		var refused = blocks.Where(b => b.RetryAfter > now).ToList();
+		var barriers = new HashSet<(byte, ModbusTable, int)>();
+
+		foreach (var b in refused)
+		{
+			for (int a = b.Start; a <= b.End; a++)
+			{
+				barriers.Add((b.Unit, b.Table, a));
+			}
+		}
+
+		var merged = ModbusBlockBuilder.Build(blocks.Where(b => b.RetryAfter <= now).SelectMany(b => b.Points),
+			limits, barriers);
+		merged.AddRange(refused);
+
+		return merged;
 	}
 
 	/// <summary>
@@ -190,14 +213,15 @@ public sealed class ModbusConnection : IDeviceConnection
 	/// each half tried, down to single points; only a point the device refuses
 	/// on its own is marked bad, and it is left alone for a minute.
 	/// </summary>
-	private void ReadBlock(ModbusPlan plan, ModbusBlock block, IReadSink sink, List<ModbusBlock> result,
+	/// <returns>True when the block had to be split.</returns>
+	private bool ReadBlock(ModbusPlan plan, ModbusBlock block, IReadSink sink, List<ModbusBlock> result,
 		long now)
 	{
 		if (block.RetryAfter > now)
 		{
 			result.Add(block);
 
-			return;
+			return false;
 		}
 
 		try
@@ -224,6 +248,8 @@ public sealed class ModbusConnection : IDeviceConnection
 
 			block.RetryAfter = 0;
 			result.Add(block);
+
+			return false;
 		}
 		catch (ModbusDeviceException e) when (IsAddressProblem(e.Code))
 		{
@@ -240,13 +266,15 @@ public sealed class ModbusConnection : IDeviceConnection
 					}
 				}
 
-				return;
+				return true;
 			}
 
 			string message = Describe(e.Code);
 			sink.Fail(block.Points[0], Status.Device, message);
 			block.RetryAfter = now + RetryRefusedMs;
 			result.Add(block);
+
+			return false;
 		}
 		catch (ModbusDeviceException e)
 		{
@@ -261,6 +289,8 @@ public sealed class ModbusConnection : IDeviceConnection
 			}
 
 			result.Add(block);
+
+			return false;
 		}
 	}
 

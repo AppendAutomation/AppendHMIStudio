@@ -40,6 +40,27 @@ public sealed partial class LogixAddress : ParsedAddress
 	/// <summary>Bit within an integer, or -1.</summary>
 	public int Bit { get; }
 
+	/// <summary>
+	/// For a tag ending in a single index (Bits[37]): the array and the index.
+	/// Needed because a BOOL array is packed in DWORDs, and element numbers on
+	/// it address the DWORDs, not the bools.
+	/// </summary>
+	public (string Array, int Index)? TrailingIndex
+	{
+		get
+		{
+			if (Bit >= 0 || !ReadTag.EndsWith(']'))
+			{
+				return null;
+			}
+
+			int open = ReadTag.LastIndexOf('[');
+			string inside = ReadTag.Substring(open + 1, ReadTag.Length - open - 2);
+
+			return int.TryParse(inside, out int i) ? (ReadTag.Substring(0, open), i) : null;
+		}
+	}
+
 	public override string Key => Text.ToUpperInvariant();
 
 	public override string Normalized => Text;

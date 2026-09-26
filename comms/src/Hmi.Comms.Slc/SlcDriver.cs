@@ -7,7 +7,9 @@ namespace Hmi.Comms.Slc;
 ///
 /// Device options:
 ///   maxBytesPerRequest  data per read, up to 236 (default 236)
-///   maxGapElements      largest hole a read may span (default 8)
+///   maxGapElements      largest hole a read may span (default 118: a SLC answers one
+///                       message per scan or so, ~100 ms on a 5/05, so a request costs
+///                       far more than the unused elements it carries)
 ///   swapStringBytes     true if ST and A characters arrive byte-swapped
 /// </summary>
 public sealed class SlcDriver : IProtocolDriver
@@ -35,7 +37,7 @@ public sealed class SlcDriver : IProtocolDriver
 			return "maxBytesPerRequest must be 2 to 236";
 		}
 
-		if (device.IntOption("maxGapElements", 8) < 0)
+		if (device.IntOption("maxGapElements", 118) < 0)
 		{
 			return "maxGapElements cannot be negative";
 		}
@@ -55,7 +57,7 @@ public sealed class SlcDriver : IProtocolDriver
 
 	public static SlcLimits Limits(DeviceConfig device) => new(
 		MaxBytesPerRequest: Math.Clamp(device.IntOption("maxBytesPerRequest", 236), 2, 236),
-		MaxGapElements: Math.Max(0, device.IntOption("maxGapElements", 8)));
+		MaxGapElements: Math.Max(0, device.IntOption("maxGapElements", 118)));
 
 	public IDeviceConnection Create(DeviceConfig device)
 	{

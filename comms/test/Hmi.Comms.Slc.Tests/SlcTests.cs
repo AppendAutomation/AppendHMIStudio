@@ -248,6 +248,11 @@ public sealed class SimulatorIntegrationTests : IDisposable
 		Assert.Equal(135L, v[1].Value);
 		Assert.Equal(147L, v[2].Value);
 		Assert.Equal(DeviceState.Connected, engine.Workers.Single().State);
+
+		// The good elements are read together again, the missing one alone.
+		await Task.Delay(300);
+		var plan = engine.Workers.Single().DescribePlan();
+		Assert.Contains(plan, p => p.Contains("elements 45..49"));
 	}
 
 	[Fact]

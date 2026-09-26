@@ -99,8 +99,9 @@ public sealed class SplitTests
 		Assert.Equal(Status.Device, sink.Values["HR:5:INT16:BE"].Status);
 		Assert.Contains("exception 2", sink.Values["HR:5:INT16:BE"].Error);
 
-		// The plan remembers the split: the next pass goes straight to the parts
-		// that work and skips the refused point for a while.
+		// The plan remembers the split: the next pass skips the refused point for
+		// a while, and the good points are merged back -- but never across the
+		// refused register, which would fail again.
 		t.Requests.Clear();
 		conn.Read(plan, new Collect());
 		Assert.Equal(new[] { "0+2", "6+1" }, t.Requests);
@@ -108,7 +109,22 @@ public sealed class SplitTests
 		now += ModbusConnection.RetryRefusedMs + 1;
 		t.Requests.Clear();
 		conn.Read(plan, new Collect());
-		Assert.Equal(new[] { "0+2", "5+1", "6+1" }, t.Requests);
+		Assert.Equal(new[] { "0+2", "6+1", "5+1" }, t.Requests);
+	}
+
+	[Fact]
+	public void GoodPointsAreMergedBackAfterAMissingRegisterAtTheEnd()
+	{
+		var (conn, t, points) = Rig("HR:0", "HR:10", "HR:20", "HR:30", "HR:40");
+		t.Missing.Add(40);
+		var plan = (ModbusPlan)conn.Plan(points);
+
+		conn.Read(plan, new Collect());
+		t.Requests.Clear();
+		conn.Read(plan, new Collect());
+
+		// One request for the four that exist; the missing one is left alone.
+		Assert.Equal(new[] { "0+31" }, t.Requests);
 	}
 
 	[Fact]

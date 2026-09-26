@@ -9,7 +9,7 @@ using Hmi.Comms.Core;
 
 namespace Hmi.Comms.Slc;
 
-public sealed record SlcLimits(int MaxBytesPerRequest = SLCDriver.MaxRawBytes, int MaxGapElements = 8);
+public sealed record SlcLimits(int MaxBytesPerRequest = SLCDriver.MaxRawBytes, int MaxGapElements = 118);
 
 /// <summary>One request: a run of elements of one data file, or one I/O word.</summary>
 public sealed class SlcBlock
@@ -53,7 +53,10 @@ public sealed class SlcPlan : IReadPlan
 /// </summary>
 public static class SlcBlockBuilder
 {
-	public static List<SlcBlock> Build(IEnumerable<Point> points, SlcLimits limits)
+	/// <param name="barriers">Elements the processor refused, as (file type, file, element):
+	/// a run may not reach across one.</param>
+	public static List<SlcBlock> Build(IEnumerable<Point> points, SlcLimits limits,
+		ISet<(byte, int, int)>? barriers = null)
 	{
 		var blocks = new List<SlcBlock>();
 		var list = points.ToList();
@@ -81,7 +84,8 @@ public static class SlcBlockBuilder
 				int el = ((SlcAddress)p.Address).Element;
 
 				if (block != null && el <= block.StartElement + block.Elements + limits.MaxGapElements &&
-					Math.Max(block.StartElement + block.Elements - 1, el) - block.StartElement + 1 <= maxElements)
+					Math.Max(block.StartElement + block.Elements - 1, el) - block.StartElement + 1 <= maxElements &&
+					!Crosses(barriers, g.Key.FileType, g.Key.FileNumber, block.StartElement + block.Elements - 1, el))
 				{
 					block.Elements = Math.Max(block.Elements, el - block.StartElement + 1);
 					block.Points.Add(p);
@@ -96,6 +100,24 @@ public static class SlcBlockBuilder
 		}
 
 		return blocks;
+	}
+
+	private static bool Crosses(ISet<(byte, int, int)>? barriers, byte type, int file, int from, int to)
+	{
+		if (barriers == null || barriers.Count == 0)
+		{
+			return false;
+		}
+
+		for (int e = from + 1; e < to; e++)
+		{
+			if (barriers.Contains((type, file, e)))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
 
@@ -178,22 +200,37 @@ public sealed class SlcConnection : IDeviceConnection
 		}
 
 		var result = new List<SlcBlock>(plan.Blocks.Count);
+		bool split = false;
 
 		foreach (var block in plan.Blocks)
 		{
-			ReadBlock(plan, block, sink, result, now);
+			split |= ReadBlock(plan, block, sink, result, now);
 		}
 
-		plan.Blocks = result;
+		// Splitting isolates what the processor refused but leaves the rest in
+		// pieces; merge the good points back, without reaching over a refusal.
+		plan.Blocks = split ? Remerge(result, now) : result;
 	}
 
-	private void ReadBlock(SlcPlan plan, SlcBlock block, IReadSink sink, List<SlcBlock> result, long now)
+	private List<SlcBlock> Remerge(List<SlcBlock> blocks, long now)
+	{
+		var refused = blocks.Where(b => b.RetryAfter > now).ToList();
+		var barriers = new HashSet<(byte, int, int)>(refused.Select(b => (b.FileType, b.File, b.StartElement)));
+		var merged = SlcBlockBuilder.Build(blocks.Where(b => b.RetryAfter <= now).SelectMany(b => b.Points),
+			limits, barriers);
+		merged.AddRange(refused);
+
+		return merged;
+	}
+
+	/// <returns>True when the block had to be split.</returns>
+	private bool ReadBlock(SlcPlan plan, SlcBlock block, IReadSink sink, List<SlcBlock> result, long now)
 	{
 		if (block.RetryAfter > now)
 		{
 			result.Add(block);
 
-			return;
+			return false;
 		}
 
 		byte[] data;
@@ -220,14 +257,14 @@ public sealed class SlcConnection : IDeviceConnection
 					}
 				}
 
-				return;
+				return true;
 			}
 
 			sink.Fail(block.Points[0], Status.Device, e.Message);
 			block.RetryAfter = now + RetryRefusedMs;
 			result.Add(block);
 
-			return;
+			return false;
 		}
 
 		foreach (var point in block.Points)
@@ -247,6 +284,8 @@ public sealed class SlcConnection : IDeviceConnection
 
 		block.RetryAfter = 0;
 		result.Add(block);
+
+		return false;
 	}
 
 	/// <summary>Data-table bytes (little-endian words) to a value.</summary>

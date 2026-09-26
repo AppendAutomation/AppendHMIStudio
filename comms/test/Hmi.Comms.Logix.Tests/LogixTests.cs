@@ -224,6 +224,36 @@ public sealed class SimulatorIntegrationTests : IDisposable
 	}
 
 	[Fact]
+	public async Task BoolArraysAreUnpackedFromTheirDwords()
+	{
+		// A BOOL[64] is two DWORDs; element numbers on it count DWORDs.
+		sim.Set("Alarms[0]", LogixSimulator.DWORD, 0b1010u);
+		sim.Set("Alarms[1]", LogixSimulator.DWORD, 1u << 5);
+
+		var s = engine.CreateSession();
+		var c = s.Configure(new[] { Device() }, new[]
+		{
+			Tag("a0", "Alarms[0]"), Tag("a1", "Alarms[1]"), Tag("a3", "Alarms[3]"), Tag("a37", "Alarms[37]"),
+			Tag("a63", "Alarms[63]")
+		});
+		s.Subscribe(c.Select(x => x.Handle).ToList(), 50);
+
+		var v = await Until(s, d => d.Count == 5 && d.Values.All(x => x.IsGood && x.Value is bool));
+
+		Assert.Equal(false, v[1].Value);
+		Assert.Equal(true, v[2].Value);
+		Assert.Equal(true, v[3].Value);
+		Assert.Equal(true, v[4].Value);
+		Assert.Equal(false, v[5].Value);
+
+		var r = await s.WriteAsync(new (int, object?)[] { (4, false), (5, true) }, TimeSpan.FromSeconds(5));
+		Assert.True(r[4].Ok, r[4].Error);
+		Assert.True(r[5].Ok, r[5].Error);
+		Assert.Equal(1u << 31, sim.Get("Alarms[1]"));
+		Assert.Equal(0b1010u, sim.Get("Alarms[0]"));
+	}
+
+	[Fact]
 	public async Task AMissingTagIsBadAloneAndTheRestReadOn()
 	{
 		var s = engine.CreateSession();

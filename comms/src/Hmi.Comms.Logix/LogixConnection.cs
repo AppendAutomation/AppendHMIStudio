@@ -7,22 +7,31 @@ using Hmi.Comms.Core;
 
 namespace Hmi.Comms.Logix;
 
-/// <summary>One tag read on the wire, and the points (the tag itself and any bits of it) it feeds.</summary>
+/// <summary>
+/// One tag read on the wire, and the points it feeds: the tag itself, bits of
+/// it, or bools of a BOOL array that live in this DWORD.
+/// </summary>
 public sealed class LogixRead
 {
 	public required string Tag;
 	public required string Key;
 	public required int PathBytes;
-	public readonly List<Point> Points = new();
+
+	/// <summary>Each point, and the bit of the value it takes (-1 for the whole value).</summary>
+	public readonly List<(Point Point, int Bit)> Targets = new();
 }
 
 public sealed class LogixPlan : IReadPlan
 {
-	public required List<LogixRead> Reads;
+	public required IReadOnlyList<Point> Points;
+	public List<LogixRead> Reads = new();
 	public List<List<LogixRead>> Chunks = new();
 
 	/// <summary>The learned-size generation the chunks were built for.</summary>
 	public int SizeVersion = -1;
+
+	/// <summary>The known-BOOL-array generation the reads were built for.</summary>
+	public int BoolVersion = -1;
 
 	public int RequestCount => Chunks.Count;
 
@@ -94,8 +103,13 @@ public sealed class LogixConnection : IDeviceConnection
 	private readonly DeviceConfig device;
 	private readonly Dictionary<string, int> replyBytes = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, byte> types = new(StringComparer.Ordinal);
+
+	// Arrays found to be BOOL arrays (packed in DWORDs), and arrays already checked.
+	private readonly HashSet<string> boolArrays = new(StringComparer.OrdinalIgnoreCase);
+	private readonly HashSet<string> probedArrays = new(StringComparer.OrdinalIgnoreCase);
 	private PLC? plc;
 	private int sizeVersion;
+	private int boolVersion;
 
 	public LogixConnection(DeviceConfig device)
 	{
@@ -140,26 +154,52 @@ public sealed class LogixConnection : IDeviceConnection
 
 	public IReadPlan Plan(IReadOnlyList<Point> points)
 	{
+		return new LogixPlan { Points = points };
+	}
+
+	/// <summary>What is read for a point: its own tag, or the DWORD of a BOOL array holding it.</summary>
+	private (string Tag, int Bit, int PathBytes) Resolve(LogixAddress a)
+	{
+		if (a.TrailingIndex is (string array, int index) && boolArrays.Contains(array))
+		{
+			string tag = $"{array}[{index / 32}]";
+
+			return (tag, index % 32, ((LogixAddress)LogixAddress.Parse(tag).Address!).PathBytes);
+		}
+
+		return (a.ReadTag, a.Bit, a.PathBytes);
+	}
+
+	private List<LogixRead> BuildReads(IReadOnlyList<Point> points)
+	{
 		var reads = new Dictionary<string, LogixRead>(StringComparer.Ordinal);
 
 		foreach (var p in points)
 		{
-			var a = (LogixAddress)p.Address;
+			var (tag, bit, pathBytes) = Resolve((LogixAddress)p.Address);
+			string key = tag.ToUpperInvariant();
 
-			if (!reads.TryGetValue(a.ReadKey, out var r))
+			if (!reads.TryGetValue(key, out var r))
 			{
-				reads[a.ReadKey] = r = new LogixRead { Tag = a.ReadTag, Key = a.ReadKey, PathBytes = a.PathBytes };
+				reads[key] = r = new LogixRead { Tag = tag, Key = key, PathBytes = pathBytes };
 			}
 
-			r.Points.Add(p);
+			r.Targets.Add((p, bit));
 		}
 
-		return new LogixPlan { Reads = reads.Values.ToList() };
+		return reads.Values.ToList();
 	}
 
 	public void Read(IReadPlan p, IReadSink sink)
 	{
 		var plan = (LogixPlan)p;
+
+		if (plan.BoolVersion != boolVersion)
+		{
+			plan.Reads = BuildReads(plan.Points);
+			plan.BoolVersion = boolVersion;
+			plan.SizeVersion = -1;
+		}
 
 		if (plan.SizeVersion != sizeVersion)
 		{
@@ -212,7 +252,15 @@ public sealed class LogixConnection : IDeviceConnection
 
 			if (!resp.IsSuccess)
 			{
-				foreach (var point in read.Points)
+				// Bits[37] is refused on a BOOL[64]: its element numbers count
+				// DWORDs. Check once whether that is what this array is; if so,
+				// the next pass reads the right DWORD.
+				if (resp.Status == "Path destination unknown")
+				{
+					LearnBoolArray(read);
+				}
+
+				foreach (var (point, _) in read.Targets)
 				{
 					sink.Fail(point, Status.Device, resp.Status);
 				}
@@ -220,8 +268,40 @@ public sealed class LogixConnection : IDeviceConnection
 				continue;
 			}
 
+			// A DWORD from Name[i] means Name is a BOOL array and this is a whole
+			// DWORD, not bool i. Remember it; the next pass reads the right bit.
+			if (resp.CipType == CipType.DWORD && read.Targets.Any(t => t.Bit < 0 &&
+				((LogixAddress)t.Point.Address).TrailingIndex is (string array, _) && boolArrays.Add(array)))
+			{
+				boolVersion++;
+
+				continue;
+			}
+
 			Learn(read.Key, resp);
 			Deliver(read, resp, sink);
+		}
+	}
+
+	private void LearnBoolArray(LogixRead read)
+	{
+		foreach (var (point, _) in read.Targets)
+		{
+			if (((LogixAddress)point.Address).TrailingIndex is (string array, _) && probedArrays.Add(array))
+			{
+				var probe = Plc.Read(array + "[0]");
+
+				if (!Plc.IsConnected)
+				{
+					throw new CommsLostException(probe.Status);
+				}
+
+				if (probe.IsSuccess && probe.CipType == CipType.DWORD)
+				{
+					boolArrays.Add(array);
+					boolVersion++;
+				}
+			}
 		}
 	}
 
@@ -247,29 +327,27 @@ public sealed class LogixConnection : IDeviceConnection
 	{
 		object? value = Canonical(resp.Value);
 
-		foreach (var point in read.Points)
+		foreach (var (point, bit) in read.Targets)
 		{
-			var a = (LogixAddress)point.Address;
-
-			if (a.Bit < 0)
+			if (bit < 0)
 			{
 				sink.Set(point, value);
 			}
 			else if (value is long whole)
 			{
-				sink.Set(point, ((whole >> a.Bit) & 1) != 0);
+				sink.Set(point, ((whole >> bit) & 1) != 0);
 			}
 			else if (value is ulong uwhole)
 			{
-				sink.Set(point, ((uwhole >> a.Bit) & 1) != 0);
+				sink.Set(point, ((uwhole >> bit) & 1) != 0);
 			}
-			else if (value is bool b && a.Bit == 0)
+			else if (value is bool b && bit == 0)
 			{
 				sink.Set(point, b);
 			}
 			else
 			{
-				sink.Fail(point, Status.Device, $"{a.ReadTag} is not an integer");
+				sink.Fail(point, Status.Device, $"{read.Tag} is not an integer");
 			}
 		}
 	}
@@ -303,6 +381,13 @@ public sealed class LogixConnection : IDeviceConnection
 	{
 		var a = (LogixAddress)item.Point.Address;
 		byte? known = types.TryGetValue(a.ReadKey, out var t) ? t : null;
+
+		// One bool of a BOOL array: an atomic bit write to the DWORD holding it.
+		if (a.TrailingIndex is (string array, int index) && boolArrays.Contains(array))
+		{
+			return Outcome(Plc.Write($"{array}[{index / 32}].{index % 32}", Convert.ToBoolean(item.Raw),
+				CipType.DWORD));
+		}
 
 		if (a.Bit >= 0)
 		{

@@ -47,7 +47,10 @@ public sealed class ModbusPlan : IReadPlan
 /// </summary>
 public static class ModbusBlockBuilder
 {
-	public static List<ModbusBlock> Build(IEnumerable<Point> points, ModbusLimits limits)
+	/// <param name="barriers">Addresses the device refused, as (unit, table, offset): a block
+	/// may not reach across one.</param>
+	public static List<ModbusBlock> Build(IEnumerable<Point> points, ModbusLimits limits,
+		ISet<(byte, ModbusTable, int)>? barriers = null)
 	{
 		var blocks = new List<ModbusBlock>();
 
@@ -68,7 +71,8 @@ public static class ModbusBlockBuilder
 				var a = (ModbusAddress)p.Address;
 
 				if (block != null && a.Offset <= block.End + 1 + gap &&
-					Math.Max(block.End, a.End) - block.Start + 1 <= max)
+					Math.Max(block.End, a.End) - block.Start + 1 <= max &&
+					!Crosses(barriers, g.Key.Unit, g.Key.Table, block.End, a.Offset))
 				{
 					block.Count = Math.Max(block.End, a.End) - block.Start + 1;
 					block.Points.Add(p);
@@ -90,5 +94,24 @@ public static class ModbusBlockBuilder
 		}
 
 		return blocks;
+	}
+
+	private static bool Crosses(ISet<(byte, ModbusTable, int)>? barriers, byte unit, ModbusTable table,
+		int from, int to)
+	{
+		if (barriers == null || barriers.Count == 0)
+		{
+			return false;
+		}
+
+		for (int a = from + 1; a < to; a++)
+		{
+			if (barriers.Contains((unit, table, a)))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
