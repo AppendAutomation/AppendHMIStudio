@@ -187,6 +187,28 @@ describe('buildNsisScript', () =>
 		assert.doesNotMatch(s, /RMDir \/r "\$INSTDIR"/);
 	});
 
+	test('stopping the app waits for its processes before replacing files', () =>
+	{
+		const s = script();
+
+		assert.match(s, /taskkill\.exe" \/F \/T \/IM "\$\{EXE\}"/);
+		assert.match(s, /kill_wait:/);
+	});
+
+	test('editor mode: keeps NSIS, no runtime folder, associates .ahmi, asks before stopping', () =>
+	{
+		const s = script({editor: true, runtimeDir: null, installerIcon: '/b/icon.ico',
+			fileAssociation: {ext: 'ahmi', progId: 'AppendHMIStudio.Project', description: 'HMI Application'}});
+
+		assert.match(s, /File \/r "\/t\/resources\/nsis"/);
+		assert.doesNotMatch(s, /hmi-runtime/);
+		assert.match(s, /WriteRegStr HKCU "Software\\Classes\\\.ahmi" "" "AppendHMIStudio\.Project"/);
+		assert.match(s, /shell\\open\\command" "" '"\$INSTDIR\\\$\{EXE\}" "%1"'/);
+		assert.match(s, /DeleteRegKey HKCU "Software\\Classes\\AppendHMIStudio\.Project"/);
+		assert.match(s, /Icon "\/b\/icon\.ico"/);
+		assert.match(s, /is running\. Close it, then click Retry/);
+	});
+
 	test('a product name with NSIS syntax in it is quoted', () =>
 	{
 		const s = script({productName: 'A $B "C"'});

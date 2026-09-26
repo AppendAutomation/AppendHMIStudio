@@ -216,6 +216,14 @@ export async function checkIcon(iconPath)
 	}
 }
 
+// The product icon the editor ships (resources/icon.ico), if the template has it
+function defaultInstallerIcon(template)
+{
+	const ico = path.join(template.dir, 'resources', 'icon.ico');
+
+	return fs.existsSync(ico) ? ico : null;
+}
+
 export function installerName(opts)
 {
 	return windowsFileName(opts.productName) + '-' + opts.version + '-Setup.exe';
@@ -358,6 +366,7 @@ export class Publisher extends EventEmitter
 				outFile: outFile,
 				template: Object.assign({root, resources}, template),
 				runtimeDir: runtimeDir,
+				installerIcon: iconPath != null ? iconPath : defaultInstallerIcon(template),
 				join: path.join,
 				estimatedSizeKb: total / 1024
 			}));

@@ -38,7 +38,8 @@ describe('brand', () =>
 
 			assert.equal(c.appId, APP_ID, name);
 			assert.equal(c.productName, PRODUCT_NAME, name);
-			assert.equal(c.publish, undefined, name);
+			// null, not absent: electron-builder infers GitHub from package.json
+			assert.ok('publish' in c && c.publish === null, name);
 			assert.doesNotMatch(JSON.stringify(c), UPSTREAM, name);
 		}
 

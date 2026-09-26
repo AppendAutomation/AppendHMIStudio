@@ -48,6 +48,7 @@
     "output": "./dist/"
   },
   "npmRebuild": false,
+  "publish": null,
   "win": {
     "icon": "build/icon.ico",
     "signtoolOptions": {
