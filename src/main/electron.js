@@ -20,6 +20,7 @@ import {spawn, exec} from 'child_process';
 import {disableUpdate as disUpPkg} from './disableUpdate.js';
 import {CommsSupervisor, resolveExecutable as resolveCommsExecutable} from './comms/CommsSupervisor.js';
 import {CommsSession, validateCommsArgs} from './comms/CommsSession.js';
+import {Publisher} from './publish/Publisher.js';
 import {findRuntimeDir, loadRuntimeConfig, runtimeUserDataDir, runtimeWindowOptions, mayExit,
 		readRuntimeProject, publicRuntimeInfo} from './runtime/RuntimeMode.js';
 
@@ -2196,6 +2197,146 @@ async function handleRuntimeRequest(contents, args)
 			log[level]('HMI runtime: ' + String(args.message).slice(0, 2000));
 			return null;
 		}
+		default:
+			throw new Error('unknown action: ' + args.action);
+	}
+}
+
+// HMI > Publish (see publish/Publisher.js). The installer is written only to
+// a folder the user picked in the OS dialog, or to Documents: a Setup.exe the
+// renderer could drop anywhere would be a way to plant programs.
+let publisher = null;
+let lastInstaller = null;
+const PUBLISH_DIRS_KEY = 'publishOutputDirs';
+
+function getPublisher()
+{
+	if (publisher == null)
+	{
+		publisher = new Publisher({platform: process.platform, isPackaged: app.isPackaged,
+			execPath: process.execPath, resourcesPath: process.resourcesPath, appPath: app.getAppPath()});
+	}
+
+	return publisher;
+}
+
+function publishOutputDirs()
+{
+	const dirs = store != null ? store.get(PUBLISH_DIRS_KEY) : null;
+
+	return Array.isArray(dirs) ? dirs.filter(d => typeof d === 'string') : [];
+}
+
+async function assertPublishOutput(dir)
+{
+	reqStr(dir, 'output');
+	const real = await fsProm.realpath(dir);
+
+	if (!(await fsProm.stat(real)).isDirectory())
+	{
+		throw new Error('The output folder does not exist.');
+	}
+
+	const allowed = publishOutputDirs().concat([app.getPath('documents')]);
+
+	for (const d of allowed)
+	{
+		try
+		{
+			if (await fsProm.realpath(d) === real)
+			{
+				return real;
+			}
+		}
+		catch (e)
+		{
+			// A remembered folder that has gone away
+		}
+	}
+
+	throw new Error('Choose the output folder again.');
+}
+
+async function handlePublishRequest(contents, args)
+{
+	if (hmiRuntime != null)
+	{
+		throw new Error('not available in the HMI runtime');
+	}
+
+	switch (args.action)
+	{
+		case 'hmiPublish.available':
+			return Object.assign(getPublisher().available(), {documents: app.getPath('documents')});
+		case 'hmiPublish.chooseOutput':
+		{
+			dialogOpen = true;
+
+			try
+			{
+				const result = await dialog.showOpenDialog(BrowserWindow.fromWebContents(contents), {
+					title: 'Output folder',
+					defaultPath: typeof args.defaultPath === 'string' ? args.defaultPath : undefined,
+					properties: ['openDirectory', 'createDirectory']
+				});
+
+				if (result.canceled || result.filePaths.length === 0)
+				{
+					return null;
+				}
+
+				const real = await fsProm.realpath(result.filePaths[0]);
+
+				if (store != null)
+				{
+					store.set(PUBLISH_DIRS_KEY, [real].concat(publishOutputDirs().filter(d => d !== real)).slice(0, 20));
+				}
+
+				return real;
+			}
+			finally
+			{
+				dialogOpen = false;
+			}
+		}
+		case 'hmiPublish.build':
+		{
+			const output = await assertPublishOutput(args.output);
+			const pub = getPublisher();
+			const forward = (ev) =>
+			{
+				if (!contents.isDestroyed())
+				{
+					contents.send('hmiPublishEvent', ev);
+				}
+			};
+
+			pub.on('progress', forward);
+
+			try
+			{
+				log.info('HMI publish: building ' + (args.options && args.options.productName) + ' into ' + output);
+				lastInstaller = await pub.build(args.projectXml, args.options, output);
+				log.info('HMI publish: wrote ' + lastInstaller);
+
+				return lastInstaller;
+			}
+			catch (e)
+			{
+				log.warn('HMI publish: ' + e.message);
+				throw e;
+			}
+			finally
+			{
+				pub.removeListener('progress', forward);
+			}
+		}
+		case 'hmiPublish.cancel':
+			return publisher != null && publisher.cancel();
+		case 'hmiPublish.showFile':
+			if (lastInstaller == null || args.path !== lastInstaller) throw new Error('path not authorised');
+			shell.showItemInFolder(lastInstaller);
+			return true;
 		default:
 			throw new Error('unknown action: ' + args.action);
 	}
@@ -4680,6 +4821,10 @@ ipcMain.on("rendererReq", async (event, args) =>
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiRuntime.'))
 			{
 				ret = await handleRuntimeRequest(event.sender, args);
+			}
+			else if (typeof args.action === 'string' && args.action.startsWith('hmiPublish.'))
+			{
+				ret = await handlePublishRequest(event.sender, args);
 			}
 
 			break;
