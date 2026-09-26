@@ -9,7 +9,7 @@
 //
 // This works on any host without wine: a --dir build needs no NSIS, and
 // electron-builder edits the exe's icon and version resource in plain JS.
-// DRAWIO_UNSIGNED skips signing, so the template is unsigned; Publish
+// It is signed only when build/sign-trusted.mjs is configured; Publish
 // renames and rebrands the exe per product.
 
 import {spawnSync} from 'child_process';
@@ -37,8 +37,7 @@ run(process.execPath, [path.join('comms', 'scripts', 'publish.mjs'), '--rid', 'w
 fs.rmSync(out, {recursive: true, force: true});
 
 run('npx', ['electron-builder', '--config', 'electron-builder-win.json', '--win', '--dir', '--x64',
-	'--publish', 'never', '-c.directories.output=dist-win-runtime'],
-	{DRAWIO_UNSIGNED: 'true'});
+	'--publish', 'never', '-c.directories.output=dist-win-runtime']);
 
 const exe = path.join(out, 'win-unpacked', WINDOWS_EXE);
 const comms = path.join(out, 'win-unpacked', 'resources', 'comms', 'hmi-comms.exe');

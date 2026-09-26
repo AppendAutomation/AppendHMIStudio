@@ -300,9 +300,7 @@ describe('CommsSupervisor', () =>
 
 describe('packaging', () =>
 {
-	const configs = ['electron-builder-win.json', 'electron-builder-win-arm64.json',
-		'electron-builder-appx.json', 'electron-builder-linux-mac.json',
-		'electron-builder-snap.json'];
+	const configs = ['electron-builder-win.json', 'electron-builder-linux.json'];
 
 	test('every config keeps comms out of the asar', () =>
 	{
@@ -314,28 +312,15 @@ describe('packaging', () =>
 
 	test('every platform ships the server as an extra resource', () =>
 	{
-		// Other entries (HMI > Publish's NSIS and runtime template) sit alongside
 		const from = (cfg) => (cfg.extraResources || []).filter((r) => r.to == 'comms').map((r) => r.from);
 
-		for (const name of ['electron-builder-win.json', 'electron-builder-win-arm64.json',
-			'electron-builder-appx.json'])
-		{
-			assert.deepEqual(from(readConfig(name)), ['comms/publish/win-${arch}'], name);
-		}
-
-		const lm = readConfig('electron-builder-linux-mac.json');
-		assert.deepEqual(from(lm.linux), ['comms/publish/linux-${arch}']);
-		assert.deepEqual(from(lm.mac), ['comms/publish/mac']);
-		assert.deepEqual(from(readConfig('electron-builder-snap.json').linux),
-			['comms/publish/linux-${arch}']);
+		assert.deepEqual(from(readConfig('electron-builder-win.json')), ['comms/publish/win-${arch}']);
+		assert.deepEqual(from(readConfig('electron-builder-linux.json')), ['comms/publish/linux-${arch}']);
 	});
 
 	test('windows signs the server executable', () =>
 	{
-		for (const name of ['electron-builder-win.json', 'electron-builder-win-arm64.json'])
-		{
-			assert.ok(readConfig(name).win.signExts.includes('.exe'), name);
-		}
+		assert.ok(readConfig('electron-builder-win.json').win.signExts.includes('.exe'));
 	});
 });
 

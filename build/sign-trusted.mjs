@@ -1,34 +1,30 @@
-// Custom electron-builder Windows signing hook backed by Azure Trusted Signing
-// (rebranded "Artifact Signing" but the dlib retains its original name).
+// electron-builder Windows signing hook for Azure Trusted Signing ("Artifact
+// Signing"; the dlib keeps its original name). Signing is opt-in: builds are
+// unsigned unless all of these are set, and signtool.exe (Windows) is needed:
 //
-// Invoked by electron-builder for every Windows binary that needs signing —
-// the packaged draw.io.exe inside win-unpacked/, plus each NSIS/MSI installer
-// artifact. Inner binary is signed before NSIS bundles it, so the installed
-// app has a valid signature on the executable a user runs.
+//   HMI_SIGNING_ACCOUNT     Trusted Signing account name
+//   HMI_SIGNING_PROFILE     certificate profile name
+//   HMI_SIGNING_ENDPOINT    e.g. https://weu.codesigning.azure.net
+//   TRUSTED_SIGNING_DLIB_PATH   Azure.CodeSigning.Dlib.dll (from NuGet)
+//   SIGNTOOL_PATH               signtool.exe from the Windows SDK
 //
-// Auth uses DefaultAzureCredential via env vars set in the workflow:
-//   AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET
-//
-// Tooling expected on PATH / pinned via env vars:
-//   TRUSTED_SIGNING_DLIB_PATH — Azure.CodeSigning.Dlib.dll (NuGet-extracted)
-//   SIGNTOOL_PATH             — signtool.exe from the Windows SDK
+// Authentication uses DefaultAzureCredential: AZURE_TENANT_ID,
+// AZURE_CLIENT_ID, AZURE_CLIENT_SECRET.
 
 import { execFileSync } from 'child_process';
 import path from 'path';
 import fs from 'fs';
 import os from 'os';
 
-const ENDPOINT = 'https://weu.codesigning.azure.net';
-const ACCOUNT_NAME = 'drawio-signing';
-const PROFILE_NAME = 'drawio-codesign';
-
 export default async function (configuration)
 {
-    // Explicit opt-out for personal/fork builds with no signing
-    // infrastructure. See doc/BUILDING_FOR_PERSONAL_USE.md.
-    if (process.env.DRAWIO_UNSIGNED === 'true')
+    const account = process.env.HMI_SIGNING_ACCOUNT;
+    const profile = process.env.HMI_SIGNING_PROFILE;
+    const endpoint = process.env.HMI_SIGNING_ENDPOINT;
+
+    if (!account || !profile || !endpoint)
     {
-        console.log(`DRAWIO_UNSIGNED=true: skipping code signing for ${configuration.path}`);
+        console.log(`Not signing ${path.basename(configuration.path)} (no HMI_SIGNING_* configuration)`);
         return;
     }
 
@@ -37,18 +33,18 @@ export default async function (configuration)
 
     if (!dlibPath || !fs.existsSync(dlibPath))
     {
-        throw new Error(`Trusted Signing dlib not found at "${dlibPath}". The "Set up signing dependencies" workflow step should set TRUSTED_SIGNING_DLIB_PATH. For an unsigned personal build, set DRAWIO_UNSIGNED=true instead (see doc/BUILDING_FOR_PERSONAL_USE.md).`);
+        throw new Error(`Trusted Signing dlib not found at "${dlibPath}" (TRUSTED_SIGNING_DLIB_PATH).`);
     }
 
     if (!signtool || !fs.existsSync(signtool))
     {
-        throw new Error(`signtool.exe not found at "${signtool}". The "Set up signing dependencies" workflow step should set SIGNTOOL_PATH.`);
+        throw new Error(`signtool.exe not found at "${signtool}" (SIGNTOOL_PATH).`);
     }
 
     const metadata = {
-        Endpoint: ENDPOINT,
-        CodeSigningAccountName: ACCOUNT_NAME,
-        CertificateProfileName: PROFILE_NAME
+        Endpoint: endpoint,
+        CodeSigningAccountName: account,
+        CertificateProfileName: profile
     };
 
     const metadataPath = path.join(os.tmpdir(), `trusted-signing-${process.pid}-${Date.now()}.json`);

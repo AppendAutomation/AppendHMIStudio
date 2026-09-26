@@ -1,0 +1,100 @@
+{
+  "appId": "com.appendautomation.hmistudio",
+  "productName": "Append HMI Studio",
+  "copyright": "Copyright 2026 Append Automation",
+  "asar": true,
+  "files": [
+    "**/*",
+    "!**/WEB-INF{,/**}",
+    "!drawio/src/main/webapp/stencils/**/*.xml",
+    "!drawio/src/main/webapp/shapes{,/**}",
+    "!drawio/src/main/webapp/js/diagramly{,/**}",
+    "drawio/src/main/webapp/js/diagramly/{ElectronApp,DesktopLibrary}.js",
+    "!drawio/src/main/webapp/js/grapheditor{,/**}",
+    "!drawio/src/main/webapp/mxgraph/src{,/**}",
+    "!drawio/src/main/webapp/mxgraph/mxClient.js",
+    "!node_modules/@cantoo/pdf-lib/{cjs,dist,src,ts3.4}{,/**}",
+    "!**/*.map",
+    "!comms{,/**}",
+    "!scripts{,/**}",
+    "!dist-win-runtime{,/**}",
+    "!src/test{,/**}",
+    "!doc{,/**}",
+    "!.github{,/**}"
+  ],
+  "artifactName": "Append-HMI-Studio-${version}-${arch}.${ext}",
+  "directories": {
+    "output": "./dist/"
+  },
+  "npmRebuild": false,
+  "extraResources": [
+    {
+      "from": "comms/publish/linux-${arch}",
+      "to": "comms"
+    },
+    {
+      "from": "dist-win-runtime/win-unpacked",
+      "to": "runtime/win-x64"
+    },
+    {
+      "from": "build/nsis/share",
+      "to": "nsis"
+    },
+    {
+      "from": "build/nsis/linux",
+      "to": "nsis/bin"
+    },
+    {
+      "from": "build/icon.png",
+      "to": "icon.png"
+    },
+    {
+      "from": "build/icon.ico",
+      "to": "icon.ico"
+    }
+  ],
+  "afterPack": "build/fuses.mjs",
+  "toolsets": {
+    "appimage": "1.0.3"
+  },
+  "appImage": {
+    "compression": "gzip"
+  },
+  "linux": {
+    "executableName": "append-hmi-studio",
+    "category": "Development",
+    "synopsis": "Design, run and publish HMI applications for PLCs",
+    "description": "Append HMI Studio designs operator screens, runs them against Allen-Bradley and Modbus PLCs, and publishes them as Windows installers.",
+    "maintainer": "Append Automation <dhuntlinux@gmail.com>",
+    "vendor": "Append Automation",
+    "icon": "./build",
+    "desktop": {
+      "entry": {
+        "StartupWMClass": "append-hmi-studio"
+      }
+    },
+    "target": [
+      {
+        "target": "AppImage",
+        "arch": [
+          "x64"
+        ]
+      },
+      {
+        "target": "deb",
+        "arch": [
+          "x64"
+        ]
+      }
+    ]
+  },
+  "fileAssociations": [
+    {
+      "ext": "ahmi",
+      "name": "HMI Application",
+      "description": "Append HMI Studio project",
+      "mimeType": "application/x-append-hmi",
+      "role": "Editor"
+    }
+  ]
+}

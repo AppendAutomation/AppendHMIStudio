@@ -5,7 +5,8 @@ import builder from 'electron-builder';
 
 async function addElectronFuses(context)
 {
-    const { appOutDir, packager: { appInfo: { productFilename } }, electronPlatformName, arch } = context;
+    const { appOutDir, packager, electronPlatformName, arch } = context;
+    const productFilename = packager.appInfo.productFilename;
 
     const ext = {
         darwin: '.app',
@@ -14,8 +15,9 @@ async function addElectronFuses(context)
     }[electronPlatformName];
 
     const IS_LINUX = electronPlatformName === 'linux';
-    const executableName = IS_LINUX
-        ? productFilename.replace('.', '') // Remove . from "draw.io"
+    // Linux names the binary linux.executableName (append-hmi-studio)
+    const executableName = IS_LINUX && packager.executableName
+        ? packager.executableName
         : productFilename;
 
     const electronBinaryPath = path.join(appOutDir, `${executableName}${ext}`);
