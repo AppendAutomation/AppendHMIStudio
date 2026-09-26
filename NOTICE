@@ -1,0 +1,33 @@
+Append HMI Studio
+Copyright 2026 Append Automation
+
+This product includes software developed by third parties, used under the
+licences named below. Their copyright notices are retained in the source.
+
+-------------------------------------------------------------------------------
+draw.io (diagram editor) and drawio-desktop (Electron application)
+Copyright (c) JGraph Ltd and draw.io AG
+https://github.com/jgraph/drawio
+https://github.com/jgraph/drawio-desktop
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Append HMI Studio is a modified version of these works. The modifications
+by Append Automation include: the HMI editor, runtime and publishing
+(js/hmi, src/main/runtime, src/main/publish), the hmi-comms PLC
+communications server (comms/), the removal of auto-update and of the
+draw.io name and logos, new icons, and packaging changes. Append HMI Studio
+is not affiliated with or endorsed by JGraph Ltd; "draw.io" is a trademark
+of its owner.
+
+-------------------------------------------------------------------------------
+hmi-comms uses:
+  cslogix (Append Automation, Apache License 2.0), a C# port of pylogix
+    (https://github.com/dmroeder/pylogix, Apache License 2.0)
+  cscomm3_slc (Append Automation), a C# port of the SLC driver of pycomm3
+    (https://github.com/ottowayi/pycomm3, MIT License)
+  FluentModbus (MIT License) and the .NET runtime (MIT License).
+
+-------------------------------------------------------------------------------
+The Electron runtime and Chromium are distributed under their own licences,
+included with the application as LICENSE.electron.txt and
+LICENSES.chromium.html.

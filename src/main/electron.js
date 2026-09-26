@@ -2025,6 +2025,21 @@ async function handleRuntimeRequest(contents, args)
 	}
 }
 
+// Help > About: versions, and the licence and notice texts the Apache
+// License asks to be passed on
+async function appInfo()
+{
+	const read = (rel) => fsProm.readFile(path.join(app.getAppPath(), rel), 'utf8').catch(() => '');
+
+	return {
+		name: PRODUCT_NAME,
+		version: app.getVersion(),
+		coreVersion: (await read(path.join('drawio', 'VERSION'))).trim(),
+		license: await read('LICENSE'),
+		notice: await read('NOTICE')
+	};
+}
+
 // HMI > Publish (see publish/Publisher.js). The installer is written only to
 // a folder the user picked in the OS dialog, or to Documents: a Setup.exe the
 // renderer could drop anywhere would be a way to plant programs.
@@ -4528,6 +4543,10 @@ ipcMain.on("rendererReq", async (event, args) =>
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiPublish.'))
 			{
 				ret = await handlePublishRequest(event.sender, args);
+			}
+			else if (args.action === 'hmiApp.info')
+			{
+				ret = await appInfo();
 			}
 
 			break;
