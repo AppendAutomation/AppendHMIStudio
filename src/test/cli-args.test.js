@@ -2,7 +2,7 @@
 // Run with: npm test
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseDrawioArgs, parseBool, argsRange } from '../main/args.js';
+import { parseDrawioArgs, parseBool, argsRange, formatHelp } from '../main/args.js';
 
 function parse(args)
 {
@@ -765,5 +765,27 @@ describe('combined export scenario', () =>
 		assert.equal(opts.htmlLightbox, false);
 		assert.equal(opts.htmlLinkTarget, 'blank');
 		assert.equal(opts.htmlLinkColor, '#00ff00');
+	});
+});
+
+// ─── --hmi-runtime ───────────────────────────────────────────────────────────
+
+describe('--hmi-runtime', () =>
+{
+	test('takes a folder and leaves it out of the positional files', () =>
+	{
+		const { opts, args } = parse(['--hmi-runtime', '/opt/rt']);
+		assert.equal(opts.hmiRuntime, '/opt/rt');
+		assert.deepEqual(args, []);
+	});
+
+	test('accepts the inline form', () =>
+	{
+		assert.equal(parse(['--hmi-runtime=/opt/rt']).opts.hmiRuntime, '/opt/rt');
+	});
+
+	test('is listed in the help', () =>
+	{
+		assert.match(formatHelp('1.0.0'), /--hmi-runtime <dir>/);
 	});
 });

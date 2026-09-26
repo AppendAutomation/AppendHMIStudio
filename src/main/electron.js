@@ -20,6 +20,37 @@ import {spawn, exec} from 'child_process';
 import {disableUpdate as disUpPkg} from './disableUpdate.js';
 import {CommsSupervisor, resolveExecutable as resolveCommsExecutable} from './comms/CommsSupervisor.js';
 import {CommsSession, validateCommsArgs} from './comms/CommsSession.js';
+import {findRuntimeDir, loadRuntimeConfig, runtimeUserDataDir, runtimeWindowOptions, mayExit,
+		readRuntimeProject, publicRuntimeInfo} from './runtime/RuntimeMode.js';
+
+// Run-only mode for a published HMI package (see runtime/RuntimeMode.js). Its
+// own userData has to be in place before electron-store opens the settings.
+let hmiRuntime = null;
+let hmiRuntimeExitAllowed = false;
+
+{
+	const dir = findRuntimeDir({argv: process.argv, defaultApp: process.defaultApp,
+		isPackaged: app.isPackaged, resourcesPath: process.resourcesPath});
+
+	if (dir != null)
+	{
+		try
+		{
+			hmiRuntime = loadRuntimeConfig(dir);
+		}
+		catch (e)
+		{
+			// Still run-only, in a closable window that shows the reason
+			hmiRuntime = {dir: dir, productName: 'HMI', version: '', projectPath: null, windowMode: 'window',
+				width: 1024, height: 768, exit: {mode: 'shortcut'}, error: e.message};
+		}
+
+		const userData = runtimeUserDataDir(app.getPath('appData'), hmiRuntime);
+		app.setName(hmiRuntime.productName);
+		app.setPath('userData', userData);
+		app.setAppLogsPath(path.join(userData, 'logs'));
+	}
+}
 
 let store;
 
@@ -69,7 +100,7 @@ function detectInitialAdaptiveColorsDefault()
 	return mode;
 }
 
-const disableUpdate = disUpPkg() ||
+const disableUpdate = hmiRuntime != null || disUpPkg() ||
 						process.env.DRAWIO_DISABLE_UPDATE === 'true' ||
 						process.argv.indexOf('--disable-update') !== -1 ||
 						fs.existsSync('/.flatpak-info'); //This file indicates running in flatpak sandbox
@@ -82,6 +113,12 @@ autoUpdater.logger.transports.console.level = 'error'
 // autoDownload is always false: we trigger downloadUpdate() explicitly so silent vs. interactive paths can branch on manualUpdateCheck
 autoUpdater.autoDownload = false
 autoUpdater.autoInstallOnAppQuit = silentUpdate
+
+// A runtime keeps a startup and status log for diagnosing a target PC remotely
+if (hmiRuntime != null)
+{
+	log.transports.file.level = 'info';
+}
 
 const UPDATE_DOWNLOAD_URL = 'https://get.draw.io';
 let updateFailureDialogShown = false;
@@ -629,7 +666,13 @@ var queryObj = {
 	'isGoogleFontsEnabled': isGoogleFontsEnabled? 1 : 0
 };
 
-try
+if (hmiRuntime != null)
+{
+	// The runtime renderer (js/hmi/HmiRuntimeApp.js) takes over from here
+	queryObj['chrome'] = 0;
+	queryObj['hmiruntime'] = 1;
+}
+else try
 {
 	if (fs.existsSync(process.cwd() + '/urlParams.json'))
 	{
@@ -1588,6 +1631,11 @@ app.whenReady().then(() =>
 		app.quit();
     	return;
 	}
+    else if (hmiRuntime != null)
+	{
+		startHmiRuntime();
+		return;
+	}
     
     //Prevent multiple instances of the application (casuses issues with configuration)
     const gotTheLock = app.requestSingleInstanceLock()
@@ -1595,6 +1643,7 @@ app.whenReady().then(() =>
     if (!gotTheLock) 
     {
 		app.quit()
+		return;
     } 
     else 
     {
@@ -1981,6 +2030,142 @@ if (isMac)
 	});	
 }
 
+// Run-only mode: one window on the published project, closable only as the
+// project's exit policy allows (see runtime/RuntimeMode.js)
+function startHmiRuntime()
+{
+	// The lock is per userData, which is the runtime's own
+	if (!app.requestSingleInstanceLock())
+	{
+		app.quit();
+		return;
+	}
+
+	log.info('HMI runtime ' + hmiRuntime.productName + ' ' + hmiRuntime.version + ' (app ' +
+		app.getVersion() + ') starting from ' + hmiRuntime.dir);
+
+	if (hmiRuntime.error != null)
+	{
+		log.error('HMI runtime: ' + hmiRuntime.error);
+		hmiRuntimeExitAllowed = true;
+	}
+
+	menu.setApplicationMenu(null);
+	const win = createRuntimeWindow();
+
+	app.on('second-instance', () =>
+	{
+		if (!win.isDestroyed())
+		{
+			if (win.isMinimized()) win.restore();
+			win.show();
+			win.focus();
+		}
+	});
+}
+
+function createRuntimeWindow()
+{
+	const win = new BrowserWindow(Object.assign(runtimeWindowOptions(hmiRuntime),
+	{
+		icon: `${codeDir}/images/drawlogo256.png`,
+		webPreferences: {
+			preload: `${__dirname}/electron-preload.js`,
+			spellcheck: false,
+			contextIsolation: true,
+			nodeIntegration: false,
+			webviewTag: false,
+			webSecurity: true,
+			disableBlinkFeatures: 'Auxclick'
+		}
+	}));
+
+	windowsRegistry.push(win);
+	queryObj['appLang'] = app.getLocale();
+
+	win.loadURL(url.format(
+	{
+		pathname: `${codeDir}/index.html`,
+		protocol: 'file:',
+		query: queryObj,
+		slashes: true
+	}));
+
+	win.once('ready-to-show', () => win.show());
+
+	// The window keeps the product name, not the diagram title
+	win.on('page-title-updated', (event) => event.preventDefault());
+
+	if (__DEV__)
+	{
+		win.webContents.openDevTools();
+	}
+
+	win.on('close', (event) =>
+	{
+		if (!hmiRuntimeExitAllowed)
+		{
+			event.preventDefault();
+		}
+	});
+
+	// Windows log off, restart or shutdown must not be held up
+	win.on('session-end', () =>
+	{
+		hmiRuntimeExitAllowed = true;
+	});
+
+	win.webContents.on('render-process-gone', (e, details) =>
+	{
+		log.error('HMI runtime renderer gone: ' + details.reason);
+	});
+
+	win.on('closed', () =>
+	{
+		windowsRegistry.splice(windowsRegistry.indexOf(win), 1);
+	});
+
+	return win;
+}
+
+async function handleRuntimeRequest(contents, args)
+{
+	if (hmiRuntime == null)
+	{
+		throw new Error('not an HMI runtime');
+	}
+
+	switch (args.action)
+	{
+		case 'hmiRuntime.info':
+			return Object.assign(publicRuntimeInfo(hmiRuntime), {error: hmiRuntime.error || null});
+		case 'hmiRuntime.project':
+			if (hmiRuntime.error != null) throw new Error(hmiRuntime.error);
+			return {xml: await readRuntimeProject(hmiRuntime), title: publicRuntimeInfo(hmiRuntime).title};
+		case 'hmiRuntime.exit':
+			if (args.password != null && typeof args.password !== 'string') throw new Error('bad arg: password');
+
+			if (!mayExit(hmiRuntime, args.password))
+			{
+				log.warn('HMI runtime: exit refused (' + hmiRuntime.exit.mode + ')');
+				return false;
+			}
+
+			log.info('HMI runtime: exit by operator');
+			hmiRuntimeExitAllowed = true;
+			setImmediate(() => app.quit());
+			return true;
+		case 'hmiRuntime.log':
+		{
+			const level = ['info', 'warn', 'error'].includes(args.level) ? args.level : 'info';
+			log[level]('HMI runtime: ' + String(args.message).slice(0, 2000));
+			return null;
+		}
+		default:
+			throw new Error('unknown action: ' + args.action);
+	}
+}
+
 // The hmi-comms PLC server, created on first use so plain draw.io never
 // starts it.
 let commsSupervisor = null;
@@ -2104,7 +2289,7 @@ app.on('window-all-closed', function ()
 	
 	// On OS X it is common for applications and their menu bar
 	// to stay active until the user quits explicitly with Cmd + Q
-	if (cmdQPressed || !isMac)
+	if (cmdQPressed || !isMac || hmiRuntime != null)
 	{
 		app.quit()
 	}
@@ -2119,7 +2304,7 @@ app.on('activate', function ()
 	
 	// On OS X it's common to re-create a window in the app when the
 	// dock icon is clicked and there are no other windows open.
-	if (windowsRegistry.length === 0)
+	if (windowsRegistry.length === 0 && hmiRuntime == null)
 	{
 		createWindow()
 	}
@@ -2131,7 +2316,7 @@ app.on('will-finish-launching', function()
 	{
 	    event.preventDefault();
 		// Creating a new window while a save/open dialog is open crashes the app
-		if (dialogOpen) return;
+		if (dialogOpen || hmiRuntime != null) return;
 
 		// User intent: OS handed us a path via file association.
 		blessPath(filePath);
@@ -4442,6 +4627,7 @@ ipcMain.on("rendererReq", async (event, args) =>
 			ret = await unwatchFile(args.path);
 			break;
 		case 'exit':
+			if (hmiRuntime != null) throw new Error('not available in the HMI runtime');
 			app.quit();
 			break;
 		case 'getLocalFonts':
@@ -4455,6 +4641,10 @@ ipcMain.on("rendererReq", async (event, args) =>
 			if (typeof args.action === 'string' && args.action.startsWith('hmiComms.'))
 			{
 				ret = await handleCommsRequest(event.sender, args);
+			}
+			else if (typeof args.action === 'string' && args.action.startsWith('hmiRuntime.'))
+			{
+				ret = await handleRuntimeRequest(event.sender, args);
 			}
 
 			break;

@@ -132,6 +132,9 @@ const OPTION_DEFS = [
 	{              long: '--html-edit-link',   key: 'htmlEditLink',   takesValue: true,
 	  valueLabel: '<url>',
 	  desc: 'URL for edit button in HTML viewer' },
+	{              long: '--hmi-runtime',      key: 'hmiRuntime',     takesValue: true,
+	  valueLabel: '<dir>',
+	  desc: 'open the HMI project in <dir> (runtime.json and the project) in run-only mode' },
 	// Handled via process.argv before the parser runs; listed here for help text only.
 	{ long: '--disable-update',    helpOnly: true,
 	  desc: 'disable auto-update' },
