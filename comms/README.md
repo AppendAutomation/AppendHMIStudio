@@ -274,8 +274,9 @@ are learned from earlier replies; a packet refused as too large is split.
 
 ### SLC 500 / MicroLogix: `slc`
 
-Options: `maxBytesPerRequest` (236), `maxGapElements` (8), `swapStringBytes`
-(false). Port 44818.
+Options: `maxBytesPerRequest` (236), `maxGapElements` (118), `swapStringBytes`
+(true: SLC processors store string characters with each word's bytes swapped).
+Port 44818.
 
 | Address | Meaning |
 |---|---|

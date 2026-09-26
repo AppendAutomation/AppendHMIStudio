@@ -136,7 +136,10 @@ public sealed class SlcConnection : IDeviceConnection
 	{
 		this.device = device;
 		this.limits = limits;
-		swapStrings = device.BoolOption("swapStringBytes", false);
+		// SLC processors keep ST and A characters with the bytes of each word
+		// swapped (checked against a 5/05 and pycomm3); the option is there for
+		// a device that does not.
+		swapStrings = device.BoolOption("swapStringBytes", true);
 		this.ticks = ticks ?? (() => Environment.TickCount64);
 	}
 
@@ -370,8 +373,7 @@ public sealed class SlcConnection : IDeviceConnection
 
 				Guard(() =>
 				{
-					Plc.WriteMasked(a.FileType, a.FileNumber, a.Element, a.Word, on ? mask : (ushort)0,
-						on ? (ushort)0xFFFF : (ushort)~mask);
+					Plc.WriteMasked(a.FileType, a.FileNumber, a.Element, a.Word, mask, on ? mask : (ushort)0);
 
 					return true;
 				});

@@ -10,7 +10,8 @@ namespace Hmi.Comms.Slc;
 ///   maxGapElements      largest hole a read may span (default 118: a SLC answers one
 ///                       message per scan or so, ~100 ms on a 5/05, so a request costs
 ///                       far more than the unused elements it carries)
-///   swapStringBytes     true if ST and A characters arrive byte-swapped
+///   swapStringBytes     ST and A characters are stored with each word's bytes swapped,
+///                       as SLC processors do (default true)
 /// </summary>
 public sealed class SlcDriver : IProtocolDriver
 {

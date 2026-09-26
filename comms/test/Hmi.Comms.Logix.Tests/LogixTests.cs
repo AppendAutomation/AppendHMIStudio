@@ -296,6 +296,19 @@ public sealed class SimulatorIntegrationTests : IDisposable
 	}
 
 	[Fact]
+	public async Task AWholeStructureIsRefusedNotWrittenAsAString()
+	{
+		sim.SetStruct("Timer", 0x0F83);
+		var s = engine.CreateSession();
+		s.Configure(new[] { Device() }, new[] { Tag("t", "Timer") });
+
+		var r = await s.WriteAsync(new (int, object?)[] { (1, 1.0) }, TimeSpan.FromSeconds(5));
+
+		Assert.False(r[1].Ok);
+		Assert.Equal("Structure type not supported", r[1].Error);
+	}
+
+	[Fact]
 	public async Task WritingBeforeAnyReadLearnsTheTypeFirst()
 	{
 		var s = engine.CreateSession();

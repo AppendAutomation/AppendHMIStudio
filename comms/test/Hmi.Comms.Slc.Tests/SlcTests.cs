@@ -144,7 +144,8 @@ public sealed class SimulatorIntegrationTests : IDisposable
 		BitConverter.GetBytes((short)123).CopyTo(sim.File(T, 4), 6 + 4);
 		BitConverter.GetBytes(1 << 20).CopyTo(sim.File(L, 9), 0);
 		BitConverter.GetBytes((short)5).CopyTo(sim.File(ST, 10), 0);
-		Encoding.ASCII.GetBytes("HELLO").CopyTo(sim.File(ST, 10), 2);
+		// As a processor stores it: each word's bytes swapped, "HELLO" as "EHLL\0O".
+		new byte[] { (byte)'E', (byte)'H', (byte)'L', (byte)'L', 0, (byte)'O' }.CopyTo(sim.File(ST, 10), 2);
 		// The simulator places I/O words at slot * 2 + word * 2: I:1.2 is byte 6.
 		BitConverter.GetBytes((short)0x0008).CopyTo(sim.File(I, 1), 6);
 	}
@@ -283,9 +284,14 @@ public sealed class SimulatorIntegrationTests : IDisposable
 		Assert.Equal(-42, BitConverter.ToInt16(sim.File(N, 7), 6));
 		Assert.Equal(6.25f, BitConverter.ToSingle(sim.File(F, 8), 8));
 		Assert.Equal(0b0001_0000, sim.File(B, 3)[0]);
+
+		// And clearing, which a mask/value mix-up once broke.
+		var clear = await s.WriteAsync(new (int, object?)[] { (3, false) }, TimeSpan.FromSeconds(5));
+		Assert.True(clear[3].Ok, clear[3].Error);
+		Assert.Equal(0, sim.File(B, 3)[0]);
 		Assert.Equal(900, BitConverter.ToInt16(sim.File(T, 4), 12 + 2));
 		Assert.Equal(5, BitConverter.ToInt16(sim.File(ST, 10), 84));
-		Assert.Equal("Mixer", Encoding.ASCII.GetString(sim.File(ST, 10), 86, 5));
+		Assert.Equal("iMex\0r", Encoding.ASCII.GetString(sim.File(ST, 10), 86, 6));
 		Assert.Equal(1 << 17, BitConverter.ToInt32(sim.File(L, 9), 4));
 
 		v = await Until(s, d => Equals(d[5].Value, "Mixer") && Equals(d[1].Value, -42L));
@@ -321,10 +327,10 @@ public sealed class SimulatorIntegrationTests : IDisposable
 	}
 
 	[Fact]
-	public async Task SwappedStringBytesOption()
+	public async Task UnswappedStringsForADeviceThatStoresThemPlain()
 	{
-		Encoding.ASCII.GetBytes("EHLL O").CopyTo(sim.File(ST, 10), 2);
-		var dev = Device() with { Options = new Dictionary<string, string> { ["swapStringBytes"] = "true" } };
+		Encoding.ASCII.GetBytes("HELLO").CopyTo(sim.File(ST, 10), 2);
+		var dev = Device() with { Options = new Dictionary<string, string> { ["swapStringBytes"] = "false" } };
 		var s = engine.CreateSession();
 		s.Configure(new[] { dev }, new[] { Tag("str", "ST10:0") });
 		s.Subscribe(new[] { 1 }, 50);
