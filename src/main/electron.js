@@ -2067,9 +2067,10 @@ function startHmiRuntime()
 
 function createRuntimeWindow()
 {
+	// The package's own icon; on Windows the exe's icon otherwise
 	const win = new BrowserWindow(Object.assign(runtimeWindowOptions(hmiRuntime),
 	{
-		icon: `${codeDir}/images/drawlogo256.png`,
+		icon: hmiRuntime.iconPath || (isWin ? undefined : `${codeDir}/images/drawlogo256.png`),
 		webPreferences: {
 			preload: `${__dirname}/electron-preload.js`,
 			spellcheck: false,
@@ -2208,6 +2209,7 @@ async function handleRuntimeRequest(contents, args)
 let publisher = null;
 let lastInstaller = null;
 const PUBLISH_DIRS_KEY = 'publishOutputDirs';
+const PUBLISH_ICONS_KEY = 'publishIcons';
 
 function getPublisher()
 {
@@ -2222,9 +2224,36 @@ function getPublisher()
 
 function publishOutputDirs()
 {
-	const dirs = store != null ? store.get(PUBLISH_DIRS_KEY) : null;
+	return storedPaths(PUBLISH_DIRS_KEY);
+}
 
-	return Array.isArray(dirs) ? dirs.filter(d => typeof d === 'string') : [];
+function storedPaths(key)
+{
+	const paths = store != null ? store.get(key) : null;
+
+	return Array.isArray(paths) ? paths.filter(d => typeof d === 'string') : [];
+}
+
+function rememberPath(key, p)
+{
+	if (store != null)
+	{
+		store.set(key, [p].concat(storedPaths(key).filter(d => d !== p)).slice(0, 20));
+	}
+}
+
+// The package icon, like the output folder, must have been picked in the OS dialog
+async function assertPublishIcon(p)
+{
+	reqStr(p, 'icon');
+	const real = await fsProm.realpath(p);
+
+	if (!storedPaths(PUBLISH_ICONS_KEY).includes(real))
+	{
+		throw new Error('Choose the icon again.');
+	}
+
+	return real;
 }
 
 async function assertPublishOutput(dir)
@@ -2286,11 +2315,34 @@ async function handlePublishRequest(contents, args)
 				}
 
 				const real = await fsProm.realpath(result.filePaths[0]);
+				rememberPath(PUBLISH_DIRS_KEY, real);
 
-				if (store != null)
+				return real;
+			}
+			finally
+			{
+				dialogOpen = false;
+			}
+		}
+		case 'hmiPublish.chooseIcon':
+		{
+			dialogOpen = true;
+
+			try
+			{
+				const result = await dialog.showOpenDialog(BrowserWindow.fromWebContents(contents), {
+					title: 'Icon',
+					filters: [{name: 'Icons', extensions: ['ico']}],
+					properties: ['openFile']
+				});
+
+				if (result.canceled || result.filePaths.length === 0)
 				{
-					store.set(PUBLISH_DIRS_KEY, [real].concat(publishOutputDirs().filter(d => d !== real)).slice(0, 20));
+					return null;
 				}
+
+				const real = await fsProm.realpath(result.filePaths[0]);
+				rememberPath(PUBLISH_ICONS_KEY, real);
 
 				return real;
 			}
@@ -2302,6 +2354,7 @@ async function handlePublishRequest(contents, args)
 		case 'hmiPublish.build':
 		{
 			const output = await assertPublishOutput(args.output);
+			const icon = (args.icon != null && args.icon !== '') ? await assertPublishIcon(args.icon) : null;
 			const pub = getPublisher();
 			const forward = (ev) =>
 			{
@@ -2316,7 +2369,7 @@ async function handlePublishRequest(contents, args)
 			try
 			{
 				log.info('HMI publish: building ' + (args.options && args.options.productName) + ' into ' + output);
-				lastInstaller = await pub.build(args.projectXml, args.options, output);
+				lastInstaller = await pub.build(args.projectXml, args.options, output, icon);
 				log.info('HMI publish: wrote ' + lastInstaller);
 
 				return lastInstaller;

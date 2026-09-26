@@ -8,9 +8,9 @@
 // own install directory instead.
 //
 // This works on any host without wine: a --dir build needs no NSIS, and
-// signAndEditExecutable=false skips the rcedit/signing steps. The template is
-// therefore unsigned and keeps the draw.io exe name and version resource;
-// Publish renames the exe per product.
+// electron-builder edits the exe's icon and version resource in plain JS.
+// DRAWIO_UNSIGNED skips signing, so the template is unsigned; Publish
+// renames and rebrands the exe per product.
 
 import {spawnSync} from 'child_process';
 import {fileURLToPath} from 'url';
@@ -36,7 +36,7 @@ run(process.execPath, [path.join('comms', 'scripts', 'publish.mjs'), '--rid', 'w
 fs.rmSync(out, {recursive: true, force: true});
 
 run('npx', ['electron-builder', '--config', 'electron-builder-win.json', '--win', '--dir', '--x64',
-	'--publish', 'never', '-c.win.signAndEditExecutable=false', '-c.directories.output=dist-win-runtime'],
+	'--publish', 'never', '-c.directories.output=dist-win-runtime'],
 	{DRAWIO_UNSIGNED: 'true'});
 
 const exe = path.join(out, 'win-unpacked', 'draw.io.exe');

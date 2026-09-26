@@ -16,11 +16,16 @@ import {spawn} from 'child_process';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
-import {buildNsisScript, parseFileBytes, windowsFileName, SKIP_ROOT, SKIP_RESOURCES} from './NsisScript.js';
+import * as resedit from 'resedit';
+import {buildNsisScript, parseFileBytes, windowsFileName, fourPartVersion, SKIP_ROOT, SKIP_RESOURCES} from './NsisScript.js';
 
 export const SCOPES = ['user', 'machine'];
 export const COMPRESSIONS = ['fast', 'small'];
 const MAX_PROJECT_CHARS = 64 * 1024 * 1024;
+
+// Solid LZMA shrinks the Windows app to about a third; the installer growing
+// towards that is the progress while makensis compresses without a word
+const SOLID_RATIO = 0.33;
 
 export function resolveTemplate({platform, isPackaged, execPath, resourcesPath, appPath})
 {
@@ -148,6 +153,68 @@ export function runtimeJson(opts)
 	}, null, '\t');
 }
 
+// Writes a copy of the template exe carrying the product's name, version and
+// publisher (what Task Manager, the taskbar and file properties show) and
+// optionally its icon. Any signature is dropped: the edit would break it.
+export async function brandExecutable(src, dest, {productName, version, publisher, exeName, iconPath})
+{
+	const exe = resedit.NtExecutable.from(await fs.promises.readFile(src), {ignoreCert: true});
+	const res = resedit.NtExecutableResource.from(exe);
+	const list = resedit.Resource.VersionInfo.fromEntries(res.entries);
+	const vi = list.length > 0 ? list[0] : resedit.Resource.VersionInfo.createEmpty();
+	const langs = vi.getAllLanguagesForStringValues();
+	const lang = langs.length > 0 ? langs[0] : {lang: 0x0409, codepage: 1200};
+
+	if (list.length === 0)
+	{
+		vi.lang = lang.lang;
+	}
+
+	vi.setFileVersion(fourPartVersion(version));
+	vi.setProductVersion(fourPartVersion(version));
+	vi.setStringValues(lang, {
+		ProductName: productName,
+		FileDescription: productName,
+		CompanyName: publisher || '',
+		LegalCopyright: publisher || '',
+		InternalName: exeName,
+		OriginalFilename: exeName,
+		FileVersion: version,
+		ProductVersion: version
+	});
+	vi.outputToResourceEntries(res.entries);
+
+	if (iconPath != null)
+	{
+		const icon = resedit.Data.IconFile.from(await fs.promises.readFile(iconPath));
+		const group = res.entries.find(e => e.type === 14);
+
+		resedit.Resource.IconGroupEntry.replaceIconsForResource(res.entries, group != null ? group.id : 1,
+			group != null ? group.lang : lang.lang, icon.icons.map(i => i.data));
+	}
+
+	res.outputResource(exe);
+	await fs.promises.writeFile(dest, Buffer.from(exe.generate()));
+}
+
+// A usable .ico (Windows shows it for the exe, shortcuts and the window)
+export async function checkIcon(iconPath)
+{
+	try
+	{
+		const icon = resedit.Data.IconFile.from(await fs.promises.readFile(iconPath));
+
+		if (icon.icons.length === 0)
+		{
+			throw new Error('no images');
+		}
+	}
+	catch (e)
+	{
+		throw new Error('Not a usable icon (.ico) file: ' + path.basename(iconPath));
+	}
+}
+
 export function installerName(opts)
 {
 	return windowsFileName(opts.productName) + '-' + opts.version + '-Setup.exe';
@@ -215,8 +282,9 @@ export class Publisher extends EventEmitter
 		this.emit('progress', {stage, percent, message});
 	}
 
-	// Resolves with the installer's path
-	async build(projectXml, options, outputDir)
+	// Resolves with the installer's path. iconPath is an .ico the caller has
+	// authorised, or null.
+	async build(projectXml, options, outputDir, iconPath)
 	{
 		if (this.busy)
 		{
@@ -245,6 +313,18 @@ export class Publisher extends EventEmitter
 			await fs.promises.writeFile(path.join(runtimeDir, 'runtime.json'), runtimeJson(opts));
 			await fs.promises.writeFile(path.join(runtimeDir, 'project.drawio-hmi'), projectXml);
 
+			if (iconPath != null)
+			{
+				await checkIcon(iconPath);
+				await fs.promises.copyFile(iconPath, path.join(runtimeDir, 'icon.ico'));
+			}
+
+			const exeName = windowsFileName(opts.productName) + '.exe';
+			const exeSource = path.join(stage, 'app.exe');
+			this.progress('preparing', 0, 'Branding');
+			await brandExecutable(path.join(template.dir, template.exe), exeSource,
+				Object.assign({exeName, iconPath}, opts));
+
 			const root = await entries(template.dir);
 			const resources = await entries(path.join(template.dir, 'resources'));
 
@@ -272,7 +352,8 @@ export class Publisher extends EventEmitter
 
 			const outFile = path.join(stage, installerName(opts));
 			const script = buildNsisScript(Object.assign({}, opts, {
-				exeName: windowsFileName(opts.productName) + '.exe',
+				exeName: exeName,
+				exeSource: exeSource,
 				outFile: outFile,
 				template: Object.assign({root, resources}, template),
 				runtimeDir: runtimeDir,
@@ -288,7 +369,7 @@ export class Publisher extends EventEmitter
 				throw new Error('cancelled');
 			}
 
-			await this.compile(nsis, nsi, stage, total);
+			await this.compile(nsis, nsi, stage, total, opts.compression === 'small' ? outFile : null);
 
 			const dest = path.join(outputDir, installerName(opts));
 			await fs.promises.copyFile(outFile, dest);
@@ -319,7 +400,9 @@ export class Publisher extends EventEmitter
 		}
 	}
 
-	compile(nsis, nsi, cwd, total)
+	// solidOut: the installer being written by a solid build, whose size is
+	// the progress once the files have been listed
+	compile(nsis, nsi, cwd, total, solidOut)
 	{
 		return new Promise((resolve, reject) =>
 		{
@@ -335,6 +418,25 @@ export class Publisher extends EventEmitter
 			let lastPercent = -1;
 			let partial = '';
 			const tail = [];
+
+			const report = (percent) =>
+			{
+				percent = Math.min(99, Math.floor(percent));
+
+				if (percent > lastPercent)
+				{
+					lastPercent = percent;
+					this.progress('compressing', percent, 'Compressing');
+				}
+			};
+
+			const poll = (solidOut == null) ? null : setInterval(() =>
+			{
+				fs.promises.stat(solidOut).then((st) =>
+				{
+					report(5 + 94 * Math.min(1, st.size / Math.max(1, total * SOLID_RATIO)));
+				}, () => {});
+			}, 1000);
 
 			const onData = (chunk) =>
 			{
@@ -352,15 +454,10 @@ export class Publisher extends EventEmitter
 					}
 				}
 
-				// Reading the files is most of the work; the last stretch is
-				// writing the installer
-				const percent = Math.min(95, Math.floor(done / Math.max(1, total) * 95));
-
-				if (percent !== lastPercent)
-				{
-					lastPercent = percent;
-					this.progress('compressing', percent, 'Compressing');
-				}
+				// Without solid compression each file is compressed as it is
+				// listed, so the files are the progress; a solid build only
+				// reads them here and compresses afterwards
+				report(done / Math.max(1, total) * ((solidOut == null) ? 95 : 5));
 			};
 
 			child.stdout.on('data', onData);
@@ -368,11 +465,21 @@ export class Publisher extends EventEmitter
 
 			child.on('error', (e) =>
 			{
+				if (poll != null)
+				{
+					clearInterval(poll);
+				}
+
 				reject(new Error('Cannot run NSIS (' + nsis.makensis + '): ' + e.message));
 			});
 
 			child.on('close', (code, signal) =>
 			{
+				if (poll != null)
+				{
+					clearInterval(poll);
+				}
+
 				if (code === 0)
 				{
 					resolve();

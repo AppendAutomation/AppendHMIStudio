@@ -11,6 +11,7 @@
 //   width/height project resolution, used by the 'window' mode
 //   exit         {mode: 'shortcut' (default) | 'password' | 'never', salt, hash}
 //                hash = hex SHA-256 of (salt + password)
+// An icon.ico beside it, when present, is the window icon.
 
 import crypto from 'crypto';
 import fs from 'fs';
@@ -93,6 +94,7 @@ export function loadRuntimeConfig(dir)
 		productName: cleanName(raw.productName) || 'HMI',
 		version: typeof raw.version === 'string' ? raw.version : '',
 		projectPath: path.join(dir, project),
+		iconPath: fs.existsSync(path.join(dir, 'icon.ico')) ? path.join(dir, 'icon.ico') : null,
 		windowMode: WINDOW_MODES.includes(raw.windowMode) ? raw.windowMode : 'kiosk',
 		width: dimension(raw.width, 1024),
 		height: dimension(raw.height, 768),

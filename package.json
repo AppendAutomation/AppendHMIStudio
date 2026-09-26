@@ -47,6 +47,7 @@
     "electron-log": "^5.4.4",
     "electron-store": "^11.0.2",
     "electron-updater": "^6.8.9",
+    "resedit": "^1.7.2",
     "tslib": "^2.8.1"
   },
   "devDependencies": {

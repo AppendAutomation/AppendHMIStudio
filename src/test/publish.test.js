@@ -1,7 +1,7 @@
 // HMI > Publish — exercises src/main/publish/Publisher.js and NsisScript.js,
 // including a real makensis build from a small fake template when build/nsis
 // is present (npm run fetch-nsis)
-import { test, describe } from 'node:test';
+import { test, describe, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'child_process';
 import fs from 'fs';
@@ -9,15 +9,44 @@ import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { buildNsisScript, nsisString, windowsFileName, fourPartVersion, parseFileBytes } from '../main/publish/NsisScript.js';
-import { Publisher, resolveTemplate, resolveNsis, normaliseOptions, runtimeJson, installerName } from '../main/publish/Publisher.js';
+import { Publisher, resolveTemplate, resolveNsis, normaliseOptions, runtimeJson, installerName, brandExecutable,
+	checkIcon } from '../main/publish/Publisher.js';
+import * as resedit from 'resedit';
 import { loadRuntimeConfig, mayExit, hashExitPassword } from '../main/runtime/RuntimeMode.js';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 
+// A small real Windows executable with a version resource, from NSIS
+const samplePe = path.join(root, 'build', 'nsis', 'win', 'makensis.exe');
+const icon = path.join(root, 'build', 'icon.ico');
+
+function versionStrings(file)
+{
+	const exe = resedit.NtExecutable.from(fs.readFileSync(file), {ignoreCert: true});
+	const res = resedit.NtExecutableResource.from(exe);
+	const vi = resedit.Resource.VersionInfo.fromEntries(res.entries)[0];
+
+	return {strings: vi.getStringValues(vi.getAllLanguagesForStringValues()[0]),
+		icons: res.entries.filter(e => e.type === 3).length};
+}
+
+const tempDirs = [];
+
 function tempDir()
 {
-	return fs.mkdtempSync(path.join(os.tmpdir(), 'hmi-publish-test-'));
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'hmi-publish-test-'));
+	tempDirs.push(dir);
+
+	return dir;
 }
+
+after(() =>
+{
+	for (const dir of tempDirs)
+	{
+		fs.rmSync(dir, {recursive: true, force: true});
+	}
+});
 
 // A tiny stand-in for win-unpacked, with the things a package must leave out
 function fakeTemplate()
@@ -29,7 +58,15 @@ function fakeTemplate()
 		fs.writeFileSync(path.join(dir, rel), data || rel);
 	};
 
-	put('draw.io.exe', 'MZ fake exe');
+	if (fs.existsSync(samplePe))
+	{
+		put('draw.io.exe', fs.readFileSync(samplePe));
+	}
+	else
+	{
+		put('draw.io.exe', 'MZ fake exe');
+	}
+
 	put('ffmpeg.dll');
 	put('Uninstall draw.io.exe');
 	put('locales/en-US.pak');
@@ -252,6 +289,38 @@ const nsisPresent = (() =>
 
 const has7z = spawnSync('7z', ['i'], {encoding: 'utf8'}).status === 0;
 
+describe('brandExecutable', {skip: !fs.existsSync(samplePe) && 'run npm run fetch-nsis'}, () =>
+{
+	test('sets the product name, version and publisher', async () =>
+	{
+		const out = path.join(tempDir(), 'Line 3.exe');
+		await brandExecutable(samplePe, out, {productName: 'Line 3', version: '1.2.0',
+			publisher: 'Acme', exeName: 'Line 3.exe'});
+		const v = versionStrings(out);
+
+		assert.equal(v.strings.ProductName, 'Line 3');
+		assert.equal(v.strings.FileDescription, 'Line 3');
+		assert.equal(v.strings.CompanyName, 'Acme');
+		assert.equal(v.strings.ProductVersion, '1.2.0');
+		assert.equal(v.strings.OriginalFilename, 'Line 3.exe');
+	});
+
+	test('replaces the icon', async () =>
+	{
+		const out = path.join(tempDir(), 'P.exe');
+		await brandExecutable(samplePe, out, {productName: 'P', version: '1', exeName: 'P.exe', iconPath: icon});
+		const images = resedit.Data.IconFile.from(fs.readFileSync(icon)).icons.length;
+
+		assert.equal(versionStrings(out).icons, images);
+	});
+
+	test('checkIcon refuses what is not an .ico', async () =>
+	{
+		await checkIcon(icon);
+		await assert.rejects(checkIcon(samplePe), /Not a usable icon/);
+	});
+});
+
 describe('Publisher build', {skip: !nsisPresent && 'run npm run fetch-nsis'}, () =>
 {
 	function publisher(template)
@@ -272,7 +341,7 @@ describe('Publisher build', {skip: !nsisPresent && 'run npm run fetch-nsis'}, ()
 		const events = [];
 		pub.on('progress', (e) => events.push(e));
 
-		const file = await pub.build('<mxfile/>', Object.assign({}, baseOptions, {compression: 'fast'}), out);
+		const file = await pub.build('<mxfile/>', Object.assign({}, baseOptions, {compression: 'fast'}), out, icon);
 
 		assert.equal(file, path.join(out, 'Line 3 HMI-1.2.0-Setup.exe'));
 		assert.equal(fs.readFileSync(file).subarray(0, 2).toString(), 'MZ');
@@ -286,6 +355,7 @@ describe('Publisher build', {skip: !nsisPresent && 'run npm run fetch-nsis'}, ()
 			const list = spawnSync('7z', ['l', file], {encoding: 'utf8'}).stdout.replace(/\\/g, '/');
 
 			assert.match(list, /Line 3 HMI\.exe/);
+			assert.match(list, /resources\/hmi-runtime\/icon\.ico/);
 			assert.match(list, /resources\/hmi-runtime\/runtime\.json/);
 			assert.match(list, /resources\/hmi-runtime\/project\.drawio-hmi/);
 			assert.match(list, /resources\/comms\/hmi-comms\.exe/);

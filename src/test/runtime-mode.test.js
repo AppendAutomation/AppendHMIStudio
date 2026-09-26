@@ -1,5 +1,5 @@
 // Run-only mode for published HMI packages — exercises src/main/runtime/RuntimeMode.js
-import { test, describe } from 'node:test';
+import { test, describe, after } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'fs';
 import os from 'os';
@@ -7,10 +7,23 @@ import path from 'path';
 import { findRuntimeDir, loadRuntimeConfig, runtimeUserDataDir, runtimeWindowOptions, mayExit,
 	hashExitPassword, readRuntimeProject, publicRuntimeInfo } from '../main/runtime/RuntimeMode.js';
 
+const tempDirs = [];
+
 function tempDir()
 {
-	return fs.mkdtempSync(path.join(os.tmpdir(), 'hmi-runtime-test-'));
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'hmi-runtime-test-'));
+	tempDirs.push(dir);
+
+	return dir;
 }
+
+after(() =>
+{
+	for (const dir of tempDirs)
+	{
+		fs.rmSync(dir, {recursive: true, force: true});
+	}
+});
 
 function writeRuntime(dir, config)
 {

@@ -51,6 +51,7 @@ export function fourPartVersion(version)
 // opts:
 //   productName, version, publisher
 //   exeName        installed exe file name (e.g. "Line 3.exe")
+//   exeSource      the exe to install under that name (the template's, rebranded)
 //   scope          'user' (no admin, %LOCALAPPDATA%\Programs) or 'machine'
 //   desktop        desktop shortcut
 //   autostart      start with Windows (Startup folder shortcut)
@@ -126,7 +127,7 @@ export function buildNsisScript(opts)
 		'  RMDir /r "$INSTDIR\\resources"',
 		'  RMDir /r "$INSTDIR\\locales"',
 		'  SetOutPath "$INSTDIR"',
-		`  File "/oname=\${EXE}" "${q(join(t.dir, t.exe))}"`);
+		`  File "/oname=\${EXE}" "${q(opts.exeSource || join(t.dir, t.exe))}"`);
 
 	for (const e of t.root)
 	{
