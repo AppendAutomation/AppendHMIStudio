@@ -13,7 +13,14 @@
     "!drawio/src/main/webapp/mxgraph/src{,/**}",
     "!drawio/src/main/webapp/mxgraph/mxClient.js",
     "!node_modules/@cantoo/pdf-lib/{cjs,dist,src,ts3.4}{,/**}",
-    "!**/*.map"
+    "!**/*.map",
+    "!comms{,/**}"
+  ],
+  "extraResources": [
+    {
+      "from": "comms/publish/win-${arch}",
+      "to": "comms"
+    }
   ],
   "directories": {
     "output": "./dist/"
@@ -29,7 +36,7 @@
       "sign": "build/sign-trusted.mjs",
       "signingHashAlgorithms": ["sha256"]
     },
-    "signExts": [".dll"],
+    "signExts": [".dll", ".exe"],
     "target": [
       {
           "target": "nsis",

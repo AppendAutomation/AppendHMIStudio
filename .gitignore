@@ -6,3 +6,9 @@ node_modules
 /.settings
 .DS_Store
 .claude/settings.local.json
+comms/publish/
+comms/src/*/bin/
+comms/src/*/obj/
+comms/test/*/bin/
+comms/test/*/obj/
+comms/test/*/TestResults/

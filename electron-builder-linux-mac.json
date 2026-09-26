@@ -13,7 +13,8 @@
     "!drawio/src/main/webapp/mxgraph/src{,/**}",
     "!drawio/src/main/webapp/mxgraph/mxClient.js",
     "!node_modules/@cantoo/pdf-lib/{cjs,dist,src,ts3.4}{,/**}",
-    "!**/*.map"
+    "!**/*.map",
+    "!comms{,/**}"
   ],
   "artifactName": "${productName}-${arch}-${version}.${ext}",
   "directories": {
@@ -24,6 +25,12 @@
       "provider": "github"
   },
   "mac": {
+    "extraResources": [
+      {
+        "from": "comms/publish/mac",
+        "to": "comms"
+      }
+    ],
   	"hardenedRuntime": true,
   	"gatekeeperAssess": false,
   	"entitlements": "build/entitlements.mac.plist",
@@ -92,6 +99,12 @@
     "compression": "gzip"
   },
   "linux": {
+    "extraResources": [
+      {
+        "from": "comms/publish/linux-${arch}",
+        "to": "comms"
+      }
+    ],
   	"executableName": "drawio",
     "category": "Graphics",
     "maintainer": "draw.io <desktop@draw.io>",

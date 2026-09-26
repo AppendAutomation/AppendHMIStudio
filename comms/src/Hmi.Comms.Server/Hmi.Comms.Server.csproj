@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Hmi.Comms.Server</RootNamespace>
+    <AssemblyName>hmi-comms</AssemblyName>
+    <PublishTrimmed>false</PublishTrimmed>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hmi.Comms.Core\Hmi.Comms.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Hmi.Comms.Server.Tests" />
+  </ItemGroup>
+</Project>

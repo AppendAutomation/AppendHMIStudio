@@ -2,3 +2,9 @@
 	path = drawio
 	url = https://github.com/jgraph/drawio.git
 	branch = dev
+[submodule "comms/lib/cslogix"]
+	path = comms/lib/cslogix
+	url = https://github.com/AppendAutomation/cslogix.git
+[submodule "comms/lib/cscomm3_slc"]
+	path = comms/lib/cscomm3_slc
+	url = https://github.com/AppendAutomation/cscomm3_slc.git

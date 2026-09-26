@@ -18,6 +18,7 @@ import ProgressBar from './progress-bar.js';
 import contextMenu from 'electron-context-menu';
 import {spawn, exec} from 'child_process';
 import {disableUpdate as disUpPkg} from './disableUpdate.js';
+import {CommsSupervisor, resolveExecutable as resolveCommsExecutable} from './comms/CommsSupervisor.js';
 
 let store;
 
@@ -1978,6 +1979,44 @@ if (isMac)
 		cmdQPressed = true;
 	});	
 }
+
+// The hmi-comms PLC server, created on first use so plain draw.io never
+// starts it.
+let commsSupervisor = null;
+
+function getCommsSupervisor()
+{
+	if (commsSupervisor == null)
+	{
+		commsSupervisor = new CommsSupervisor({
+			executable: resolveCommsExecutable({isPackaged: app.isPackaged,
+				resourcesPath: process.resourcesPath, appPath: app.getAppPath()}),
+			extractDir: path.join(app.getPath('userData'), 'comms-cache')
+		});
+
+		commsSupervisor.on('log', (line) => log.info('[hmi-comms] ' + line));
+		commsSupervisor.on('exit', (e) =>
+		{
+			if (!e.expected)
+			{
+				log.warn('[hmi-comms] exited unexpectedly', e.code, e.signal);
+			}
+		});
+		commsSupervisor.on('failed', (e) => log.error('[hmi-comms]', e.message));
+	}
+
+	return commsSupervisor;
+}
+
+app.on('will-quit', function ()
+{
+	// The server also exits by itself when its stdin closes with this
+	// process; stopping it here just makes that prompt and tidy.
+	if (commsSupervisor != null)
+	{
+		commsSupervisor.stop();
+	}
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function ()

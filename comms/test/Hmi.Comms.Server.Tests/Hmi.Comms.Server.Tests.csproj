@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Hmi.Comms.Server\Hmi.Comms.Server.csproj" />
+  </ItemGroup>
+</Project>
