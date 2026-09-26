@@ -362,7 +362,7 @@ public sealed class DeviceWorker : IDisposable
 		catch (Exception e) when (IsTransportFailure(e))
 		{
 			OnConnectionLost(e, now, changed);
-			FailWrites(writeJobs, "Connection lost: " + e.Message);
+			FailWrites(writeJobs, "Connection lost: " + Errors.Describe(e));
 
 			return backoffUntil - now;
 		}
@@ -432,8 +432,8 @@ public sealed class DeviceWorker : IDisposable
 		catch (Exception e)
 		{
 			conn?.Dispose();
-			StartBackoff(now, e.Message);
-			MarkAll(Status.Comm, e.Message, changed);
+			StartBackoff(now, Errors.Describe(e));
+			MarkAll(Status.Comm, Errors.Describe(e), changed);
 
 			return false;
 		}
@@ -450,7 +450,7 @@ public sealed class DeviceWorker : IDisposable
 		catch (Exception e) when (IsTransportFailure(e))
 		{
 			job.Done.TrySetResult(job.Items.Select(_ => WriteOutcome.Fail("Connection lost: " +
-				e.Message)).ToArray());
+				Errors.Describe(e))).ToArray());
 			WriteFail += job.Items.Count;
 
 			throw;
@@ -556,10 +556,11 @@ public sealed class DeviceWorker : IDisposable
 
 	private void OnConnectionLost(Exception e, long now, List<Point> changed)
 	{
-		Log.Warn($"{Config.Name} ({Key}): connection lost: {e.Message}");
+		string error = Errors.Describe(e);
+		Log.Warn($"{Config.Name} ({Key}): connection lost: {error}");
 		CloseConnection();
-		StartBackoff(now, e.Message);
-		MarkAll(Status.Comm, e.Message, changed);
+		StartBackoff(now, error);
+		MarkAll(Status.Comm, error, changed);
 	}
 
 	private void StartBackoff(long now, string error)

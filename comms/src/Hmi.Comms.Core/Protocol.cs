@@ -90,6 +90,23 @@ public interface IReadSink
 
 public readonly record struct WriteItem(Point Point, object? Raw);
 
+public static class Errors
+{
+	/// <summary>
+	/// The message worth showing a person: task and socket layers wrap the
+	/// real failure ("One or more errors occurred. (Connection refused)").
+	/// </summary>
+	public static string Describe(Exception e)
+	{
+		while (e is AggregateException { InnerExceptions.Count: 1 } a)
+		{
+			e = a.InnerExceptions[0];
+		}
+
+		return e.Message;
+	}
+}
+
 /// <summary>The connection is gone; the worker reconnects with backoff.</summary>
 public sealed class CommsLostException : Exception
 {

@@ -528,7 +528,7 @@ internal sealed class DataSession : ISessionHandler
 			}
 			catch (Exception e)
 			{
-				error = e.Message;
+				error = Errors.Describe(e);
 			}
 		}
 
