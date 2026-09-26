@@ -2120,6 +2120,41 @@ function createRuntimeWindow()
 		log.error('HMI runtime renderer gone: ' + details.reason);
 	});
 
+	win.webContents.on('console-message', (e) =>
+	{
+		if (e.level === 'warning' || e.level === 'error')
+		{
+			log.warn('HMI runtime console: ' + e.message);
+		}
+	});
+
+	// The exit shortcut, Ctrl+Alt+Shift+Q, caught here so it works even if the
+	// page is stuck
+	win.webContents.on('before-input-event', (event, input) =>
+	{
+		if (input.type !== 'keyDown' || input.code !== 'KeyQ' || !input.shift ||
+			!input.alt || !(input.control || input.meta))
+		{
+			return;
+		}
+
+		event.preventDefault();
+
+		switch (hmiRuntime.exit.mode)
+		{
+			case 'shortcut':
+				log.info('HMI runtime: exit by shortcut');
+				hmiRuntimeExitAllowed = true;
+				app.quit();
+				break;
+			case 'password':
+				win.webContents.send('hmiRuntimeExitPrompt');
+				break;
+			default:
+				log.info('HMI runtime: exit shortcut ignored (exit is disabled)');
+		}
+	});
+
 	win.on('closed', () =>
 	{
 		windowsRegistry.splice(windowsRegistry.indexOf(win), 1);
