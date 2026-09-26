@@ -9,18 +9,14 @@ import zlib from 'zlib';
 import log from'electron-log';
 import { parseDrawioArgs, formatHelp, validFormatRegExp as validFormatRegExpImport } from './args.js';
 import { parseLastWinSize, placeWindowOnDisplays } from './window-bounds.js';
-import { getUpdateChannel } from './update-channel.js';
-import elecUpPkg from 'electron-updater';
-const {autoUpdater} = elecUpPkg;
 import {PDFDocument, PDFHexString, PDFName} from '@cantoo/pdf-lib';
 import Store from 'electron-store';
-import ProgressBar from './progress-bar.js';
 import contextMenu from 'electron-context-menu';
 import {spawn, exec} from 'child_process';
-import {disableUpdate as disUpPkg} from './disableUpdate.js';
 import {CommsSupervisor, resolveExecutable as resolveCommsExecutable} from './comms/CommsSupervisor.js';
 import {CommsSession, validateCommsArgs} from './comms/CommsSession.js';
 import {Publisher} from './publish/Publisher.js';
+import {PRODUCT_NAME, ISSUES_URL} from './brand.js';
 import {findRuntimeDir, loadRuntimeConfig, runtimeUserDataDir, runtimeWindowOptions, mayExit,
 		readRuntimeProject, publicRuntimeInfo} from './runtime/RuntimeMode.js';
 
@@ -67,7 +63,7 @@ catch (e)
 
 // One-shot migration: detect whether this is a fresh install or an update,
 // so we can seed the drawio Configuration's defaultAdaptiveColors accordingly.
-// 'auto' for fresh installs (matches drawio.com behaviour), 'simple' for
+// 'auto' for fresh installs (matches the web editor's behaviour), 'simple' for
 // updates (preserves what desktop users have been seeing historically).
 // Returns 'auto' / 'simple' / 'none' on the first launch with this code,
 // null on every subsequent launch. Safe to call before app.whenReady().
@@ -101,98 +97,10 @@ function detectInitialAdaptiveColorsDefault()
 	return mode;
 }
 
-const disableUpdate = hmiRuntime != null || disUpPkg() ||
-						process.env.DRAWIO_DISABLE_UPDATE === 'true' ||
-						process.argv.indexOf('--disable-update') !== -1 ||
-						fs.existsSync('/.flatpak-info'); //This file indicates running in flatpak sandbox
-const silentUpdate = !disableUpdate && (process.env.DRAWIO_NO_SILENT_UPDATE !== 'true' &&
-										process.argv.indexOf('--no-silent-update') === -1); // Defaults to silent update if not disabled explicitly
-let manualUpdateCheck = false; // Set when the user clicks "Check for updates" so the manual flow stays interactive even when silentUpdate is on
-autoUpdater.logger = log
-autoUpdater.logger.transports.file.level = 'error'
-autoUpdater.logger.transports.console.level = 'error'
-// autoDownload is always false: we trigger downloadUpdate() explicitly so silent vs. interactive paths can branch on manualUpdateCheck
-autoUpdater.autoDownload = false
-autoUpdater.autoInstallOnAppQuit = silentUpdate
-
-// A runtime keeps a startup and status log for diagnosing a target PC remotely
-if (hmiRuntime != null)
-{
-	log.transports.file.level = 'info';
-}
-
-const UPDATE_DOWNLOAD_URL = 'https://get.draw.io';
-let updateFailureDialogShown = false;
-
-// Shows a user-facing fallback message when the in-app updater fails for any reason.
-// Deduped within a short window so a single underlying failure (which can fan out into
-// both a sync throw and an 'error' event) doesn't produce stacked dialogs.
-function notifyUpdateFailure(err, context)
-{
-	manualUpdateCheck = false;
-
-	try { log.error('Update failure (' + (context || 'unknown') + '):', err); }
-	catch (e) { /* swallow logger errors */ }
-
-	if (updateFailureDialogShown) return;
-	updateFailureDialogShown = true;
-	setTimeout(() => { updateFailureDialogShown = false; }, 5000);
-
-	try
-	{
-		dialog.showMessageBox(
-		{
-			type: 'error',
-			title: 'Update Error',
-			message: 'There was a problem updating draw.io.',
-			detail: 'Please manually download and update from ' + UPDATE_DOWNLOAD_URL
-		});
-	}
-	catch (dialogErr)
-	{
-		try { log.error('Failed to show update error dialog:', dialogErr); }
-		catch (e) { /* swallow */ }
-	}
-}
-
-// Invokes an autoUpdater method, catching synchronous throws (e.g. NPEs deep inside
-// electron-updater) and unhandled promise rejections, routing both to the fallback dialog.
-function safeUpdaterCall(label, fn)
-{
-	try
-	{
-		const result = fn();
-
-		if (result != null && typeof result.catch === 'function')
-		{
-			result.catch(err => notifyUpdateFailure(err, label));
-		}
-
-		return result;
-	}
-	catch (err)
-	{
-		notifyUpdateFailure(err, label);
-		return null;
-	}
-}
-
-// Wraps an event listener so an exception in the handler can't escape and tear down
-// the updater (or, worse, crash the process via an unhandled exception in a callback).
-function safeUpdaterListener(label, fn)
-{
-	return function(...args)
-	{
-		try
-		{
-			return fn.apply(this, args);
-		}
-		catch (err)
-		{
-			notifyUpdateFailure(err, label);
-		}
-	};
-}
+// The log (userData/logs/main.log) is for diagnosing an installation, a
+// runtime's on a target PC especially
+log.transports.file.level = 'info';
+log.transports.console.level = 'warn';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
@@ -661,7 +569,8 @@ var queryObj = {
 	'picker': 0,
 	'mode': 'device',
 	'export': 'https://convert.diagrams.net/node/export',
-	'disableUpdate': disableUpdate? 1 : 0,
+	// There is no updater: this hides the editor's Check for Updates item
+	'disableUpdate': 1,
 	'enableSpellCheck': enableSpellCheck? 1 : 0,
 	'enableStoreBkp': enableStoreBkp? 1 : 0,
 	'isGoogleFontsEnabled': isGoogleFontsEnabled? 1 : 0
@@ -1815,15 +1724,6 @@ app.whenReady().then(() =>
 
 	ipcMain.on('toggleFullscreen', toggleFullscreen);
 
-	function checkForUpdatesFn(e)
-	{
-		if (e != null && e.senderFrame != null &&
-			!validateSender(e.senderFrame)) return null;
-
-		manualUpdateCheck = true;
-		safeUpdaterCall('checkForUpdates (manual)', () => autoUpdater.checkForUpdates());
-	};
-
 	var zoomSteps = [0.25, 0.33, 0.5, 0.67, 0.75, 0.8, 0.9, 1,
 		1.1, 1.25, 1.5, 1.75, 2, 2.5, 3, 4, 5];
 
@@ -1869,54 +1769,6 @@ app.whenReady().then(() =>
 		win.webContents.zoomFactor = 1;
 	};
 
-	let checkForUpdates = {
-		label: 'Check for updates',
-		click: checkForUpdatesFn
-	}
-
-	let autoCheckForUpdates = {
-		label: 'Check for Updates Automatically',
-		type: 'checkbox',
-		checked: store == null || store.get('dontCheckUpdates') !== true,
-		click: (menuItem) =>
-		{
-			if (store != null)
-			{
-				store.set('dontCheckUpdates', !menuItem.checked);
-			}
-		}
-	}
-
-	function setUpdateIntervalFn()
-	{
-		const hours = [24, 48, 72, 168];
-		const currentHours = store?.get('updateCheckIntervalHours') ?? DEFAULT_UPDATE_CHECK_HOURS;
-		const buttons = hours.map(h => h === 168 ? '1 week' : `${h} hours`);
-		buttons.push('Cancel');
-
-		dialog.showMessageBox(win,
-		{
-			type: 'question',
-			title: 'Update Check Interval',
-			message: 'How often should draw.io check for updates?',
-			detail: `Current interval: ${currentHours === 168 ? '1 week' : currentHours + ' hours'}`,
-			buttons: buttons,
-			defaultId: hours.indexOf(currentHours) >= 0 ? hours.indexOf(currentHours) : hours.indexOf(DEFAULT_UPDATE_CHECK_HOURS),
-			cancelId: buttons.length - 1
-		}).then(result =>
-		{
-			if (result.response < hours.length && store != null)
-			{
-				store.set('updateCheckIntervalHours', hours[result.response]);
-			}
-		});
-	}
-
-	let setUpdateInterval = {
-		label: 'Set Update Check Interval...',
-		click: setUpdateIntervalFn
-	}
-
 	let zoomIn = {
 		label: 'Zoom In',
 		click: zoomInFn
@@ -1932,7 +1784,6 @@ app.whenReady().then(() =>
 		click: resetZoomFn
 	};
 
-	ipcMain.on('checkForUpdates', checkForUpdatesFn);
 	ipcMain.on('zoomIn', zoomInFn);
 	ipcMain.on('zoomOut', zoomOutFn);
 	ipcMain.on('resetZoom', resetZoomFn);
@@ -1944,15 +1795,12 @@ app.whenReady().then(() =>
 	      submenu: [
 	        {
 	          label: 'About ' + app.name,
-	          click() { shell.openExternal('https://www.drawio.com'); }
+	          click() { BrowserWindow.getFocusedWindow()?.webContents.send('hmiShowAbout'); }
 	        },
 	        {
-	          label: 'Support',
-	          click() { shell.openExternal('https://github.com/jgraph/drawio-desktop/issues'); }
+	          label: 'Report a Problem',
+	          click() { shell.openExternal(ISSUES_URL); }
 			},
-			checkForUpdates,
-			autoCheckForUpdates,
-			setUpdateInterval,
 	        { type: 'separator' },
 			resetZoom,
 			zoomIn,
@@ -1983,11 +1831,6 @@ app.whenReady().then(() =>
 	      ]
 	    }]
 	    
-	    if (disableUpdate)
-		{
-			template[0].submenu.splice(2, 3);
-		}
-		
 		const menuBar = menu.buildFromTemplate(template)
 		menu.setApplicationMenu(menuBar)
 	}
@@ -1996,31 +1839,6 @@ app.whenReady().then(() =>
 		menu.setApplicationMenu(null)
 	}
 	
-	const updateChannel = getUpdateChannel(process.platform, process.arch);
-
-	safeUpdaterCall('setFeedURL', () => autoUpdater.setFeedURL({
-		provider: 'github',
-		repo: 'drawio-desktop',
-		owner: 'jgraph',
-		...(updateChannel != null ? {channel: updateChannel} : {})
-	}))
-	
-	// Cache update check - configurable interval (default: 24 hours)
-	const DEFAULT_UPDATE_CHECK_HOURS = 24;
-	const updateCheckHours = store?.get('updateCheckIntervalHours') ?? DEFAULT_UPDATE_CHECK_HOURS;
-	const UPDATE_CHECK_INTERVAL = updateCheckHours * 60 * 60 * 1000;
-	const lastUpdateCheck = store?.get('lastUpdateCheck') || 0;
-	const shouldCheckUpdates = Date.now() - lastUpdateCheck > UPDATE_CHECK_INTERVAL;
-	
-	if (store == null || (!disableUpdate && !store.get('dontCheckUpdates') && shouldCheckUpdates))
-	{
-		if (store != null)
-		{
-			store.set('lastUpdateCheck', Date.now());
-		}
-		
-		safeUpdaterCall('checkForUpdates (boot)', () => autoUpdater.checkForUpdates());
-	}
 })
 
 //Quit from the dock context menu should quit the application directly
@@ -2395,8 +2213,8 @@ async function handlePublishRequest(contents, args)
 	}
 }
 
-// The hmi-comms PLC server, created on first use so plain draw.io never
-// starts it.
+// The hmi-comms PLC server, created on first use so the editor never starts
+// it for a plain diagram.
 let commsSupervisor = null;
 
 function getCommsSupervisor()
@@ -2624,178 +2442,6 @@ app.on('web-contents-created', (event, contents) => {
 	})
 })
 
-autoUpdater.on('error', e => notifyUpdateFailure(e, 'autoUpdater error event'))
-
-autoUpdater.on('update-not-available', safeUpdaterListener('update-not-available', (info) =>
-{
-	if (!manualUpdateCheck) return; // Suppress dialog for boot-time silent checks
-
-	manualUpdateCheck = false;
-	dialog.showMessageBox(
-	{
-		type: 'info',
-		title: 'No updates found',
-		message: 'Your application is up-to-date',
-	})
-}))
-
-// The download listeners below are registered once here, not inside the update prompt
-// callback, so repeated manual checks can't stack duplicates (a second install dialog,
-// writes to closed progress bars). updateProgressBar is null unless a manual download
-// is in progress; the silent boot-time download keeps it null, so these listeners
-// no-op and autoInstallOnAppQuit handles the install without any UI.
-var updateProgressBar = null;
-var updateFirstProg = true;
-
-function reportUpdateError(e)
-{
-	try
-	{
-		updateProgressBar.detail = 'Error occurred while fetching updates. ' + (e && e.message? e.message : e)
-		updateProgressBar._window.setClosable(true);
-	}
-	catch (err)
-	{
-		notifyUpdateFailure(err, 'reportUpdateError');
-	}
-}
-
-autoUpdater.on('error', safeUpdaterListener('download error', e => {
-	if (updateProgressBar == null) return;
-
-	if (updateProgressBar._window != null)
-	{
-		reportUpdateError(e);
-	}
-	else
-	{
-		updateProgressBar.on('ready', function() {
-			reportUpdateError(e);
-		});
-	}
-}))
-
-autoUpdater.on('download-progress', safeUpdaterListener('download-progress', (d) => {
-	if (updateProgressBar == null) return;
-
-	//On mac, download-progress event is not called, so the indeterminate progress will continue until download is finished
-	var percent = d.percent;
-
-	if (percent)
-	{
-		percent = Math.round(percent * 100)/100;
-	}
-
-	if (updateFirstProg)
-	{
-		updateFirstProg = false;
-		updateProgressBar.close();
-
-		var progressBar = new ProgressBar({
-			indeterminate: false,
-			title: 'draw.io Update',
-			text: 'Downloading draw.io update...',
-			detail: `${percent}% ...`,
-			initialValue: percent
-		});
-
-		updateProgressBar = progressBar;
-
-		progressBar
-				.on('completed', function() {
-					progressBar.detail = 'Download completed.';
-				})
-				.on('aborted', function(value) {
-					if (__DEV__)
-					{
-						log.error(`progress aborted... ${value}`);
-					}
-				})
-				.on('progress', function(value) {
-					progressBar.detail = `${value}% ...`;
-				})
-				.on('ready', function() {
-					//InitialValue doesn't set the UI! so this is needed to render it correctly
-					progressBar.value = percent;
-				});
-	}
-	else
-	{
-		updateProgressBar.value = percent;
-	}
-}));
-
-autoUpdater.on('update-downloaded', safeUpdaterListener('update-downloaded', (info) => {
-	if (updateProgressBar == null) return;
-
-	// The window must always be closed here: unlike electron-progressbar,
-	// ProgressBar has no closeOnComplete, so a completed bar stays open
-	// and would cover the install prompt [jgraph/drawio-desktop#2516]
-	updateProgressBar.close()
-	updateProgressBar = null;
-
-	// Ask user to update the app
-	dialog.showMessageBox(
-	{
-		type: 'question',
-		buttons: ['Install', 'Later'],
-		defaultId: 0,
-		message: 'A new version of ' + app.name + ' has been downloaded',
-		detail: 'It will be installed the next time you restart the application',
-	}).then(result =>
-	{
-		if (result.response === 0)
-		{
-			setTimeout(() => safeUpdaterCall('quitAndInstall', () => autoUpdater.quitAndInstall()), 1)
-		}
-	})
-}));
-
-autoUpdater.on('update-available', safeUpdaterListener('update-available', (info) =>
-{
-	// Boot-time silent path: download in the background; autoInstallOnAppQuit handles install
-	if (silentUpdate && !manualUpdateCheck)
-	{
-		safeUpdaterCall('downloadUpdate (silent)', () => autoUpdater.downloadUpdate());
-		return;
-	}
-
-	manualUpdateCheck = false;
-
-	dialog.showMessageBox(
-	{
-		type: 'question',
-		buttons: ['Ok', 'Cancel', 'Don\'t Ask Again'],
-		title: 'Confirm draw.io Update',
-		message: `draw.io update available (${app.getVersion()} → ${info.version}).\n\nWould you like to download and install new version?`,
-		detail: 'Application will automatically restart to apply update after download',
-	}).then( result =>
-	{
-		if (result.response === 0)
-		{
-			// Reset the per-download state targeted by the module-level download listeners
-			if (updateProgressBar != null)
-			{
-				updateProgressBar.close();
-			}
-
-			updateFirstProg = true;
-			updateProgressBar = new ProgressBar({
-				title: 'draw.io Update',
-				text: 'Downloading draw.io update...'
-			});
-
-			safeUpdaterCall('downloadUpdate (manual)', () => autoUpdater.downloadUpdate())
-		}
-		else if (result.response === 2 && store != null)
-		{
-			//save in settings don't check for updates
-			store.set('dontCheckUpdates', true)
-		}
-	})
-}))
-
-//Pdf export
 const MICRON_TO_PIXEL = 264.58 		//264.58 micron = 1 pixel
 const PIXELS_PER_INCH = 100.117		// Usually it is 100 pixels per inch but this give better results
 const PNG_CHUNK_IDAT = 1229209940;
@@ -3059,7 +2705,7 @@ async function mergePdfs(pdfFiles, xml, annots)
 
 	// Converts to PDF 1.7 with compression
 	const pdfDoc = await PDFDocument.load(pdfFiles[0]);
-	pdfDoc.setCreator('diagrams.net');
+	pdfDoc.setCreator(PRODUCT_NAME);
 
 	// KNOWN: Attachments produce smaller files but break
 	// internal links in pdf-lib so using Subject for now

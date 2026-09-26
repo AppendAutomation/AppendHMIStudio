@@ -60,21 +60,21 @@ function fakeTemplate()
 
 	if (fs.existsSync(samplePe))
 	{
-		put('draw.io.exe', fs.readFileSync(samplePe));
+		put('Append HMI Studio.exe', fs.readFileSync(samplePe));
 	}
 	else
 	{
-		put('draw.io.exe', 'MZ fake exe');
+		put('Append HMI Studio.exe', 'MZ fake exe');
 	}
 
 	put('ffmpeg.dll');
-	put('Uninstall draw.io.exe');
+	put('Uninstall Append HMI Studio.exe');
 	put('locales/en-US.pak');
 	put('resources/app.asar');
 	put('resources/app-update.yml');
 	put('resources/comms/hmi-comms.exe');
 	put('resources/nsis/bin/makensis.exe');
-	put('resources/runtime/win-x64/draw.io.exe');
+	put('resources/runtime/win-x64/Append HMI Studio.exe');
 
 	return dir;
 }
@@ -108,15 +108,15 @@ describe('NsisScript helpers', () =>
 	{
 		assert.equal(parseFileBytes('File: "app.asar" 1234 bytes'), 1234);
 		assert.equal(parseFileBytes('File: "app.asar" [compress] 1234 bytes'), 1234);
-		assert.equal(parseFileBytes('File: "draw.io.exe"->"$INSTDIR\\P.exe" [compress] 3299/6656 bytes'), 6656);
+		assert.equal(parseFileBytes('File: "Append HMI Studio.exe"->"$INSTDIR\\P.exe" [compress] 3299/6656 bytes'), 6656);
 		assert.equal(parseFileBytes('File: Descending to: "locales"'), 0);
 	});
 });
 
 describe('buildNsisScript', () =>
 {
-	const template = {dir: '/t', exe: 'draw.io.exe',
-		root: [{name: 'draw.io.exe'}, {name: 'ffmpeg.dll'}, {name: 'Uninstall draw.io.exe'},
+	const template = {dir: '/t', exe: 'Append HMI Studio.exe',
+		root: [{name: 'Append HMI Studio.exe'}, {name: 'ffmpeg.dll'}, {name: 'Uninstall Append HMI Studio.exe'},
 			{name: 'locales', dir: true}, {name: 'resources', dir: true}],
 		resources: [{name: 'app.asar'}, {name: 'app-update.yml'}, {name: 'comms', dir: true},
 			{name: 'nsis', dir: true}, {name: 'runtime', dir: true}]};
@@ -132,13 +132,13 @@ describe('buildNsisScript', () =>
 	{
 		const s = script();
 
-		assert.match(s, /File "\/oname=\$\{EXE\}" "\/t\/draw\.io\.exe"/);
+		assert.match(s, /File "\/oname=\$\{EXE\}" "\/t\/Append HMI Studio\.exe"/);
 		assert.match(s, /File "\/t\/ffmpeg\.dll"/);
 		assert.match(s, /File \/r "\/t\/locales"/);
 		assert.match(s, /File "\/t\/resources\/app\.asar"/);
 		assert.match(s, /File \/r "\/t\/resources\/comms"/);
 		assert.match(s, /File \/r "\/s\/hmi-runtime\/\*\.\*"/);
-		assert.doesNotMatch(s, /Uninstall draw\.io\.exe/);
+		assert.doesNotMatch(s, /Uninstall Append HMI Studio\.exe/);
 		assert.doesNotMatch(s, /resources\/nsis|resources\/runtime"|app-update/);
 	});
 
@@ -245,9 +245,9 @@ describe('template and NSIS resolution', () =>
 	test('a packaged Windows editor is its own template', () =>
 	{
 		const dir = fakeTemplate();
-		const t = resolveTemplate({platform: 'win32', isPackaged: true, execPath: path.join(dir, 'draw.io.exe')});
+		const t = resolveTemplate({platform: 'win32', isPackaged: true, execPath: path.join(dir, 'Append HMI Studio.exe')});
 
-		assert.deepEqual(t, {dir: dir, exe: 'draw.io.exe'});
+		assert.deepEqual(t, {dir: dir, exe: 'Append HMI Studio.exe'});
 	});
 
 	test('packaged Linux/macOS editors use resources/runtime/win-x64', () =>
@@ -357,10 +357,10 @@ describe('Publisher build', {skip: !nsisPresent && 'run npm run fetch-nsis'}, ()
 			assert.match(list, /Line 3 HMI\.exe/);
 			assert.match(list, /resources\/hmi-runtime\/icon\.ico/);
 			assert.match(list, /resources\/hmi-runtime\/runtime\.json/);
-			assert.match(list, /resources\/hmi-runtime\/project\.drawio-hmi/);
+			assert.match(list, /resources\/hmi-runtime\/project\.ahmi/);
 			assert.match(list, /resources\/comms\/hmi-comms\.exe/);
 			assert.match(list, /locales\/en-US\.pak/);
-			assert.doesNotMatch(list, /draw\.io\.exe|resources\/nsis|resources\/runtime\/|app-update/);
+			assert.doesNotMatch(list, /Append HMI Studio\.exe|resources\/nsis|resources\/runtime\/|app-update/);
 		}
 	});
 

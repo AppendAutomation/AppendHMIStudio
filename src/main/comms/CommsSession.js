@@ -94,7 +94,7 @@ export class CommsSession
 			ws.onopen = () =>
 			{
 				this.ws = ws;
-				this.send({t: 'hello', v: 1, token: info.token, client: 'drawio-desktop-hmi'})
+				this.send({t: 'hello', v: 1, token: info.token, client: 'append-hmi-studio'})
 					.then((reply) =>
 					{
 						settled = true;

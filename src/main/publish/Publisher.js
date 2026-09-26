@@ -1,6 +1,6 @@
 // HMI > Publish: builds a Windows installer for the open HMI project on any
 // host, without wine. It pairs a prebuilt Windows app (the "template") with
-// resources/hmi-runtime/{runtime.json, project.drawio-hmi}, which switches
+// resources/hmi-runtime/{runtime.json, project.ahmi}, which switches
 // that app into run-only mode (see ../runtime/RuntimeMode.js), and compiles
 // the lot with the bundled NSIS.
 //
@@ -17,6 +17,7 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import * as resedit from 'resedit';
+import {WINDOWS_EXE} from '../brand.js';
 import {buildNsisScript, parseFileBytes, windowsFileName, fourPartVersion, SKIP_ROOT, SKIP_RESOURCES} from './NsisScript.js';
 
 export const SCOPES = ['user', 'machine'];
@@ -39,12 +40,12 @@ export function resolveTemplate({platform, isPackaged, execPath, resourcesPath, 
 	else if (isPackaged)
 	{
 		dir = path.join(resourcesPath, 'runtime', 'win-x64');
-		exe = 'draw.io.exe';
+		exe = WINDOWS_EXE;
 	}
 	else
 	{
 		dir = path.join(appPath, 'dist-win-runtime', 'win-unpacked');
-		exe = 'draw.io.exe';
+		exe = WINDOWS_EXE;
 	}
 
 	const need = [exe, path.join('resources', 'app.asar'), path.join('resources', 'comms', 'hmi-comms.exe')];
@@ -145,7 +146,7 @@ export function runtimeJson(opts)
 	return JSON.stringify({
 		productName: opts.productName,
 		version: opts.version,
-		project: 'project.drawio-hmi',
+		project: 'project.ahmi',
 		windowMode: opts.runtime.windowMode,
 		width: opts.width,
 		height: opts.height,
@@ -311,7 +312,7 @@ export class Publisher extends EventEmitter
 			const runtimeDir = path.join(stage, 'hmi-runtime');
 			await fs.promises.mkdir(runtimeDir);
 			await fs.promises.writeFile(path.join(runtimeDir, 'runtime.json'), runtimeJson(opts));
-			await fs.promises.writeFile(path.join(runtimeDir, 'project.drawio-hmi'), projectXml);
+			await fs.promises.writeFile(path.join(runtimeDir, 'project.ahmi'), projectXml);
 
 			if (iconPath != null)
 			{

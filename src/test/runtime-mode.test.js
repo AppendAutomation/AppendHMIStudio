@@ -72,7 +72,7 @@ describe('loadRuntimeConfig', () =>
 		assert.equal(c.productName, 'Line 3');
 		assert.equal(c.windowMode, 'kiosk');
 		assert.equal(c.exit.mode, 'shortcut');
-		assert.equal(c.projectPath, path.join(dir, 'project.drawio-hmi'));
+		assert.equal(c.projectPath, path.join(dir, 'project.ahmi'));
 		assert.equal(c.width, 1024);
 		assert.equal(c.height, 768);
 	});
@@ -124,8 +124,10 @@ describe('runtimeUserDataDir', () =>
 	test('its own folder, never the editor\'s', () =>
 	{
 		assert.equal(runtimeUserDataDir('/appdata', {productName: 'Line 3'}), path.join('/appdata', 'Line 3'));
-		assert.equal(runtimeUserDataDir('/appdata', {productName: 'draw.io'}), path.join('/appdata', 'draw.io Runtime'));
-		assert.equal(runtimeUserDataDir('/appdata', {productName: 'DRAWIO'}), path.join('/appdata', 'DRAWIO Runtime'));
+		assert.equal(runtimeUserDataDir('/appdata', {productName: 'Append HMI Studio'}),
+			path.join('/appdata', 'Append HMI Studio Runtime'));
+		assert.equal(runtimeUserDataDir('/appdata', {productName: 'append hmi studio'}),
+			path.join('/appdata', 'append hmi studio Runtime'));
 	});
 });
 
@@ -191,7 +193,7 @@ describe('readRuntimeProject', () =>
 	{
 		const dir = tempDir();
 		writeRuntime(dir, {});
-		fs.writeFileSync(path.join(dir, 'project.drawio-hmi'), '<mxfile/>');
+		fs.writeFileSync(path.join(dir, 'project.ahmi'), '<mxfile/>');
 		assert.equal(await readRuntimeProject(loadRuntimeConfig(dir)), '<mxfile/>');
 	});
 
@@ -199,7 +201,7 @@ describe('readRuntimeProject', () =>
 	{
 		const dir = tempDir();
 		writeRuntime(dir, {});
-		fs.mkdirSync(path.join(dir, 'project.drawio-hmi'));
+		fs.mkdirSync(path.join(dir, 'project.ahmi'));
 		await assert.rejects(readRuntimeProject(loadRuntimeConfig(dir)), /Not a usable/);
 	});
 });

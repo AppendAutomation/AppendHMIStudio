@@ -1,5 +1,5 @@
 // Run-only mode for published HMI packages. A package installs this same app
-// with resources/hmi-runtime/{runtime.json, project.drawio-hmi}; when that
+// with resources/hmi-runtime/{runtime.json, project.ahmi}; when that
 // folder exists (or --hmi-runtime <dir> names one) the app opens the project
 // straight into Run and nothing else: no editor chrome, no updater, no files.
 //
@@ -17,6 +17,7 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { parseDrawioArgs } from '../args.js';
+import { PRODUCT_NAME } from '../brand.js';
 
 export const RUNTIME_FOLDER = 'hmi-runtime';
 export const RUNTIME_CONFIG = 'runtime.json';
@@ -73,7 +74,7 @@ export function loadRuntimeConfig(dir)
 		throw new Error(file + ' is not a JSON object');
 	}
 
-	const project = typeof raw.project === 'string' && raw.project ? raw.project : 'project.drawio-hmi';
+	const project = typeof raw.project === 'string' && raw.project ? raw.project : 'project.ahmi';
 
 	// The project must sit in the runtime folder itself
 	if (path.basename(project) !== project)
@@ -120,7 +121,7 @@ export function runtimeUserDataDir(appData, config)
 {
 	let name = config.productName.replace(/\.+$/, '');
 
-	if (!name || /^draw\.?io$/i.test(name))
+	if (!name || name.toLowerCase() === PRODUCT_NAME.toLowerCase())
 	{
 		name = (name || 'HMI') + ' Runtime';
 	}

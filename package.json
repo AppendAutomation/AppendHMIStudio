@@ -1,7 +1,8 @@
 {
-  "name": "draw.io",
-  "version": "31.4.5",
-  "description": "draw.io desktop",
+  "name": "append-hmi-studio",
+  "productName": "Append HMI Studio",
+  "version": "1.0.0",
+  "description": "Append HMI Studio: design, run and publish HMI applications for PLCs",
   "exports": "./src/main/electron.js",
   "type": "module",
   "main": "src/main/electron.js",
@@ -10,12 +11,11 @@
   },
   "scripts": {
     "start": "electron .",
-    "sync": "node ./sync.cjs",
     "build-comms": "node comms/scripts/publish.mjs",
     "test-comms": "dotnet test comms/HmiComms.sln",
     "fetch-nsis": "node scripts/fetch-nsis.mjs",
     "build-win-runtime": "node scripts/build-win-runtime.mjs",
-    "test": "node --test src/test/cli-args.test.js src/test/msi-project-created.test.js src/test/window-bounds.test.js src/test/update-channel.test.js src/test/comms-supervisor.test.js src/test/comms-session.test.js src/test/publish-packaging.test.js src/test/runtime-mode.test.js src/test/publish.test.js",
+    "test": "node --test src/test/cli-args.test.js src/test/msi-project-created.test.js src/test/window-bounds.test.js src/test/comms-supervisor.test.js src/test/comms-session.test.js src/test/publish-packaging.test.js src/test/runtime-mode.test.js src/test/publish.test.js",
     "release-win": "electron-builder --config electron-builder-win.json --publish always",
     "release-win-arm64": "electron-builder --config electron-builder-win-arm64.json --publish always",
     "release-appx": "electron-builder --config electron-builder-appx.json --publish always",
@@ -24,20 +24,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:jgraph/drawio-desktop.git"
+    "url": "https://github.com/AppendAutomation/append-hmi-studio.git"
   },
   "keywords": [
-    "draw.io",
-    "diagram",
-    "flowchart",
-    "UML"
+    "HMI",
+    "SCADA",
+    "PLC",
+    "EtherNet/IP",
+    "Modbus"
   ],
-  "author": "JGraph <support@draw.io>",
+  "author": "Append Automation <dhuntlinux@gmail.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/jgraph/drawio-desktop/issues"
+    "url": "https://github.com/AppendAutomation/append-hmi-studio/issues"
   },
-  "homepage": "https://github.com/jgraph/drawio",
+  "homepage": "https://github.com/AppendAutomation/append-hmi-studio",
   "dependencies": {
     "@cantoo/pdf-lib": "^2.7.3",
     "buffer": "^6.0.3",
@@ -46,7 +47,6 @@
     "electron-context-menu": "^5.0.0",
     "electron-log": "^5.4.4",
     "electron-store": "^11.0.2",
-    "electron-updater": "^6.8.9",
     "resedit": "^1.7.2",
     "tslib": "^2.8.1"
   },

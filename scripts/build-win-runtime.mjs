@@ -16,6 +16,7 @@ import {spawnSync} from 'child_process';
 import {fileURLToPath} from 'url';
 import fs from 'fs';
 import path from 'path';
+import {WINDOWS_EXE} from '../src/main/brand.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = path.join(root, 'dist-win-runtime');
@@ -39,7 +40,7 @@ run('npx', ['electron-builder', '--config', 'electron-builder-win.json', '--win'
 	'--publish', 'never', '-c.directories.output=dist-win-runtime'],
 	{DRAWIO_UNSIGNED: 'true'});
 
-const exe = path.join(out, 'win-unpacked', 'draw.io.exe');
+const exe = path.join(out, 'win-unpacked', WINDOWS_EXE);
 const comms = path.join(out, 'win-unpacked', 'resources', 'comms', 'hmi-comms.exe');
 
 for (const f of [exe, comms])
