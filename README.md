@@ -51,7 +51,7 @@ npm run dist-win          # Windows installer (on Linux too, no wine)
 npm run dist-linux        # AppImage and deb
 ```
 
-Licence and attribution
+License and attribution
 -----------------------
 
 Append HMI Studio is © 2026 Append Automation and is licensed under the Apache License 2.0 (see [LICENSE](LICENSE)).

@@ -4,7 +4,7 @@
 
 Append HMI Studio (Append Automation) is an Electron desktop app for designing, running and publishing HMI (operator screen) applications for PLCs. It is built on the draw.io editor, which is Append Automation's fork, included as the `drawio` git submodule (branch `hmi`), and on drawio-desktop. Both are by JGraph Ltd under the Apache License 2.0.
 
-- **Branding:** no draw.io branding may be shown to users (Apache 2.0 grants no trademark rights). The licence, NOTICE and the attribution in Help > About must stay.
+- **Branding:** no draw.io branding may be shown to users (Apache 2.0 grants no trademark rights). The license, NOTICE and the attribution in Help > About must stay.
 - **Repository:** https://github.com/AppendAutomation/append-hmi-studio
 - **License:** Apache 2.0 (`LICENSE`, `NOTICE`)
 - **Version:** `package.json` `version` (the product's own; the editor core version is `drawio/VERSION`, shown in About)
@@ -72,7 +72,7 @@ append-hmi-studio/
   - `src/test/brand.test.js` keeps them in step and fails on upstream names in `src/main` code.
 - **Editor branding** lives in fork-owned `js/hmi/HmiBrand.js`. It patches prototypes (all names survive in the minified bundles):
   - app name and logo;
-  - Help menu, About and licences (`HmiDialogs.showAbout`, fed by the `hmiApp.info` IPC);
+  - Help menu, About and licenses (`HmiDialogs.showAbout`, fed by the `hmiApp.info` IPC);
   - hidden help icons, the refused upstream links and the tab-bar repository link;
   - resource strings, re-parsed after the language bundle loads.
 - **Upstream files edited directly** (small merge surface):

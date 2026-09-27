@@ -38,7 +38,7 @@ To build locally instead, run `npm run dist-win` and `npm run dist-linux` (see `
 1. Run the AppImage, then install the deb (`sudo apt install ./….deb`).
 2. Check:
    - the menu entry and icon;
-   - Help > About (versions and licences);
+   - Help > About (versions and licenses);
    - HMI > Run against a device;
    - HMI > Publish produces an installer.
 

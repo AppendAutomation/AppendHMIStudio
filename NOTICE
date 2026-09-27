@@ -2,7 +2,7 @@ Append HMI Studio
 Copyright 2026 Append Automation
 
 This product includes software developed by third parties, used under the
-licences named below. Their copyright notices are retained in the source.
+licenses named below. Their copyright notices are retained in the source.
 
 -------------------------------------------------------------------------------
 draw.io (diagram editor) and drawio-desktop (Electron application)
@@ -28,6 +28,6 @@ hmi-comms uses:
   FluentModbus (MIT License) and the .NET runtime (MIT License).
 
 -------------------------------------------------------------------------------
-The Electron runtime and Chromium are distributed under their own licences,
+The Electron runtime and Chromium are distributed under their own licenses,
 included with the application as LICENSE.electron.txt and
 LICENSES.chromium.html.
