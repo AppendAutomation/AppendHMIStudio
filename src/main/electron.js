@@ -16,6 +16,7 @@ import {spawn, exec} from 'child_process';
 import {CommsSupervisor, resolveExecutable as resolveCommsExecutable} from './comms/CommsSupervisor.js';
 import {CommsSession, validateCommsArgs} from './comms/CommsSession.js';
 import {Publisher} from './publish/Publisher.js';
+import * as alarmLog from './alarms/AlarmLog.js';
 import {PRODUCT_NAME, ISSUES_URL} from './brand.js';
 import {findRuntimeDir, loadRuntimeConfig, runtimeUserDataDir, runtimeWindowOptions, mayExit,
 		readRuntimeProject, publicRuntimeInfo} from './runtime/RuntimeMode.js';
@@ -2025,7 +2026,43 @@ async function handleRuntimeRequest(contents, args)
 	}
 }
 
-// Help > About: versions, and the licence and notice texts the Apache
+// The alarm history (alarms/AlarmLog.js), in the editor's Run and in a
+// published runtime alike. The renderer names a store; main builds the path
+// under userData, which the file IPC would refuse.
+const prunedAlarmStores = new Set();
+
+async function handleAlarmRequest(args)
+{
+	const base = app.getPath('userData');
+	const store = alarmLog.storeName(args.store);
+
+	switch (args.action)
+	{
+		case 'hmiAlarms.append':
+		{
+			const count = await alarmLog.append(base, store, args.events);
+
+			if (!prunedAlarmStores.has(store))
+			{
+				prunedAlarmStores.add(store);
+				const removed = await alarmLog.prune(base, store, Date.now(), alarmLog.RETENTION_DAYS);
+
+				if (removed.length > 0)
+				{
+					log.info('Alarm history: removed ' + removed.length + ' old file(s) from ' + store);
+				}
+			}
+
+			return count;
+		}
+		case 'hmiAlarms.recent':
+			return alarmLog.recent(base, store, args.limit);
+		default:
+			throw new Error('unknown action: ' + args.action);
+	}
+}
+
+// Help > About: versions, and the license and notice texts the Apache
 // License asks to be passed on
 async function appInfo()
 {
@@ -4547,6 +4584,10 @@ ipcMain.on("rendererReq", async (event, args) =>
 			else if (args.action === 'hmiApp.info')
 			{
 				ret = await appInfo();
+			}
+			else if (typeof args.action === 'string' && args.action.startsWith('hmiAlarms.'))
+			{
+				ret = await handleAlarmRequest(args);
 			}
 
 			break;
