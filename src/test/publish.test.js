@@ -10,7 +10,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { buildNsisScript, nsisString, windowsFileName, fourPartVersion, parseFileBytes } from '../main/publish/NsisScript.js';
 import { Publisher, resolveTemplate, resolveNsis, normaliseOptions, runtimeJson, installerName, brandExecutable,
-	checkIcon } from '../main/publish/Publisher.js';
+	checkIcon, scanTemplate } from '../main/publish/Publisher.js';
+import { createRequire } from 'module';
 import * as resedit from 'resedit';
 import { loadRuntimeConfig, mayExit, hashExitPassword } from '../main/runtime/RuntimeMode.js';
 
@@ -310,6 +311,63 @@ const nsisPresent = (() =>
 })();
 
 const has7z = spawnSync('7z', ['i'], {encoding: 'utf8'}).status === 0;
+
+describe('scanTemplate', () =>
+{
+	test('sees app.asar as a file and sizes what a package carries', () =>
+	{
+		const dir = fakeTemplate();
+		const scan = scanTemplate(dir, null);
+		const asar = scan.resources.find(e => e.name === 'app.asar');
+
+		assert.equal(asar.dir, false);
+		assert.equal(scan.resources.find(e => e.name === 'nsis').dir, true);
+		assert.ok(scan.total > 0);
+	});
+
+	// Electron's fs shows .asar archives as folders; the editor's main process
+	// runs the Publisher there, where a nested archive made publishing fail
+	const electronBin = (() =>
+	{
+		try
+		{
+			return createRequire(import.meta.url)('electron');
+		}
+		catch (e)
+		{
+			return null;
+		}
+	})();
+
+	test('inside Electron too', {skip: (electronBin == null || !fs.existsSync(electronBin)) && 'no electron'}, async () =>
+	{
+		const asarLib = createRequire(import.meta.url)('@electron/asar');
+		const dir = fakeTemplate();
+		const src = tempDir();
+		fs.mkdirSync(path.join(src, 'dist'));
+		fs.writeFileSync(path.join(src, 'dist', 'inner.txt'), 'x');
+		const asarPath = path.join(dir, 'resources', 'app.asar');
+		fs.rmSync(asarPath);
+		await asarLib.createPackage(src, asarPath);
+
+		const script = path.join(tempDir(), 'scan.mjs');
+		fs.writeFileSync(script, 'import {scanTemplate} from ' +
+			JSON.stringify(path.join(root, 'src', 'main', 'publish', 'Publisher.js')) + ';\n' +
+			'const s = scanTemplate(' + JSON.stringify(dir) + ', null);\n' +
+			'console.log(JSON.stringify({asarDir: s.resources.find(e => e.name === "app.asar").dir, total: s.total, ' +
+			'noAsar: process.noAsar === true}));\n');
+
+		const r = spawnSync(electronBin, [script], {encoding: 'utf8',
+			env: Object.assign({}, process.env, {ELECTRON_RUN_AS_NODE: '1'})});
+		assert.equal(r.status, 0, r.stderr);
+
+		const out = JSON.parse(r.stdout.trim().split('\n').pop());
+		assert.equal(out.asarDir, false);
+		assert.equal(out.noAsar, false, 'process.noAsar is restored');
+		// Walking into the archive would count its contents instead of its size
+		assert.equal(out.total, scanTemplate(dir, null).total);
+	});
+});
 
 describe('brandExecutable', {skip: !fs.existsSync(samplePe) && 'run npm run fetch-nsis'}, () =>
 {

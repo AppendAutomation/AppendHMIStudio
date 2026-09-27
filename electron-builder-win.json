@@ -17,6 +17,7 @@
     "!**/*.map",
     "!comms{,/**}",
     "!scripts{,/**}",
+    "!dist{,/**}",
     "!dist-win-runtime{,/**}",
     "!src/test{,/**}",
     "!doc{,/**}",

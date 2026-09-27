@@ -229,30 +229,73 @@ export function installerName(opts)
 	return windowsFileName(opts.productName) + '-' + opts.version + '-Setup.exe';
 }
 
-async function entries(dir)
+// Inside Electron, fs presents .asar archives as folders, but the template's
+// resources/app.asar is a file the installer copies whole. The scan runs with
+// that switched off, synchronously so nothing else in the main process runs
+// meanwhile (process.noAsar is process-wide).
+function withoutAsar(fn)
 {
-	return (await fs.promises.readdir(dir, {withFileTypes: true}))
+	const was = process.noAsar;
+	process.noAsar = true;
+
+	try
+	{
+		return fn();
+	}
+	finally
+	{
+		process.noAsar = was;
+	}
+}
+
+function entriesSync(dir)
+{
+	return fs.readdirSync(dir, {withFileTypes: true})
 		.map(d => ({name: d.name, dir: d.isDirectory()}))
 		.sort((a, b) => a.name.localeCompare(b.name));
 }
 
-async function treeSize(p)
+function treeSizeSync(p)
 {
-	const st = await fs.promises.lstat(p);
+	const st = fs.lstatSync(p);
 
-	if (!st.isDirectory())
+	return st.isDirectory() ? fs.readdirSync(p).reduce((t, n) => t + treeSizeSync(path.join(p, n)), 0) :
+		st.size;
+}
+
+// The template's top-level and resources/ entries and the bytes a package
+// carries (for the progress bar and Add/Remove Programs)
+export function scanTemplate(dir, runtimeDir)
+{
+	return withoutAsar(() =>
 	{
-		return st.size;
-	}
+		const root = entriesSync(dir);
+		const resources = entriesSync(path.join(dir, 'resources'));
+		let total = 0;
 
-	let total = 0;
+		for (const e of root)
+		{
+			if (e.name !== 'resources' && !SKIP_ROOT.some(r => r.test(e.name)))
+			{
+				total += treeSizeSync(path.join(dir, e.name));
+			}
+		}
 
-	for (const name of await fs.promises.readdir(p))
-	{
-		total += await treeSize(path.join(p, name));
-	}
+		for (const e of resources)
+		{
+			if (!SKIP_RESOURCES.includes(e.name))
+			{
+				total += treeSizeSync(path.join(dir, 'resources', e.name));
+			}
+		}
 
-	return total;
+		if (runtimeDir != null)
+		{
+			total += treeSizeSync(runtimeDir);
+		}
+
+		return {root, resources, total};
+	});
 }
 
 // One build at a time. Emits 'progress' {stage, percent, message}, where stage
@@ -334,30 +377,7 @@ export class Publisher extends EventEmitter
 			await brandExecutable(path.join(template.dir, template.exe), exeSource,
 				Object.assign({exeName, iconPath}, opts));
 
-			const root = await entries(template.dir);
-			const resources = await entries(path.join(template.dir, 'resources'));
-
-			// What the installer will carry, for the progress bar and the
-			// size shown in Add/Remove Programs
-			let total = 0;
-
-			for (const e of root)
-			{
-				if (e.name !== 'resources' && !SKIP_ROOT.some(r => r.test(e.name)))
-				{
-					total += await treeSize(path.join(template.dir, e.name));
-				}
-			}
-
-			for (const e of resources)
-			{
-				if (!SKIP_RESOURCES.includes(e.name))
-				{
-					total += await treeSize(path.join(template.dir, 'resources', e.name));
-				}
-			}
-
-			total += await treeSize(runtimeDir);
+			const {root, resources, total} = scanTemplate(template.dir, runtimeDir);
 
 			const outFile = path.join(stage, installerName(opts));
 			const script = buildNsisScript(Object.assign({}, opts, {

@@ -27,6 +27,9 @@ describe('publish packaging', () =>
 		{
 			const files = readConfig(name).files;
 			assert.ok(files.includes('!dist-win-runtime{,/**}'), name);
+			// electron-builder skips only its own output folder: the other
+			// build's packages in dist/ would otherwise land in app.asar
+			assert.ok(files.includes('!dist{,/**}'), name);
 			assert.ok(files.includes('!scripts{,/**}'), name);
 		}
 	});
