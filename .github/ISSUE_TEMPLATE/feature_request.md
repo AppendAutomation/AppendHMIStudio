@@ -4,7 +4,7 @@ about: Suggest an idea for this project
 
 ---
 
-* [ ] I agree to follow the [Code of Conduct](https://github.com/AppendAutomation/append-hmi-studio/blob/main/CODE_OF_CONDUCT.md) that this project adheres to.
+* [ ] I agree to follow the [Code of Conduct](https://github.com/AppendAutomation/AppendHMIStudio/blob/main/CODE_OF_CONDUCT.md) that this project adheres to.
 * [ ] I have searched the issue tracker for a feature request that matches the one I want to file, without success.
 
 **Is your feature request related to a problem? Please describe.**

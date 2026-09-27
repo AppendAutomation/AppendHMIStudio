@@ -46,7 +46,7 @@ For AI coding agents, [.claude/skills/append-hmi-studio](.claude/skills/append-h
 Download
 --------
 
-Releases are published at [github.com/AppendAutomation/append-hmi-studio/releases](https://github.com/AppendAutomation/append-hmi-studio/releases):
+Releases are published at [github.com/AppendAutomation/AppendHMIStudio/releases](https://github.com/AppendAutomation/AppendHMIStudio/releases):
 
 - `Append-HMI-Studio-<version>-Setup.exe`
   - Windows 10/11 x64 installer, for all users (administrator rights).
@@ -73,8 +73,8 @@ Building
 See [doc/BUILDING.md](doc/BUILDING.md). In short, with Node.js 22.12+ and the .NET 8 SDK:
 
 ```
-git clone --recursive https://github.com/AppendAutomation/append-hmi-studio.git
-cd append-hmi-studio
+git clone --recursive https://github.com/AppendAutomation/AppendHMIStudio.git
+cd AppendHMIStudio
 npm install
 npm start                 # run from source
 npm run dist-win          # Windows installer (on Linux too, no wine)

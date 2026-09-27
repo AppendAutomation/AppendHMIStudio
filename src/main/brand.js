@@ -10,5 +10,5 @@ export const APP_ID = 'com.appendautomation.hmistudio';
 export const WINDOWS_EXE = PRODUCT_NAME + '.exe';
 export const LINUX_EXECUTABLE = 'append-hmi-studio';
 
-export const HOMEPAGE_URL = 'https://github.com/AppendAutomation/append-hmi-studio';
+export const HOMEPAGE_URL = 'https://github.com/AppendAutomation/AppendHMIStudio';
 export const ISSUES_URL = HOMEPAGE_URL + '/issues';

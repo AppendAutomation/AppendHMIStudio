@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AppendAutomation/append-hmi-studio.git"
+    "url": "https://github.com/AppendAutomation/AppendHMIStudio.git"
   },
   "keywords": [
     "HMI",
@@ -34,9 +34,9 @@
   "author": "Append Automation <dhuntlinux@gmail.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/AppendAutomation/append-hmi-studio/issues"
+    "url": "https://github.com/AppendAutomation/AppendHMIStudio/issues"
   },
-  "homepage": "https://github.com/AppendAutomation/append-hmi-studio",
+  "homepage": "https://github.com/AppendAutomation/AppendHMIStudio",
   "dependencies": {
     "@cantoo/pdf-lib": "^2.7.3",
     "buffer": "^6.0.3",

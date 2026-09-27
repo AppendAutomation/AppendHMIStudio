@@ -5,14 +5,14 @@
 Append HMI Studio (Append Automation) is an Electron desktop app for designing, running and publishing HMI (operator screen) applications for PLCs. It is built on the draw.io editor, which is Append Automation's fork, included as the `drawio` git submodule (branch `hmi`), and on drawio-desktop. Both are by JGraph Ltd under the Apache License 2.0.
 
 - **Branding:** no draw.io branding may be shown to users (Apache 2.0 grants no trademark rights). The license, NOTICE and the attribution in Help > About must stay.
-- **Repository:** https://github.com/AppendAutomation/append-hmi-studio
+- **Repository:** https://github.com/AppendAutomation/AppendHMIStudio
 - **License:** Apache 2.0 (`LICENSE`, `NOTICE`)
 - **Version:** `package.json` `version` (the product's own; the editor core version is `drawio/VERSION`, shown in About)
 
 ## Quick Reference
 
 ```bash
-git clone --recursive https://github.com/AppendAutomation/append-hmi-studio.git
+git clone --recursive https://github.com/AppendAutomation/AppendHMIStudio.git
 npm install
 npm run build-comms        # hmi-comms PLC server (needs the .NET 8 SDK); --rid <rid> or --all
 npm start                  # HMI_ENV=dev npm start for DevTools and unminified editor sources
