@@ -34,7 +34,7 @@ Use the first of these that exists (check with `--help`; it must list `--hmi-bui
 | Linux deb install | `"/opt/Append HMI Studio/append-hmi-studio"` |
 | Linux AppImage | the `Append-HMI-Studio-*-x86_64.AppImage` file |
 | Windows install | `"C:\Program Files\Append HMI Studio\Append HMI Studio.exe"` |
-| Source checkout (`/home/dave/claude_spaces/drawio-desktop-hmi`) | `npx electron . --no-sandbox`, run from the repository root |
+| Source checkout (a clone of this repository, after `npm install`) | `npx electron . --no-sandbox`, run from the repository root |
 
 - **Display:** the modes open a hidden window, so they need a display. Use
   `xvfb-run STUDIO …` on a headless Linux box.

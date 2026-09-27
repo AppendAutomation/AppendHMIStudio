@@ -1,16 +1,47 @@
-.idea
-node_modules
-.project
+# Dependencies
+node_modules/
+
+# Build output
 /dist/
-/.classpath
-/.settings
-.DS_Store
-.claude/settings.local.json
-comms/publish/
-comms/src/*/bin/
-comms/src/*/obj/
-comms/test/*/bin/
-comms/test/*/obj/
-comms/test/*/TestResults/
+/dist-win-runtime/
+/out/
 build/nsis/
-dist-win-runtime/
+
+# hmi-comms (.NET) build output
+comms/publish/
+comms/**/bin/
+comms/**/obj/
+comms/**/TestResults/
+comms/**/artifacts/
+*.user
+*.suo
+
+# Local test and run settings (the in-app self test reads urlParams.json)
+/urlParams.json
+*.log
+npm-debug.log*
+coverage/
+.nyc_output/
+
+# Local secrets (signing uses HMI_SIGNING_* environment variables)
+.env
+.env.*
+*.pfx
+*.p12
+*.pem
+
+# Editors and OS
+.idea/
+.vscode/
+.vs/
+.project
+.classpath
+.settings/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Claude Code: keep the shared skill, not personal settings
+.claude/settings.local.json

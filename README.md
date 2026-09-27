@@ -3,6 +3,8 @@ Append HMI Studio
 
 **Append HMI Studio** designs operator screens (HMIs) for PLCs, runs them against live equipment, and publishes them as Windows installers for the target PC.
 
+![Append HMI Studio: an overview screen with a tank and its animation links](doc/images/studio.png)
+
 - **Design** screens on a diagram canvas, with tags, animation links, window properties and scripts.
 - **Run** them in the editor against real devices through the bundled comms server:
   - EtherNet/IP ControlLogix/CompactLogix;
@@ -16,6 +18,30 @@ Append HMI Studio
 - **Publish** a project as a Windows installer (HMI > Publish). It installs a locked, run-only copy of the app with the comms server, built on any platform. See [doc/HMI_PUBLISH.md](doc/HMI_PUBLISH.md).
 
 Projects are saved as `.ahmi` files. Files saved as `.drawio-hmi` by earlier builds still open.
+
+Getting started
+---------------
+
+1. **Tags:** in **HMI > Devices**, add your PLC (or use the simulator). Then define tags in **HMI > Tag Dictionary**.
+2. **Screens:** draw them on the canvas. Each page is a window of the application.
+3. **Animation:** select an object and add animation links on the **Animation** tab (colors, fill, movement, value display, touch actions).
+4. **Test:** **HMI > Run** runs the project against live or simulated data.
+5. **Deploy:** **HMI > Publish** builds a Windows installer for the target PC.
+
+Documentation
+-------------
+
+| Topic | Document |
+|---|---|
+| Alarms, system tags, alarm objects and history | [doc/HMI_ALARMS.md](doc/HMI_ALARMS.md) |
+| Users, access levels and login | [doc/HMI_SECURITY.md](doc/HMI_SECURITY.md) |
+| Publishing a runtime installer | [doc/HMI_PUBLISH.md](doc/HMI_PUBLISH.md) |
+| Command-line automation and the JSON project spec | [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md) |
+| The PLC comms server and its protocol | [comms/README.md](comms/README.md) |
+| Building and packaging | [doc/BUILDING.md](doc/BUILDING.md) |
+| Releases | [doc/RELEASE_PROCESS.md](doc/RELEASE_PROCESS.md) |
+
+For AI coding agents, [.claude/skills/append-hmi-studio](.claude/skills/append-hmi-studio/SKILL.md) is a Claude Code skill for building and publishing HMI applications from the command line.
 
 Download
 --------
@@ -54,6 +80,18 @@ npm start                 # run from source
 npm run dist-win          # Windows installer (on Linux too, no wine)
 npm run dist-linux        # AppImage and deb
 ```
+
+The repository uses submodules; after a plain clone, run `git submodule update --init --recursive`.
+
+| Path | Contents |
+|---|---|
+| `src/main/` | Electron main process: windows, IPC, run-only mode, Publish, alarm/retentive/user stores |
+| `drawio/` | Submodule: Append Automation's fork of the draw.io editor (branch `hmi`); the HMI code is in `src/main/webapp/js/hmi/` |
+| `comms/` | `hmi-comms`, the .NET 8 PLC communications server, with the `cslogix` and `cscomm3_slc` submodules in `comms/lib/` |
+| `scripts/` | Build scripts (`dist-win`, `dist-linux`, the Windows runtime template, icons, NSIS download) |
+| `build/` | Icons, signing and fuse hooks |
+| `src/test/` | Unit tests (`npm test`) |
+| `doc/` | Documentation |
 
 License and attribution
 -----------------------
