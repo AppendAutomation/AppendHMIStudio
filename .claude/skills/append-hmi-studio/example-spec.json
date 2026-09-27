@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "settings": {
+    "width": 1024,
+    "height": 768,
+    "startup": [
+      "Overview"
+    ],
+    "runtime": {
+      "windowMode": "kiosk",
+      "exit": "password",
+      "exitPassword": "change-me"
+    }
+  },
+  "devices": [
+    {
+      "name": "CLX",
+      "protocol": "logix",
+      "host": "192.168.2.118",
+      "options": {
+        "slot": 0
+      }
+    }
+  ],
+  "tags": [
+    {
+      "name": "Tank_Level",
+      "type": "IOReal",
+      "device": "CLX",
+      "address": "Numbers[0]",
+      "comment": "Day tank level",
+      "engUnits": "%",
+      "minEU": 0,
+      "maxEU": 100,
+      "alarms": {
+        "high": 90,
+        "hiHi": 95,
+        "deadband": 2
+      }
+    },
+    {
+      "name": "Pump_Run",
+      "type": "MemoryDiscrete",
+      "comment": "Pump running",
+      "onMsg": "Running",
+      "offMsg": "Stopped"
+    }
+  ],
+  "pages": [
+    {
+      "name": "Overview",
+      "background": "#f5f5f5",
+      "objects": [
+        {
+          "id": "title",
+          "type": "text",
+          "x": 20,
+          "y": 10,
+          "width": 400,
+          "height": 40,
+          "label": "Line 3 Overview",
+          "style": "fontSize=22;fontStyle=1;align=left;"
+        },
+        {
+          "id": "tank",
+          "type": "cylinder",
+          "x": 60,
+          "y": 80,
+          "width": 120,
+          "height": 200,
+          "label": "Tank",
+          "links": {
+            "percentFill.vertical": {
+              "expr": "Tank_Level",
+              "atMin": "0",
+              "atMax": "100"
+            },
+            "fillColor.analogAlarm": {
+              "tag": "Tank_Level"
+            }
+          }
+        },
+        {
+          "id": "level",
+          "type": "rect",
+          "x": 60,
+          "y": 290,
+          "width": 120,
+          "height": 30,
+          "links": {
+            "valueDisplay": {
+              "expr": "Tank_Level",
+              "format": "0.0",
+              "suffix": " %"
+            }
+          }
+        },
+        {
+          "id": "pump",
+          "type": "button",
+          "x": 240,
+          "y": 120,
+          "width": 140,
+          "height": 50,
+          "label": "Pump",
+          "links": {
+            "pushbutton": {
+              "tag": "Pump_Run",
+              "action": "toggle"
+            },
+            "fillColor.discrete": {
+              "expr": "Pump_Run",
+              "on": "#4CAF50",
+              "off": "#9E9E9E"
+            }
+          }
+        },
+        {
+          "id": "toAlarms",
+          "type": "button",
+          "x": 240,
+          "y": 200,
+          "width": 140,
+          "height": 50,
+          "label": "Alarms",
+          "links": {
+            "showWindow": {
+              "window": "Alarms"
+            }
+          }
+        },
+        {
+          "id": "pipe",
+          "edge": true,
+          "source": "tank",
+          "target": "pump",
+          "style": "endArrow=none;strokeWidth=4;"
+        }
+      ]
+    },
+    {
+      "name": "Alarms",
+      "window": {
+        "type": "popup",
+        "titleBar": true,
+        "x": 112,
+        "y": 184,
+        "width": 800,
+        "height": 400
+      },
+      "objects": [
+        {
+          "id": "list",
+          "type": "alarmList",
+          "x": 112,
+          "y": 208,
+          "width": 800,
+          "height": 376,
+          "style": "hmiTitle=Line 3 alarms;"
+        }
+      ]
+    }
+  ]
+}

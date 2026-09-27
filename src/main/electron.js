@@ -2086,10 +2086,16 @@ function runHmiCli(options, args)
 		app.exit(1);
 	};
 
-	if (file == null || !fs.existsSync(file) || !fs.statSync(file).isFile())
+	if (file == null)
 	{
 		return fail('give the ' + (mode === 'build' ? 'JSON spec' : 'HMI project file (.ahmi)') +
 			' after --hmi-' + mode);
+	}
+
+	if (!fs.existsSync(file) || !fs.statSync(file).isFile())
+	{
+		return fail('file not found: ' + file + ((path.isAbsolute(args[0])) ? '' :
+			' (relative paths are resolved from ' + process.cwd() + ')'));
 	}
 
 	// publish: the folder for the installer; build: the .ahmi to write;

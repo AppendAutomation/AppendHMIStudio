@@ -87,6 +87,18 @@ describe('hmi command line', {skip}, () =>
 		assert.equal(r.status, 1);
 		assert.match(r.err, /unknown field "colour"/);
 		assert.ok(!fs.existsSync(path.join(dir, 'bad.ahmi')));
+
+		// Also on objects and inside links
+		const typo = JSON.parse(JSON.stringify(spec));
+		typo.pages[0].objects[0].typ = 'rect';
+		typo.pages[0].objects[0].links['percentFill.vertical'].pctMaxx = '90';
+		const tf = path.join(dir, 'typo.json');
+		fs.writeFileSync(tf, JSON.stringify(typo));
+		const t = studio('--hmi-build', tf, '-o', path.join(dir, 'typo.ahmi'));
+
+		assert.equal(t.status, 1);
+		assert.match(t.err, /object tank: unknown field "typ"/);
+		assert.match(t.err, /link percentFill.vertical: unknown field "pctMaxx"/);
 	});
 
 	test('dump and build back is lossless', () =>
@@ -99,6 +111,14 @@ describe('hmi command line', {skip}, () =>
 		assert.equal(studio('--hmi-build', d1, '-o', again).status, 0);
 		assert.equal(studio('--hmi-dump', again, '-o', d2).status, 0);
 		assert.deepEqual(JSON.parse(fs.readFileSync(d2, 'utf8')), JSON.parse(fs.readFileSync(d1, 'utf8')));
+	});
+
+	test('a missing file says so', () =>
+	{
+		const r = studio('--hmi-check', path.join(dir, 'nothere.ahmi'));
+
+		assert.equal(r.status, 1);
+		assert.match(r.err, /file not found: .*nothere\.ahmi/);
 	});
 
 	test('render writes a PNG per page', () =>

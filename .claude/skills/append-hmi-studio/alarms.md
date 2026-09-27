@@ -1,0 +1,1 @@
+../../../doc/HMI_ALARMS.md

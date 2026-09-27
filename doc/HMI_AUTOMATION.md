@@ -27,6 +27,8 @@ append-hmi-studio --hmi-publish line3.ahmi   --product "Line 3 HMI" --app-versio
   machine, use `xvfb-run`.
 - **Output:** results go to stdout, errors to stderr.
 - **Alongside the editor:** the commands work while the studio is also open.
+- **Use absolute paths.** The source-checkout form runs from the repository
+  root, so relative paths resolve there, not from your working folder.
 
 ## Commands
 
@@ -46,7 +48,8 @@ append-hmi-studio --hmi-publish line3.ahmi   --product "Line 3 HMI" --app-versio
   device's protocol.
 
 Each problem is printed as `PROBLEM <page> | <object> | <link> | <message>`,
-where the object is the cell id and its label.
+where the object is the cell id and its label. Project-level problems have
+three fields: `PROBLEM Tags | <tag> | <message>`.
 
 **Publish options:**
 
@@ -89,7 +92,9 @@ The window mode and exit policy come from the project's runtime settings. See
 }
 ```
 
-- **Unknown fields are errors,** so typos fail loudly.
+- **Unknown fields are errors** at every level: spec, device, tag, page,
+  window, object, connector and link. Typos fail with exit 1, listing the
+  allowed fields.
 - **Links need only what differs:** each link is filled in over its type's
   defaults.
 - **Coordinates:** pixels on the page. Page coordinates are screen
@@ -138,7 +143,19 @@ published package.
 Addresses by protocol:
 - **`logix`:** `Tank_Level`, `Program:MainProgram.Pump.Run`, `Numbers[3]`, `Status.5`.
 - **`slc`:** `N7:0`, `B3:1/4`, `F8:2`, `T4:0.ACC`, `ST9:0`.
-- **`modbus`:** `HR:0`, `HR:10:FLOAT`, `CO:5`, `HR:4.3`.
+- **`modbus`:** `HR|IR|CO|DI:<offset>[.bit][:TYPE][:ORDER]`, with 0-based
+  offsets (`HR:0` is classic 40001; classic 5- and 6-digit references are
+  refused).
+  - Tables: holding registers `HR`, input registers `IR`, coils `CO`,
+    discrete inputs `DI` (CO and DI are 1-bit).
+  - `TYPE`: `INT16` (default), `UINT16`, `INT32`, `UINT32`, `FLOAT`, `INT64`,
+    `UINT64`, `DOUBLE`, `STRINGn`.
+  - `ORDER` of a multi-word value: `BE` (ABCD, default), `LE` (DCBA), `MBE`
+    (BADC), `MLE` (CDAB). It overrides the device's `byteOrder`.
+  - `HR:4.3` is bit 3 of a register.
+  - Examples: `HR:0:FLOAT`, `IR:10:INT32:MLE`, `CO:5`, `DI:0`.
+- **Real values:** a PLC real in registers is `HR:n:FLOAT`. A scaled integer
+  is `HR:n` with `scaled: true` and `minRaw`/`maxRaw`.
 
 ### pages
 
@@ -152,19 +169,30 @@ Each page is a window of the application.
 | `objects` | The objects on the page |
 
 A window shows the part of its page under its rectangle, so draw a popup's
-objects at the popup's `x`/`y`, below its title bar if it has one.
+objects at the popup's `x`/`y`, below its title bar if it has one. A title
+bar shows the page name and a × close button.
 
 ### objects
 
 | Field | Meaning |
 |---|---|
 | `id` | Optional, unique on the page; needed for connector ends |
-| `type` | Shorthand style: `rect`, `roundedRect`, `ellipse`, `text`, `button`, `line`, `arrow`, `triangle`, `cylinder`, `alarmList` or `alarmHistory` |
+| `type` | Shorthand style: `rect`, `roundedRect`, `ellipse`, `text`, `button`, `line`, `arrow`, `triangle`, `cylinder`, `alarmList` or `alarmHistory`. Optional when `style` names a shape |
 | `style` | draw.io style keys added after the type's (later keys win), e.g. `fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1;rounded=1;` |
 | `x`, `y`, `width`, `height` | Position and size |
 | `label` | Text (HTML allowed with `html=1`, which the types set) |
 | `links` | Animation links, below |
 | `children` | Objects inside this one (a group or container; coordinates are relative to it) |
+
+**Any draw.io shape** can be used through `style`, including the P&ID
+libraries.
+- Examples: `shape=mxgraph.pid.pumps.centrifugal_pump_1;`,
+  `shape=mxgraph.pid.valves.gate_valve;`, `shape=mxgraph.pid.vessels.tank;`.
+- Names follow the stencil files: `stencils/pid/pumps.xml` shape "Centrifugal
+  Pump 1" is `mxgraph.pid.pumps.centrifugal_pump_1`.
+- Color links work on them as on any shape.
+- Render to check that a name drew a shape: an unknown name draws a plain
+  rectangle.
 
 A **connector** is `{"edge": true, "id", "source": <object id>, "target": <object id>, "style", "label", "sourcePoint": [x, y], "targetPoint": [x, y], "points": [[x, y], …]}`. Give ends by `source`/`target` or by points.
 
@@ -173,6 +201,9 @@ The alarm objects are settings in `style`:
 - `hmiColumns`: comma list of `time`, `tag`, `description`, `condition`, `value`, `state` (list) or `time`, `event`, `tag`, `description`, `condition`, `value`, `limit` (history);
 - `hmiMaxEvents`: history only, default 200;
 - `fontSize`.
+
+At Run the Alarm List's heading already has the counts and an **Ack All**
+button, and each unacknowledged row has **Ack**.
 
 ### Animation links
 
@@ -185,12 +216,12 @@ All fields that take numbers are expressions, as strings.
 | `fillColor.discreteAlarm` (and `line`/`text`) | `tag`, `on` (in alarm), `off` (normal) |
 | `fillColor.analogAlarm` (and `line`/`text`) | `tag`, `loLo`, `low`, `normal`, `high`, `hiHi` (colors) |
 | `visibility` | `expr`, `sense`: `visible` (shown while true) or `invisible` |
-| `blink` | `expr`, `rateMs` ("500"), `attrs`: any of `fill`, `line`, `text`; `fill`, `line`, `text` (colors); `blank` (flash to nothing) |
+| `blink` | `expr`, `rateMs` ("500"), `attrs`: an array of any of `"fill"`, `"line"`, `"text"` (default `["fill"]`); `fill`, `line`, `text` (colors); `blank` (flash to nothing) |
 | `disable` | `expr` (touch ignored while true) |
-| `valueDisplay` | `kind` (`analog`, `discrete`, `string`), `expr`, `format` ("0.0"), `prefix`, `suffix`, `onText`, `offText` |
+| `valueDisplay` | `kind` (`analog`, `discrete`, `string`), `expr`, `format` ("0.0"), `prefix`, `suffix`, `onText`, `offText`. At Run it replaces the object's label, so a button can read Start/Stop from a discrete tag. Give a `label` as a design-time placeholder, or the object is blank in the editor and in renders |
 | `location.horizontal`, `location.vertical` | `expr`, `atMin`, `atMax`, `offsetMin`, `offsetMax` (pixels) |
 | `size.width`, `size.height` | `expr`, `atMin`, `atMax`, `pctMin`, `pctMax`, `anchor` (`left`/`right`/`center`, `top`/`bottom`/`center`) |
-| `percentFill.horizontal`, `percentFill.vertical` | `expr`, `atMin`, `atMax`, `pctMin` ("0"), `pctMax` ("100") |
+| `percentFill.horizontal`, `percentFill.vertical` | `expr`, `atMin`, `atMax`, `pctMin` ("0"), `pctMax` ("100"). The object is clipped to that percentage, from the bottom (vertical) or left (horizontal); the rest of it, outline included, is not drawn. For a vessel, fill a shape with the product color and place an identical shape with `fillColor=none` on top as the outline. Renders show the object fully filled |
 | `orientation` | `expr`, `atMin`, `atMax`, `angleMin`, `angleMax` (degrees, clockwise); `pivot: "point"` with `pivotDx`, `pivotDy` (offset from the object's center) to turn about another point |
 | `userInput` | `kind` (`analog`, `discrete`, `string`), `tag`, `min`, `max`, `prompt`, `keypad` (true) |
 | `pushbutton` | `tag`, `action`: `toggle`, `set`, `reset` or `direct` (1 while pressed), `enableExpr` |
@@ -222,6 +253,12 @@ All fields that take numbers are expressions, as strings.
 2. Run `--hmi-build`. Fix every spec error (exit 1) and every `PROBLEM`
    (exit 2) until the exit code is 0.
 3. Run `--hmi-render` and look at the PNGs: layout, overlaps, labels.
+   - Each image is one page, cropped to what is drawn on it plus a 10 px
+     border, not the whole screen.
+   - A popup's page is drawn on its own, not over the page it pops up on and
+     without its title bar.
+   - Animation isn't applied: values, fills and colors show their design
+     state.
 4. For changes to an existing project, run `--hmi-dump` first, edit the JSON,
    and build it back (dump → build is lossless).
 5. Run `--hmi-publish` with the product name and version. Then install the
