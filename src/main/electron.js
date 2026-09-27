@@ -1534,6 +1534,11 @@ app.whenReady().then(() =>
     	
     	return;
 	}
+    else if (options.hmiCheck || options.hmiPublish || options.hmiBuild || options.hmiDump || options.hmiRender)
+	{
+		runHmiCli(options, parsedArgs);
+		return;
+	}
     else if (argv.some(a => a === '-V' || a === '--version')) //To prevent execution when version arg is used
 	{
 		console.log(app.getVersion());
@@ -2057,6 +2062,200 @@ async function handleAlarmRequest(args)
 		}
 		case 'hmiAlarms.recent':
 			return alarmLog.recent(base, store, args.limit);
+		default:
+			throw new Error('unknown action: ' + args.action);
+	}
+}
+
+// Command-line check and publish of an HMI project (--hmi-check,
+// --hmi-publish): a hidden window loads the project and runs the editor's
+// own validation (js/hmi/HmiCli.js); publishing goes through the Publisher.
+// Results go to stdout; the exit code is 0 when all is well, 2 when the
+// check found problems and 1 on failure.
+let hmiCli = null;
+
+function runHmiCli(options, args)
+{
+	const mode = options.hmiBuild ? 'build' : (options.hmiDump ? 'dump' : (options.hmiRender ? 'render' :
+		(options.hmiPublish ? 'publish' : 'check')));
+	const file = (Array.isArray(args) && args.length > 0) ? path.resolve(args[0]) : null;
+
+	const fail = (message) =>
+	{
+		console.error('Error: ' + message);
+		app.exit(1);
+	};
+
+	if (file == null || !fs.existsSync(file) || !fs.statSync(file).isFile())
+	{
+		return fail('give the ' + (mode === 'build' ? 'JSON spec' : 'HMI project file (.ahmi)') +
+			' after --hmi-' + mode);
+	}
+
+	// publish: the folder for the installer; build: the .ahmi to write;
+	// dump: the JSON to write (stdout when not given)
+	let output = null;
+
+	if (mode === 'publish')
+	{
+		output = path.resolve(options.output || path.dirname(file));
+	}
+	else if (mode === 'build')
+	{
+		output = path.resolve(options.output || file.replace(/\.json$/i, '') + '.ahmi');
+	}
+	else if (mode === 'dump' && options.output)
+	{
+		output = path.resolve(options.output);
+	}
+	else if (mode === 'render')
+	{
+		output = path.resolve(options.output || file.replace(/\.(ahmi|drawio-hmi|drawio)$/i, '') + '-pages');
+	}
+
+	try
+	{
+		hmiCli = {mode: mode, file: file, xml: fs.readFileSync(file, 'utf8'), output: output, options: options};
+
+		if (mode === 'publish' || mode === 'render')
+		{
+			fs.mkdirSync(output, {recursive: true});
+		}
+		else if (output != null)
+		{
+			fs.mkdirSync(path.dirname(output), {recursive: true});
+		}
+	}
+	catch (e)
+	{
+		return fail(e.message);
+	}
+
+	const win = new BrowserWindow({show: false, webPreferences: {
+		preload: `${__dirname}/electron-preload.js`, contextIsolation: true, nodeIntegration: false,
+		webviewTag: false, webSecurity: true}});
+
+	windowsRegistry.push(win);
+	win.loadURL(url.format({pathname: `${codeDir}/index.html`, protocol: 'file:', slashes: true,
+		query: Object.assign({}, queryObj, {hmicli: mode, chrome: 0, appLang: app.getLocale()})}));
+
+	setTimeout(() => fail('timed out'), (mode === 'check' ? 3 : 60) * 60 * 1000).unref();
+}
+
+async function handleCliRequest(args)
+{
+	if (hmiCli == null)
+	{
+		throw new Error('not in command-line mode');
+	}
+
+	const o = hmiCli.options;
+
+	switch (args.action)
+	{
+		case 'hmiCli.project':
+			return {mode: hmiCli.mode, xml: hmiCli.xml, title: path.basename(hmiCli.file),
+				outputTitle: (hmiCli.output != null) ? path.basename(hmiCli.output) : null,
+				options: {product: o.product, appVersion: o.appVersion, publisher: o.publisher, scope: o.scope,
+					compression: o.compression, desktop: o.desktopShortcut === true, autostart: o.autostart === true}};
+		case 'hmiCli.report':
+		{
+			const problems = Array.isArray(args.problems) ? args.problems : [];
+
+			for (const p of problems)
+			{
+				console.log('PROBLEM ' + [p.page, p.object, p.link, p.message].filter(Boolean).join(' | '));
+			}
+
+			console.log(problems.length === 0 ? 'OK: no problems found' :
+				problems.length + ' problem' + (problems.length === 1 ? '' : 's') + ' found');
+
+			if (hmiCli.mode === 'check' || hmiCli.mode === 'build')
+			{
+				setImmediate(() => app.exit(problems.length === 0 ? 0 : 2));
+			}
+
+			return true;
+		}
+		case 'hmiCli.write':
+		{
+			// build writes the .ahmi, dump the JSON (or prints it)
+			if (typeof args.text !== 'string')
+			{
+				throw new Error('bad arg: text');
+			}
+
+			if (hmiCli.output == null)
+			{
+				process.stdout.write(args.text + '\n');
+			}
+			else
+			{
+				fs.writeFileSync(hmiCli.output, args.text, 'utf8');
+				console.log('Wrote ' + hmiCli.output);
+			}
+
+			if (hmiCli.mode === 'dump')
+			{
+				setImmediate(() => app.exit(0));
+			}
+
+			return true;
+		}
+		case 'hmiCli.publish':
+		{
+			const pub = getPublisher();
+			let last = -10;
+
+			pub.on('progress', (e) =>
+			{
+				if (e.stage === 'compressing' && e.percent - last >= 10)
+				{
+					last = e.percent;
+					console.log('Compressing ' + e.percent + '%');
+				}
+			});
+
+			try
+			{
+				const file = await pub.build(hmiCli.xml, args.options, hmiCli.output, null);
+				console.log('Created ' + file);
+				setImmediate(() => app.exit(0));
+
+				return file;
+			}
+			catch (e)
+			{
+				console.error('Error: ' + e.message);
+				setImmediate(() => app.exit(1));
+				throw e;
+			}
+		}
+		case 'hmiCli.image':
+		{
+			// A page as PNG: <index>-<page name>.png
+			const m = /^data:image\/png;base64,(.+)$/.exec(String(args.data || ''));
+
+			if (hmiCli.mode !== 'render' || m == null || !Number.isInteger(args.index))
+			{
+				throw new Error('bad arg: image');
+			}
+
+			const name = String(args.index + 1).padStart(2, '0') + '-' +
+				(String(args.page || 'page').replace(/[^A-Za-z0-9 _-]/g, '_').trim() || 'page') + '.png';
+			const file = path.join(hmiCli.output, name);
+			fs.writeFileSync(file, Buffer.from(m[1], 'base64'));
+			console.log('Wrote ' + file);
+
+			return true;
+		}
+		case 'hmiCli.done':
+			setImmediate(() => app.exit(0));
+			return true;
+		case 'hmiCli.fail':
+			console.error('Error: ' + String(args.message));
+			setImmediate(() => app.exit(1));
+			return true;
 		default:
 			throw new Error('unknown action: ' + args.action);
 	}
@@ -4588,6 +4787,10 @@ ipcMain.on("rendererReq", async (event, args) =>
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiAlarms.'))
 			{
 				ret = await handleAlarmRequest(args);
+			}
+			else if (typeof args.action === 'string' && args.action.startsWith('hmiCli.'))
+			{
+				ret = await handleCliRequest(args);
 			}
 
 			break;

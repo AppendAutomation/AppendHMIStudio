@@ -150,6 +150,14 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
   - The renderer names the store and never passes a path.
   - The self tests' Runs log nothing (`HmiMenus.alarmStore`).
 
+### Automation (command line)
+- **Commands:** `--hmi-build <spec.json>`, `--hmi-check`, `--hmi-render`, `--hmi-dump` and `--hmi-publish` (with `--product`, `--app-version`, …) drive the studio without its UI. Reference: `doc/HMI_AUTOMATION.md`.
+- **Main process:** `runHmiCli` in `electron.js` runs before the single-instance lock, opens a hidden chromeless window with `hmicli=<mode>`, and answers `hmiCli.*` requests: `project`, `report`, `write`, `image`, `publish`, `done`, `fail`.
+- **Exit codes:** 0 ok, 2 problems, 1 failure.
+- **Renderer:** `js/hmi/HmiCli.js` builds projects from the JSON spec (`HmiCli.build`: types, links over defaults, pages via `ChangePage` because the graph is disabled), dumps them back losslessly, validates every page through `HmiMenus.collectProblems`, and renders pages with `editor.exportToCanvas`.
+- **Tests:** `src/test/hmi-cli.test.js` runs the real app, so it needs a display.
+- **Claude skill:** `.claude/skills/append-hmi-studio/` (linked into `~/.claude/skills`) teaches agents this workflow.
+
 ### Run-only Mode and Publish
 - **Run-only switch:** `resources/hmi-runtime/runtime.json` (or `--hmi-runtime <dir>`) starts the app in run-only mode (`RuntimeMode.js`, `js/hmi/HmiRuntimeApp.js`):
   - its own userData;

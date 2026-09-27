@@ -10,6 +10,7 @@ Append HMI Studio
   - Modbus TCP;
   - a built-in simulator.
 - **Alarms**: analog and discrete alarms with acknowledgement, the `_AlarmsActive`, `_AlarmsUnacked` and `_AckAll` system tags, Alarm List and Alarm History objects, and daily CSV history. See [doc/HMI_ALARMS.md](doc/HMI_ALARMS.md).
+- **Automation**: build, check, render and publish projects from the command line or a script, from a plain JSON spec. See [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md).
 - **Publish** a project as a Windows installer (HMI > Publish). It installs a locked, run-only copy of the app with the comms server, built on any platform. See [doc/HMI_PUBLISH.md](doc/HMI_PUBLISH.md).
 
 Projects are saved as `.ahmi` files. Files saved as `.drawio-hmi` by earlier builds still open.
