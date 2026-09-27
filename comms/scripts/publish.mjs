@@ -85,6 +85,9 @@ function publish(rid)
 		'-r', rid,
 		'-p:DebugType=none',
 		'-p:DebugSymbols=false',
+		// cscomm3_slc turns warnings into errors when CI=true (GitHub
+		// Actions); its missing doc comments must not stop the app build
+		'-p:TreatWarningsAsErrors=false',
 		'-o', out], {stdio: 'inherit', shell: process.platform === 'win32'});
 
 	if (res.status !== 0)
