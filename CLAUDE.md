@@ -132,6 +132,24 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - **Devices and tags:** in the HMI, devices replace InTouch access names. I/O tags carry `device` and `address`. `HmiCommsDriver` routes simulated tags to `HmiSimulator` and real-device tags to the server.
 - **Library submodules:** cslogix and cscomm3_slc are AppendAutomation repositories. Changes there are committed in the submodule; the user pushes them.
 
+### Alarms
+- **Documentation:** `doc/HMI_ALARMS.md`.
+- **Manager:** `js/hmi/HmiAlarms.js` holds `HmiAlarmManager`, one per Run. `HmiWindowManager` creates it on its own hub client and hands it to each window's `HmiRuntime` as `config.alarms`.
+  - It watches every alarmed tag: analog limits with deadband, discrete `alarms.state` on/off.
+  - Acknowledgement follows ISA-18.2.
+  - It emits `names`, `change` and `event`. Runtimes re-evaluate dependants through `invalidateNames`.
+- **Expressions:**
+  - `HmiTypes.SYSTEM_TAGS` (`_AlarmsActive`, `_AlarmsUnacked`, `_AckAll`) compile without a dictionary entry and are reserved names.
+  - `.InAlarm` and `.Acked` read the manager.
+  - `Tag.Acked = 1` is the one allowed dotfield assignment.
+- **Objects:**
+  - Alarm List and Alarm History are vertices `shape=hmiAlarmList` and `shape=hmiAlarmHistory`, from the HMI sidebar palette.
+  - Their settings are style keys (`hmiTitle`, `hmiColumns`, `hmiMaxEvents`, `fontSize`).
+  - `HmiAlarmView` draws the live HTML table at Run.
+- **History:** main-process `src/main/alarms/AlarmLog.js` writes one CSV per day under `userData/alarms/<store>/`, pruned after 90 days, via `hmiAlarms.append`/`hmiAlarms.recent`.
+  - The renderer names the store and never passes a path.
+  - The self tests' Runs log nothing (`HmiMenus.alarmStore`).
+
 ### Run-only Mode and Publish
 - **Run-only switch:** `resources/hmi-runtime/runtime.json` (or `--hmi-runtime <dir>`) starts the app in run-only mode (`RuntimeMode.js`, `js/hmi/HmiRuntimeApp.js`):
   - its own userData;
