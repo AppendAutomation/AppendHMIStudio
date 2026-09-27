@@ -121,7 +121,9 @@ To **change an existing project**:
     `address`), each Discrete, Integer, Real or Message;
   - names are case-insensitive, and `_AlarmsActive`, `_AlarmsUnacked` and
     `_AckAll` are reserved system tags;
-  - the `comment` is the alarm description.
+  - the `comment` is the alarm description;
+  - `"retentive": true` on a memory tag keeps its last value between runs,
+    for setpoints, modes and recipe names the operator changes.
 - **Addresses:** use the device's protocol syntax.
   - `logix`: `Tank_Level`, `Program:Main.Pump.Run`, `Numbers[3]`, `Status.5`;
   - `slc`: `N7:0`, `B3:1/4`, `F8:2`, `T4:0.ACC`;

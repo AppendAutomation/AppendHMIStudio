@@ -45,6 +45,8 @@ simulating on the target PC; the dialog warns when the project has one.
   in place and stops the running runtime first.
 - Uninstall from Add/Remove Programs, or silently with
   `"<install folder>\Uninstall.exe" /S`.
+- Retentive tags' last values are kept in `%APPDATA%\<Product>\retentive\`,
+  so they survive restarts and upgrades.
 - The runtime keeps its settings and a log in `%APPDATA%\<Product>`
   (`logs\main.log`): startup, the project it loaded, device connection
   changes, exit attempts and renderer errors. The log is left in place on

@@ -137,6 +137,7 @@ published package.
 | `device`, `address` | I/O tags: device name and PLC address |
 | `scaled`, `minRaw`, `maxRaw` | I/O analog: set `scaled: true` to map raw minRaw..maxRaw to minEU..maxEU |
 | `scanMs` | Per-tag scan period (I/O) |
+| `retentive` | `true` on a memory tag keeps its last value from one run to the next (it starts from the saved value instead of `initial`) |
 | `alarms` | Analog: `loLo`, `low`, `high`, `hiHi`, `deadband`. Discrete: `state` `on` or `off` (in alarm at 1 or 0). See `doc/HMI_ALARMS.md` |
 | `sim` | Simulated value in Run: `mode` (`sine`, `ramp`, `random`, `toggle`, `static`), `periodMs` |
 

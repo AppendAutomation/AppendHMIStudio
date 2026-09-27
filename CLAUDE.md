@@ -150,6 +150,16 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
   - The renderer names the store and never passes a path.
   - The self tests' Runs log nothing (`HmiMenus.alarmStore`).
 
+### Retentive tags
+- **What it does:** memory tags with `retentive: true` keep their last value between Runs.
+- **Main process:** `src/main/retentive/RetentiveStore.js` keeps `userData/retentive/<store>.json`, written atomically (temporary file and rename), behind `hmiRetentive.load/save/clear`.
+- **Renderer (`js/hmi/HmiRetentive.js`):**
+  - When the project has retentive tags, `HmiMenus.start` loads the values first. Run then starts asynchronously and `ui.hmiStarting` is set; `HmiRuntimeApp` waits for `hmiRunStateChanged`.
+  - `driver.preset(values)` makes `HmiSimulator.connect` start memory tags from the saved values.
+  - `HmiRetentiveKeeper`, owned by `HmiWindowManager`, saves changes one second after a burst, and again on stop.
+- **Store:** the same as the alarm history (`HmiMenus.alarmStore`).
+- **Editor:** HMI > Clear Retentive Values forgets them.
+
 ### Automation (command line)
 - **Commands:** `--hmi-build <spec.json>`, `--hmi-check`, `--hmi-render`, `--hmi-dump` and `--hmi-publish` (with `--product`, `--app-version`, …) drive the studio without its UI. Reference: `doc/HMI_AUTOMATION.md`.
 - **Main process:** `runHmiCli` in `electron.js` runs before the single-instance lock, opens a hidden chromeless window with `hmicli=<mode>`, and answers `hmiCli.*` requests: `project`, `report`, `write`, `image`, `publish`, `done`, `fail`.

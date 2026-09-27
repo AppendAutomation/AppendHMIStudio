@@ -17,6 +17,7 @@ import {CommsSupervisor, resolveExecutable as resolveCommsExecutable} from './co
 import {CommsSession, validateCommsArgs} from './comms/CommsSession.js';
 import {Publisher} from './publish/Publisher.js';
 import * as alarmLog from './alarms/AlarmLog.js';
+import * as retentiveStore from './retentive/RetentiveStore.js';
 import {PRODUCT_NAME, ISSUES_URL} from './brand.js';
 import {findRuntimeDir, loadRuntimeConfig, runtimeUserDataDir, runtimeWindowOptions, mayExit,
 		readRuntimeProject, publicRuntimeInfo} from './runtime/RuntimeMode.js';
@@ -2062,6 +2063,26 @@ async function handleAlarmRequest(args)
 		}
 		case 'hmiAlarms.recent':
 			return alarmLog.recent(base, store, args.limit);
+		default:
+			throw new Error('unknown action: ' + args.action);
+	}
+}
+
+// Retentive tag values (retentive/RetentiveStore.js), for the editor's Run
+// and published runtimes; like the alarm history, main builds the path
+async function handleRetentiveRequest(args)
+{
+	const base = app.getPath('userData');
+
+	switch (args.action)
+	{
+		case 'hmiRetentive.load':
+			return retentiveStore.load(base, args.store);
+		case 'hmiRetentive.save':
+			return retentiveStore.save(base, args.store, args.values);
+		case 'hmiRetentive.clear':
+			if (hmiRuntime != null) throw new Error('not available in the HMI runtime');
+			return retentiveStore.clear(base, args.store);
 		default:
 			throw new Error('unknown action: ' + args.action);
 	}
@@ -4793,6 +4814,10 @@ ipcMain.on("rendererReq", async (event, args) =>
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiAlarms.'))
 			{
 				ret = await handleAlarmRequest(args);
+			}
+			else if (typeof args.action === 'string' && args.action.startsWith('hmiRetentive.'))
+			{
+				ret = await handleRetentiveRequest(args);
 			}
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiCli.'))
 			{
