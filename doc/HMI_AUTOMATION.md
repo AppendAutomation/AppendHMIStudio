@@ -110,6 +110,24 @@ The window mode and exit policy come from the project's runtime settings. See
 | `runtime.exit` | `shortcut` (default, Ctrl+Alt+Shift+Q), `password` (shortcut then password) or `never` |
 | `runtime.exitPassword` | With `exit: password`, the password in plain text; only a salted hash is stored. A dumped spec carries `salt`/`hash` instead |
 | `publish` | Remembered Publish dialog options (`productName`, `version`, `publisher`, `scope`, …); optional |
+| `security.autoLogoutMin` | Minutes without a touch or key press before the user is logged out (0, the default: never) |
+
+### users
+
+Operators who log in with `ShowLogin()` or `Login()`. See
+[HMI_SECURITY.md](HMI_SECURITY.md).
+
+```json
+"users": [{"name": "Operator", "level": 100, "password": "op"},
+          {"name": "Supervisor", "level": 900, "password": "super"}]
+```
+
+| Field | Meaning |
+|---|---|
+| `name` | 1 to 32 letters, digits, spaces or `. _ - @`; case-insensitive; not `None` |
+| `level` | Access level, a whole number 0 to 9999 (default 0) |
+| `password` | Plain text; hashed at build, never stored |
+| `salt`, `hash`, `iterations` | In place of `password`, as `--hmi-dump` writes them |
 
 ### devices
 
@@ -128,7 +146,7 @@ published package.
 
 | Field | Meaning |
 |---|---|
-| `name` | Letters, digits, `_`, `$`; starting with a letter, `_` or `$`; up to 63 characters; case-insensitive. `_AlarmsActive`, `_AlarmsUnacked` and `_AckAll` are reserved |
+| `name` | Letters, digits, `_`, `$`; starting with a letter, `_` or `$`; up to 63 characters; case-insensitive. `_AlarmsActive`, `_AlarmsUnacked`, `_AckAll`, `_Username` and `_AccessLevel` are reserved |
 | `type` | `MemoryDiscrete`, `MemoryInteger`, `MemoryReal`, `MemoryMessage`, `IODiscrete`, `IOInteger`, `IOReal` or `IOMessage` |
 | `comment` | Description; also the alarm description |
 | `initial` | Starting value (memory tags) |
@@ -218,13 +236,14 @@ All fields that take numbers are expressions, as strings.
 | `fillColor.analogAlarm` (and `line`/`text`) | `tag`, `loLo`, `low`, `normal`, `high`, `hiHi` (colors) |
 | `visibility` | `expr`, `sense`: `visible` (shown while true) or `invisible` |
 | `blink` | `expr`, `rateMs` ("500"), `attrs`: an array of any of `"fill"`, `"line"`, `"text"` (default `["fill"]`); `fill`, `line`, `text` (colors); `blank` (flash to nothing) |
-| `disable` | `expr` (touch ignored while true) |
+| `enable` | `expr`, `sense`: `enabled` (touch works only while true) or `disabled` (touch ignored while true). Bad quality disables. Gates every touch link on the object, e.g. `"_AccessLevel >= 500"` |
+| `disable` | `expr` (touch ignored while true); superseded by `enable`, still accepted |
 | `valueDisplay` | `kind` (`analog`, `discrete`, `string`), `expr`, `format` ("0.0"), `prefix`, `suffix`, `onText`, `offText`. At Run it replaces the object's label, so a button can read Start/Stop from a discrete tag. Give a `label` as a design-time placeholder, or the object is blank in the editor and in renders |
 | `location.horizontal`, `location.vertical` | `expr`, `atMin`, `atMax`, `offsetMin`, `offsetMax` (pixels) |
 | `size.width`, `size.height` | `expr`, `atMin`, `atMax`, `pctMin`, `pctMax`, `anchor` (`left`/`right`/`center`, `top`/`bottom`/`center`) |
 | `percentFill.horizontal`, `percentFill.vertical` | `expr`, `atMin`, `atMax`, `pctMin` ("0"), `pctMax` ("100"). The object is clipped to that percentage, from the bottom (vertical) or left (horizontal); the rest of it, outline included, is not drawn. For a vessel, fill a shape with the product color and place an identical shape with `fillColor=none` on top as the outline. Renders show the object fully filled |
 | `orientation` | `expr`, `atMin`, `atMax`, `angleMin`, `angleMax` (degrees, clockwise); `pivot: "point"` with `pivotDx`, `pivotDy` (offset from the object's center) to turn about another point |
-| `userInput` | `kind` (`analog`, `discrete`, `string`), `tag`, `min`, `max`, `prompt`, `keypad` (true) |
+| `userInput` | `kind` (`analog`, `discrete`, `string`), `tag`, `min`, `max`, `prompt`, `keypad` (true), `masked` (false; `true` on a string entry shows dots, for passwords) |
 | `pushbutton` | `tag`, `action`: `toggle`, `set`, `reset` or `direct` (1 while pressed), `enableExpr` |
 | `pushbutton.action` | Scripts `onDown`, `whileDown` (every `everyMs`), `onUp` |
 | `showWindow`, `hideWindow` | `window` (page name), `enableExpr` |
@@ -235,7 +254,8 @@ All fields that take numbers are expressions, as strings.
 - **Values:** tag names (`Tank_Level`) and dotfields: `.Value`, `.Name`,
   `.Quality`, `.TimeDate`, `.MinEU`, `.MaxEU`, `.MinRaw`, `.MaxRaw`,
   `.EngUnits`, `.Comment`, `.InAlarm`, `.Acked`.
-- **System tags:** `_AlarmsActive`, `_AlarmsUnacked`, `_AckAll`.
+- **System tags:** `_AlarmsActive`, `_AlarmsUnacked`, `_AckAll`, `_Username`
+  (`None` when logged out), `_AccessLevel` (0 when logged out).
 - **Operators:** `+ - * / MOD`, `== <> < <= > >=`, `AND OR NOT`, parentheses.
 - **Literals:** numbers and `"text"`.
 - **Functions:** `Abs`, `Sqrt`, `Int`, `Round`, `Min(a, b)`, `Max(a, b)`,
@@ -244,7 +264,10 @@ All fields that take numbers are expressions, as strings.
   `;`:
   - assignments: `Pump_Run = 1;`, `Tank_Level.Acked = 1;` (acknowledges),
     `_AckAll = 1;`;
-  - `IF cond THEN … ELSE … ENDIF;`.
+  - `IF cond THEN … ELSE … ENDIF;`;
+  - security functions, in scripts only: `ShowLogin();`, `Login(name, password)`
+    (1 or 0), `Logout();`, `ChangePassword(old, new)` (1 or 0),
+    `ShowUserManager();`.
 - **Bad quality:** an expression with a bad-quality input has a bad result
   (Value Display shows `####`), and an `IF` on bad data runs neither branch.
 

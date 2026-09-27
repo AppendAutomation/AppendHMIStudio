@@ -20,6 +20,7 @@ The studio does the modeling, validation and packaging itself, so never write
 - **Full reference** (every command, spec field, link type, expression syntax):
   [reference.md](reference.md).
 - **Alarm behavior:** [alarms.md](alarms.md).
+- **Users and access levels:** [security.md](security.md).
 - **A complete example:** [example-spec.json](example-spec.json). It has a
   Logix PLC, alarmed tags, an overview page with a tank, a pump button and a
   popup alarm window.
@@ -119,8 +120,8 @@ To **change an existing project**:
 - **Tags:**
   - types: `Memory…` (internal) or `IO…` (on a PLC: needs `device` and
     `address`), each Discrete, Integer, Real or Message;
-  - names are case-insensitive, and `_AlarmsActive`, `_AlarmsUnacked` and
-    `_AckAll` are reserved system tags;
+  - names are case-insensitive, and `_AlarmsActive`, `_AlarmsUnacked`,
+    `_AckAll`, `_Username` and `_AccessLevel` are reserved system tags;
   - the `comment` is the alarm description;
   - `"retentive": true` on a memory tag keeps its last value between runs,
     for setpoints, modes and recipe names the operator changes.
@@ -138,6 +139,16 @@ To **change an existing project**:
   - flash until acknowledged with a `blink` link on
     `Tag.InAlarm AND NOT Tag.Acked`;
   - an Ack All button is a `pushbutton.action` with `onDown: "_AckAll = 1;"`.
+- **Security:**
+  - `users: [{name, level (0-9999), password}]` (hashed at build);
+  - a Login button is a `pushbutton.action` with `onDown: "ShowLogin();"`, and
+    Log Out is `"Logout();"`;
+  - gate controls with an `enable` link, e.g.
+    `{"expr": "_AccessLevel >= 500"}`, and show who is logged in with a
+    `valueDisplay` of kind `string` on `_Username`;
+  - `settings.security.autoLogoutMin` logs out after idle minutes;
+  - ask the user for the users and levels; never invent passwords for a real
+    plant, and tell the user which passwords you set.
 - **Runtime settings:**
   - `windowMode` `kiosk` (default, locked full screen), `fullscreen` or
     `window`;

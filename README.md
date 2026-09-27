@@ -11,6 +11,7 @@ Append HMI Studio
   - a built-in simulator.
 - **Alarms**: analog and discrete alarms with acknowledgement, the `_AlarmsActive`, `_AlarmsUnacked` and `_AckAll` system tags, Alarm List and Alarm History objects, and daily CSV history. See [doc/HMI_ALARMS.md](doc/HMI_ALARMS.md).
 - **Retentive memory tags** keep their last value from one run to the next.
+- **Users and security**: users with access levels 0–9999, a built-in login window, the `_Username` and `_AccessLevel` system tags, login script functions, masked password entry and the Enable animation. See [doc/HMI_SECURITY.md](doc/HMI_SECURITY.md).
 - **Automation**: build, check, render and publish projects from the command line or a script, from a plain JSON spec. See [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md).
 - **Publish** a project as a Windows installer (HMI > Publish). It installs a locked, run-only copy of the app with the comms server, built on any platform. See [doc/HMI_PUBLISH.md](doc/HMI_PUBLISH.md).
 

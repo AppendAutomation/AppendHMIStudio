@@ -160,6 +160,15 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - **Store:** the same as the alarm history (`HmiMenus.alarmStore`).
 - **Editor:** HMI > Clear Retentive Values forgets them.
 
+### Users and security
+- **Documentation:** `doc/HMI_SECURITY.md`.
+- **Renderer (`js/hmi/HmiSecurity.js`):**
+  - synchronous SHA-256, HMAC and PBKDF2 (a script's `Login()` must return a value, and Web Crypto is asynchronous only);
+  - `HmiSecurityManager`, one per Run, owned by `HmiWindowManager` and passed to runtimes as `config.security`. It answers `_Username`/`_AccessLevel`, fires `names`, handles the script-only actions (`HmiExpr` `FUNCTIONS` with `action: true`, called through `ctx.call`), and does auto logout (`settings.security.autoLogoutMin`).
+- **Project:** `project.users` holds `{name, level, salt, hash, iterations}`; passwords are never stored.
+- **Main process:** `src/main/security/UserStore.js` keeps runtime changes (`ShowUserManager()`, `ChangePassword()`) in `userData/users/<store>.json`, behind `hmiUsers.load/save/clear`. When that file exists it replaces the project's users; `HmiMenus.start` loads it before Run.
+- **Enable link:** OR-combines into `visual.disabled`, the flag that already gates every touch link. The older `disable` link is hidden (milestone 99) but still applied.
+
 ### Automation (command line)
 - **Commands:** `--hmi-build <spec.json>`, `--hmi-check`, `--hmi-render`, `--hmi-dump` and `--hmi-publish` (with `--product`, `--app-version`, …) drive the studio without its UI. Reference: `doc/HMI_AUTOMATION.md`.
 - **Main process:** `runHmiCli` in `electron.js` runs before the single-instance lock, opens a hidden chromeless window with `hmicli=<mode>`, and answers `hmiCli.*` requests: `project`, `report`, `write`, `image`, `publish`, `done`, `fail`.

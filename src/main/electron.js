@@ -18,6 +18,7 @@ import {CommsSession, validateCommsArgs} from './comms/CommsSession.js';
 import {Publisher} from './publish/Publisher.js';
 import * as alarmLog from './alarms/AlarmLog.js';
 import * as retentiveStore from './retentive/RetentiveStore.js';
+import * as userStore from './security/UserStore.js';
 import {PRODUCT_NAME, ISSUES_URL} from './brand.js';
 import {findRuntimeDir, loadRuntimeConfig, runtimeUserDataDir, runtimeWindowOptions, mayExit,
 		readRuntimeProject, publicRuntimeInfo} from './runtime/RuntimeMode.js';
@@ -2083,6 +2084,25 @@ async function handleRetentiveRequest(args)
 		case 'hmiRetentive.clear':
 			if (hmiRuntime != null) throw new Error('not available in the HMI runtime');
 			return retentiveStore.clear(base, args.store);
+		default:
+			throw new Error('unknown action: ' + args.action);
+	}
+}
+
+// Users changed at run time (security/UserStore.js)
+async function handleUsersRequest(args)
+{
+	const base = app.getPath('userData');
+
+	switch (args.action)
+	{
+		case 'hmiUsers.load':
+			return userStore.load(base, args.store);
+		case 'hmiUsers.save':
+			return userStore.save(base, args.store, args.users);
+		case 'hmiUsers.clear':
+			if (hmiRuntime != null) throw new Error('not available in the HMI runtime');
+			return userStore.clear(base, args.store);
 		default:
 			throw new Error('unknown action: ' + args.action);
 	}
@@ -4818,6 +4838,10 @@ ipcMain.on("rendererReq", async (event, args) =>
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiRetentive.'))
 			{
 				ret = await handleRetentiveRequest(args);
+			}
+			else if (typeof args.action === 'string' && args.action.startsWith('hmiUsers.'))
+			{
+				ret = await handleUsersRequest(args);
 			}
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiCli.'))
 			{
