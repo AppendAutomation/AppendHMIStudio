@@ -188,6 +188,16 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
   - compile with makensis.
   - See `doc/HMI_PUBLISH.md`.
 
+### Runtime views and Append HMI Web
+- **View modes:** a runtime (`HmiWindowManager` with `fit`) has three views, set with `setView`:
+  - `fit` (default);
+  - `fill`: stretched with a CSS transform on the screen, with `mxUtils.convertPoint` corrected by `installStretchedPoints` so taps still land;
+  - `original`: 1:1 with scroll bars.
+- **URL parameters:** `hmiview=<view>` sets the starting view. `hmiviewmenu=1` adds a View menu in the top right corner (`HmiRuntimeApp.showViewMenu`), and each browser remembers its choice in localStorage.
+- **Browser bridge:** Append HMI Web (github.com/AppendAutomation/AppendHMIWeb) runs this runtime in browsers through a bridge that defines `window.electron` with `hmiWeb: true` and `window.process.versions.electron`.
+  - `js/bootstrap.js` therefore treats `window.electron.hmiWeb` like Electron.
+  - Keep the runtime's IPC actions in step with AppendHMIDesktop and AppendHMIWeb, which use this repository as a submodule.
+
 ### Data Storage
 userData is `%APPDATA%\Append HMI Studio` (Windows) or `~/.config/Append HMI Studio` (Linux). It holds electron-store `config.json`, Local Storage, `logs/main.log` and `comms-cache`. A published runtime uses `%APPDATA%\<Product>`.
 
