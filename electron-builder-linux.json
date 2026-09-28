@@ -21,6 +21,7 @@
     "!dist-win-runtime{,/**}",
     "!src/test{,/**}",
     "!doc{,/**}",
+    "!examples{,/**}",
     "!.github{,/**}"
   ],
   "artifactName": "Append-HMI-Studio-${version}-${arch}.${ext}",

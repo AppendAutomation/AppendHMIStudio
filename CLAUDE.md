@@ -188,6 +188,17 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
   - compile with makensis.
   - See `doc/HMI_PUBLISH.md`.
 
+### User Manual and examples
+- **Files:** `doc/Append-HMI-Studio-User-Manual.docx` and `.pdf` are built from `doc/manual/`, and illustrated with `examples/LiquidWeighHMI.ahmi`.
+- **Building:**
+  - `python3 doc/manual/build_manual.py` writes the .docx from `doc/manual/images/` (python-docx; tables follow the house table rules, measured with Carlito for Calibri);
+  - `python3 doc/manual/finish.py --docx` (LibreOffice through uno) fills in the table of contents and writes the PDF.
+- **Screenshots:** taken from a running Studio over its debugging port.
+  - Open the example from outside the repository: file IPC refuses paths inside the app folder.
+  - Turn off scrollbar mode (`ui.setScrollbars(false)`) before fitting a page.
+  - Use `window.resizeTo` for the window size, not viewport emulation.
+  - Keep personal paths and addresses out of them.
+
 ### Runtime views and Append HMI Web
 - **View modes:** a runtime (`HmiWindowManager` with `fit`) has three views, set with `setView`:
   - `fit` (default);

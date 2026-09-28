@@ -22,6 +22,8 @@ Projects are saved as `.ahmi` files. Files saved as `.drawio-hmi` by earlier bui
 Getting started
 ---------------
 
+The [User Manual](doc/Append-HMI-Studio-User-Manual.pdf) ([Word](doc/Append-HMI-Studio-User-Manual.docx)) walks through building an application with screenshots, using the [LiquidWeighHMI example](examples/). In short:
+
 1. **Tags:** in **HMI > Devices**, add your PLC (or use the simulator). Then define tags in **HMI > Tag Dictionary**.
 2. **Screens:** draw them on the canvas. Each page is a window of the application.
 3. **Animation:** select an object and add animation links on the **Animation** tab (colors, fill, movement, value display, touch actions).
@@ -33,6 +35,7 @@ Documentation
 
 | Topic | Document |
 |---|---|
+| Building HMI applications, step by step | [User Manual (PDF)](doc/Append-HMI-Studio-User-Manual.pdf) |
 | Alarms, system tags, alarm objects and history | [doc/HMI_ALARMS.md](doc/HMI_ALARMS.md) |
 | Users, access levels and login | [doc/HMI_SECURITY.md](doc/HMI_SECURITY.md) |
 | Publishing a runtime installer | [doc/HMI_PUBLISH.md](doc/HMI_PUBLISH.md) |
