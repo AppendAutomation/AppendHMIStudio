@@ -3,7 +3,7 @@ Append HMI Studio
 
 **Append HMI Studio** designs operator screens (HMIs) for PLCs, runs them against live equipment, and publishes them as Windows installers for the target PC.
 
-![Append HMI Studio: an overview screen with a tank and its animation links](doc/images/studio.png)
+![Append HMI Studio with the LiquidWeighHMI example: the Process screen, with a valve selected and its animation links](doc/images/studio.png)
 
 - **Design** screens on a diagram canvas, with tags, animation links, window properties and scripts.
 - **Run** them in the editor against real devices through the bundled comms server:
