@@ -802,14 +802,16 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
     P('Append HMI Desktop runs .ahmi files without the editor. Choose an application, then **Run now**, create a '
       'desktop shortcut or menu entry, or tick **Run this application automatically when I log in**. From the '
       'command line: `append-hmi-desktop LiquidWeighHMI.ahmi`.')
-    figure(doc, 'desktop-launcher', 'The Append HMI Desktop launcher', max_width_in=4.2)
+    figure(doc, 'desktop-launcher', 'The Append HMI Desktop launcher with LiquidWeighHMI selected', max_width_in=4.2)
     H2('12.3  Append HMI Web')
     P('Append HMI Web serves an application to web browsers on the plant network. Choose the application and a port '
       '(8480 by default), then **Start web server**; the launcher shows the link to share, with a **Copy** button. '
-      'In the browser, the view button in the corner fits the screen to the window, maximizes it, or shows it at '
-      'its original size with scroll bars.')
-    figure(doc, 'web-launcher', 'The Append HMI Web launcher with a running server', max_width_in=4.2)
-    figure(doc, 'web-browser', 'An application in a web browser, with the view menu open')
+      'If the port is already in use on the PC (by another web server, or another application being served), '
+      'choose another. In the browser, the view button in the corner fits the screen to the window, maximizes it, '
+      'or shows it at its original size with scroll bars.')
+    figure(doc, 'web-launcher', 'The Append HMI Web launcher serving LiquidWeighHMI on port 8481 to one browser',
+        max_width_in=4.2)
+    figure(doc, 'web-browser', 'LiquidWeighHMI in a web browser, with the view menu open')
 
     # ------------------------------------------------------------ 13
     H1('13  Tips and troubleshooting')
