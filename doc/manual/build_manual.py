@@ -809,8 +809,12 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
       'If the port is already in use on the PC (by another web server, or another application being served), '
       'choose another. In the browser, the view button in the corner fits the screen to the window, maximizes it, '
       'or shows it at its original size with scroll bars.')
-    figure(doc, 'web-launcher', 'The Append HMI Web launcher serving LiquidWeighHMI on port 8481 to one browser',
-        max_width_in=4.2)
+    P('The **Running** list shows every Append HMI Web server on the PC, including ones started in the background '
+      'from the command line (`--headless`). Each has **Restart**, which starts it again with the same settings and '
+      'reads the project file afresh (do this after saving changes in Studio; browsers reload by themselves), and '
+      '**Stop**.')
+    figure(doc, 'web-launcher', 'The Append HMI Web launcher: LiquidWeighHMI served on port 8481 to one browser, and a '
+        'second application running in the background', max_width_in=4.2)
     figure(doc, 'web-browser', 'LiquidWeighHMI in a web browser, with the view menu open')
 
     # ------------------------------------------------------------ 13
