@@ -22,6 +22,7 @@ The studio does the modeling, validation and packaging itself, so never write
 - **Alarm behavior:** [alarms.md](alarms.md).
 - **Users and access levels:** [security.md](security.md).
 - **Recipes:** [recipes.md](recipes.md).
+- **Indirect tags:** [indirect.md](indirect.md).
 - **A complete example:** [example-spec.json](example-spec.json). It has a
   Logix PLC, alarmed tags, an overview page with a tank, a pump button and a
   popup alarm window.
@@ -150,6 +151,11 @@ To **change an existing project**:
   - `settings.security.autoLogoutMin` logs out after idle minutes;
   - ask the user for the users and levels; never invent passwords for a real
     plant, and tell the user which passwords you set.
+- **Indirect tags** (one faceplate for many devices):
+  - tags of type `IndirectDiscrete`, `IndirectAnalog` or `IndirectMessage` (only `name`, `type`, `comment`);
+  - the button that opens the faceplate links them, with names as text:
+    `onDown: "LinkIndirectTag(\"FP_Status\", \"SV001_Status\");"`, plus a `showWindow` link;
+  - the faceplate's links use the indirect tags; `FP_Status.Name` shows the linked tag.
 - **Recipes:**
   - `recipeBooks: [{name, uploadDownload, items: [{tag, ioTag}], recipes}]`;
     Save/Load tags are usually memory tags the operator edits, `ioTag` the PLC

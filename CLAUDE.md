@@ -182,6 +182,13 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - **Main process:** `src/main/recipes/RecipeStore.js` keeps `userData/recipes/<store>.json` (atomic) behind `hmiRecipes.load/save/clear`, and writes or reads the CSV files of RecipeExport/RecipeImport through the OS dialog (`hmiRecipes.exportCsv/importCsv`; the generic file IPC refuses CSV). In Append HMI Web these two have no answer and the browser downloads or picks the file.
 - **Store:** the same as the alarm history (`HmiMenus.alarmStore`). HMI > Clear Runtime Recipes forgets it.
 
+### Indirect tags
+- **Documentation:** `doc/HMI_INDIRECT.md`.
+- **Types:** `IndirectDiscrete`, `IndirectAnalog` and `IndirectMessage` (`HmiTypes.isIndirect`, `indirectAccepts`) hold only name, type and comment. The simulator, retentive store and alarm manager skip them.
+- **Links:** `HmiDriverHub` (in `HmiWindows.js`) keeps one set of links per Run. It subscribes an indirect name as its linked tag, re-delivers the linked tag's batches under the indirect name (`alias`), writes through (`HmiDriverClient.write`), and on `link()` sends every client the new value. So runtimes, alarm views and recipe books need nothing of their own.
+- **Function:** `js/hmi/HmiIndirect.js` has `HmiIndirect.check` (shared with the parser's `checkLink` for literal names, run at Validate) and `HmiIndirect.call`, routed by `HmiRuntime`'s `ctx.call`. `HmiRuntime.linked(name)` resolves dotfields, `.Acked` and alarm colors to the linked tag.
+- **Failures:** go to the shared function error window (`HmiDialogs.queueFunctionError`, titled by its contents).
+
 ### Automation (command line)
 - **Commands:** `--hmi-build <spec.json>`, `--hmi-check`, `--hmi-render`, `--hmi-dump` and `--hmi-publish` (with `--product`, `--app-version`, …) drive the studio without its UI. Reference: `doc/HMI_AUTOMATION.md`.
 - **Main process:** `runHmiCli` in `electron.js` runs before the single-instance lock, opens a hidden chromeless window with `hmicli=<mode>`, and answers `hmiCli.*` requests: `project`, `report`, `write`, `image`, `publish`, `done`, `fail`.

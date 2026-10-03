@@ -167,7 +167,7 @@ published package.
 | Field | Meaning |
 |---|---|
 | `name` | Letters, digits, `_`, `$`; starting with a letter, `_` or `$`; up to 63 characters; case-insensitive. `_AlarmsActive`, `_AlarmsUnacked`, `_AckAll`, `_Username` and `_AccessLevel` are reserved |
-| `type` | `MemoryDiscrete`, `MemoryInteger`, `MemoryReal`, `MemoryMessage`, `IODiscrete`, `IOInteger`, `IOReal` or `IOMessage` |
+| `type` | `MemoryDiscrete`, `MemoryInteger`, `MemoryReal`, `MemoryMessage`, `IODiscrete`, `IOInteger`, `IOReal`, `IOMessage`, or the indirect types `IndirectDiscrete`, `IndirectAnalog` and `IndirectMessage` (only `comment` besides; see [HMI_INDIRECT.md](HMI_INDIRECT.md)) |
 | `comment` | Description; also the alarm description |
 | `initial` | Starting value (memory tags) |
 | `engUnits`, `minEU`, `maxEU` | Units and engineering range (Integer/Real) |
@@ -297,7 +297,12 @@ All fields that take numbers are expressions, as strings.
     `RecipeRename(book, name, newName)` (each 1 or 0), and
     `x = ShowRecipeSelect(book[, x, y, w, h])` (the chosen name or `""`; only
     as a statement or the whole right-hand side of an assignment). See
-    [HMI_RECIPES.md](HMI_RECIPES.md).
+    [HMI_RECIPES.md](HMI_RECIPES.md);
+  - `LinkIndirectTag(indirect, tag)`, in scripts only: points an indirect tag
+    at a tag, both given as names in text (`"SV" + Unit + "_Status"`); 1 or 0.
+    See [HMI_INDIRECT.md](HMI_INDIRECT.md).
+- **Text:** `+` joins text when either side is text, converting the other
+  (`"Real" + 2` is `"Real2"`; discrete values give `"1"` or `"0"`).
 - **Bad quality:** an expression with a bad-quality input has a bad result
   (Value Display shows `####`), and an `IF` on bad data runs neither branch.
 

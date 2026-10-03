@@ -433,6 +433,8 @@ def build(save=True):
         ['IOReal', 'Real number from a PLC', 'PT001 (hopper pressure, psig)'],
         ['IOMessage', 'Text from a PLC', 'Recipe or product names'],
         ['MemoryDiscrete, MemoryInteger, MemoryReal, MemoryMessage', 'A value kept by the HMI', 'StepText (sequence step description)'],
+        ['IndirectDiscrete, IndirectAnalog, IndirectMessage', 'No value of its own: stands for the tag a script links it '
+         'to with LinkIndirectTag', 'One faceplate serving every valve'],
     ])
     H2('5.1  Tag fields')
     table(doc, 'Tag fields', [
@@ -602,7 +604,8 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
       '(`12.5`, `"Standard Blend"`), a tag or a whole expression. Function names are not case-sensitive.')
     bullets(doc, [
         '**Math and text functions** return a value and can be used anywhere: in animation links and in scripts.',
-        '**Security and recipe functions** do something (open a window, log in, write tags), so they can be '
+        '**Security, indirect tag and recipe functions** do something (open a window, log in, link or write tags), '
+        'so they can be '
         'called only from scripts: Action Scripts and window scripts. Validate reports one used in an animation '
         'link.',
         'Functions that succeed or fail return **1** or **0**, so a script can test them: '
@@ -634,6 +637,13 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
          'current password) to new (not empty), saved on this computer. Returns 1, or 0 when old is wrong or new is empty'],
         ['ShowUserManager()', 'None', 'Opens the Users window while running, to add, change or remove users on '
          'this computer (section 10.2). Returns 1'],
+    ])
+    table(doc, 'Indirect tag function (scripts only)', [
+        ['Function', 'Arguments', 'What it does'],
+        ['LinkIndirectTag(indirect, tag)', 'indirect, tag: tag names as text', 'Points the indirect tag at the tag, '
+         'replacing any earlier link; reading or writing the indirect tag then reads or writes that tag, in every '
+         'window. The names can be built: `LinkIndirectTag("FP_Status", "SV" + Text(Unit, "000") + "_Status")`. '
+         'Returns 1, or 0 with an Indirect Tag Error window when a name is unknown or the types do not match'],
     ])
     P('In the recipe functions, `book` is the name of a recipe book defined in **HMI > Recipes** and `name` the '
       'name of a recipe in it: text of 1 to 64 characters. Names are not case-sensitive. Chapter 11 shows them at '
