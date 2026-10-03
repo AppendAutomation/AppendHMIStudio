@@ -129,6 +129,26 @@ Operators who log in with `ShowLogin()` or `Login()`. See
 | `password` | Plain text; hashed at build, never stored |
 | `salt`, `hash`, `iterations` | In place of `password`, as `--hmi-dump` writes them |
 
+### recipeBooks
+
+Named sets of tag values that operators save and load with the recipe script
+functions. See [HMI_RECIPES.md](HMI_RECIPES.md).
+
+```json
+"recipeBooks": [
+  {"name": "Plasticizers", "uploadDownload": true,
+   "items": [{"tag": "Edit_TotalVol", "ioTag": "Rcp_TotalVol"}, {"tag": "Edit_Pct0", "ioTag": "Rcp_Pct0"}],
+   "recipes": {"Standard": {"Edit_TotalVol": 10, "Edit_Pct0": 60}}}
+]
+```
+
+| Field | Meaning |
+|---|---|
+| `name` | 1 to 64 characters; case-insensitive, unique |
+| `uploadDownload` | `true` to pair each tag with an Upload/Download tag (default `false`) |
+| `items` | The Save/Load tags, in order: `{"tag", "ioTag"}`, or plain tag names. `ioTag` needs `uploadDownload` |
+| `recipes` | Optional starting recipes, `{name: {tag: number or text}}`, used until a PC saves its own |
+
 ### devices
 
 | Field | Meaning |
@@ -196,7 +216,7 @@ bar shows the page name and a × close button.
 | Field | Meaning |
 |---|---|
 | `id` | Optional, unique on the page; needed for connector ends |
-| `type` | Shorthand style: `rect`, `roundedRect`, `ellipse`, `text`, `button`, `line`, `arrow`, `triangle`, `cylinder`, `alarmList` or `alarmHistory`. Optional when `style` names a shape |
+| `type` | Shorthand style: `rect`, `roundedRect`, `ellipse`, `text`, `button`, `line`, `arrow`, `triangle`, `cylinder`, `alarmList`, `alarmHistory` or `recipeList`. Optional when `style` names a shape |
 | `style` | draw.io style keys added after the type's (later keys win), e.g. `fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1;rounded=1;` |
 | `x`, `y`, `width`, `height` | Position and size |
 | `label` | Text (HTML allowed with `html=1`, which the types set) |
@@ -224,6 +244,8 @@ The alarm objects are settings in `style`:
 At Run the Alarm List's heading already has the counts and an **Ack All**
 button, and each unacknowledged row has **Ack**.
 
+A `recipeList` object takes its settings from a `recipeList` link (below).
+
 ### Animation links
 
 All fields that take numbers are expressions, as strings.
@@ -248,6 +270,7 @@ All fields that take numbers are expressions, as strings.
 | `pushbutton.action` | Scripts `onDown`, `whileDown` (every `everyMs`), `onUp` |
 | `showWindow`, `hideWindow` | `window` (page name), `enableExpr` |
 | `slider.horizontal`, `slider.vertical` | `tag`, `atMin`, `atMax`, `travelMin`, `travelMax` (pixels) |
+| `recipeList` | On a `recipeList` object only: `book`, `title` (empty: the book's name), `selectedTag` (message tag the selection follows and touch writes), `upTag`, `downTag` (discrete tags; a 0 to 1 change moves the selection), `arrows` (false; ▲▼ buttons in the heading) |
 
 ### Expressions and scripts
 
@@ -267,7 +290,14 @@ All fields that take numbers are expressions, as strings.
   - `IF cond THEN … ELSE … ENDIF;`;
   - security functions, in scripts only: `ShowLogin();`, `Login(name, password)`
     (1 or 0), `Logout();`, `ChangePassword(old, new)` (1 or 0),
-    `ShowUserManager();`.
+    `ShowUserManager();`;
+  - recipe functions, in scripts only: `RecipeSave(book, name)`,
+    `RecipeLoad`, `RecipeUpload`, `RecipeDownload`, `RecipeExport`,
+    `RecipeImport` (all `(book, name)`), `RecipeDelete(book, name[, confirm])`,
+    `RecipeRename(book, name, newName)` (each 1 or 0), and
+    `x = ShowRecipeSelect(book[, x, y, w, h])` (the chosen name or `""`; only
+    as a statement or the whole right-hand side of an assignment). See
+    [HMI_RECIPES.md](HMI_RECIPES.md).
 - **Bad quality:** an expression with a bad-quality input has a bad result
   (Value Display shows `####`), and an `IF` on bad data runs neither branch.
 

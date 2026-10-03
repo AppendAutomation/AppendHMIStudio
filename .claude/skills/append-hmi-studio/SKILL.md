@@ -21,6 +21,7 @@ The studio does the modeling, validation and packaging itself, so never write
   [reference.md](reference.md).
 - **Alarm behavior:** [alarms.md](alarms.md).
 - **Users and access levels:** [security.md](security.md).
+- **Recipes:** [recipes.md](recipes.md).
 - **A complete example:** [example-spec.json](example-spec.json). It has a
   Logix PLC, alarmed tags, an overview page with a tank, a pump button and a
   popup alarm window.
@@ -149,6 +150,16 @@ To **change an existing project**:
   - `settings.security.autoLogoutMin` logs out after idle minutes;
   - ask the user for the users and levels; never invent passwords for a real
     plant, and tell the user which passwords you set.
+- **Recipes:**
+  - `recipeBooks: [{name, uploadDownload, items: [{tag, ioTag}], recipes}]`;
+    Save/Load tags are usually memory tags the operator edits, `ioTag` the PLC
+    tags;
+  - a Select button: `onDown: "RecipeName = ShowRecipeSelect(\"Book\"); IF
+    RecipeName <> \"\" THEN RecipeLoad(\"Book\", RecipeName); ENDIF;"`;
+    Save and Download: `RecipeSave(\"Book\", RecipeName);
+    RecipeDownload(\"Book\", RecipeName);`;
+  - a `recipeList` object with a `recipeList` link `{book, selectedTag}` lists
+    the recipes on screen.
 - **Runtime settings:**
   - `windowMode` `kiosk` (default, locked full screen), `fullscreen` or
     `window`;

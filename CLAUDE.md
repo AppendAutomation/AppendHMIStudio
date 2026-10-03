@@ -37,6 +37,7 @@ append-hmi-studio/
 │   ├── window-bounds.js      # Saved window placement
 │   ├── comms/                # hmi-comms supervisor (spawn/restart) and per-window WebSocket relay
 │   ├── runtime/RuntimeMode.js # Run-only mode for published HMI packages
+│   ├── alarms/, retentive/, security/, recipes/ # Run-time stores in userData (AlarmLog, RetentiveStore, UserStore, RecipeStore)
 │   └── publish/              # HMI > Publish: Publisher.js, NsisScript.js (also the editor installer)
 ├── src/test/                 # npm test (Node's test runner; files listed in package.json)
 ├── drawio/                   # Submodule: the editor (fork). HMI code in src/main/webapp/js/hmi/
@@ -168,6 +169,18 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - **Project:** `project.users` holds `{name, level, salt, hash, iterations}`; passwords are never stored.
 - **Main process:** `src/main/security/UserStore.js` keeps runtime changes (`ShowUserManager()`, `ChangePassword()`) in `userData/users/<store>.json`, behind `hmiUsers.load/save/clear`. When that file exists it replaces the project's users; `HmiMenus.start` loads it before Run.
 - **Enable link:** OR-combines into `visual.disabled`, the flag that already gates every touch link. The older `disable` link is hidden (milestone 99) but still applied.
+
+### Recipes
+- **Documentation:** `doc/HMI_RECIPES.md`.
+- **Project:** `project.recipeBooks` holds `{name, uploadDownload, items: [{tag, ioTag}], recipes}`; `recipes` are starting recipes, used until the PC saves its own for that book.
+- **Renderer (`js/hmi/HmiRecipes.js`):**
+  - `HmiRecipeManager`, one per Run, owned by `HmiWindowManager` and passed to runtimes as `config.recipes`. It subscribes to every book tag on its own hub client and handles the `Recipe*` script functions (routed by name in `HmiRuntime`'s `ctx.call`).
+  - Saving is debounced and merges: it loads what the PC has and applies only its own changes since it last synchronized. Append HMI Web's browsers also refresh every 5 s (`REFRESH_MS`).
+  - Failures go to the Recipe Error window (`HmiDialogs.queueRecipeError`), shown after the script, coalesced.
+  - `HmiRecipeListView` draws the Recipe List (`shape=hmiRecipeList`, hidden link `recipeList`, milestone 99) at Run; `HmiRuntime.TAG_FIELDS` subscribes its tag fields.
+- **Asynchronous scripts:** `ShowRecipeSelect` is the one `async: true` function. `HmiExpr`'s script evaluator is a resumable frame stack (`ctx.callAsync`), and the parser allows async calls only as a statement or the whole right-hand side of an assignment.
+- **Main process:** `src/main/recipes/RecipeStore.js` keeps `userData/recipes/<store>.json` (atomic) behind `hmiRecipes.load/save/clear`, and writes or reads the CSV files of RecipeExport/RecipeImport through the OS dialog (`hmiRecipes.exportCsv/importCsv`; the generic file IPC refuses CSV). In Append HMI Web these two have no answer and the browser downloads or picks the file.
+- **Store:** the same as the alarm history (`HmiMenus.alarmStore`). HMI > Clear Runtime Recipes forgets it.
 
 ### Automation (command line)
 - **Commands:** `--hmi-build <spec.json>`, `--hmi-check`, `--hmi-render`, `--hmi-dump` and `--hmi-publish` (with `--product`, `--app-version`, …) drive the studio without its UI. Reference: `doc/HMI_AUTOMATION.md`.
