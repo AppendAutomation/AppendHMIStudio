@@ -1,6 +1,6 @@
-<mxfile hmiVersion="1" host="Electron" pages="25">
-  <diagram id="nGn9i7ZIEQWI2tzvuPJw" name="Process">
-    <mxGraphModel dx="1999" dy="1176" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="0" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
+<mxfile hmiVersion="1" host="Electron" pages="26">
+  <diagram id="zLPxZZ5gzaJWSBxRY5ZB" name="Process">
+    <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="0" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -568,42 +568,46 @@
         </mxCell>
         <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b186">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="27" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="27" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b187">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="295" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="261" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b188">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="563" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="495" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b189">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="831" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="729" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b190">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1099" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="963" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="1197" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b191">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1367" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1431" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b192">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1635" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1665" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="p14" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="20" y="175" as="sourcePoint" />
             <mxPoint x="64" y="175" as="targetPoint" />
           </mxGeometry>
@@ -619,7 +623,6 @@
         </mxCell>
         <mxCell id="p33" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=2;strokeColor=#5d6a77;rounded=0;edgeStyle=none;dashed=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="76" y="308" as="sourcePoint" />
             <mxPoint x="160" y="308" as="targetPoint" />
           </mxGeometry>
@@ -644,14 +647,12 @@
         </mxCell>
         <mxCell id="p39" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="440" y="440" as="sourcePoint" />
             <mxPoint x="400" y="440" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p40" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="352" y="440" as="sourcePoint" />
             <mxPoint x="330" y="440" as="targetPoint" />
           </mxGeometry>
@@ -667,14 +668,12 @@
         </mxCell>
         <mxCell id="p45" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1600" y="140" as="sourcePoint" />
             <mxPoint x="1600" y="300" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p49" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="690" y="242" as="sourcePoint" />
             <mxPoint x="690" y="268" as="targetPoint" />
           </mxGeometry>
@@ -701,14 +700,12 @@
         </mxCell>
         <mxCell id="p59" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1472" y="180" as="sourcePoint" />
             <mxPoint x="1472" y="300" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p63" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="690" y="552" as="sourcePoint" />
             <mxPoint x="690" y="578" as="targetPoint" />
           </mxGeometry>
@@ -735,105 +732,90 @@
         </mxCell>
         <mxCell id="p73" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1344" y="220" as="sourcePoint" />
             <mxPoint x="1344" y="300" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p75" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1344" y="340" as="sourcePoint" />
             <mxPoint x="1344" y="344" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p76" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1344" y="380" as="sourcePoint" />
             <mxPoint x="1344" y="420" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p77" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1408" y="340" as="sourcePoint" />
             <mxPoint x="1408" y="344" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p78" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1408" y="380" as="sourcePoint" />
             <mxPoint x="1408" y="420" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p79" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1472" y="340" as="sourcePoint" />
             <mxPoint x="1472" y="344" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p80" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1472" y="380" as="sourcePoint" />
             <mxPoint x="1472" y="420" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p81" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1536" y="340" as="sourcePoint" />
             <mxPoint x="1536" y="344" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p82" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1536" y="380" as="sourcePoint" />
             <mxPoint x="1536" y="420" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p83" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1600" y="340" as="sourcePoint" />
             <mxPoint x="1600" y="344" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p84" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1600" y="380" as="sourcePoint" />
             <mxPoint x="1600" y="420" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p85" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1664" y="340" as="sourcePoint" />
             <mxPoint x="1664" y="344" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p86" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1664" y="380" as="sourcePoint" />
             <mxPoint x="1664" y="420" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p117" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=2;strokeColor=#5d6a77;rounded=0;edgeStyle=none;dashed=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1292" y="448" as="sourcePoint" />
             <mxPoint x="1349" y="447" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p120" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=2;strokeColor=#5d6a77;rounded=0;edgeStyle=none;dashed=1;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1292" y="518" as="sourcePoint" />
             <mxPoint x="1332" y="518" as="targetPoint" />
           </mxGeometry>
@@ -850,14 +832,12 @@
         </mxCell>
         <mxCell id="p124" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1838" y="330" as="sourcePoint" />
             <mxPoint x="1905" y="330" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p129" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1905" y="420" as="sourcePoint" />
             <mxPoint x="1838" y="420" as="targetPoint" />
           </mxGeometry>
@@ -893,14 +873,12 @@
         </mxCell>
         <mxCell id="p143" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1440" y="752" as="sourcePoint" />
             <mxPoint x="1440" y="796" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p144" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1640" y="752" as="sourcePoint" />
             <mxPoint x="1640" y="796" as="targetPoint" />
           </mxGeometry>
@@ -908,8 +886,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="jp0X9cKZi_U6TdqBNEjd" name="Batch">
-    <mxGraphModel dx="1999" dy="1176" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
+  <diagram id="6txygEgavUJs8R9v6uzn" name="Batch">
+    <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1507,43 +1485,48 @@
         </mxCell>
         <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b337">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="27" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="27" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b338">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="295" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="261" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b339">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="563" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="495" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b340">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="831" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="729" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b341">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1099" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="963" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="1197" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b342">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1367" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1431" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b343">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1635" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1665" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="tVOjAT4HVaCl0vDcXkXn" name="Supply">
+  <diagram id="G-6kHdsC31SPVyPuRX8u" name="Supply">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -1995,49 +1978,52 @@
         </mxCell>
         <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b459">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="27" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="27" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b460">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="295" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="261" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b461">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="563" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="495" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b462">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="831" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="729" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b463">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1099" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="963" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="1197" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b464">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1367" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1431" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b465">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1635" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1665" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="p403" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1350" y="224" as="sourcePoint" />
             <mxPoint x="1350" y="246" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="p424" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
             <mxPoint x="1350" y="584" as="sourcePoint" />
             <mxPoint x="1350" y="606" as="targetPoint" />
           </mxGeometry>
@@ -2045,7 +2031,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="ZlsDFxtgvvugNVTkLybO" name="Devices">
+  <diagram id="Mhc4vDCNynwIcoTlPvYA" name="Devices">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -3141,43 +3127,48 @@
         </mxCell>
         <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b709">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="27" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="27" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b710">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="295" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="261" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b711">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="563" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="495" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b712">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="831" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="729" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b713">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1099" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="963" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="1197" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b714">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1367" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1431" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b715">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1635" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1665" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="KjjlNn5DZfsWVjwQjLpN" name="Setpoints">
+  <diagram id="3C8PBG2CdVt0hSI5NVSU" name="Setpoints">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -3588,43 +3579,351 @@
         </mxCell>
         <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b824">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="27" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="27" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b825">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="295" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="261" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b826">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="563" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="495" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b827">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="831" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="729" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b828">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1099" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="963" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="1197" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b829">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1367" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1431" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b830">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1635" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1665" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="bHKiFqDnL4cyK5oGOXBk" name="Alarm History">
+  <diagram id="W5gt-0VucjA9G_scfd-I" name="Recipes">
+    <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="r807" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3e7ec;strokeColor=#e3e7ec;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
+          <mxGeometry height="742" width="1920" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rcp1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f6f8;strokeColor=#a9b3bd;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
+          <mxGeometry height="712" width="560" x="20" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="rcp2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#34495e;strokeColor=#34495e;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=0;arcSize=8;whiteSpace=wrap;align=left;spacingLeft=12;" value="RECIPE BOOK" vertex="1">
+          <mxGeometry height="32" width="560" x="20" y="84" as="geometry" />
+        </mxCell>
+        <UserObject label="" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;recipeList&quot;:{&quot;book&quot;:&quot;Plasticizer Blends&quot;,&quot;title&quot;:&quot;&quot;,&quot;selectedTag&quot;:&quot;RecipeName&quot;,&quot;upTag&quot;:&quot;&quot;,&quot;downTag&quot;:&quot;&quot;,&quot;arrows&quot;:true}}}" id="rcpList">
+          <mxCell parent="1" style="html=1;noLabel=1;shape=hmiRecipeList;fontSize=14;fontSize=17;" vertex="1">
+            <mxGeometry height="560" width="528" x="36" y="128" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="rcp4" parent="1" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=12;fontStyle=0;align=left;verticalAlign=top;fontColor=#4a545e;whiteSpace=wrap;" value="Touch a recipe to select it, or use the arrows. The selected recipe is the one the buttons on the right act on. The recipes are kept on this PC; the project provides the starting ones." vertex="1">
+          <mxGeometry height="80" width="528" x="36" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="rcp5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f6f8;strokeColor=#a9b3bd;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
+          <mxGeometry height="712" width="700" x="600" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="rcp6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#34495e;strokeColor=#34495e;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=0;arcSize=8;whiteSpace=wrap;align=left;spacingLeft=12;" value="RECIPE EDITOR" vertex="1">
+          <mxGeometry height="32" width="700" x="600" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="rcp7" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;whiteSpace=wrap;" value="Recipe name" vertex="1">
+          <mxGeometry height="40" width="200" x="616" y="132" as="geometry" />
+        </mxCell>
+        <UserObject label="(no recipe selected)" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;RecipeName&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;userInput&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;tag&quot;:&quot;RecipeName&quot;,&quot;min&quot;:&quot;&quot;,&quot;max&quot;:&quot;&quot;,&quot;prompt&quot;:&quot;Recipe name&quot;,&quot;keypad&quot;:true,&quot;masked&quot;:false}}}" id="rcp8">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;align=left;spacingLeft=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="40" width="464" x="820" y="132" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="rcp9" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontStyle=1;align=left;verticalAlign=middle;fontColor=#34495e;whiteSpace=wrap;" value="Parameter" vertex="1">
+          <mxGeometry height="26" width="260" x="616" y="196" as="geometry" />
+        </mxCell>
+        <mxCell id="rcp10" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontStyle=1;align=center;verticalAlign=middle;fontColor=#34495e;whiteSpace=wrap;" value="Recipe" vertex="1">
+          <mxGeometry height="26" width="180" x="890" y="196" as="geometry" />
+        </mxCell>
+        <mxCell id="rcp11" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontStyle=1;align=center;verticalAlign=middle;fontColor=#34495e;whiteSpace=wrap;" value="In the PLC" vertex="1">
+          <mxGeometry height="26" width="180" x="1090" y="196" as="geometry" />
+        </mxCell>
+        <mxCell id="rcp12" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;whiteSpace=wrap;" value="Total batch volume" vertex="1">
+          <mxGeometry height="36" width="260" x="616" y="230" as="geometry" />
+        </mxCell>
+        <UserObject label="0.0 gal" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Edit_TotalVol&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; gal&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;userInput&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;tag&quot;:&quot;Edit_TotalVol&quot;,&quot;min&quot;:&quot;0&quot;,&quot;max&quot;:&quot;12&quot;,&quot;prompt&quot;:&quot;Total batch volume (recipe)&quot;,&quot;keypad&quot;:true,&quot;masked&quot;:false}}}" id="rcp13">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="36" width="180" x="890" y="230" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="0.0 gal" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Rcp_TotalVol&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; gal&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="rcp14">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#a9b3bd;fontSize=16;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;" vertex="1">
+            <mxGeometry height="36" width="180" x="1090" y="230" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="rcp15" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;whiteSpace=wrap;" value="Plasticizer #1" vertex="1">
+          <mxGeometry height="36" width="260" x="616" y="280" as="geometry" />
+        </mxCell>
+        <UserObject label="0.0 %" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Edit_Pct0&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; %&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;userInput&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;tag&quot;:&quot;Edit_Pct0&quot;,&quot;min&quot;:&quot;0&quot;,&quot;max&quot;:&quot;100&quot;,&quot;prompt&quot;:&quot;Plasticizer #1 (recipe)&quot;,&quot;keypad&quot;:true,&quot;masked&quot;:false}}}" id="rcp16">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="36" width="180" x="890" y="280" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="0.0 %" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Rcp_Pct0&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; %&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="rcp17">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#a9b3bd;fontSize=16;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;" vertex="1">
+            <mxGeometry height="36" width="180" x="1090" y="280" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="rcp18" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;whiteSpace=wrap;" value="Plasticizer #2" vertex="1">
+          <mxGeometry height="36" width="260" x="616" y="330" as="geometry" />
+        </mxCell>
+        <UserObject label="0.0 %" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Edit_Pct1&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; %&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;userInput&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;tag&quot;:&quot;Edit_Pct1&quot;,&quot;min&quot;:&quot;0&quot;,&quot;max&quot;:&quot;100&quot;,&quot;prompt&quot;:&quot;Plasticizer #2 (recipe)&quot;,&quot;keypad&quot;:true,&quot;masked&quot;:false}}}" id="rcp19">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="36" width="180" x="890" y="330" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="0.0 %" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Rcp_Pct1&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; %&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="rcp20">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#a9b3bd;fontSize=16;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;" vertex="1">
+            <mxGeometry height="36" width="180" x="1090" y="330" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="rcp21" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;whiteSpace=wrap;" value="Plasticizer #3" vertex="1">
+          <mxGeometry height="36" width="260" x="616" y="380" as="geometry" />
+        </mxCell>
+        <UserObject label="0.0 %" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Edit_Pct2&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; %&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;userInput&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;tag&quot;:&quot;Edit_Pct2&quot;,&quot;min&quot;:&quot;0&quot;,&quot;max&quot;:&quot;100&quot;,&quot;prompt&quot;:&quot;Plasticizer #3 (recipe)&quot;,&quot;keypad&quot;:true,&quot;masked&quot;:false}}}" id="rcp22">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="36" width="180" x="890" y="380" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="0.0 %" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Rcp_Pct2&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; %&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="rcp23">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#a9b3bd;fontSize=16;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;" vertex="1">
+            <mxGeometry height="36" width="180" x="1090" y="380" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="rcp24" parent="1" style="line;strokeWidth=1;strokeColor=#a9b3bd;html=1;" value="" vertex="1">
+          <mxGeometry height="2" width="668" x="616" y="436" as="geometry" />
+        </mxCell>
+        <mxCell id="rcp25" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;whiteSpace=wrap;" value="&lt;b&gt;Total&lt;/b&gt;" vertex="1">
+          <mxGeometry height="36" width="260" x="616" y="450" as="geometry" />
+        </mxCell>
+        <UserObject label="0.0 %" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Edit_Pct0 + Edit_Pct1 + Edit_Pct2&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; %&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="rcp26">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#a9b3bd;fontSize=16;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;" vertex="1">
+            <mxGeometry height="36" width="180" x="890" y="450" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="0.0 %" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Rcp_PctSum&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; %&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="rcp27">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#a9b3bd;fontSize=16;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;" vertex="1">
+            <mxGeometry height="36" width="180" x="1090" y="450" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="RECIPE PERCENTAGES TOTAL 100 %" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Abs(Edit_Pct0 + Edit_Pct1 + Edit_Pct2 - 100) &lt; 0.05&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="rcp28">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2e9e44;strokeColor=#2e9e44;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;" vertex="1">
+            <mxGeometry height="36" width="668" x="616" y="506" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="RECIPE PERCENTAGES MUST TOTAL 100 %" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Abs(Edit_Pct0 + Edit_Pct1 + Edit_Pct2 - 100) &lt; 0.05&quot;,&quot;sense&quot;:&quot;invisible&quot;}}}" id="rcp29">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;" vertex="1">
+            <mxGeometry height="36" width="668" x="616" y="506" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="rcp30" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontStyle=1;align=left;verticalAlign=middle;fontColor=#34495e;whiteSpace=wrap;" value="Last action" vertex="1">
+          <mxGeometry height="26" width="668" x="616" y="566" as="geometry" />
+        </mxCell>
+        <UserObject label="" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;RecipeMsg&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="rcp31">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#a9b3bd;fontSize=16;fontStyle=1;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;align=left;spacingLeft=8;" vertex="1">
+            <mxGeometry height="40" width="668" x="616" y="596" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="rcp32" parent="1" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=12;fontStyle=0;align=left;verticalAlign=top;fontColor=#4a545e;whiteSpace=wrap;" value="&lt;b&gt;Recipe&lt;/b&gt; values are edited here and saved in the recipe book. &lt;b&gt;In the PLC&lt;/b&gt; is the recipe the next batch runs (the Batch screen&#39;s recipe). Download sends the recipe column to the PLC; Upload brings the PLC&#39;s values back into the editor." vertex="1">
+          <mxGeometry height="100" width="668" x="616" y="652" as="geometry" />
+        </mxCell>
+        <mxCell id="rcp33" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f6f8;strokeColor=#a9b3bd;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
+          <mxGeometry height="712" width="590" x="1320" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="rcp34" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#34495e;strokeColor=#34495e;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=0;arcSize=8;whiteSpace=wrap;align=left;spacingLeft=12;" value="RECIPE ACTIONS" vertex="1">
+          <mxGeometry height="32" width="590" x="1320" y="84" as="geometry" />
+        </mxCell>
+        <UserObject label="SELECT RECIPE..." hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;RecipePick = ShowRecipeSelect(\&quot;Plasticizer Blends\&quot;); IF RecipePick &lt;&gt; \&quot;\&quot; THEN RecipeName = RecipePick; RecipeLoad(\&quot;Plasticizer Blends\&quot;, RecipeName); RecipeMsg = \&quot;Loaded \&quot; + RecipeName + \&quot; into the editor\&quot;; ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="rcp35">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1e6fd9;strokeColor=#7b8794;fontSize=16;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="558" x="1336" y="132" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="LOAD" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF RecipeLoad(\&quot;Plasticizer Blends\&quot;, RecipeName) THEN RecipeMsg = \&quot;Loaded \&quot; + RecipeName + \&quot; into the editor\&quot;; ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="rcp36">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=16;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="272" x="1336" y="204" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="SAVE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF RecipeSave(\&quot;Plasticizer Blends\&quot;, RecipeName) THEN RecipeMsg = \&quot;Saved \&quot; + RecipeName; ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;enable&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 2000&quot;,&quot;sense&quot;:&quot;enabled&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 2000&quot;,&quot;on&quot;:&quot;#dfe4ea&quot;,&quot;off&quot;:&quot;#c3c9d0&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 2000&quot;,&quot;on&quot;:&quot;#1b1f24&quot;,&quot;off&quot;:&quot;#7b8794&quot;}}}" id="rcp37">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=16;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="272" x="1622" y="204" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="DOWNLOAD TO PLC" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF RecipeDownload(\&quot;Plasticizer Blends\&quot;, RecipeName) THEN RecipeMsg = \&quot;Downloaded the editor&#39;s values to the PLC\&quot;; ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;enable&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 1000 AND Seq_Step == 0&quot;,&quot;sense&quot;:&quot;enabled&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 1000 AND Seq_Step == 0&quot;,&quot;on&quot;:&quot;#2e9e44&quot;,&quot;off&quot;:&quot;#c3c9d0&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 1000 AND Seq_Step == 0&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#7b8794&quot;}}}" id="rcp38">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2e9e44;strokeColor=#7b8794;fontSize=16;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="272" x="1336" y="276" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="UPLOAD FROM PLC" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF RecipeUpload(\&quot;Plasticizer Blends\&quot;, RecipeName) THEN RecipeMsg = \&quot;Uploaded the PLC&#39;s recipe into the editor\&quot;; ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="rcp39">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=16;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="272" x="1622" y="276" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="DELETE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF RecipeDelete(\&quot;Plasticizer Blends\&quot;, RecipeName, 1) THEN RecipeMsg = \&quot;Deleted \&quot; + RecipeName; RecipeName = \&quot;\&quot;; ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;enable&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 2000&quot;,&quot;sense&quot;:&quot;enabled&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 2000&quot;,&quot;on&quot;:&quot;#d32f2f&quot;,&quot;off&quot;:&quot;#c3c9d0&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 2000&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#7b8794&quot;}}}" id="rcp40">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#7b8794;fontSize=16;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="272" x="1336" y="348" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="EXPORT CSV..." hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;RecipeExport(\&quot;Plasticizer Blends\&quot;, RecipeName);&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="rcp41">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=16;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="272" x="1622" y="348" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="IMPORT CSV..." hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF RecipeImport(\&quot;Plasticizer Blends\&quot;, RecipeName) THEN RecipeMsg = \&quot;Choose a CSV file to import as \&quot; + RecipeName; ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;enable&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 2000&quot;,&quot;sense&quot;:&quot;enabled&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 2000&quot;,&quot;on&quot;:&quot;#dfe4ea&quot;,&quot;off&quot;:&quot;#c3c9d0&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 2000&quot;,&quot;on&quot;:&quot;#1b1f24&quot;,&quot;off&quot;:&quot;#7b8794&quot;}}}" id="rcp42">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=16;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="272" x="1336" y="420" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="rcp43" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontStyle=1;align=left;verticalAlign=middle;fontColor=#34495e;whiteSpace=wrap;" value="Rename the selected recipe" vertex="1">
+          <mxGeometry height="26" width="558" x="1336" y="500" as="geometry" />
+        </mxCell>
+        <UserObject label="(new name)" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;RecipeNewName&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;userInput&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;tag&quot;:&quot;RecipeNewName&quot;,&quot;min&quot;:&quot;&quot;,&quot;max&quot;:&quot;&quot;,&quot;prompt&quot;:&quot;New recipe name&quot;,&quot;keypad&quot;:true,&quot;masked&quot;:false}}}" id="rcp44">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;align=left;spacingLeft=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="40" width="558" x="1336" y="532" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="RENAME" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF RecipeRename(\&quot;Plasticizer Blends\&quot;, RecipeName, RecipeNewName) THEN RecipeMsg = \&quot;Renamed \&quot; + RecipeName + \&quot; to \&quot; + RecipeNewName; RecipeName = RecipeNewName; RecipeNewName = \&quot;\&quot;; ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;enable&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 2000&quot;,&quot;sense&quot;:&quot;enabled&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 2000&quot;,&quot;on&quot;:&quot;#dfe4ea&quot;,&quot;off&quot;:&quot;#c3c9d0&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_AccessLevel &gt;= 2000&quot;,&quot;on&quot;:&quot;#1b1f24&quot;,&quot;off&quot;:&quot;#7b8794&quot;}}}" id="rcp45">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=16;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="558" x="1336" y="584" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="rcp46" parent="1" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=12;fontStyle=0;align=left;verticalAlign=top;fontColor=#4a545e;whiteSpace=wrap;" value="Save, Delete, Import and Rename need Maintenance (level 2000) or higher. Download needs Operator (1000) or higher, and the sequence must be idle. Import saves the CSV file&#39;s values under the recipe name above." vertex="1">
+          <mxGeometry height="120" width="558" x="1336" y="664" as="geometry" />
+        </mxCell>
+        <mxCell id="al808" parent="1" style="html=1;noLabel=1;shape=hmiAlarmList;fontSize=12;hmiTitle=Active Alarms;hmiColumns=time,tag,description,condition,value,state;fontSize=13;" value="" vertex="1">
+          <mxGeometry height="202" width="1900" x="10" y="806" as="geometry" />
+        </mxCell>
+        <mxCell id="r809" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
+          <mxGeometry height="70" width="1920" as="geometry" />
+        </mxCell>
+        <mxCell id="t810" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;align=left;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="LIQUID WEIGH SYSTEM" vertex="1">
+          <mxGeometry height="32" width="420" x="20" y="6" as="geometry" />
+        </mxCell>
+        <mxCell id="t811" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="Mixer Liquids Weigh-Up  |  Banbury Deck" vertex="1">
+          <mxGeometry height="24" width="420" x="20" y="38" as="geometry" />
+        </mxCell>
+        <mxCell id="t812" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=28;fontStyle=1;align=center;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="RECIPES" vertex="1">
+          <mxGeometry height="50" width="530" x="450" y="10" as="geometry" />
+        </mxCell>
+        <UserObject label="PLC OK" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &gt;= 192&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r813">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2e9e44;strokeColor=#2e9e44;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
+            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="PLC&lt;br&gt;COMM FAIL" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &lt; 192&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;700&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r814">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=13;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
+            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="SIM MODE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Sim_Enable&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r815">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0a500;strokeColor=#f0a500;fontSize=14;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
+            <mxGeometry height="42" width="96" x="1128" y="14" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="E-STOP" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;DI_ES_001_EStopped&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r816">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=16;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
+            <mxGeometry height="42" width="96" x="1232" y="14" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="IDLE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;StepText&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.analog&quot;:{&quot;expr&quot;:&quot;Seq_Step&quot;,&quot;bands&quot;:[{&quot;max&quot;:&quot;1&quot;,&quot;color&quot;:&quot;#7b8794&quot;},{&quot;max&quot;:&quot;95&quot;,&quot;color&quot;:&quot;#2e9e44&quot;},{&quot;max&quot;:&quot;105&quot;,&quot;color&quot;:&quot;#f0a500&quot;},{&quot;max&quot;:null,&quot;color&quot;:&quot;#d32f2f&quot;}]},&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="r817">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#7b8794;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
+            <mxGeometry height="42" width="190" x="1336" y="14" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Alarms: 0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;_AlarmsActive&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;Alarms: &quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AlarmsActive &gt; 0&quot;,&quot;on&quot;:&quot;#d32f2f&quot;,&quot;off&quot;:&quot;#46586a&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;_AlarmsUnacked &gt; 0&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r818">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#46586a;strokeColor=#46586a;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
+            <mxGeometry height="42" width="140" x="1534" y="14" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="r819" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2b3d4f;strokeColor=#4f6477;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
+          <mxGeometry height="54" width="228" x="1682" y="8" as="geometry" />
+        </mxCell>
+        <mxCell id="t820" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="USER" vertex="1">
+          <mxGeometry height="18" width="116" x="1692" y="11" as="geometry" />
+        </mxCell>
+        <UserObject label="None" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;_Username&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#8fa1b3&quot;}}}" id="t821">
+          <mxCell parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=15;fontStyle=1;align=left;verticalAlign=middle;fontColor=#8fa1b3;whiteSpace=wrap;" vertex="1">
+            <mxGeometry height="30" width="116" x="1692" y="28" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="LOGIN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF _Username == \&quot;None\&quot; THEN ShowLogin(); ELSE Logout(); ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;discrete&quot;,&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;LOGOUT&quot;,&quot;offText&quot;:&quot;LOGIN&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#f8cecc&quot;,&quot;off&quot;:&quot;#d5e8d4&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#b85450&quot;,&quot;off&quot;:&quot;#82b366&quot;}}}" id="login822">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;" vertex="1">
+            <mxGeometry height="42" width="94" x="1810" y="14" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="r823" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
+          <mxGeometry height="68" width="1920" y="1012" as="geometry" />
+        </mxCell>
+        <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b824">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="27" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b825">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="261" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b826">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="495" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b827">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="729" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b828">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="963" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="1197" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b829">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="1431" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b830">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="1665" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="LBEnq8KN4htVqeFK5PCS" name="Alarm History">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -3701,44 +4000,49 @@
         </mxCell>
         <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b849">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="27" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="27" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b850">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="295" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="261" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b851">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="563" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="495" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b852">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="831" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="729" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b853">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1099" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="963" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="1197" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b854">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1367" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1431" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b855">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1635" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1665" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="xt9AS9TlNqdItg2q32c2" name="IO Sim">
-    <mxGraphModel dx="1999" dy="1176" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
+  <diagram id="1vOaphHgP4m_ddGTsOSP" name="IO Sim">
+    <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -4284,43 +4588,48 @@
         </mxCell>
         <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b980">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="27" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="27" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b981">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="295" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="261" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b982">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="563" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="495" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b983">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="831" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="729" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b984">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1099" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="963" y="1018" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="224" x="1197" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b985">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1367" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1431" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b986">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="258" x="1635" y="1018" as="geometry" />
+            <mxGeometry height="56" width="224" x="1665" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="g1OQEsD9Dxpu_Hf0LCfF" name="SV-001 Faceplate">
+  <diagram id="ByTtTFOHIfBcCJqgMnyD" name="SV-001 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4446,7 +4755,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="OpEnCVLWGczTiU_qYZoo" name="SV-002 Faceplate">
+  <diagram id="jucEKZ-i1AIt57-T8u6X" name="SV-002 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4572,7 +4881,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="MrMFwT1TVJLMnNJTBh1T" name="SV-100 Faceplate">
+  <diagram id="5WDI70zUArfBM5q3DRNi" name="SV-100 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4711,7 +5020,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="HE1BrELAkgY9XaDTRNEP" name="SV-101 Faceplate">
+  <diagram id="acCvJP05Mt1iE29Wdmgf" name="SV-101 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4850,7 +5159,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="lq0HtRYfFoF2DgCxVEXm" name="SV-102 Faceplate">
+  <diagram id="yYDAUzP2qQfzl_qvnSfG" name="SV-102 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4982,7 +5291,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="B8H4S7YGPZbsw5rJtfni" name="SV-200 Faceplate">
+  <diagram id="utaX4C8Wfr03QF3czyti" name="SV-200 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -5121,7 +5430,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="ZN_VGQlGfvoZmF78qRdM" name="SV-201 Faceplate">
+  <diagram id="fr-iA222S5jnDzXjI4k3" name="SV-201 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -5260,7 +5569,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="MEAe6uIqmbKbyrJtkqdg" name="SV-300 Faceplate">
+  <diagram id="XQ13M3jAdvKEvpUrJNS-" name="SV-300 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -5399,7 +5708,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="i-ZsYAbxL9JKvcDwUA24" name="SV-301 Faceplate">
+  <diagram id="f4SuP8KYdvZ2XbkScu-E" name="SV-301 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -5538,7 +5847,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="KhXX9FHsn27LE1bkP4gM" name="SV-401 Faceplate">
+  <diagram id="ciMEzMq1tf4QxI8ikopn" name="SV-401 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -5677,7 +5986,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="EoUfkHWf_5dkrdQZ1ani" name="SV-402 Faceplate">
+  <diagram id="oYt8s-My8c1RYkOShQrH" name="SV-402 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -5816,7 +6125,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="iI_KiakxsL9A2Lvssyhh" name="P-100 Faceplate">
+  <diagram id="-6u0XvLA3DGLqP3aVdNo" name="P-100 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -5952,7 +6261,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="TMxtoV4SfPJlMBnDbkre" name="P-200 Faceplate">
+  <diagram id="SydCIXiB6k161Z2YYPCR" name="P-200 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -6088,7 +6397,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="Wzw7rku2e-k8bWbj48Hv" name="P-300 Faceplate">
+  <diagram id="4OYL-G7N4sU4HoGqCbjL" name="P-300 Faceplate">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -6224,7 +6533,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="oIOoSYxOKVHA2CJty-Oe" name="Confirm Abort">
+  <diagram id="IuZNMP0hWxdALftc3Ui9" name="Confirm Abort">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -6248,7 +6557,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="xwzQSDBRDFi-2Kkb8z5o" name="Confirm Empty Hopper">
+  <diagram id="ToSGMbKL_iGBkevwxaLQ" name="Confirm Empty Hopper">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -6272,7 +6581,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="owKaiXXJ8JU_MctEAngW" name="Confirm Load Defaults">
+  <diagram id="VfectMMt5QcRvIelUgYh" name="Confirm Load Defaults">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -6296,7 +6605,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="4FEwC4NqKE7jkrWToigL" name="Confirm Reset Counter">
+  <diagram id="rpQc45v5YThdIHOLcR8h" name="Confirm Reset Counter">
     <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -6813,9 +7122,17 @@
       <tag name="Sim_DischRate" type="IOReal" comment="Simulation DischRate_lbps" engUnits="lb/s" initial="0" minEU="0" maxEU="30" scaled="false" minRaw="0" maxRaw="32767" device="LiquidWeighPLC" address="Sim.DischRate_lbps" />
       <tag name="Sim_RefillRate" type="IOReal" comment="Simulation RefillRate_gps" engUnits="gal/s" initial="0" minEU="0" maxEU="100" scaled="false" minRaw="0" maxRaw="32767" device="LiquidWeighPLC" address="Sim.RefillRate_gps" />
       <tag name="Sim_ToteSize" type="IOReal" comment="Simulation ToteSize_gal" engUnits="gal" initial="0" minEU="0" maxEU="330" scaled="false" minRaw="0" maxRaw="32767" device="LiquidWeighPLC" address="Sim.ToteSize_gal" />
+      <tag name="Edit_TotalVol" type="MemoryReal" comment="Recipe editor: total batch volume" engUnits="gal" initial="0" minEU="0" maxEU="12" retentive="true" />
+      <tag name="Edit_Pct0" type="MemoryReal" comment="Recipe editor: Plast #1 percent" engUnits="%" initial="0" minEU="0" maxEU="100" retentive="true" />
+      <tag name="Edit_Pct1" type="MemoryReal" comment="Recipe editor: Plast #2 percent" engUnits="%" initial="0" minEU="0" maxEU="100" retentive="true" />
+      <tag name="Edit_Pct2" type="MemoryReal" comment="Recipe editor: Plast #3 percent" engUnits="%" initial="0" minEU="0" maxEU="100" retentive="true" />
+      <tag name="RecipeName" type="MemoryMessage" comment="Selected recipe (Recipe List and editor)" retentive="true" />
+      <tag name="RecipeNewName" type="MemoryMessage" comment="New name for Rename" />
+      <tag name="RecipePick" type="MemoryMessage" comment="Result of ShowRecipeSelect" />
+      <tag name="RecipeMsg" type="MemoryMessage" comment="Result of the last recipe action" />
     </tags>
     <settings width="1920" height="1080">
-      <startup page="nGn9i7ZIEQWI2tzvuPJw" />
+      <startup page="zLPxZZ5gzaJWSBxRY5ZB" />
       <runtime windowMode="fullscreen" exit="shortcut" />
       <publish productName="LiquidWeighHMI" version="1.0.2" publisher="" icon="" scope="machine" desktop="true" autostart="false" compression="small" output="/home/dave/Documents" />
     </settings>
@@ -6824,13 +7141,47 @@
       <user name="Maintenance" level="2000" salt="7c8edba774cb603482afa527d45fc1dd" hash="2117e88ad0fc31a0eecd89848dd7b6657b479fdd2074697d425b9340ce8df74f" iterations="20000" />
       <user name="Engineer" level="9999" salt="6e35f77cd8188926f52a9e3f193d58a8" hash="1b706c9a54df44be6a789a09d46096689143f1eebabee444c1c036bd6c23cf52" iterations="20000" />
     </users>
+    <recipeBooks>
+      <recipeBook name="Plasticizer Blends" uploadDownload="1">
+        <recipeItem tag="Edit_TotalVol" ioTag="Rcp_TotalVol" />
+        <recipeItem tag="Edit_Pct0" ioTag="Rcp_Pct0" />
+        <recipeItem tag="Edit_Pct1" ioTag="Rcp_Pct1" />
+        <recipeItem tag="Edit_Pct2" ioTag="Rcp_Pct2" />
+        <recipeData name="Standard Blend">
+          <recipeValue tag="Edit_TotalVol" value="10" number="1" />
+          <recipeValue tag="Edit_Pct0" value="60" number="1" />
+          <recipeValue tag="Edit_Pct1" value="25" number="1" />
+          <recipeValue tag="Edit_Pct2" value="15" number="1" />
+        </recipeData>
+        <recipeData name="High Plasticizer">
+          <recipeValue tag="Edit_TotalVol" value="10" number="1" />
+          <recipeValue tag="Edit_Pct0" value="70" number="1" />
+          <recipeValue tag="Edit_Pct1" value="20" number="1" />
+          <recipeValue tag="Edit_Pct2" value="10" number="1" />
+        </recipeData>
+        <recipeData name="Hose Compound">
+          <recipeValue tag="Edit_TotalVol" value="9" number="1" />
+          <recipeValue tag="Edit_Pct0" value="45" number="1" />
+          <recipeValue tag="Edit_Pct1" value="35" number="1" />
+          <recipeValue tag="Edit_Pct2" value="20" number="1" />
+        </recipeData>
+        <recipeData name="Low Odor">
+          <recipeValue tag="Edit_TotalVol" value="8" number="1" />
+          <recipeValue tag="Edit_Pct0" value="50" number="1" />
+          <recipeValue tag="Edit_Pct1" value="50" number="1" />
+          <recipeValue tag="Edit_Pct2" value="0" number="1" />
+        </recipeData>
+        <recipeData name="Trial Batch">
+          <recipeValue tag="Edit_TotalVol" value="4" number="1" />
+          <recipeValue tag="Edit_Pct0" value="40" number="1" />
+          <recipeValue tag="Edit_Pct1" value="30" number="1" />
+          <recipeValue tag="Edit_Pct2" value="30" number="1" />
+        </recipeData>
+      </recipeBook>
+    </recipeBooks>
     <windows>
-      <window page="4FEwC4NqKE7jkrWToigL" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
-      <window page="B8H4S7YGPZbsw5rJtfni" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="EoUfkHWf_5dkrdQZ1ani" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="HE1BrELAkgY9XaDTRNEP" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="KhXX9FHsn27LE1bkP4gM" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="KjjlNn5DZfsWVjwQjLpN" everyMs="250">
+      <window page="-6u0XvLA3DGLqP3aVdNo" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="1vOaphHgP4m_ddGTsOSP" everyMs="250">
         <onShow>
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </onShow>
@@ -6838,13 +7189,7 @@
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </whileShowing>
       </window>
-      <window page="MEAe6uIqmbKbyrJtkqdg" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="MrMFwT1TVJLMnNJTBh1T" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="OpEnCVLWGczTiU_qYZoo" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="TMxtoV4SfPJlMBnDbkre" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="Wzw7rku2e-k8bWbj48Hv" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="ZN_VGQlGfvoZmF78qRdM" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="ZlsDFxtgvvugNVTkLybO" everyMs="250">
+      <window page="3C8PBG2CdVt0hSI5NVSU" everyMs="250">
         <onShow>
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </onShow>
@@ -6852,7 +7197,9 @@
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </whileShowing>
       </window>
-      <window page="bHKiFqDnL4cyK5oGOXBk" everyMs="250">
+      <window page="4OYL-G7N4sU4HoGqCbjL" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="5WDI70zUArfBM5q3DRNi" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="6txygEgavUJs8R9v6uzn" everyMs="250">
         <onShow>
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </onShow>
@@ -6860,10 +7207,8 @@
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </whileShowing>
       </window>
-      <window page="g1OQEsD9Dxpu_Hf0LCfF" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="i-ZsYAbxL9JKvcDwUA24" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="iI_KiakxsL9A2Lvssyhh" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="jp0X9cKZi_U6TdqBNEjd" everyMs="250">
+      <window page="ByTtTFOHIfBcCJqgMnyD" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="G-6kHdsC31SPVyPuRX8u" everyMs="250">
         <onShow>
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </onShow>
@@ -6871,8 +7216,8 @@
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </whileShowing>
       </window>
-      <window page="lq0HtRYfFoF2DgCxVEXm" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
-      <window page="nGn9i7ZIEQWI2tzvuPJw" everyMs="250">
+      <window page="IuZNMP0hWxdALftc3Ui9" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="LBEnq8KN4htVqeFK5PCS" everyMs="250">
         <onShow>
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </onShow>
@@ -6880,9 +7225,7 @@
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </whileShowing>
       </window>
-      <window page="oIOoSYxOKVHA2CJty-Oe" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
-      <window page="owKaiXXJ8JU_MctEAngW" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
-      <window page="tVOjAT4HVaCl0vDcXkXn" everyMs="250">
+      <window page="Mhc4vDCNynwIcoTlPvYA" everyMs="250">
         <onShow>
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </onShow>
@@ -6890,7 +7233,10 @@
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </whileShowing>
       </window>
-      <window page="xt9AS9TlNqdItg2q32c2" everyMs="250">
+      <window page="SydCIXiB6k161Z2YYPCR" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="ToSGMbKL_iGBkevwxaLQ" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="VfectMMt5QcRvIelUgYh" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="W5gt-0VucjA9G_scfd-I" everyMs="250">
         <onShow>
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </onShow>
@@ -6898,7 +7244,24 @@
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </whileShowing>
       </window>
-      <window page="xwzQSDBRDFi-2Kkb8z5o" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="XQ13M3jAdvKEvpUrJNS-" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="acCvJP05Mt1iE29Wdmgf" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="ciMEzMq1tf4QxI8ikopn" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="f4SuP8KYdvZ2XbkScu-E" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="fr-iA222S5jnDzXjI4k3" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="jucEKZ-i1AIt57-T8u6X" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="oYt8s-My8c1RYkOShQrH" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="rpQc45v5YThdIHOLcR8h" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="utaX4C8Wfr03QF3czyti" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="yYDAUzP2qQfzl_qvnSfG" titleBar="1" type="popup" x="730" y="150" width="460" height="560" />
+      <window page="zLPxZZ5gzaJWSBxRY5ZB" everyMs="250">
+        <onShow>
+          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
+        </onShow>
+        <whileShowing>
+          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
+        </whileShowing>
+      </window>
     </windows>
   </hmiProject>
 </mxfile>

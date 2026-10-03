@@ -6,9 +6,12 @@ images/, using the LiquidWeighHMI example (examples/LiquidWeighHMI.ahmi).
 
 Writes doc/Append-HMI-Studio-User-Manual.docx; finish.py then fills in the
 table of contents and exports the PDF (needs LibreOffice). Tables follow the
-house rules: widths computed from their text, fixed layout, header rows
-repeated on every page, rows kept whole, captions kept with their tables and
-1/8" cell margins.
+house rules through the docx skill (~/.claude/skills/docx): widths computed
+from their text, fixed layout, header rows repeated on every page, rows kept
+whole, captions kept with their tables and 1/8" cell margins. The skill's
+pagination pass then breaks the page before any heading left in the lower
+third of a page; finish.py changes only the contents pages, which end with a
+page break, so the chapters' layout stays as checked.
 """
 
 import os
@@ -23,89 +26,25 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_BREAK
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
-from PIL import Image, ImageFont
+from PIL import Image
+
+sys.path.insert(0, os.path.expanduser('~/.claude/skills/docx'))
+from docx_tables import format_table, usable_width_in  # noqa: E402
+from docx_paginate import enforce  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 IMAGES = os.path.join(HERE, 'images')
 OUT = os.path.join(HERE, '..', 'Append-HMI-Studio-User-Manual.docx')
 
 FONT = 'Calibri'
-# Carlito has Calibri's metrics, so text measured with it fits in Word
-FONT_FILES = {
-    False: '/usr/share/fonts/truetype/crosextra/Carlito-Regular.ttf',
-    True: '/usr/share/fonts/truetype/crosextra/Carlito-Bold.ttf',
-}
 BODY_PT = 11
 TABLE_PT = 10
 PAGE_WIDTH_IN = 8.5
 MARGIN_IN = 1.0
 TEXT_WIDTH_IN = PAGE_WIDTH_IN - 2 * MARGIN_IN
-CELL_MARGIN_IN = 0.125
 ACCENT = RGBColor(0x1F, 0x5F, 0x99)
 
-_fonts = {}
-
-
-def text_width_pt(text, bold=False, size=TABLE_PT):
-    key = (bold, size)
-
-    if key not in _fonts:
-        _fonts[key] = ImageFont.truetype(FONT_FILES[bold], size * 10)
-
-    return _fonts[key].getlength(text) / 10.0
-
-
 # ------------------------------------------------------------------ tables
-
-def _set_cell_width(cell, width_in):
-    cell.width = Inches(width_in)
-    tc_pr = cell._tc.get_or_add_tcPr()
-    tc_w = tc_pr.find(qn('w:tcW'))
-
-    if tc_w is None:
-        tc_w = OxmlElement('w:tcW')
-        tc_pr.append(tc_w)
-
-    tc_w.set(qn('w:w'), str(int(width_in * 1440)))
-    tc_w.set(qn('w:type'), 'dxa')
-
-
-def _repeat_header(row):
-    tr_pr = row._tr.get_or_add_trPr()
-    el = OxmlElement('w:tblHeader')
-    el.set(qn('w:val'), 'true')
-    tr_pr.append(el)
-
-
-def _keep_row_together(row):
-    row._tr.get_or_add_trPr().append(OxmlElement('w:cantSplit'))
-
-
-def _set_cell_margins(table, left=CELL_MARGIN_IN, right=CELL_MARGIN_IN, top=0.04, bottom=0.04):
-    tbl_pr = table._tbl.tblPr
-    mar = OxmlElement('w:tblCellMar')
-
-    for side, inches in (('left', left), ('right', right), ('top', top), ('bottom', bottom)):
-        el = OxmlElement('w:' + side)
-        el.set(qn('w:w'), str(int(inches * 1440)))
-        el.set(qn('w:type'), 'dxa')
-        mar.append(el)
-
-    tbl_pr.append(mar)
-
-
-def _fixed_layout(table):
-    table.autofit = False
-    table.allow_autofit = False
-    tbl_pr = table._tbl.tblPr
-    layout = tbl_pr.find(qn('w:tblLayout'))
-
-    if layout is None:
-        layout = OxmlElement('w:tblLayout')
-        tbl_pr.append(layout)
-
-    layout.set(qn('w:type'), 'fixed')
-
 
 def _shade(cell, fill):
     tc_pr = cell._tc.get_or_add_tcPr()
@@ -116,122 +55,38 @@ def _shade(cell, fill):
     tc_pr.append(shd)
 
 
-def column_widths(rows, available_in=TEXT_WIDTH_IN, first_col_bold=False):
-    """Widths (inches) from the text. A column's floor is its longest
-    unbreakable word (so a one-word header never wraps), its ideal the whole
-    text on one line, both with the cell margins and borders. Columns whose
-    ideal fits a fair share of the page get it (short label columns never
-    wrap); the rest share what is left in proportion to their ideals, clamped
-    to their floors. Space left over goes to the columns still wrapping."""
-    ncols = len(rows[0])
-    pad = 2 * CELL_MARGIN_IN * 72 + 2  # cell margins and borders, points
-    floors = [0.0] * ncols
-    ideals = [0.0] * ncols
-
-    for r, row in enumerate(rows):
-        for c, text in enumerate(row):
-            bold = r == 0 or (first_col_bold and c == 0)
-            words = re.split(r'\s+', text.strip()) or ['']
-            longest = max(text_width_pt(w, bold) for w in words)
-            full = max(text_width_pt(line, bold) for line in text.split('\n'))
-            floors[c] = max(floors[c], longest + pad)
-            ideals[c] = max(ideals[c], full + pad)
-
-    avail = available_in * 72
-
-    if sum(floors) > avail:
-        raise SystemExit('Table does not fit in portrait even at its minimum widths: ' + repr(rows[0]) +
-            ' (ask before switching the section to landscape)')
-
-    widths = [0.0] * ncols
-    remaining = avail
-    open_cols = list(range(ncols))
-
-    # Water-filling: every column whose whole text fits a fair share gets it
-    while open_cols:
-        share = remaining / len(open_cols)
-        fits = [c for c in open_cols if ideals[c] <= share]
-
-        if not fits:
-            break
-
-        for c in fits:
-            widths[c] = ideals[c]
-            remaining -= ideals[c]
-            open_cols.remove(c)
-
-    if open_cols:
-        total = sum(ideals[c] for c in open_cols)
-
-        for c in open_cols:
-            widths[c] = remaining * ideals[c] / total
-
-        # Clamp to floors, taking the difference from open columns above theirs
-        for _ in range(10):
-            short = [c for c in open_cols if widths[c] < floors[c]]
-
-            if not short:
-                break
-
-            need = sum(floors[c] - widths[c] for c in short)
-
-            for c in short:
-                widths[c] = floors[c]
-
-            donors = [c for c in open_cols if widths[c] > floors[c]]
-            spare = sum(widths[c] - floors[c] for c in donors)
-
-            for c in donors:
-                widths[c] -= need * (widths[c] - floors[c]) / spare
-    else:
-        # Nothing wraps: spread what is left in proportion
-        total = sum(widths)
-        widths = [w * avail / total for w in widths]
-
-    return [w / 72 for w in widths]
-
-
 def add_table(doc, caption, rows, first_col_bold=False):
     cap = doc.add_paragraph(style='Caption')
     cap.add_run(caption)
     cap.paragraph_format.keep_with_next = True
 
-    widths = column_widths(rows, first_col_bold=first_col_bold)
     table = doc.add_table(rows=len(rows), cols=len(rows[0]))
     table.style = 'Table Grid'
-    table.alignment = WD_TABLE_ALIGNMENT.LEFT
-    _fixed_layout(table)
-    _set_cell_margins(table)
-
-    for c, col in enumerate(table.columns):
-        col.width = Inches(widths[c])
 
     for r, row in enumerate(rows):
-        tr = table.rows[r]
-        _keep_row_together(tr)
-
-        if r == 0:
-            _repeat_header(tr)
-
         for c, text in enumerate(row):
-            cell = tr.cells[c]
-            _set_cell_width(cell, widths[c])
+            cell = table.rows[r].cells[c]
             cell.text = ''
             p = cell.paragraphs[0]
-            p.paragraph_format.space_after = Pt(0)
             lines = text.split('\n')
 
             for i, line in enumerate(lines):
-                run = p.add_run(line)
-                run.font.size = Pt(TABLE_PT)
-                run.bold = r == 0 or (first_col_bold and c == 0)
+                before = len(p.runs)
+                _runs(p, line)
+
+                if r == 0 or (first_col_bold and c == 0):
+                    for run in p.runs[before:]:
+                        run.bold = True
 
                 if i < len(lines) - 1:
-                    run.add_break()
+                    p.runs[-1].add_break()
 
             if r == 0:
                 _shade(cell, 'D9E2EC')
 
+    # The house table rules: computed widths, fixed layout, repeated header,
+    # rows kept whole, 1/8" cell margins
+    format_table(table, usable_width_in(doc.sections[-1]), size_pt=TABLE_PT)
     doc.add_paragraph()
 
     return table
@@ -254,7 +109,7 @@ def _runs(p, text):
         elif part.startswith('`') and part.endswith('`'):
             run = p.add_run(part[1:-1])
             run.font.name = 'Consolas'
-            run.font.size = Pt(BODY_PT - 1)
+            run.font.size = Pt(BODY_PT - 1.5)
         elif part:
             p.add_run(part)
 
@@ -290,6 +145,13 @@ def code(doc, text):
 
 
 _figures = [0]
+_figure_names = {}
+_known_figures = {}
+
+
+def F(name):
+    """'Figure n' for the figure called name, wherever it is."""
+    return 'Figure %d' % _known_figures.get(name, 0)
 
 
 def figure(doc, name, caption, max_width_in=TEXT_WIDTH_IN, px_per_in=115):
@@ -304,6 +166,7 @@ def figure(doc, name, caption, max_width_in=TEXT_WIDTH_IN, px_per_in=115):
     p.paragraph_format.keep_with_next = True
     p.add_run().add_picture(path, width=Inches(width))
     _figures[0] += 1
+    _figure_names[name] = _figures[0]
     cap = doc.add_paragraph(style='Caption')
     cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
     cap.add_run('Figure %d. %s' % (_figures[0], caption))
@@ -414,7 +277,7 @@ def cover(doc):
 
     v = doc.add_paragraph()
     v.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = v.add_run('Version 1.0  ·  September 2026\nAppend Automation')
+    run = v.add_run('Version 1.1  ·  October 2026\nAppend Automation')
     run.font.size = Pt(11)
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 
@@ -427,7 +290,7 @@ def contents(doc):
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 
 
-def build():
+def build(save=True):
     doc = Document()
     styles(doc)
     page_setup(doc)
@@ -453,11 +316,14 @@ def build():
         ['Part', 'In the example'],
         ['Target screen', '1920 × 1080, full screen'],
         ['PLC', 'One ControlLogix controller (EtherNet/IP), 419 I/O tags'],
-        ['Screens', 'Process, Batch, Supply, Devices, Setpoints, Alarm History and IO Sim'],
+        ['Screens', 'Process, Batch, Supply, Devices, Setpoints, Recipes, Alarm History and IO Sim'],
         ['Popup windows', 'A faceplate for each of 11 valves and 3 pumps, and 4 confirmation dialogs'],
         ['Alarms', '34 alarmed tags, an Active Alarms list on every screen and an Alarm History screen'],
         ['Security', 'Three users (Operator, Maintenance, Engineer) with access levels'],
-        ['Scripts', 'Window scripts that turn the sequence step number into text'],
+        ['Recipes', 'A recipe book of plasticizer blends with five starting recipes, and a Recipes screen to '
+         'select, edit, save and download them'],
+        ['Scripts', 'Window scripts that turn the sequence step number into text, and action scripts that call '
+         'the login and recipe functions'],
     ])
 
     H2('1.1  How an HMI application is organized')
@@ -499,14 +365,16 @@ def build():
         ['Tag Dictionary...', 'Create and edit tags (chapter 5)'],
         ['Devices...', 'Configure the PLCs (chapter 4)'],
         ['Users...', 'Users, passwords and access levels (chapter 10)'],
+        ['Recipes...', 'Recipe books: the tags a recipe holds and the starting recipes (chapter 11)'],
         ['Application Settings...', 'Target screen, start-up windows, runtime and security settings (chapter 3)'],
         ['Window Properties...', 'Type, position, size and scripts of the current window (chapter 6)'],
-        ['Validate Expressions', 'Check every link, script and address for errors (chapter 11)'],
-        ['Publish...', 'Build a Windows installer of the application (chapter 12)'],
-        ['Run / Stop (F5)', 'Run the application in the Studio against live or simulated data (chapter 11)'],
+        ['Validate Expressions', 'Check every link, script and address for errors (chapter 12)'],
+        ['Publish...', 'Build a Windows installer of the application (chapter 13)'],
+        ['Run / Stop (F5)', 'Run the application in the Studio against live or simulated data (chapter 12)'],
         ['Runtime Log...', 'Messages from the last runs: connections, writes, script errors'],
         ['Clear Retentive Values...', 'Forget the saved values of retentive tags on this computer'],
         ['Clear Runtime User Changes...', 'Forget user changes made while running on this computer'],
+        ['Clear Runtime Recipes...', 'Forget the recipes saved while running on this computer'],
     ])
 
     # ------------------------------------------------------------ 3
@@ -604,7 +472,7 @@ def build():
       'title bar, 460 × 560 pixels at 730, 150 on the screen. The preview shows where it appears.')
     figure(doc, 'window-popup', 'Window Properties of the SV-001 Faceplate popup', max_width_in=4.4)
     P('A window shows the part of its page under its rectangle, so a popup\'s objects are drawn at the popup\'s '
-      'position on its page. Figure 10 shows the SV-001 faceplate page in the editor.')
+      'position on its page. ' + F('faceplate-edit') + ' shows the SV-001 faceplate page in the editor.')
     figure(doc, 'faceplate-edit', 'The SV-001 faceplate page in the editor')
     H2('6.2  Navigation')
     P('The navigation bar at the bottom of every LiquidWeighHMI screen is a row of buttons, each with a **Show '
@@ -649,7 +517,7 @@ def build():
       'through the links LiquidWeighHMI uses.')
 
     H2('8.1  A valve: status color, fault blink and faceplate')
-    P('Each valve symbol on the Process screen carries three links. SV-102 is selected in Figure 13.')
+    P('Each valve symbol on the Process screen carries three links. SV-102 is selected in ' + F('animation-valve') + '.')
     figure(doc, 'animation-valve', 'The SV-102 valve and its links')
     bullets(doc, [
         '**Fill Color / Analog** on `SV102_Status`: below 0.5 (closed) white, below 1.5 (open) green, below 2.5 '
@@ -699,7 +567,7 @@ def build():
         ['Tags and dotfields', 'PT001, SV001_Status, PT001.InAlarm, PT001.Acked, PT001.MaxEU'],
         ['Operators', '+ - * / MOD, == <> < <= > >=, AND OR NOT, parentheses'],
         ['Literals', '12.5, "IDLE"'],
-        ['Functions', 'Abs, Sqrt, Int, Round, Min(a, b), Max(a, b), StringLen, Text(value, "0.00")'],
+        ['Functions', 'Abs(x), Round(x), Text(value, "0.00") and the others in section 9.3'],
         ['Statements (scripts)', 'Pump_Run = 1;  IF cond THEN ... ELSE ... ENDIF;'],
     ])
     table(doc, 'System tags', [
@@ -729,6 +597,72 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
 ''')
     figure(doc, 'animation-login', 'The LOGIN button: Action Script, Value Display and colors', max_width_in=2.4)
 
+    H2('9.3  Function reference')
+    P('Functions take their arguments in parentheses, separated by commas. Any argument can be a literal '
+      '(`12.5`, `"Standard Blend"`), a tag or a whole expression. Function names are not case-sensitive.')
+    bullets(doc, [
+        '**Math and text functions** return a value and can be used anywhere: in animation links and in scripts.',
+        '**Security and recipe functions** do something (open a window, log in, write tags), so they can be '
+        'called only from scripts: Action Scripts and window scripts. Validate reports one used in an animation '
+        'link.',
+        'Functions that succeed or fail return **1** or **0**, so a script can test them: '
+        '`IF Login(LoginName, LoginPassword) THEN ... ENDIF;`.',
+    ])
+    table(doc, 'Math and text functions (links and scripts)', [
+        ['Function', 'Arguments', 'What it does'],
+        ['Abs(x)', 'x: a number', 'The absolute value of x. `Abs(-3.5)` is 3.5'],
+        ['Sqrt(x)', 'x: a number, 0 or more', 'The square root of x'],
+        ['Sqr(x)', 'x: a number', 'x squared (x × x)'],
+        ['Int(x)', 'x: a number', 'x with its fraction dropped. `Int(7.9)` is 7 and `Int(-7.9)` is -7'],
+        ['Round(x)', 'x: a number', 'x rounded to the nearest whole number; a half rounds up. `Round(2.5)` is 3'],
+        ['Min(a, b)', 'a, b: numbers', 'The smaller of a and b. `Min(PT001, 50)` is never more than 50'],
+        ['Max(a, b)', 'a, b: numbers', 'The larger of a and b'],
+        ['StringLen(text)', 'text: text', 'The number of characters in text. '
+         '`StringLen(RecipeName) == 0` is true when no recipe is selected'],
+        ['Text(value, format)', 'value: a number\nformat: text', 'The number as text, formatted by a picture such as "0.00". '
+         'The digits after the point in format give the decimals, and the digits before it the minimum number of '
+         'whole digits, padded with zeros. `Text(3.14159, "0.00")` is "3.14" and `Text(7, "000")` is "007"'],
+    ])
+    table(doc, 'Security functions (scripts only)', [
+        ['Function', 'Arguments', 'What it does'],
+        ['ShowLogin()', 'None', 'Opens the login window: user name, masked password and an on-screen keyboard. The '
+         'window checks the password and logs the user in. Returns 1'],
+        ['Login(name, password)', 'name, password: text', 'Logs in when the name and '
+         'password match a user. Returns 1, or 0 when they do not. For custom login screens'],
+        ['Logout()', 'None', 'Logs the current user out: `_Username` becomes None and `_AccessLevel` 0. Returns 1'],
+        ['ChangePassword(old, new)', 'old, new: text', 'Changes the logged-in user\'s password from old (the '
+         'current password) to new (not empty), saved on this computer. Returns 1, or 0 when old is wrong or new is empty'],
+        ['ShowUserManager()', 'None', 'Opens the Users window while running, to add, change or remove users on '
+         'this computer (section 10.2). Returns 1'],
+    ])
+    P('In the recipe functions, `book` is the name of a recipe book defined in **HMI > Recipes** and `name` the '
+      'name of a recipe in it: text of 1 to 64 characters. Names are not case-sensitive. Chapter 11 shows them at '
+      'work.')
+    table(doc, 'Recipe functions (scripts only)', [
+        ['Function', 'Arguments', 'What it does'],
+        ['RecipeSave(book, name)', 'book, name', 'Saves the current values of the book\'s Save/Load tags as recipe '
+         'name, replacing a recipe of that name. Fails if any of the values has bad quality'],
+        ['RecipeLoad(book, name)', 'book, name', 'Writes the recipe\'s values to the book\'s Save/Load tags'],
+        ['RecipeDownload(book, name)', 'book, name', 'Copies each Save/Load tag\'s value to its Upload/Download tag, '
+         'usually sending the recipe to the PLC. name is not used: give "" or the selected recipe'],
+        ['RecipeUpload(book, name)', 'book, name', 'Copies each Upload/Download tag\'s value back to its Save/Load '
+         'tag, usually bringing the PLC\'s values into the HMI. name is not used'],
+        ['RecipeExport(book, name)', 'book, name', 'Writes the recipe to a CSV file that the operator chooses (in '
+         'Append HMI Web, the browser downloads it). Returns 1 when the file window opens'],
+        ['RecipeImport(book, name)', 'book, name', 'Reads a recipe CSV file that the operator chooses and saves it as '
+         'recipe name. Returns 1 when the file window opens'],
+        ['RecipeDelete(book, name, confirm)', 'book, name\nconfirm: optional',
+         'Deletes the recipe. With confirm 1, a Yes/No window asks the operator first; No returns 0'],
+        ['RecipeRename(book, name, newName)', 'book, name, newName',
+         'Renames the recipe to newName, which must not already be in the book'],
+        ['ShowRecipeSelect(book, x, y, w, h)', 'book\nx, y, w, h: optional', 'Opens a window listing the book\'s recipes, with up and down arrow buttons, Select and '
+         'Cancel, and returns the chosen name, or "" for Cancel. The script waits until the operator chooses, so it '
+         'must be a statement on its own or the whole right side of an assignment: `Pick = ShowRecipeSelect("B");`. '
+         'x, y, w, h place the window: position and size in screen pixels'],
+    ])
+    P('The recipe functions other than ShowRecipeSelect return 1 when they succeed and 0 when they fail. A failure '
+      'also opens the Recipe Error window (section 11.5).')
+
     # ------------------------------------------------------------ 10
     H1('10  Alarms and security')
     H2('10.1  Alarms')
@@ -740,7 +674,7 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
         'The Alarm List object has an **Ack All** button and an **Ack** button on each row. A script can '
         'acknowledge with `_AckAll = 1;` or `Tag.Acked = 1;`.',
         'Every alarm event is written to a daily history file kept for 90 days; the Alarm History object shows '
-        'it (Figure 30).',
+        'it (' + F('run-alarm-history') + ').',
     ])
     H2('10.2  Users and access levels')
     P('Open **HMI > Users** to define who can log in. Each user has a name, a password (stored only as a salted '
@@ -754,23 +688,191 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
     ])
     P('Screens use `_AccessLevel` to protect controls: an **Enable** link such as `_AccessLevel >= 2000` blocks '
       'touch on an object, and a **Visibility** link can hide it. The script function `ShowLogin()` opens the '
-      'built-in login window (Figure 21); `Login(name, password)`, `Logout()`, `ChangePassword(old, new)` and '
+      'built-in login window (' + F('run-login') + '); `Login(name, password)`, `Logout()`, `ChangePassword(old, new)` and '
       '`ShowUserManager()` support custom login screens.')
     figure(doc, 'run-login', 'The login window opened by ShowLogin()', max_width_in=4.0)
 
     # ------------------------------------------------------------ 11
-    H1('11  Testing')
-    H2('11.1  Validate')
+    H1('11  Recipes')
+    P('A **recipe** is a named set of tag values that an operator saves and later loads again: the settings of a '
+      'product, a grade or a batch size. Recipes are kept in **recipe books**. A book lists the tags its recipes '
+      'hold:')
+    bullets(doc, [
+        '**Save/Load tags**: the values a recipe stores, usually memory tags that the operator edits on screen. '
+        '`RecipeSave` reads them and `RecipeLoad` writes them.',
+        '**Upload/Download tags** (optional): a second tag paired with each Save/Load tag, usually the PLC tag the '
+        'value is meant for. `RecipeDownload` copies the Save/Load values to them and `RecipeUpload` copies them '
+        'back.',
+    ])
+    P('Keeping the edited values in memory tags means the operator can prepare a recipe without disturbing the '
+      'PLC, and send it with one Download when the process is ready.')
+
+    H2('11.1  Recipe books')
+    P('Open **HMI > Recipes** to define the books. LiquidWeighHMI has one, **Plasticizer Blends**, that holds the '
+      'Batch screen\'s recipe: the total batch volume and the share of each of the three plasticizers.')
+    figure(doc, 'recipes-dialog', 'HMI > Recipes: the Plasticizer Blends book and its tags', max_width_in=5.6)
+    bullets(doc, [
+        '**Add**, **Duplicate** and **Delete** manage the books; **Name** renames the selected one.',
+        '**Upload/Download tags** adds the second column of tags.',
+        '**Add tag** adds a row. The arrow buttons reorder the rows and **Remove** deletes one. A tag that is not in '
+        'the Tag Dictionary is marked.',
+        '**Import...** and **Export...** read and write books, with their starting recipes, as a JSON file, to copy '
+        'them between projects.',
+        '**OK** checks every book and saves them into the project. Validate also reports books whose tags no '
+        'longer exist.',
+    ])
+    table(doc, 'The tags of the Plasticizer Blends book', [
+        ['Save/Load tag', 'Upload/Download tag', 'Holds'],
+        ['Edit_TotalVol', 'Rcp_TotalVol', 'Total batch volume, gal (PLC tag Recipe.TotalVol_gal)'],
+        ['Edit_Pct0', 'Rcp_Pct0', 'Plasticizer #1, % by volume (Recipe.Pct[0])'],
+        ['Edit_Pct1', 'Rcp_Pct1', 'Plasticizer #2, % by volume (Recipe.Pct[1])'],
+        ['Edit_Pct2', 'Rcp_Pct2', 'Plasticizer #3, % by volume (Recipe.Pct[2])'],
+    ])
+    P('The Edit_ tags are retentive memory tags, so the recipe being edited survives a restart. The PLC works out '
+      'each plasticizer\'s target weight from the volume, the percentages and the densities on the Setpoints '
+      'screen.')
+    P('A book can also carry **starting recipes**: recipes stored in the project, which a computer uses until it '
+      'saves recipes of its own. LiquidWeighHMI ships with five.')
+    figure(doc, 'recipes-dialog-recipes', 'The starting recipes of Plasticizer Blends, below its tags', max_width_in=5.6)
+    table(doc, 'LiquidWeighHMI\'s starting recipes', [
+        ['Recipe', 'Volume (gal)', 'Plasticizer #1 (%)', 'Plasticizer #2 (%)', 'Plasticizer #3 (%)'],
+        ['Standard Blend', '10', '60', '25', '15'],
+        ['High Plasticizer', '10', '70', '20', '10'],
+        ['Hose Compound', '9', '45', '35', '20'],
+        ['Low Odor', '8', '50', '50', '0'],
+        ['Trial Batch', '4', '40', '30', '30'],
+    ])
+
+    H2('11.2  The Recipes screen')
+    P('LiquidWeighHMI\'s **Recipes** screen, on the RECIPES button of the navigation bar, puts the recipe '
+      'functions to work. It is built only from standard objects, links and scripts, so it can be copied into '
+      'other applications.')
+    figure(doc, 'run-recipes', 'The Recipes screen at Run: Standard Blend selected, loaded and downloaded to the PLC')
+    bullets(doc, [
+        '**Recipe book** (left): a Recipe List object showing the book\'s recipes. Touching one, or the arrow '
+        'buttons in its heading, selects it by writing its name to the message tag `RecipeName`.',
+        '**Recipe editor** (center): the recipe name, and for each value the editable Save/Load tag (Recipe column) '
+        'beside its PLC tag (In the PLC column). The total and the green or red banner check that the percentages '
+        'add up to 100 %. **Last action** shows the result of the last button.',
+        '**Recipe actions** (right): one button for each recipe function, acting on the recipe named in '
+        '`RecipeName`.',
+    ])
+    table(doc, 'The Recipes screen\'s buttons', [
+        ['Button', 'Calls', 'Allowed for'],
+        ['SELECT RECIPE...', 'ShowRecipeSelect, then RecipeLoad', 'Everyone'],
+        ['LOAD', 'RecipeLoad: the recipe into the editor', 'Everyone'],
+        ['SAVE', 'RecipeSave: the editor\'s values as the recipe', 'Maintenance and up'],
+        ['DOWNLOAD TO PLC', 'RecipeDownload: the editor\'s values to the PLC', 'Operator and up, sequence idle'],
+        ['UPLOAD FROM PLC', 'RecipeUpload: the PLC\'s values into the editor', 'Everyone'],
+        ['DELETE', 'RecipeDelete, asking first', 'Maintenance and up'],
+        ['EXPORT CSV...', 'RecipeExport', 'Everyone'],
+        ['IMPORT CSV...', 'RecipeImport, saving under the name in the editor', 'Maintenance and up'],
+        ['RENAME', 'RecipeRename to the name typed above it', 'Maintenance and up'],
+    ])
+    P('Each button is an Action Script. Where access is limited, an **Enable** link (for example '
+      '`_AccessLevel >= 2000`) blocks touch, and fill and text color links gray the button out. SAVE reports its '
+      'result in the Last action box:')
+    code(doc, """
+IF RecipeSave("Plasticizer Blends", RecipeName) THEN
+    RecipeMsg = "Saved " + RecipeName;
+ENDIF;
+""")
+    P('DOWNLOAD TO PLC is enabled by `_AccessLevel >= 1000 AND Seq_Step == 0`, so a recipe cannot change while a '
+      'batch runs. DELETE passes 1 as the third argument, so the operator confirms first:')
+    code(doc, """
+IF RecipeDelete("Plasticizer Blends", RecipeName, 1) THEN
+    RecipeMsg = "Deleted " + RecipeName;
+    RecipeName = "";
+ENDIF;
+""")
+    figure(doc, 'run-recipe-confirm', 'RecipeDelete with confirm: the operator answers before anything is deleted',
+           max_width_in=4.0)
+
+    H2('11.3  The Recipe List object')
+    P('**Recipe List**, in the HMI palette, shows a book\'s recipes while the application runs. Select it and open '
+      'the Animation tab to set it up:')
+    figure(doc, 'recipe-list-panel', 'The Recipe List settings of the Recipes screen\'s list', max_width_in=2.4)
+    table(doc, 'Recipe List settings', [
+        ['Setting', 'Meaning'],
+        ['Recipe book', 'The book listed'],
+        ['Title', 'The heading; empty shows the book\'s name'],
+        ['Selected recipe', 'A message tag. The highlighted row follows its value, and touching a row writes the '
+         'row\'s name to it'],
+        ['Select up, Select down', 'Discrete tags. Each change from 0 to 1 moves the selection up or down, for '
+         'selection from PLC pushbuttons. With nothing selected, down selects the first recipe and up the last'],
+        ['Up and down arrow buttons', 'Draws arrow buttons in the heading that move the selection the same way'],
+    ])
+    P('The list is sorted by name and updates as soon as a recipe is saved, renamed or deleted.')
+
+    H2('11.4  Selecting a recipe in a window')
+    P('`ShowRecipeSelect` opens a window listing a book\'s recipes, for screens without a Recipe List or for a '
+      'popup choice. The operator touches a recipe, or uses the arrow buttons, then **Select**; the function returns '
+      'the chosen name, or "" for **Cancel**. LiquidWeighHMI\'s SELECT RECIPE... button loads the chosen recipe '
+      'into the editor:')
+    code(doc, """
+RecipePick = ShowRecipeSelect("Plasticizer Blends");
+IF RecipePick <> "" THEN
+    RecipeName = RecipePick;
+    RecipeLoad("Plasticizer Blends", RecipeName);
+    RecipeMsg = "Loaded " + RecipeName + " into the editor";
+ENDIF;
+""")
+    figure(doc, 'run-recipe-select', 'The window opened by ShowRecipeSelect', max_width_in=4.0)
+    bullets(doc, [
+        'The script waits at ShowRecipeSelect until the operator chooses, then continues with the result. It must '
+        'therefore be a statement on its own or the whole right side of an assignment, as above; Validate reports '
+        'it inside an IF condition or an expression.',
+        'The window is centered. `ShowRecipeSelect(book, x, y, w, h)` places it instead, at x, y with width w and '
+        'height h in screen pixels, scaled with the screen.',
+        'Assigning the result to a separate tag, as above, keeps the current selection when the operator cancels.',
+    ])
+
+    H2('11.5  When a recipe function fails')
+    P('A recipe function that cannot do its job returns 0 and shows the **Recipe Error** window. The window names '
+      'the call with its arguments and gives the reason, such as an empty recipe name, a recipe that does not '
+      'exist, or PLC values with bad quality because the controller is not connected. Pressing SAVE with no recipe '
+      'name gives:')
+    figure(doc, 'run-recipe-error', 'The Recipe Error window', max_width_in=4.0)
+    bullets(doc, [
+        'The window opens after the script finishes, so the rest of the script still runs.',
+        'Further failures before **OK** is pressed join the same window (up to 10, then "and n more"); a failure '
+        'repeated by a While showing script is counted rather than repeated.',
+        'The operator\'s own choices are not errors: Cancel in the select window, No when deleting and cancelling a '
+        'file window return 0 or "" without one.',
+        'Every failure is also written to the runtime log.',
+    ])
+
+    H2('11.6  Where recipes are kept')
+    P('The project holds the books and their starting recipes. Recipes saved while running (RecipeSave, '
+      'RecipeRename, RecipeDelete, RecipeImport) are kept on the computer running the application, book by book: '
+      'once a computer saves a recipe in a book, its own list replaces that book\'s starting recipes there.')
+    table(doc, 'Where saved recipes are kept', [
+        ['Running in', 'File'],
+        ['Append HMI Studio (Run)', 'recipes\\<project>.json in the Studio\'s settings folder'],
+        ['A published application', '%APPDATA%\\<Product>\\recipes\\<Product>.json'],
+        ['Append HMI Desktop, Append HMI Web', 'recipes\\<application>.json in their settings folder'],
+    ])
+    bullets(doc, [
+        '**HMI > Clear Runtime Recipes** (with the Run stopped) forgets the recipes the Studio saved, so Run starts '
+        'again from the starting recipes.',
+        'In Append HMI Web all browsers share the server\'s recipes; one saved in one browser appears in the others '
+        'within a few seconds.',
+        'A recipe CSV file has a `#Recipe,<book>,<name>` line, then `Tag,Value` and one line per tag. Importing takes '
+        'only the book\'s Save/Load tags and reports any others.',
+    ])
+
+    # ------------------------------------------------------------ 12
+    H1('12  Testing')
+    H2('12.1  Validate')
     P('**HMI > Validate Expressions** checks every link, script and PLC address and lists any problem with the '
       'page and object; click a problem to go to it. Validate before every Run and Publish.')
     figure(doc, 'validate', 'Validation of LiquidWeighHMI: no problems found', max_width_in=4.0)
-    H2('11.2  Run')
+    H2('12.2  Run')
     P('**HMI > Run** (F5) runs the application inside the Studio: the drawing is locked, the start-up windows '
       'open, and the application connects to its PLCs. A green RUNNING banner shows that the screen is live and '
       'that touching it operates real equipment. **HMI > Stop** returns to editing.')
     figure(doc, 'run-window', 'LiquidWeighHMI running in the Studio')
-    P('The screens below were captured while LiquidWeighHMI ran against its controller, with a batch held on a '
-      'plasticizer supply alarm.')
+    P('The screens below were captured while LiquidWeighHMI ran against its controller, between batches.')
     figure(doc, 'run-process', 'Process screen: tank and hopper levels, valve states, sequence and active alarms')
     figure(doc, 'run-faceplate', 'SV-001 faceplate: mode, commands, interlocks and fault reset')
     figure(doc, 'run-batch', 'Batch screen: recipe, sequence control, start permissives and batch progress')
@@ -780,8 +882,8 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
     figure(doc, 'run-alarm-history', 'Alarm History screen')
     note(doc, 'HMI > Runtime Log lists connections, device errors, writes and script errors from the run.')
 
-    # ------------------------------------------------------------ 12
-    H1('12  Deploying')
+    # ------------------------------------------------------------ 13
+    H1('13  Deploying')
     P('An application can reach the plant floor in three ways.')
     table(doc, 'Deployment options', [
         ['Option', 'What the target gets', 'Best for'],
@@ -792,18 +894,18 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
         ['Append HMI Web', 'A web server; operators open the application in any browser', 'Viewing and operating from '
          'tablets, laptops and control-room PCs'],
     ])
-    H2('12.1  Publish')
+    H2('13.1  Publish')
     P('**HMI > Publish** builds a Windows installer from the open project. Give the product name, version and '
       'publisher, choose an icon, whether it installs for all users, and whether it adds a desktop shortcut or '
       'starts with Windows. Run the Setup.exe on the target PC; the application then starts full screen as set '
       'in Application Settings.')
     figure(doc, 'publish', 'The Publish dialog', max_width_in=4.0)
-    H2('12.2  Append HMI Desktop')
+    H2('13.2  Append HMI Desktop')
     P('Append HMI Desktop runs .ahmi files without the editor. Choose an application, then **Run now**, create a '
       'desktop shortcut or menu entry, or tick **Run this application automatically when I log in**. From the '
       'command line: `append-hmi-desktop LiquidWeighHMI.ahmi`.')
     figure(doc, 'desktop-launcher', 'The Append HMI Desktop launcher with LiquidWeighHMI selected', max_width_in=4.2)
-    H2('12.3  Append HMI Web')
+    H2('13.3  Append HMI Web')
     P('Append HMI Web serves an application to web browsers on the plant network. Choose the application and a port '
       '(8480 by default), then **Start web server**; the launcher shows the link to share, with a **Copy** button. '
       'If the port is already in use on the PC (by another web server, or another application being served), '
@@ -817,8 +919,8 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
         'second application running in the background', max_width_in=4.2)
     figure(doc, 'web-browser', 'LiquidWeighHMI in a web browser, with the view menu open')
 
-    # ------------------------------------------------------------ 13
-    H1('13  Tips and troubleshooting')
+    # ------------------------------------------------------------ 14
+    H1('14  Tips and troubleshooting')
     table(doc, 'Common problems', [
         ['Symptom', 'Cause and remedy'],
         ['Values show ####', 'The tag has bad quality: the PLC is not connected or the address is wrong. Check '
@@ -832,6 +934,10 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
          '(Window Properties > Left, Top)'],
         ['Retentive values are not what you expect', 'Use HMI > Clear Retentive Values to start from the initial '
          'values again'],
+        ['A recipe button does nothing', 'Its Enable condition is false (access level, or the sequence is running), '
+         'or the function failed: the Recipe Error window and HMI > Runtime Log give the reason'],
+        ['Run shows old recipes', 'Recipes saved on this computer replace the starting ones. Use HMI > Clear Runtime '
+         'Recipes to start from the project\'s recipes again'],
     ])
     P('Build a symbol once, with its links, group it, and copy it: links travel with the copy. The Animation tab '
       'can also copy links from one object and paste them onto others.')
@@ -850,9 +956,16 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
     ])
     P('The JSON format is documented in doc/HMI_AUTOMATION.md in the Append HMI Studio repository.')
 
-    doc.save(OUT)
-    print('Wrote ' + os.path.relpath(OUT))
+    if save:
+        doc.save(OUT)
+        print('Wrote ' + os.path.relpath(OUT))
 
 
 if __name__ == '__main__':
+    # Twice: the first pass numbers the figures, the second refers to them
+    build(save=False)
+    _known_figures.update(_figure_names)
+    _figures[0] = 0
+    _tables[0] = 0
     build()
+    enforce(OUT)
