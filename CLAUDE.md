@@ -188,6 +188,8 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - **Links:** `HmiDriverHub` (in `HmiWindows.js`) keeps one set of links per Run. It subscribes an indirect name as its linked tag, re-delivers the linked tag's batches under the indirect name (`alias`), writes through (`HmiDriverClient.write`), and on `link()` sends every client the new value. So runtimes, alarm views and recipe books need nothing of their own.
 - **Function:** `js/hmi/HmiIndirect.js` has `HmiIndirect.check` (shared with the parser's `checkLink` for literal names, run at Validate) and `HmiIndirect.call`, routed by `HmiRuntime`'s `ctx.call`. `HmiRuntime.linked(name)` resolves dotfields, `.Acked` and alarm colors to the linked tag.
 - **Failures:** go to the shared function error window (`HmiDialogs.queueFunctionError`, titled by its contents).
+- **Scripts read any tag:** a runtime also subscribes the tags its action scripts and window scripts read (`bindScripts`, `config.scripts`), and `getValue` falls back to `driver.get` for a value not yet delivered. A faceplate's On show script reading `FP_Prefix` depends on this.
+- **Example:** LiquidWeighHMI's Device Faceplate (one popup for 14 devices; manual section 9.4).
 
 ### Automation (command line)
 - **Commands:** `--hmi-build <spec.json>`, `--hmi-check`, `--hmi-render`, `--hmi-dump` and `--hmi-publish` (with `--product`, `--app-version`, …) drive the studio without its UI. Reference: `doc/HMI_AUTOMATION.md`.

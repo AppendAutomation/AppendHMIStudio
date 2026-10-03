@@ -6,6 +6,12 @@ reads or writes that tag. One window or faceplate can therefore serve many
 devices: the button that opens it links the indirect tags to the device's
 tags.
 
+The example `examples/LiquidWeighHMI.ahmi` has one **Device Faceplate** for
+its 11 valves and 3 pumps. Each symbol's Action Script sets `FP_Prefix`
+(`"SV102"`), and the faceplate's On show script links its `FP_` indirect tags
+with `LinkIndirectTag("FP_Status", FP_Prefix + "_Status")` and so on. The User
+Manual (section 9.4) walks through it.
+
 ## Defining indirect tags
 
 In **HMI > Tag Dictionary**, choose one of the indirect types under **New

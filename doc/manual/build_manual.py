@@ -317,7 +317,7 @@ def build(save=True):
         ['Target screen', '1920 × 1080, full screen'],
         ['PLC', 'One ControlLogix controller (EtherNet/IP), 419 I/O tags'],
         ['Screens', 'Process, Batch, Supply, Devices, Setpoints, Recipes, Alarm History and IO Sim'],
-        ['Popup windows', 'A faceplate for each of 11 valves and 3 pumps, and 4 confirmation dialogs'],
+        ['Popup windows', 'One faceplate for all 11 valves and 3 pumps, through indirect tags, and 4 confirmation dialogs'],
         ['Alarms', '34 alarmed tags, an Active Alarms list on every screen and an Alarm History screen'],
         ['Security', 'Three users (Operator, Maintenance, Engineer) with access levels'],
         ['Recipes', 'A recipe book of plasticizer blends with five starting recipes, and a Recipes screen to '
@@ -434,7 +434,7 @@ def build(save=True):
         ['IOMessage', 'Text from a PLC', 'Recipe or product names'],
         ['MemoryDiscrete, MemoryInteger, MemoryReal, MemoryMessage', 'A value kept by the HMI', 'StepText (sequence step description)'],
         ['IndirectDiscrete, IndirectAnalog, IndirectMessage', 'No value of its own: stands for the tag a script links it '
-         'to with LinkIndirectTag', 'One faceplate serving every valve'],
+         'to with LinkIndirectTag', 'FP_Status: the status of the device the faceplate shows'],
     ])
     H2('5.1  Tag fields')
     table(doc, 'Tag fields', [
@@ -470,17 +470,19 @@ def build(save=True):
         ['Popup (modal)', 'Stays on top; nothing beneath it can be touched until it closes', 'Faceplates and confirmations'],
     ])
     H2('6.1  Window properties')
-    P('Select a page and open **HMI > Window Properties**. For the SV-001 faceplate the window is a popup with a '
-      'title bar, 460 × 560 pixels at 730, 150 on the screen. The preview shows where it appears.')
-    figure(doc, 'window-popup', 'Window Properties of the SV-001 Faceplate popup', max_width_in=4.4)
+    P('Select a page and open **HMI > Window Properties**. The Device Faceplate is a popup with a title bar, '
+      '460 × 560 pixels at 730, 150 on the screen. The preview shows where it appears.')
+    figure(doc, 'window-popup', 'Window Properties of the Device Faceplate popup', max_width_in=4.4)
     P('A window shows the part of its page under its rectangle, so a popup\'s objects are drawn at the popup\'s '
-      'position on its page. ' + F('faceplate-edit') + ' shows the SV-001 faceplate page in the editor.')
-    figure(doc, 'faceplate-edit', 'The SV-001 faceplate page in the editor')
+      'position on its page. ' + F('faceplate-edit') + ' shows the Device Faceplate page in the editor. It serves '
+      'every valve and pump (section 9.4), so a few objects for valves and for pumps share a place; visibility links '
+      'show the right one while running.')
+    figure(doc, 'faceplate-edit', 'The Device Faceplate page in the editor')
     H2('6.2  Navigation')
     P('The navigation bar at the bottom of every LiquidWeighHMI screen is a row of buttons, each with a **Show '
       'Window** link to one screen. Because the main screens are Replace windows, opening one closes the current '
-      'screen. Faceplates open the same way from the valve and pump symbols, and close with a **Hide Window** link '
-      'on their DONE button.')
+      'screen. The valve and pump symbols open the Device Faceplate the same way, after an Action Script has told it '
+      'which device to show (section 9.4); its DONE button closes it with a **Hide Window** link.')
 
     # ------------------------------------------------------------ 7
     H1('7  Drawing objects')
@@ -519,13 +521,15 @@ def build(save=True):
       'through the links LiquidWeighHMI uses.')
 
     H2('8.1  A valve: status color, fault blink and faceplate')
-    P('Each valve symbol on the Process screen carries three links. SV-102 is selected in ' + F('animation-valve') + '.')
+    P('Each valve symbol on the Process screen carries four links. SV-102 is selected in ' + F('animation-valve') + '.')
     figure(doc, 'animation-valve', 'The SV-102 valve and its links')
     bullets(doc, [
         '**Fill Color / Analog** on `SV102_Status`: below 0.5 (closed) white, below 1.5 (open) green, below 2.5 '
         '(travel) amber, otherwise (fault) red. The first band whose limit the value is below wins.',
         '**Blink** on `SV102_Fault AND NOT SV102_FaultAck`: flashes the fill while a fault is unacknowledged.',
-        '**Show Window** SV-102 Faceplate: touching the valve opens its faceplate.',
+        '**Action Script** (On down): `FP_Prefix = "SV102"; FP_Device = "SV-102"; ...` tells the faceplate which '
+        'device to show (section 9.4).',
+        '**Show Window** Device Faceplate: touching the valve then opens the faceplate.',
     ])
 
     H2('8.2  The weigh hopper: percent fill')
@@ -672,6 +676,54 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
     ])
     P('The recipe functions other than ShowRecipeSelect return 1 when they succeed and 0 when they fail. A failure '
       'also opens the Recipe Error window (section 11.5).')
+
+    H2('9.4  Indirect tags: one faceplate for every device')
+    P('LiquidWeighHMI has 11 valves and 3 pumps, and one **Device Faceplate** for all of them. Its objects use '
+      '**indirect tags** (section 5): `FP_Status`, `FP_Manual`, `FP_CmdOn` and so on, which have no value of their '
+      'own. When the faceplate opens, a script links each of them to the tag of the device being shown, so '
+      '`FP_Status` reads `SV102_Status` for SV-102 and `P100_Status` for P-100. A change to the faceplate is made '
+      'once and applies to every device.')
+    P('Opening it takes two steps. First, the valve or pump symbol\'s Action Script names the device in memory '
+      'tags:')
+    code(doc, """
+FP_Prefix = "SV102"; FP_Device = "SV-102";
+FP_Desc = "Plast #1 bulk tank refill valve";
+FP_IsPump = 0; FP_HasLimits = 1; FP_OperatorOnly = 1;
+""")
+    P('Then its Show Window link opens the faceplate, whose **On show** script builds each tag name from the prefix '
+      'and links the indirect tags. A pump links the shared command tags to its Start and Stop, a valve to Open and '
+      'Close:')
+    code(doc, """
+LinkIndirectTag("FP_Status", FP_Prefix + "_Status");
+LinkIndirectTag("FP_Manual", FP_Prefix + "_Manual");
+...
+IF FP_IsPump THEN
+    LinkIndirectTag("FP_CmdOn", FP_Prefix + "_CmdStart");
+    LinkIndirectTag("FP_CmdOff", FP_Prefix + "_CmdStop");
+    LinkIndirectTag("FP_Time", FP_Prefix + "_FailTime");
+ELSE
+    LinkIndirectTag("FP_CmdOn", FP_Prefix + "_CmdOpen");
+    LinkIndirectTag("FP_CmdOff", FP_Prefix + "_CmdClose");
+    LinkIndirectTag("FP_Time", FP_Prefix + "_TravelTime");
+    IF FP_HasLimits THEN
+        LinkIndirectTag("FP_ZSO", FP_Prefix + "_ZSO");
+        LinkIndirectTag("FP_ZSC", FP_Prefix + "_ZSC");
+    ENDIF;
+ENDIF;
+""")
+    bullets(doc, [
+        '**Heading:** Value Displays of `FP_Device` and `FP_Desc`.',
+        '**Valve or pump:** visibility links on `FP_IsPump` choose the symbol and status colors. Texts that differ, '
+        'such as OPEN or START, are Discrete Value Displays of `FP_IsPump`.',
+        '**Variants:** `FP_HasLimits` shows the limit-switch lamps or a note, and `FP_OperatorOnly` replaces the mode '
+        'buttons of the refill valve with a note.',
+        '**Status:** a While showing script turns `FP_Status` into the words shown (`FP_StateText`).',
+        '**Dotfields:** `FP_Status.Name` would show `SV102_Status`; every dotfield describes the linked tag.',
+    ])
+    figure(doc, 'run-faceplate-pump', 'The same faceplate showing pump P-100')
+    note(doc, 'Writing to an indirect tag writes the linked tag: the faceplate\'s MANUAL button sets `FP_CmdManual`, '
+         'which is `SV100_CmdManual` while SV-100 is shown. Before the first link an indirect tag has bad quality '
+         'and writes to it are ignored.')
 
     # ------------------------------------------------------------ 10
     H1('10  Alarms and security')
@@ -884,7 +936,7 @@ ENDIF;
     figure(doc, 'run-window', 'LiquidWeighHMI running in the Studio')
     P('The screens below were captured while LiquidWeighHMI ran against its controller, between batches.')
     figure(doc, 'run-process', 'Process screen: tank and hopper levels, valve states, sequence and active alarms')
-    figure(doc, 'run-faceplate', 'SV-001 faceplate: mode, commands, interlocks and fault reset')
+    figure(doc, 'run-faceplate', 'The Device Faceplate showing SV-001: mode, commands, interlocks and fault reset')
     figure(doc, 'run-batch', 'Batch screen: recipe, sequence control, start permissives and batch progress')
     figure(doc, 'run-setpoints', 'Setpoints screen: materials, weighing, pressure and timing')
     figure(doc, 'run-devices', 'Devices screen: every valve and pump with mode, state and faceplate')
