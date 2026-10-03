@@ -19,6 +19,7 @@ import {Publisher} from './publish/Publisher.js';
 import * as alarmLog from './alarms/AlarmLog.js';
 import * as retentiveStore from './retentive/RetentiveStore.js';
 import * as userStore from './security/UserStore.js';
+import * as recipeStore from './recipes/RecipeStore.js';
 import {PRODUCT_NAME, ISSUES_URL} from './brand.js';
 import {findRuntimeDir, loadRuntimeConfig, runtimeUserDataDir, runtimeWindowOptions, mayExit,
 		readRuntimeProject, publicRuntimeInfo} from './runtime/RuntimeMode.js';
@@ -2103,6 +2104,44 @@ async function handleUsersRequest(args)
 		case 'hmiUsers.clear':
 			if (hmiRuntime != null) throw new Error('not available in the HMI runtime');
 			return userStore.clear(base, args.store);
+		default:
+			throw new Error('unknown action: ' + args.action);
+	}
+}
+
+// Recipes saved at run time, and the CSV files of RecipeExport and
+// RecipeImport (recipes/RecipeStore.js)
+async function handleRecipesRequest(contents, args)
+{
+	const base = app.getPath('userData');
+
+	switch (args.action)
+	{
+		case 'hmiRecipes.load':
+			return recipeStore.load(base, args.store);
+		case 'hmiRecipes.save':
+			return recipeStore.save(base, args.store, args.books);
+		case 'hmiRecipes.clear':
+			if (hmiRuntime != null) throw new Error('not available in the HMI runtime');
+			return recipeStore.clear(base, args.store);
+		case 'hmiRecipes.exportCsv':
+		case 'hmiRecipes.importCsv':
+		{
+			dialogOpen = true;
+
+			try
+			{
+				const win = BrowserWindow.fromWebContents(contents);
+
+				return (args.action === 'hmiRecipes.exportCsv') ?
+					await recipeStore.exportCsv(dialog, win, args.defaultName, args.text) :
+					await recipeStore.importCsv(dialog, win);
+			}
+			finally
+			{
+				dialogOpen = false;
+			}
+		}
 		default:
 			throw new Error('unknown action: ' + args.action);
 	}
@@ -4842,6 +4881,10 @@ ipcMain.on("rendererReq", async (event, args) =>
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiUsers.'))
 			{
 				ret = await handleUsersRequest(args);
+			}
+			else if (typeof args.action === 'string' && args.action.startsWith('hmiRecipes.'))
+			{
+				ret = await handleRecipesRequest(event.sender, args);
 			}
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiCli.'))
 			{

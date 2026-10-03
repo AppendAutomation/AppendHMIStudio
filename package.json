@@ -15,7 +15,7 @@
     "test-comms": "dotnet test comms/HmiComms.sln",
     "fetch-nsis": "node scripts/fetch-nsis.mjs",
     "build-win-runtime": "node scripts/build-win-runtime.mjs",
-    "test": "node --test src/test/cli-args.test.js src/test/window-bounds.test.js src/test/comms-supervisor.test.js src/test/comms-session.test.js src/test/publish-packaging.test.js src/test/runtime-mode.test.js src/test/publish.test.js src/test/brand.test.js src/test/alarm-log.test.js src/test/hmi-cli.test.js src/test/retentive-store.test.js src/test/user-store.test.js",
+    "test": "node --test src/test/cli-args.test.js src/test/window-bounds.test.js src/test/comms-supervisor.test.js src/test/comms-session.test.js src/test/publish-packaging.test.js src/test/runtime-mode.test.js src/test/publish.test.js src/test/brand.test.js src/test/alarm-log.test.js src/test/hmi-cli.test.js src/test/retentive-store.test.js src/test/user-store.test.js src/test/recipe-store.test.js",
     "make-icons": "node scripts/make-icons.mjs",
     "dist-win": "node scripts/dist-win.mjs",
     "dist-linux": "node scripts/dist-linux.mjs"
