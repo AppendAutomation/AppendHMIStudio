@@ -156,6 +156,8 @@ To **change an existing project**:
   - the button that opens the faceplate links them, with names as text:
     `onDown: "LinkIndirectTag(\"FP_Status\", \"SV001_Status\");"`, plus a `showWindow` link;
   - the faceplate's links use the indirect tags; `FP_Status.Name` shows the linked tag.
+- **Windows from scripts:** `ShowWindow("Name")`, or `ShowWindow("Name", left, top, modal, wait)`.
+  `wait` 1 makes the script pause until the window closes, e.g. a confirmation popup.
 - **Recipes:**
   - `recipeBooks: [{name, uploadDownload, items: [{tag, ioTag}], recipes}]`;
     Save/Load tags are usually memory tags the operator edits, `ioTag` the PLC

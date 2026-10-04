@@ -482,7 +482,8 @@ def build(save=True):
     P('The navigation bar at the bottom of every LiquidWeighHMI screen is a row of buttons, each with a **Show '
       'Window** link to one screen. Because the main screens are Replace windows, opening one closes the current '
       'screen. The valve and pump symbols open the Device Faceplate the same way, after an Action Script has told it '
-      'which device to show (section 9.4); its DONE button closes it with a **Hide Window** link.')
+      'which device to show (section 9.4); its DONE button closes it with a **Hide Window** link. A script can '
+      'also open a window with `ShowWindow` (section 9.3), at another position, and wait for it to close.')
 
     # ------------------------------------------------------------ 7
     H1('7  Drawing objects')
@@ -608,7 +609,7 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
       '(`12.5`, `"Standard Blend"`), a tag or a whole expression. Function names are not case-sensitive.')
     bullets(doc, [
         '**Math and text functions** return a value and can be used anywhere: in animation links and in scripts.',
-        '**Security, indirect tag and recipe functions** do something (open a window, log in, link or write tags), '
+        '**Security, indirect tag, window and recipe functions** do something (open a window, log in, link or write tags), '
         'so they can be '
         'called only from scripts: Action Scripts and window scripts. Validate reports one used in an animation '
         'link.',
@@ -648,6 +649,17 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
          'replacing any earlier link; reading or writing the indirect tag then reads or writes that tag, in every '
          'window. The names can be built: `LinkIndirectTag("FP_Status", "SV" + Text(Unit, "000") + "_Status")`. '
          'Returns 1, or 0 with an Indirect Tag Error window when a name is unknown or the types do not match'],
+    ])
+    table(doc, 'Window function (scripts only)', [
+        ['Function', 'Arguments', 'What it does'],
+        ['ShowWindow(name, left, top, modal, wait)', 'name\nleft, top, modal, wait: optional',
+         'Opens the window (page) named by name (text), as a Show Window link does. left and top (screen pixels; "" '
+         'keeps the window\'s own) move it for this showing; it still '
+         'shows the same part of its page. modal (0 or 1) overrides a popup\'s modality: with 0 the windows beneath can '
+         'still be touched. With wait 1 the script pauses until the window closes, so it can act on the operator\'s '
+         'choice; by default it carries on at once. Like ShowRecipeSelect it must be a statement on its own or the '
+         'whole right side of an assignment. Returns 1, or 0 with a Window Error window when the name is unknown, '
+         'a position is not a number or the window would be off the screen'],
     ])
     P('In the recipe functions, `book` is the name of a recipe book defined in **HMI > Recipes** and `name` the '
       'name of a recipe in it: text of 1 to 64 characters. Names are not case-sensitive. Chapter 11 shows them at '

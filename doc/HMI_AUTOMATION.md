@@ -300,7 +300,13 @@ All fields that take numbers are expressions, as strings.
     [HMI_RECIPES.md](HMI_RECIPES.md);
   - `LinkIndirectTag(indirect, tag)`, in scripts only: points an indirect tag
     at a tag, both given as names in text (`"SV" + Unit + "_Status"`); 1 or 0.
-    See [HMI_INDIRECT.md](HMI_INDIRECT.md).
+    See [HMI_INDIRECT.md](HMI_INDIRECT.md);
+  - `ShowWindow(name[, left, top[, modal[, wait]]])`, in scripts only: opens a
+    window (page) by name, as text. `left`, `top` move it for this showing
+    (screen pixels; `""` keeps its own); `modal` 0 or 1 overrides a popup's
+    modality; `wait` 1 pauses the script until the window closes (default:
+    carry on at once). Only as a statement or the whole right-hand side of an
+    assignment; 1, or 0 with a Window Error.
 - **Text:** `+` joins text when either side is text, converting the other
   (`"Real" + 2` is `"Real2"`; discrete values give `"1"` or `"0"`).
 - **Bad quality:** an expression with a bad-quality input has a bad result
