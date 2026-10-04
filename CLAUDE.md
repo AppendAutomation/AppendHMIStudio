@@ -78,7 +78,7 @@ append-hmi-studio/
   - hidden help icons, the refused upstream links and the tab-bar repository link;
   - resource strings, re-parsed after the language bundle loads.
 - **Upstream files edited directly** (small merge surface):
-  - `index.html`;
+  - `index.html` (title, and the start-up screen with the Append Automation logo, `images/append-automation-logo.png`);
   - the desktop check in `js/bootstrap.js`, `js/export.js` and `js/vsdxImporter.js`: `window.electron`, not the app name in the user agent;
   - in `ElectronApp.js`: one filter name, and File > Open's filter list (`chooseFileEntry`), where Append HMI Studio Projects (.ahmi, .drawio-hmi) come first as the default. The preload's `electron` object is read-only, so its requests cannot be intercepted.
 - **Kept on purpose** (format identifiers or functional endpoints):
