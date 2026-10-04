@@ -1,7 +1,7 @@
 {
   "name": "append-hmi-studio",
   "productName": "Append HMI Studio",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Append HMI Studio: design, run and publish HMI applications for PLCs",
   "exports": "./src/main/electron.js",
   "type": "module",
