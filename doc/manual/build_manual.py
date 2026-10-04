@@ -323,7 +323,7 @@ def build(save=True):
         ['Recipes', 'A recipe book of plasticizer blends with five starting recipes, and a Recipes screen to '
          'select, edit, save and download them'],
         ['Scripts', 'Window scripts that turn the sequence step number into text, and action scripts that call '
-         'the login and recipe functions'],
+         'the login, recipe, indirect tag and ShowWindow functions'],
     ])
 
     H2('1.1  How an HMI application is organized')
@@ -481,9 +481,9 @@ def build(save=True):
     H2('6.2  Navigation')
     P('The navigation bar at the bottom of every LiquidWeighHMI screen is a row of buttons, each with a **Show '
       'Window** link to one screen. Because the main screens are Replace windows, opening one closes the current '
-      'screen. The valve and pump symbols open the Device Faceplate the same way, after an Action Script has told it '
-      'which device to show (section 9.4); its DONE button closes it with a **Hide Window** link. A script can '
-      'also open a window with `ShowWindow` (section 9.3), at another position, and wait for it to close.')
+      'screen. The valve and pump symbols open the Device Faceplate from their Action Scripts instead, with the '
+      '`ShowWindow` function, beside the symbol touched (section 9.5); its DONE button closes it with a **Hide '
+      'Window** link.')
 
     # ------------------------------------------------------------ 7
     H1('7  Drawing objects')
@@ -522,15 +522,15 @@ def build(save=True):
       'through the links LiquidWeighHMI uses.')
 
     H2('8.1  A valve: status color, fault blink and faceplate')
-    P('Each valve symbol on the Process screen carries four links. SV-102 is selected in ' + F('animation-valve') + '.')
+    P('Each valve symbol on the Process screen carries three links. SV-102 is selected in ' + F('animation-valve') + '.')
     figure(doc, 'animation-valve', 'The SV-102 valve and its links')
     bullets(doc, [
         '**Fill Color / Analog** on `SV102_Status`: below 0.5 (closed) white, below 1.5 (open) green, below 2.5 '
         '(travel) amber, otherwise (fault) red. The first band whose limit the value is below wins.',
         '**Blink** on `SV102_Fault AND NOT SV102_FaultAck`: flashes the fill while a fault is unacknowledged.',
         '**Action Script** (On down): `FP_Prefix = "SV102"; FP_Device = "SV-102"; ...` tells the faceplate which '
-        'device to show (section 9.4).',
-        '**Show Window** Device Faceplate: touching the valve then opens the faceplate.',
+        'device to show (section 9.4), and `ShowWindow("Device Faceplate", 132, 80);` opens it beside the valve '
+        '(section 9.5).',
     ])
 
     H2('8.2  The weigh hopper: percent fill')
@@ -696,13 +696,14 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
       '`FP_Status` reads `SV102_Status` for SV-102 and `P100_Status` for P-100. A change to the faceplate is made '
       'once and applies to every device.')
     P('Opening it takes two steps. First, the valve or pump symbol\'s Action Script names the device in memory '
-      'tags:')
+      'tags and opens the faceplate beside the symbol (section 9.5):')
     code(doc, """
 FP_Prefix = "SV102"; FP_Device = "SV-102";
 FP_Desc = "Plast #1 bulk tank refill valve";
 FP_IsPump = 0; FP_HasLimits = 1; FP_OperatorOnly = 1;
+ShowWindow("Device Faceplate", 132, 80);
 """)
-    P('Then its Show Window link opens the faceplate, whose **On show** script builds each tag name from the prefix '
+    P('Then the faceplate\'s **On show** script builds each tag name from the prefix '
       'and links the indirect tags. A pump links the shared command tags to its Start and Stop, a valve to Open and '
       'Close:')
     code(doc, """
@@ -732,10 +733,47 @@ ENDIF;
         '**Status:** a While showing script turns `FP_Status` into the words shown (`FP_StateText`).',
         '**Dotfields:** `FP_Status.Name` would show `SV102_Status`; every dotfield describes the linked tag.',
     ])
-    figure(doc, 'run-faceplate-pump', 'The same faceplate showing pump P-100')
+    figure(doc, 'run-faceplate-pump', 'The same faceplate showing pump P-200')
     note(doc, 'Writing to an indirect tag writes the linked tag: the faceplate\'s MANUAL button sets `FP_CmdManual`, '
          'which is `SV100_CmdManual` while SV-100 is shown. Before the first link an indirect tag has bad quality '
          'and writes to it are ignored.')
+
+    H2('9.5  Opening windows from scripts: ShowWindow')
+    P('A Show Window link always opens its window where the window is defined. The `ShowWindow` function (section '
+      '9.3) does the same from a script, and can also move the window, make a popup modal or not, and pause the '
+      'script until the window closes. LiquidWeighHMI uses it in two ways.')
+    H3('Beside the device touched')
+    P('Every valve and pump symbol ends its Action Script with a `ShowWindow` call that places the Device Faceplate '
+      'beside the symbol, so the operator still sees the device being operated. The faceplate still shows its own '
+      'part of its page; only its place on the screen changes. P-100, at the bottom left of the Process screen, '
+      'opens it at 414, 398:')
+    code(doc, """
+FP_Prefix = "P100"; FP_Device = "P-100"; ...
+ShowWindow("Device Faceplate", 414, 398);
+""")
+    figure(doc, 'run-faceplate-beside', 'The Device Faceplate opened beside pump P-100')
+    H3('Waiting for an answer')
+    P('ABORT on the Batch screen asks first. Its Action Script opens the Confirm Abort popup with wait (the fifth '
+      'argument), so the script pauses at `ShowWindow` until the popup closes, then acts on the answer:')
+    code(doc, """
+IF Seq_Running OR Seq_Held THEN
+    AbortConfirmed = 0;
+    ShowWindow("Confirm Abort", "", "", 1, 1);
+    IF AbortConfirmed THEN
+        PB_Abort = 1;
+    ENDIF;
+ENDIF;
+""")
+    P('The popup\'s YES button sets `AbortConfirmed = 1` and closes it; NO, or the close box, just closes it. "" '
+      'keeps the popup where it is defined, and 1 keeps it modal.')
+    figure(doc, 'run-confirm-abort', 'Confirm Abort, opened by ShowWindow with wait: the ABORT script waits for the answer')
+    bullets(doc, [
+        'While a script waits, the rest of the application runs normally; only that script is paused.',
+        'A waiting `ShowWindow` must be a statement on its own (or the whole value of an assignment), as here, '
+        'inside an IF if needed.',
+        'If the window running the script closes, or the application stops, before the answer, the rest of the script '
+        'does not run.',
+    ])
 
     # ------------------------------------------------------------ 10
     H1('10  Alarms and security')
