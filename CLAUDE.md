@@ -72,6 +72,7 @@ append-hmi-studio/
   - packaging: package.json (`name` `append-hmi-studio`, `productName` "Append HMI Studio") and the two builder configs;
   - `src/test/brand.test.js` keeps them in step and fails on upstream names in `src/main` code.
 - **Editor branding** lives in fork-owned `js/hmi/HmiBrand.js`. It patches prototypes (all names survive in the minified bundles):
+  - the light appearance by default (`installAppearance`: `darkMode` false in new settings, and a stored upstream `'auto'` moved to light once, marked `hmiLightDefault`);
   - app name and logo;
   - Help menu, About and licenses (`HmiDialogs.showAbout`, fed by the `hmiApp.info` IPC);
   - hidden help icons, the refused upstream links and the tab-bar repository link;
@@ -79,7 +80,7 @@ append-hmi-studio/
 - **Upstream files edited directly** (small merge surface):
   - `index.html`;
   - the desktop check in `js/bootstrap.js`, `js/export.js` and `js/vsdxImporter.js`: `window.electron`, not the app name in the user agent;
-  - one filter name in `ElectronApp.js`.
+  - in `ElectronApp.js`: one filter name, and File > Open's filter list (`chooseFileEntry`), where Append HMI Studio Projects (.ahmi, .drawio-hmi) come first as the default. The preload's `electron` object is read-only, so its requests cannot be intercepted.
 - **Kept on purpose** (format identifiers or functional endpoints):
   - `application/vnd.jgraph.mxfile`, the `.drawio` format and the `.drawio-config` storage key;
   - the HTML-export viewer URL;
