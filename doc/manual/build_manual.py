@@ -277,7 +277,7 @@ def cover(doc):
 
     v = doc.add_paragraph()
     v.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = v.add_run('Version 1.1  ·  October 2026\nAppend Automation')
+    run = v.add_run('Version 1.2  ·  October 2026\nAppend Automation')
     run.font.size = Pt(11)
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 
