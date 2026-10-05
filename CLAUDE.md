@@ -72,6 +72,7 @@ append-hmi-studio/
   - packaging: package.json (`name` `append-hmi-studio`, `productName` "Append HMI Studio") and the two builder configs;
   - `src/test/brand.test.js` keeps them in step and fails on upstream names in `src/main` code.
 - **Editor branding** lives in fork-owned `js/hmi/HmiBrand.js`. It patches prototypes (all names survive in the minified bundles):
+  - Page View off for new documents (`Graph.prototype.defaultPageVisible`; `?pv=1` and a file's own setting win);
   - the light appearance by default (`installAppearance`: `darkMode` false in new settings, and a stored upstream `'auto'` moved to light once, marked `hmiLightDefault`);
   - app name and logo;
   - Help menu, About and licenses (`HmiDialogs.showAbout`, fed by the `hmiApp.info` IPC);
