@@ -196,6 +196,7 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - **`ShowWindow(name[, left, top[, modal[, wait]]])`** is `async` in `HmiExpr` (statement or assignment only). `HmiRuntime`'s `ctx.callAsync` hands it to `HmiWindowManager.callShowWindow`, which checks its arguments, shows the window with `propsWith` overrides and calls `done(1)` at once, or from `close()` with wait (`win.onClosed`). A resume is dropped when the caller's window or the Run has stopped.
 - **Moved windows** keep showing their defined part of the page (`pageX`/`pageY`). A popup with `modal: false` gets no blocker.
 - **Touches pass through hidden objects** (`HmiRuntime.touchedCell`), so overlapping variants with visibility links work.
+- **Run cursor and selection:** text in `.hmiScreen` is not selectable. Each window's content shows the arrow, and the pointing hand only over an object `isTouchable` (a touch link that is enabled, visible and not disabled), set by `updateCursor` on mouse move; CSS makes the parts inherit it.
 
 ### Automation (command line)
 - **Commands:** `--hmi-build <spec.json>`, `--hmi-check`, `--hmi-render`, `--hmi-dump` and `--hmi-publish` (with `--product`, `--app-version`, …) drive the studio without its UI. Reference: `doc/HMI_AUTOMATION.md`.
