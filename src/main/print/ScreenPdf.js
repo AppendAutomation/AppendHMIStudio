@@ -3,6 +3,7 @@
 // itself (js/hmi/HmiScreenPdf.js) and hands it back here to be saved where
 // the operator picks in the OS dialog. Nothing is written anywhere else.
 import fs from 'fs';
+import path from 'path';
 
 // Far above a one-page screen capture
 export const MAX_PDF = 64 * 1024 * 1024;
@@ -54,6 +55,26 @@ export async function capture(contents, rect)
 	return image.toDataURL();
 }
 
+// Writes a hidden temporary file beside the target, then renames it into
+// place: a file manager watching the folder never sees the file empty or
+// half written (Nautilus took an empty one for text and kept that view).
+export async function writeWhole(file, bytes)
+{
+	const tmp = path.join(path.dirname(file), '.' + path.basename(file) + '.' + process.pid + '.tmp');
+
+	try
+	{
+		await fs.promises.writeFile(tmp, bytes);
+		await fs.promises.rename(tmp, file);
+	}
+	catch (e)
+	{
+		await fs.promises.rm(tmp, {force: true});
+
+		throw e;
+	}
+}
+
 // Asks where, then writes. Resolves with the file, or null when the operator
 // cancels. dialog is Electron's, win the parent window, data the PDF in base64.
 export async function save(dialog, win, defaultName, data)
@@ -82,7 +103,7 @@ export async function save(dialog, win, defaultName, data)
 	}
 
 	const file = /\.pdf$/i.test(result.filePath) ? result.filePath : result.filePath + '.pdf';
-	await fs.promises.writeFile(file, bytes);
+	await writeWhole(file, bytes);
 
 	return file;
 }
