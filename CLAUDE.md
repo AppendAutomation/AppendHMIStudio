@@ -38,6 +38,7 @@ append-hmi-studio/
 │   ├── comms/                # hmi-comms supervisor (spawn/restart) and per-window WebSocket relay
 │   ├── runtime/RuntimeMode.js # Run-only mode for published HMI packages
 │   ├── alarms/, retentive/, security/, recipes/ # Run-time stores in userData (AlarmLog, RetentiveStore, UserStore, RecipeStore)
+│   ├── print/ScreenPdf.js    # ScreenToPDF: window capture fallback and the Save dialog
 │   └── publish/              # HMI > Publish: Publisher.js, NsisScript.js (also the editor installer)
 ├── src/test/                 # npm test (Node's test runner; files listed in package.json)
 ├── drawio/                   # Submodule: the editor (fork). HMI code in src/main/webapp/js/hmi/
@@ -211,6 +212,13 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - **Moved windows** keep showing their defined part of the page (`pageX`/`pageY`). A popup with `modal: false` gets no blocker.
 - **Touches pass through hidden objects** (`HmiRuntime.touchedCell`), so overlapping variants with visibility links work.
 - **Run cursor and selection:** text in `.hmiScreen` is not selectable. Each window's content shows the arrow, and the pointing hand only over an object `isTouchable` (a touch link that is enabled, visible and not disabled), set by `updateCursor` on mouse move; CSS makes the parts inherit it.
+
+### ScreenToPDF (script function)
+- **`ScreenToPDF()`** (`js/hmi/HmiScreenPdf.js`) is synchronous like RecipeExport: `HmiRuntime`'s `ctx.call` hands it to `HmiScreenPdf.call` with the window manager, which returns 1 at once. Failures go to the function error window ("Screen to PDF Error"); a second call while one is saving returns 0.
+- **Capture:** the `.hmiScreen` element is cloned inside `HmiWindowManager.atDesignSize` (laid out at scale 1 and back in the same task, so nothing paints), then drawn through an SVG foreignObject with the page's style sheets, about 2000 px across. Popups and HTML overlays come along; editor dialogs do not. In the desktop apps, a screen with a non-`data:` picture, or a tainted canvas, falls back to `hmiScreenPdf.capture` (main's `capturePage` of the visible screen).
+- **PDF:** written in the renderer (`HmiScreenPdf.document`): one landscape Letter page (792 × 612 pt), the image fitted inside 18 pt margins and centered, Flate through pako (or `CompressionStream`).
+- **Save:** `hmiScreenPdf.save` in main (`src/main/print/ScreenPdf.js`, shared with AppendHMIDesktop) checks the data is a PDF and writes only where the OS dialog says. The default name is the newest replace window's page name through `HmiScreenPdf.fileName` (invalid characters become `_`, reserved device names get `_`, empty becomes Screen). Append HMI Web downloads a Blob.
+- **Example:** LiquidWeighHMI's SAVE PDF header button (manual section 9.6).
 
 ### Automation (command line)
 - **Commands:** `--hmi-build <spec.json>`, `--hmi-check`, `--hmi-render`, `--hmi-dump` and `--hmi-publish` (with `--product`, `--app-version`, …) drive the studio without its UI. Reference: `doc/HMI_AUTOMATION.md`.

@@ -163,6 +163,8 @@ To **change an existing project**:
   `startSize`/`endSize`, and `startFill`/`endFill` (0 for an outline end).
 - **Windows from scripts:** `ShowWindow("Name")`, or `ShowWindow("Name", left, top, modal, wait)`.
   `wait` 1 makes the script pause until the window closes, e.g. a confirmation popup.
+- **Screen to PDF:** a button whose Action Script is `ScreenToPDF();` saves the screen as a
+  landscape PDF through a Save dialog (the page name is the default file name).
 - **Recipes:**
   - `recipeBooks: [{name, uploadDownload, items: [{tag, ioTag}], recipes}]`;
     Save/Load tags are usually memory tags the operator edits, `ioTag` the PLC

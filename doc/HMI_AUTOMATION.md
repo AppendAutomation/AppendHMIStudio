@@ -315,7 +315,14 @@ All fields that take numbers are expressions, as strings.
     (screen pixels; `""` keeps its own); `modal` 0 or 1 overrides a popup's
     modality; `wait` 1 pauses the script until the window closes (default:
     carry on at once). Only as a statement or the whole right-hand side of an
-    assignment; 1, or 0 with a Window Error.
+    assignment; 1, or 0 with a Window Error;
+  - `ScreenToPDF()`, in scripts only: saves the screen as shown (popups
+    included) as a one-page landscape Letter PDF, fitted and centered with
+    at least 1/4" margins, through a Save dialog that offers the screen's
+    page name as the file name (scrubbed of characters a file name cannot
+    hold). Like `RecipeExport` it returns 1 once the dialog opens and the
+    script carries on; a failure shows a Screen to PDF Error. Append HMI Web
+    downloads the file.
 - **Text:** `+` joins text when either side is text, converting the other
   (`"Real" + 2` is `"Real2"`; discrete values give `"1"` or `"0"`).
 - **Bad quality:** an expression with a bad-quality input has a bad result

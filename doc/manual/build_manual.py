@@ -323,7 +323,7 @@ def build(save=True):
         ['Recipes', 'A recipe book of plasticizer blends with five starting recipes, and a Recipes screen to '
          'select, edit, save and download them'],
         ['Scripts', 'Window scripts that turn the sequence step number into text, and action scripts that call '
-         'the login, recipe, indirect tag and ShowWindow functions'],
+         'the login, recipe, indirect tag, ShowWindow and ScreenToPDF functions'],
     ])
 
     H2('1.1  How an HMI application is organized')
@@ -634,7 +634,8 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
       '(`12.5`, `"Standard Blend"`), a tag or a whole expression. Function names are not case-sensitive.')
     bullets(doc, [
         '**Math and text functions** return a value and can be used anywhere: in animation links and in scripts.',
-        '**Security, indirect tag, window and recipe functions** do something (open a window, log in, link or write tags), '
+        '**Security, indirect tag, window, screen and recipe functions** do something (open a window, log in, link or '
+        'write tags, save a file), '
         'so they can be '
         'called only from scripts: Action Scripts and window scripts. Validate reports one used in an animation '
         'link.',
@@ -685,6 +686,13 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
          'choice; by default it carries on at once. Like ShowRecipeSelect it must be a statement on its own or the '
          'whole right side of an assignment. Returns 1, or 0 with a Window Error window when the name is unknown, '
          'a position is not a number or the window would be off the screen'],
+    ])
+    table(doc, 'Screen function (scripts only)', [
+        ['Function', 'Arguments', 'What it does'],
+        ['ScreenToPDF()', 'None', 'Saves the screen as the operator sees it, popups included, as a one-page PDF: '
+         'landscape Letter, the screen fitted, centered and at least 1/4 inch from every edge. A Save window '
+         'opens with the page\'s name as the file name (in Append HMI Web, the browser downloads the file). '
+         'Returns 1 when the Save window opens; the script does not wait for it (section 9.6)'],
     ])
     P('In the recipe functions, `book` is the name of a recipe book defined in **HMI > Recipes** and `name` the '
       'name of a recipe in it: text of 1 to 64 characters. Names are not case-sensitive. Chapter 11 shows them at '
@@ -798,6 +806,30 @@ ENDIF;
         'inside an IF if needed.',
         'If the window running the script closes, or the application stops, before the answer, the rest of the script '
         'does not run.',
+    ])
+
+    H2('9.6  Saving the screen as a PDF: ScreenToPDF')
+    P('`ScreenToPDF()` keeps a record of a screen: a shift report, a batch at a given moment, or a fault to send '
+      'to maintenance. Every LiquidWeighHMI screen has a **SAVE PDF** button in its header, whose Action Script is '
+      'one line:')
+    code(doc, 'ScreenToPDF();')
+    P('The function saves what the operator sees: the screen with its live values, and any popup or overlay '
+      'window open on it. The PDF has one landscape Letter page. The screen is fitted to the page as large as '
+      'it goes, centered, with at least 1/4 inch of margin on every side, and is drawn at the screen\'s own '
+      'resolution even when it is shown smaller.')
+    figure(doc, 'screen-pdf', 'The PDF saved from the Process screen with the Device Faceplate open', max_width_in=5.0)
+    bullets(doc, [
+        'A Save window asks where to save the file. The file name offered is the name of the page shown as the '
+        'screen, such as Process.pdf. Characters that a file name cannot hold (\\ / : * ? " < > |) become _, so '
+        'a page named "Tank 1/2" is offered as Tank 1_2.pdf.',
+        'Like RecipeExport, the function returns 1 as soon as the Save window opens, and the rest of the script runs '
+        'at once; it does not wait for the operator. A failure, such as a folder that cannot be written, opens the '
+        'Screen to PDF Error window. Cancel saves nothing and shows no error.',
+        'In Append HMI Web the browser downloads the file, to its downloads folder or where it asks, depending on '
+        'the browser\'s settings.',
+        'Pictures on the screen print when they are embedded in the project, as pictures added in Append HMI '
+        'Studio are. In the desktop apps, a screen that shows a picture by its web address is captured from the '
+        'window instead, at the size it is shown.',
     ])
 
     # ------------------------------------------------------------ 10

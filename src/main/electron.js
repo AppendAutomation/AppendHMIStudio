@@ -20,6 +20,7 @@ import * as alarmLog from './alarms/AlarmLog.js';
 import * as retentiveStore from './retentive/RetentiveStore.js';
 import * as userStore from './security/UserStore.js';
 import * as recipeStore from './recipes/RecipeStore.js';
+import * as screenPdf from './print/ScreenPdf.js';
 import {PRODUCT_NAME, ISSUES_URL} from './brand.js';
 import {findRuntimeDir, loadRuntimeConfig, runtimeUserDataDir, runtimeWindowOptions, mayExit,
 		readRuntimeProject, publicRuntimeInfo} from './runtime/RuntimeMode.js';
@@ -2136,6 +2137,32 @@ async function handleRecipesRequest(contents, args)
 				return (args.action === 'hmiRecipes.exportCsv') ?
 					await recipeStore.exportCsv(dialog, win, args.defaultName, args.text) :
 					await recipeStore.importCsv(dialog, win);
+			}
+			finally
+			{
+				dialogOpen = false;
+			}
+		}
+		default:
+			throw new Error('unknown action: ' + args.action);
+	}
+}
+
+// ScreenToPDF(): a capture of the screen, and the PDF saved where the
+// operator picks (print/ScreenPdf.js)
+async function handleScreenPdfRequest(contents, args)
+{
+	switch (args.action)
+	{
+		case 'hmiScreenPdf.capture':
+			return screenPdf.capture(contents, args.rect);
+		case 'hmiScreenPdf.save':
+		{
+			dialogOpen = true;
+
+			try
+			{
+				return await screenPdf.save(dialog, BrowserWindow.fromWebContents(contents), args.defaultName, args.data);
 			}
 			finally
 			{
@@ -4885,6 +4912,10 @@ ipcMain.on("rendererReq", async (event, args) =>
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiRecipes.'))
 			{
 				ret = await handleRecipesRequest(event.sender, args);
+			}
+			else if (typeof args.action === 'string' && args.action.startsWith('hmiScreenPdf.'))
+			{
+				ret = await handleScreenPdfRequest(event.sender, args);
 			}
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiCli.'))
 			{
