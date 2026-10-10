@@ -247,13 +247,13 @@ button, and each unacknowledged row has **Ack**.
 A `recipeList` object takes its settings from a `recipeList` link (below).
 
 The arcs are open curves along an ellipse (`arc`, filling the box) or a circle (`circleArc`, kept round). Set them in `style`:
-- `arcStart`, `arcEnd`: degrees, 0 at twelve o'clock, clockwise from start to end (default 270 to 90, the top half);
-- `strokeWidth`: the line width;
+- `arcStart`, `arcEnd`: degrees as on a protractor, 0 at the right and counterclockwise, the arc running counterclockwise from start to end (default 0 to 180, the top half; a start greater than the end sweeps through 0);
+- `strokeWidth`, `arcEndWidth`: the line width at the start and at the end (the end defaults to the start; differing widths are drawn solid, not dashed);
 - `startArrow`, `endArrow`: `none`, `classic`, `classicThin`, `block`, `blockThin`, `open`, `openThin`, `oval`, `diamond`, `diamondThin`, `box`, `halfCircle`, `dash`, `cross`, `circle` or `circlePlus`;
 - `startSize`, `endSize`: the end sizes;
 - `startFill`, `endFill`: `0` for an outline end.
 
-For example `{"type": "circleArc", "x": 40, "y": 40, "width": 140, "height": 140, "style": "arcStart=225;arcEnd=135;strokeWidth=8;endArrow=block;"}`.
+For example a gauge sweep over the top, `{"type": "circleArc", "x": 40, "y": 40, "width": 140, "height": 140, "style": "arcStart=315;arcEnd=225;strokeWidth=8;endArrow=block;"}`.
 
 ### Animation links
 

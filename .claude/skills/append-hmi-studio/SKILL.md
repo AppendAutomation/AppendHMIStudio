@@ -157,8 +157,9 @@ To **change an existing project**:
     `onDown: "LinkIndirectTag(\"FP_Status\", \"SV001_Status\");"`, plus a `showWindow` link;
   - the faceplate's links use the indirect tags; `FP_Status.Name` shows the linked tag.
 - **Arcs:** `type` `arc` (ellipse) or `circleArc` (circle), with
-  `style` `arcStart=…;arcEnd=…;` (degrees, 0 at twelve o'clock, clockwise),
-  `strokeWidth`, `startArrow`/`endArrow` (`classic`, `block`, `open`, …),
+  `style` `arcStart=…;arcEnd=…;` (degrees as on a protractor: 0 at the right,
+  counterclockwise; 0 to 180 is the top half), `strokeWidth` (start width) and
+  `arcEndWidth` (end width), `startArrow`/`endArrow` (`classic`, `block`, `open`, …),
   `startSize`/`endSize`, and `startFill`/`endFill` (0 for an outline end).
 - **Windows from scripts:** `ShowWindow("Name")`, or `ShowWindow("Name", left, top, modal, wait)`.
   `wait` 1 makes the script pause until the window closes, e.g. a confirmation popup.

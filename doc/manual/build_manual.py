@@ -496,13 +496,18 @@ def build(save=True):
         'Text for labels and titles.',
     ])
     P('The **General** palette ends with two **arcs**: an open curve along a circle, **Arc (Circle)**, which stays '
-      'round when resized, and one along an ellipse, **Arc (Ellipse)**, which fills its box. Like lines, arcs take a '
-      'line width and an arrow or other end at either end. Select an arc and open the Style tab to set it:')
+      'round when resized, and one along an ellipse, **Arc (Ellipse)**, which fills its box. Like lines, arcs take an '
+      'arrow or other end at either end, and their width can change from one end to the other. Select an arc and open '
+      'the Style tab to set it:')
     table(doc, 'Arc settings (Style tab, Arc section)', [
         ['Setting', 'Meaning'],
-        ['Start angle, End angle', 'Where the arc begins and ends, in degrees: 0 is twelve o\'clock, and the arc runs '
-         'clockwise from the start angle to the end angle. 270 to 90 is the top half'],
-        ['Line width', 'The thickness of the line, as for any shape'],
+        ['Start angle, End angle', 'Where the arc begins and ends, in degrees measured as on a protractor: 0 at the '
+         'right, increasing counterclockwise, so 90 is the top. The arc runs counterclockwise from the start angle to '
+         'the end angle: 0 to 180 is the top half, and a start greater than the end, such as 315 to 225, sweeps '
+         'through 0'],
+        ['Start line width, End line width', 'The thickness of the line at each end; it changes evenly between them. '
+         'The start width is the Line width of the Line section. A line whose widths differ is drawn solid, '
+         'not dashed'],
         ['Start arrow, End arrow', 'The end at each end: none, classic, block, open, oval, diamond, box and others, as '
          'on lines'],
         ['Start size, End size', 'The size of each end'],

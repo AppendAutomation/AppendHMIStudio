@@ -195,7 +195,8 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 
 ### Arcs
 - **The shape:** `js/hmi/HmiArc.js` registers `shape=hmiArc`, a vertex drawn as a polyline along a circle (`arcType=circle`, with `aspect=fixed`) or an ellipse.
-  - It runs clockwise from `arcStart` to `arcEnd` (degrees, 0 at twelve o'clock).
+  - It runs counterclockwise from `arcStart` to `arcEnd`. Angles are degrees as on a protractor: 0 at the right, so 90 is the top, and a start greater than the end sweeps through 0.
+  - The width goes from `strokeWidth` to `arcEndWidth`. When they differ, the line is filled as an outline (`HmiArc.taper`), so it isn't dashed.
   - Its ends use `mxMarker` with `startArrow`/`endArrow`, `startSize`/`endSize` and `startFill`/`endFill`. The line is trimmed by however far each marker moves its end point.
 - **Palette:** two entries are appended to General by wrapping `Sidebar.addPaletteFunctions`.
 - **Style tab:** an Arc section is added at the top (wrapping `StyleFormatPanel.init`), and the Fill section is hidden.
