@@ -521,6 +521,10 @@ def build(save=True):
     figure(doc, 'hmi-palette', 'The HMI palette: Alarm List, Alarm History and Recipe List', max_width_in=2.2)
     note(doc, 'Keep objects inside the Screen frame, and group repeated symbols (a valve with its tag label) so '
          'they can be copied with their links.')
+    P('To mirror an object, select it and choose **Arrange > Direction > Flip Horizontal** or **Flip Vertical**, or '
+      'use the **Flip** buttons on the Arrange tab. A group is mirrored as a whole about its center: every object in '
+      'it, including groups inside it, moves to its mirrored place and is flipped itself, and lines and rotations '
+      'follow, so a pump symbol that faces right faces left. Text stays readable.')
 
     # ------------------------------------------------------------ 8
     H1('8  Animation links')

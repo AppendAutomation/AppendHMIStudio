@@ -202,6 +202,10 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - **Style tab:** an Arc section is added at the top (wrapping `StyleFormatPanel.init`), and the Fill section is hidden.
 - **CLI types:** `arc` and `circleArc`.
 
+### Flipping groups
+- `js/hmi/HmiFlip.js` replaces `Graph.flipChildren`, which upstream moved only a group's direct children. A group now mirrors about its center: every descendant vertex moves to its mirrored place, toggles its own flip (one cell at a time, since `toggleCellStyles` sets all cells from the first), has its rotation reversed and gets `legacyAnchorPoints=0`. Edge points are mirrored too. A single object still flips in place.
+- Arrange > Direction's Flip items call `graph.flipCells`, like the Arrange tab's buttons; upstream they only toggled the selected cell's style.
+
 ### ShowWindow (script function)
 - **`ShowWindow(name[, left, top[, modal[, wait]]])`** is `async` in `HmiExpr` (statement or assignment only). `HmiRuntime`'s `ctx.callAsync` hands it to `HmiWindowManager.callShowWindow`, which checks its arguments, shows the window with `propsWith` overrides and calls `done(1)` at once, or from `close()` with wait (`win.onClosed`). A resume is dropped when the caller's window or the Run has stopped.
 - **Moved windows** keep showing their defined part of the page (`pageX`/`pageY`). A popup with `modal: false` gets no blocker.
