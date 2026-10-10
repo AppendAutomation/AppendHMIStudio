@@ -323,7 +323,8 @@ def build(save=True):
         ['Recipes', 'A recipe book of plasticizer blends with five starting recipes, and a Recipes screen to '
          'select, edit, save and download them'],
         ['Scripts', 'Window scripts that turn the sequence step number into text, and action scripts that call '
-         'the login, recipe, indirect tag, ShowWindow and ScreenToPDF functions'],
+         'the login, recipe, indirect tag, ShowWindow and ScreenToPDF functions (a PRINT SCREEN button on '
+         'every screen)'],
     ])
 
     H2('1.1  How an HMI application is organized')
@@ -810,7 +811,7 @@ ENDIF;
 
     H2('9.6  Saving the screen as a PDF: ScreenToPDF')
     P('`ScreenToPDF()` keeps a record of a screen: a shift report, a batch at a given moment, or a fault to send '
-      'to maintenance. Every LiquidWeighHMI screen has a **SAVE PDF** button in its header, whose Action Script is '
+      'to maintenance. Every LiquidWeighHMI screen has a **PRINT SCREEN** button in its header, whose Action Script is '
       'one line:')
     code(doc, 'ScreenToPDF();')
     P('The function saves what the operator sees: the screen with its live values, and any popup or overlay '
@@ -1041,7 +1042,10 @@ ENDIF;
       'open, and the application connects to its PLCs. A green RUNNING banner shows that the screen is live and '
       'that touching it operates real equipment. **HMI > Stop** returns to editing.')
     figure(doc, 'run-window', 'LiquidWeighHMI running in the Studio')
-    P('The screens below were captured while LiquidWeighHMI ran against its controller, between batches.')
+    P('The screens below were captured while LiquidWeighHMI ran against its controller, between batches. Every '
+      'screen has the same header: the system name, the screen title, **PRINT SCREEN** (saves the screen as a '
+      'PDF, section 9.6), the PLC and simulation status, E-STOP, the sequence state, the number of active alarms, '
+      'and the user with **LOGIN**.')
     figure(doc, 'run-process', 'Process screen: tank and hopper levels, valve states, sequence and active alarms')
     figure(doc, 'run-faceplate', 'The Device Faceplate showing SV-001: mode, commands, interlocks and fault reset')
     figure(doc, 'run-batch', 'Batch screen: recipe, sequence control, start permissives and batch progress')
