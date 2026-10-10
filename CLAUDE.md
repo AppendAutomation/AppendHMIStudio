@@ -193,6 +193,14 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - **Scripts read any tag:** a runtime also subscribes the tags its action scripts and window scripts read (`bindScripts`, `config.scripts`), and `getValue` falls back to `driver.get` for a value not yet delivered. A faceplate's On show script reading `FP_Prefix` depends on this.
 - **Example:** LiquidWeighHMI's Device Faceplate (one popup for 14 devices; manual section 9.4).
 
+### Arcs
+- **The shape:** `js/hmi/HmiArc.js` registers `shape=hmiArc`, a vertex drawn as a polyline along a circle (`arcType=circle`, with `aspect=fixed`) or an ellipse.
+  - It runs clockwise from `arcStart` to `arcEnd` (degrees, 0 at twelve o'clock).
+  - Its ends use `mxMarker` with `startArrow`/`endArrow`, `startSize`/`endSize` and `startFill`/`endFill`. The line is trimmed by however far each marker moves its end point.
+- **Palette:** two entries are appended to General by wrapping `Sidebar.addPaletteFunctions`.
+- **Style tab:** an Arc section is added at the top (wrapping `StyleFormatPanel.init`), and the Fill section is hidden.
+- **CLI types:** `arc` and `circleArc`.
+
 ### ShowWindow (script function)
 - **`ShowWindow(name[, left, top[, modal[, wait]]])`** is `async` in `HmiExpr` (statement or assignment only). `HmiRuntime`'s `ctx.callAsync` hands it to `HmiWindowManager.callShowWindow`, which checks its arguments, shows the window with `propsWith` overrides and calls `done(1)` at once, or from `close()` with wait (`win.onClosed`). A resume is dropped when the caller's window or the Run has stopped.
 - **Moved windows** keep showing their defined part of the page (`pageX`/`pageY`). A popup with `modal: false` gets no blocker.

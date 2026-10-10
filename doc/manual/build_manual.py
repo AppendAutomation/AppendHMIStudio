@@ -495,9 +495,25 @@ def build(save=True):
         'Lines and connectors for piping.',
         'Text for labels and titles.',
     ])
-    P('The **HMI** palette adds two objects: the **Alarm List**, the live list of active alarms at the bottom of '
-      'every LiquidWeighHMI screen, and the **Alarm History**, used on the Alarm History screen.')
-    figure(doc, 'hmi-palette', 'The HMI palette: Alarm List and Alarm History', max_width_in=2.2)
+    P('The **General** palette ends with two **arcs**: an open curve along a circle, **Arc (Circle)**, which stays '
+      'round when resized, and one along an ellipse, **Arc (Ellipse)**, which fills its box. Like lines, arcs take a '
+      'line width and an arrow or other end at either end. Select an arc and open the Style tab to set it:')
+    table(doc, 'Arc settings (Style tab, Arc section)', [
+        ['Setting', 'Meaning'],
+        ['Start angle, End angle', 'Where the arc begins and ends, in degrees: 0 is twelve o\'clock, and the arc runs '
+         'clockwise from the start angle to the end angle. 270 to 90 is the top half'],
+        ['Line width', 'The thickness of the line, as for any shape'],
+        ['Start arrow, End arrow', 'The end at each end: none, classic, block, open, oval, diamond, box and others, as '
+         'on lines'],
+        ['Start size, End size', 'The size of each end'],
+        ['Start filled, End filled', 'Whether a closed end, such as a block or diamond, is filled or drawn as an outline'],
+    ])
+    P('Arcs are objects like any other: animation links such as Line Color, Blink, Visibility and Orientation work '
+      'on them, for example to show a gauge sweep or a flow direction.')
+    P('The **HMI** palette adds three objects: the **Alarm List**, the live list of active alarms at the bottom of '
+      'every LiquidWeighHMI screen, the **Alarm History**, used on the Alarm History screen, and the **Recipe List** '
+      '(chapter 11).')
+    figure(doc, 'hmi-palette', 'The HMI palette: Alarm List, Alarm History and Recipe List', max_width_in=2.2)
     note(doc, 'Keep objects inside the Screen frame, and group repeated symbols (a valve with its tag label) so '
          'they can be copied with their links.')
 

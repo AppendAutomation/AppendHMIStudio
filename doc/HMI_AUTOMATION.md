@@ -216,7 +216,7 @@ bar shows the page name and a × close button.
 | Field | Meaning |
 |---|---|
 | `id` | Optional, unique on the page; needed for connector ends |
-| `type` | Shorthand style: `rect`, `roundedRect`, `ellipse`, `text`, `button`, `line`, `arrow`, `triangle`, `cylinder`, `alarmList`, `alarmHistory` or `recipeList`. Optional when `style` names a shape |
+| `type` | Shorthand style: `rect`, `roundedRect`, `ellipse`, `text`, `button`, `line`, `arrow`, `triangle`, `cylinder`, `arc`, `circleArc`, `alarmList`, `alarmHistory` or `recipeList`. Optional when `style` names a shape |
 | `style` | draw.io style keys added after the type's (later keys win), e.g. `fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1;rounded=1;` |
 | `x`, `y`, `width`, `height` | Position and size |
 | `label` | Text (HTML allowed with `html=1`, which the types set) |
@@ -245,6 +245,15 @@ At Run the Alarm List's heading already has the counts and an **Ack All**
 button, and each unacknowledged row has **Ack**.
 
 A `recipeList` object takes its settings from a `recipeList` link (below).
+
+The arcs are open curves along an ellipse (`arc`, filling the box) or a circle (`circleArc`, kept round). Set them in `style`:
+- `arcStart`, `arcEnd`: degrees, 0 at twelve o'clock, clockwise from start to end (default 270 to 90, the top half);
+- `strokeWidth`: the line width;
+- `startArrow`, `endArrow`: `none`, `classic`, `classicThin`, `block`, `blockThin`, `open`, `openThin`, `oval`, `diamond`, `diamondThin`, `box`, `halfCircle`, `dash`, `cross`, `circle` or `circlePlus`;
+- `startSize`, `endSize`: the end sizes;
+- `startFill`, `endFill`: `0` for an outline end.
+
+For example `{"type": "circleArc", "x": 40, "y": 40, "width": 140, "height": 140, "style": "arcStart=225;arcEnd=135;strokeWidth=8;endArrow=block;"}`.
 
 ### Animation links
 
