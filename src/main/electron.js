@@ -24,11 +24,14 @@ import * as screenPdf from './print/ScreenPdf.js';
 import {PRODUCT_NAME, ISSUES_URL} from './brand.js';
 import {findRuntimeDir, loadRuntimeConfig, runtimeUserDataDir, runtimeWindowOptions, mayExit,
 		readRuntimeProject, publicRuntimeInfo} from './runtime/RuntimeMode.js';
+import {createShutdownState, holdClose, finishShutdown} from './runtime/RuntimeShutdown.js';
 
 // Run-only mode for a published HMI package (see runtime/RuntimeMode.js). Its
 // own userData has to be in place before electron-store opens the settings.
 let hmiRuntime = null;
 let hmiRuntimeExitAllowed = false;
+// The page stops its Run before the window closes (RuntimeShutdown.js)
+const hmiRuntimeShutdown = createShutdownState();
 
 {
 	const dir = findRuntimeDir({argv: process.argv, defaultApp: process.defaultApp,
@@ -1881,6 +1884,7 @@ function startHmiRuntime()
 	{
 		log.error('HMI runtime: ' + hmiRuntime.error);
 		hmiRuntimeExitAllowed = true;
+		hmiRuntimeShutdown.stopped = true;
 	}
 
 	menu.setApplicationMenu(null);
@@ -1941,12 +1945,17 @@ function createRuntimeWindow()
 		{
 			event.preventDefault();
 		}
+		else
+		{
+			holdClose(win, event, hmiRuntimeShutdown);
+		}
 	});
 
 	// Windows log off, restart or shutdown must not be held up
 	win.on('session-end', () =>
 	{
 		hmiRuntimeExitAllowed = true;
+		hmiRuntimeShutdown.stopped = true;
 	});
 
 	win.webContents.on('render-process-gone', (e, details) =>
@@ -2024,6 +2033,17 @@ async function handleRuntimeRequest(contents, args)
 			hmiRuntimeExitAllowed = true;
 			setImmediate(() => app.quit());
 			return true;
+		case 'hmiRuntime.stopped':
+		{
+			const win = BrowserWindow.fromWebContents(contents);
+
+			if (win != null && hmiRuntimeExitAllowed)
+			{
+				finishShutdown(win, hmiRuntimeShutdown);
+			}
+
+			return null;
+		}
 		case 'hmiRuntime.log':
 		{
 			const level = ['info', 'warn', 'error'].includes(args.level) ? args.level : 'info';

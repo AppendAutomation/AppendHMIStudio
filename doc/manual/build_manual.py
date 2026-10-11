@@ -367,7 +367,7 @@ def build(save=True):
         ['Devices...', 'Configure the PLCs (chapter 4)'],
         ['Users...', 'Users, passwords and access levels (chapter 10)'],
         ['Recipes...', 'Recipe books: the tags a recipe holds and the starting recipes (chapter 11)'],
-        ['Application Settings...', 'Target screen, start-up windows, runtime and security settings (chapter 3)'],
+        ['Application Settings...', 'Target screen, start-up windows, runtime, security and application scripts (chapter 3)'],
         ['Window Properties...', 'Type, position, size and scripts of the current window (chapter 6)'],
         ['Validate Expressions', 'Check every link, script and address for errors (chapter 12)'],
         ['Publish...', 'Build a Windows installer of the application (chapter 13)'],
@@ -389,7 +389,7 @@ def build(save=True):
         '**Startup windows**: the windows that open when the application starts, in page order. LiquidWeighHMI '
         'opens the Process screen. With none ticked, the page being edited opens.',
     ])
-    figure(doc, 'app-settings-runtime', 'Application Settings: runtime and security', max_width_in=4.6)
+    figure(doc, 'app-settings-runtime', 'Application Settings: runtime, security and scripts', max_width_in=4.6)
     bullets(doc, [
         '**Window**: how a published application runs on the target PC: **Kiosk** (full screen, locked, taskbar '
         'hidden), **Full screen**, or a **window** at the target resolution. LiquidWeighHMI uses Full screen.',
@@ -397,6 +397,8 @@ def build(save=True):
         'be shut down to stop it).',
         '**Log out after (min)**: logs the operator out after this many minutes without a touch or key press. '
         '0 never logs out.',
+        '**Scripts**: the application scripts, which run whichever windows are open: **On start**, **While '
+        'running** (every n ms) and **On shutdown** (section 9.1).',
     ])
 
     # ------------------------------------------------------------ 4
@@ -593,8 +595,8 @@ def build(save=True):
 
     # ------------------------------------------------------------ 9
     H1('9  Expressions and scripts')
-    P('Links use expressions, and scripts (Action Script links and window scripts) use statements, both in the '
-      'InTouch QuickScript style.')
+    P('Links use expressions, and scripts (Action Script links, window scripts and application scripts) use '
+      'statements, both in the InTouch QuickScript style.')
     table(doc, 'Expression syntax', [
         ['Element', 'Examples'],
         ['Tags and dotfields', 'PT001, SV001_Status, PT001.InAlarm, PT001.Acked, PT001.MaxEU'],
@@ -602,6 +604,7 @@ def build(save=True):
         ['Literals', '12.5, "IDLE"'],
         ['Functions', 'Abs(x), Round(x), Text(value, "0.00") and the others in section 9.3'],
         ['Statements (scripts)', 'Pump_Run = 1;  IF cond THEN ... ELSE ... ENDIF;'],
+        ['Local variables (scripts)', 'DIM Count, Total AS Analog;  (section 9.7)'],
     ])
     table(doc, 'System tags', [
         ['Tag', 'Value'],
@@ -611,7 +614,7 @@ def build(save=True):
         ['_Username', 'Logged-in user, or None'],
         ['_AccessLevel', 'Logged-in user\'s access level, or 0'],
     ])
-    H2('9.1  Window scripts')
+    H2('9.1  Window and application scripts')
     P('A window can run a script when it opens (**On show**), repeatedly while it is open (**While showing**, every '
       'n ms) and when it closes (**On hide**). Every LiquidWeighHMI screen turns the PLC\'s sequence step number '
       'into the text shown in the header, four times a second:')
@@ -622,6 +625,30 @@ IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF;
 ...
 ''')
     figure(doc, 'window-scripts', 'Window scripts of the Process screen (While showing every 250 ms)', max_width_in=4.4)
+    P('A window\'s scripts run only while that window is open. Logic that must run all the time belongs in the '
+      '**application scripts**, in the Scripts section of **HMI > Application Settings**:')
+    bullets(doc, [
+        '**On start** runs once when the application starts, before its first window opens, so it can set up '
+        'what the windows show.',
+        '**While running** runs every n ms (**Every (ms)**, 1000 unless set) for as long as the application runs, '
+        'whichever windows are open.',
+        '**On shutdown** runs once as the application stops, after its windows have run their On hide scripts. '
+        'Retentive tags it writes are kept for the next start.',
+    ])
+    P('LiquidWeighHMISim, the copy of LiquidWeighHMI that needs no PLC (examples/LiquidWeighHMISim.ahmi), runs '
+      'the whole controller program in its application scripts. **On start** does what the controller does on '
+      'its first scan: it loads the setpoint defaults on the first run and sets the simulation\'s starting '
+      'values. **While running** runs the 13 ladder routines, rung for rung, every 100 ms: the process '
+      'simulation, sequence, interlocks, valves, pumps and alarms. Its tags are all memory tags, so START runs a '
+      'whole batch on any PC.')
+    figure(doc, 'app-scripts', 'LiquidWeighHMISim\'s application scripts: the controller program, every 100 ms',
+           max_width_in=4.6)
+    bullets(doc, [
+        'In a published application, On shutdown runs when the operator exits. When Windows shuts down or logs '
+        'off, the application closes at once and On shutdown does not run.',
+        'In Append HMI Web, each browser runs the application on its own, with its own application scripts and '
+        'memory tags. On shutdown runs as the browser leaves the page, as far as the browser allows.',
+    ])
     H2('9.2  Action scripts')
     P('An **Action Script** link runs statements when the object is pressed (On down), repeatedly while held '
       '(While down) and when released (On up). The LOGIN button in LiquidWeighHMI\'s header logs in or out:')
@@ -831,6 +858,40 @@ ENDIF;
         'Pictures on the screen print when they are embedded in the project, as pictures added in Append HMI '
         'Studio are. In the desktop apps, a screen that shows a picture by its web address is captured from the '
         'window instead, at the size it is shown.',
+    ])
+
+    H2('9.7  Local variables: DIM')
+    P('A script can keep working values in **local variables** instead of tags. `DIM` declares them, with their '
+      'type:')
+    code(doc, '''
+DIM Total, Average AS Analog;
+DIM Found AS Discrete;
+DIM Label AS Message;
+Total = Bat_Actual0 + Bat_Actual1 + Bat_Actual2;
+Average = Total / 3;
+Found = Average > 10;
+Label = "Batch " + Text(Bat_Count, "0");
+IF Found THEN StepText = Label; ENDIF;
+''')
+    table(doc, 'Local variable types', [
+        ['Type', 'Holds', 'Starts at'],
+        ['Analog', 'A number. Text that is a number, such as "12", becomes that number', '0'],
+        ['Discrete', '1 or 0. Anything true becomes 1', '0'],
+        ['Message', 'Text. A number becomes its text', '""'],
+    ])
+    bullets(doc, [
+        '**One script, one run:** a local variable belongs to the script that declares it and lasts while that '
+        'script runs. Each run starts it again at 0 or "". A script paused at ShowWindow with wait, or at '
+        'ShowRecipeSelect, keeps its values until it carries on. Values that must last from one run to the next '
+        'belong in memory tags.',
+        '**Declare first:** DIM goes at the top level of the script, not inside IF, before the names are used. '
+        'Several DIM statements can declare several types.',
+        '**Strict names:** a local variable cannot have the name of a tag, whatever its case, or of a system tag, '
+        'and a name can be declared only once. Validate reports a clash, including one with a tag added later. '
+        'Names are not case-sensitive, and local variables have no dotfields.',
+        '**Not tags:** a local variable is not sent to a device or to other windows, and a write to it costs '
+        'nothing. LiquidWeighHMISim keeps everything the controller works out afresh on each scan in local '
+        'variables: the time since the last pass, flows, the next sequence step and the flasher.',
     ])
 
     # ------------------------------------------------------------ 10

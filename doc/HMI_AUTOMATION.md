@@ -111,6 +111,7 @@ The window mode and exit policy come from the project's runtime settings. See
 | `runtime.exitPassword` | With `exit: password`, the password in plain text; only a salted hash is stored. A dumped spec carries `salt`/`hash` instead |
 | `publish` | Remembered Publish dialog options (`productName`, `version`, `publisher`, `scope`, …); optional |
 | `security.autoLogoutMin` | Minutes without a touch or key press before the user is logged out (0, the default: never) |
+| `scripts` | Application scripts: `onStart` (once, before the first window opens), `whileRunning` (every `everyMs`, default 1000, for as long as the application runs) and `onShutdown` (once as it stops, after its windows close). They run whichever windows are open |
 
 ### users
 
@@ -292,11 +293,16 @@ All fields that take numbers are expressions, as strings.
 - **Literals:** numbers and `"text"`.
 - **Functions:** `Abs`, `Sqrt`, `Int`, `Round`, `Min(a, b)`, `Max(a, b)`,
   `Sqr`, `StringLen`, `Text(value, "0.00")`.
-- **Scripts** (window scripts, `pushbutton.action`) are statements separated by
-  `;`:
+- **Scripts** (application scripts, window scripts, `pushbutton.action`) are
+  statements separated by `;`:
   - assignments: `Pump_Run = 1;`, `Tank_Level.Acked = 1;` (acknowledges),
     `_AckAll = 1;`;
   - `IF cond THEN … ELSE … ENDIF;`;
+  - local variables: `DIM name[, name …] AS Analog | Discrete | Message;` at
+    the top level of the script (not inside IF), before the names are used.
+    They start at 0 or `""` each time the script runs, have no dotfields, and
+    may not share a name with a tag or system tag (Validate reports it). An
+    Analog holds a number, a Discrete 0 or 1, a Message text;
   - security functions, in scripts only: `ShowLogin();`, `Login(name, password)`
     (1 or 0), `Logout();`, `ChangePassword(old, new)` (1 or 0),
     `ShowUserManager();`;

@@ -112,8 +112,15 @@ To **change an existing project**:
   - operators: `AND OR NOT`, `== <> < <= > >=`, `+ - * / MOD`;
   - functions: `Abs`, `Round`, `Min`, `Max`, `Text(x, "0.0")`, …
   - dotfields: `Tag.InAlarm`, `Tag.Acked`, `Tag.MaxEU`;
-  - scripts (`pushbutton.action`, window `onShow`/`whileShowing`/`onHide`):
-    statements end with `;`, `IF … THEN … ELSE … ENDIF;`.
+  - scripts (`pushbutton.action`, window `onShow`/`whileShowing`/`onHide`,
+    application `settings.scripts`): statements end with `;`,
+    `IF … THEN … ELSE … ENDIF;`, and `DIM a, b AS Analog;` (or `Discrete`,
+    `Message`) declares local variables at the top level, which may not
+    share a tag's name.
+- **Application scripts** (`settings.scripts`): `onStart`, `whileRunning`
+  (every `everyMs`) and `onShutdown` run for the whole application,
+  whichever windows are open. Put logic that must always run there, not in a
+  window's `whileShowing`.
 - **Links need only fields that differ** from the defaults (reference.md
   lists them).
   - Colors are `#RRGGBB`.

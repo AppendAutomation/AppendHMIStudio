@@ -26,7 +26,9 @@ LiquidWeighHMISim
 
 `LiquidWeighHMISim.ahmi` is LiquidWeighHMI with no PLC: the same screens, users and recipe book, with every PLC tag a memory tag and the controller program carried over into the application. Open it and press **HMI > Run** (F5); START runs a whole batch, and every button, faceplate and alarm works as it does with the controller.
 
-- **The logic:** each screen's **While showing** script (every 100 ms) runs the controller's 13 ladder routines, rung for rung: defaults, process simulation, analogs, recipe, sequence, interlocks, valves, pumps, alarms and outputs. Only one screen shows at a time, so it runs once per pass whichever screen is up.
+- **The logic:** the application's **While running** script (HMI > Application Settings, every 100 ms) runs the controller's 13 ladder routines, rung for rung: defaults, process simulation, analogs, recipe, sequence, interlocks, valves, pumps, alarms and outputs. It runs whichever screen is up.
+- **First scan:** the **On start** script loads the setpoint defaults on the first run and sets the simulation's starting values.
+- **Local variables:** what the controller works out afresh on every scan (the step's first pass, the next step, flows, the flasher) is declared with `DIM` in the script rather than kept in tags.
 - **Timers** count real time, measured each pass from the write time of `Sim_Clock`.
 - **Simulation:** the IO Sim screen's Simulation switch, E-stop, loss of plant air, tote replacement and rates work as in the PLC. With Simulation OFF, click an input to drive it by hand.
 - **Kept between runs:** setpoints, the recipe, valve travel and pump feedback times, and the batch count are retentive. **Load Defaults** on the Setpoints screen restores the defaults.
