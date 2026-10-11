@@ -241,6 +241,7 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 
 ### User Manual and examples
 - **Files:** `doc/Append-HMI-Studio-User-Manual.docx` and `.pdf` are built from `doc/manual/`, and illustrated with `examples/LiquidWeighHMI.ahmi`.
+- **LiquidWeighHMISim** (`examples/LiquidWeighHMISim.ahmi`) needs no PLC: `examples/tools/make_liquidweigh_sim.py` turns a `--hmi-dump` of LiquidWeighHMI into it, with every PLC tag a memory tag and the controller's ladder routines as one generated window script on each screen (written only on change, timers from `Sim_Clock.TimeDate`). Regenerate it after changing LiquidWeighHMI.
 - **Building:**
   - `python3 doc/manual/build_manual.py` writes the .docx from `doc/manual/images/` (python-docx; tables follow the house table rules, measured with Carlito for Calibri);
   - `python3 doc/manual/finish.py --docx` (LibreOffice through uno) fills in the table of contents and writes the PDF.
