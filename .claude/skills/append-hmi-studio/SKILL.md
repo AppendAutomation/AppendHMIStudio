@@ -23,6 +23,7 @@ The studio does the modeling, validation and packaging itself, so never write
 - **Users and access levels:** [security.md](security.md).
 - **Recipes:** [recipes.md](recipes.md).
 - **Indirect tags:** [indirect.md](indirect.md).
+- **Trends:** [trends.md](trends.md).
 - **A complete example:** [example-spec.json](example-spec.json). It has a
   Logix PLC, alarmed tags, an overview page with a tank, a pump button and a
   popup alarm window.
@@ -182,6 +183,14 @@ To **change an existing project**:
     RecipeDownload(\"Book\", RecipeName);`;
   - a `recipeList` object with a `recipeList` link `{book, selectedTag}` lists
     the recipes on screen.
+- **Trends:**
+  - a `trend` object with a `trend` link `{name, title, spanSec, pens: [{tag, min, max, color}]}`;
+    pens are analog or discrete tags, each on its own range (empty: the tag's); give
+    discrete pens different ranges to stack their steps (-4 to 2, 0 to 6);
+  - the trend has no buttons: add buttons with Action Scripts such as
+    `TrendScrollBack(\"Main\");`, `TrendScrollForward(\"Main\");`, `TrendPause(\"Main\");`,
+    `TrendPlay(\"Main\");` and `TrendSetPen(\"Main\", \"LIT100\");`;
+  - every pen is recorded from the start of the Run, with 7 days of history on disk.
 - **Runtime settings:**
   - `windowMode` `kiosk` (default, locked full screen), `fullscreen` or
     `window`;

@@ -17,6 +17,7 @@ import {CommsSupervisor, resolveExecutable as resolveCommsExecutable} from './co
 import {CommsSession, validateCommsArgs} from './comms/CommsSession.js';
 import {Publisher} from './publish/Publisher.js';
 import * as alarmLog from './alarms/AlarmLog.js';
+import * as trendLog from './trends/TrendLog.js';
 import * as retentiveStore from './retentive/RetentiveStore.js';
 import * as userStore from './security/UserStore.js';
 import * as recipeStore from './recipes/RecipeStore.js';
@@ -2086,6 +2087,42 @@ async function handleAlarmRequest(args)
 		}
 		case 'hmiAlarms.recent':
 			return alarmLog.recent(base, store, args.limit);
+		default:
+			throw new Error('unknown action: ' + args.action);
+	}
+}
+
+// The trend history (trends/TrendLog.js), like the alarm history: pruned
+// once per store and day while it is written
+const prunedTrendStores = new Map();
+
+async function handleTrendRequest(args)
+{
+	const base = app.getPath('userData');
+	const store = trendLog.storeName(args.store);
+
+	switch (args.action)
+	{
+		case 'hmiTrends.append':
+		{
+			const count = await trendLog.append(base, store, args.samples);
+			const day = new Date().toDateString();
+
+			if (prunedTrendStores.get(store) !== day)
+			{
+				prunedTrendStores.set(store, day);
+				const removed = await trendLog.prune(base, store, Date.now());
+
+				if (removed.length > 0)
+				{
+					log.info('Trend history: removed ' + removed.length + ' old file(s) from ' + store);
+				}
+			}
+
+			return count;
+		}
+		case 'hmiTrends.query':
+			return trendLog.query(base, store, args.tags, args.from, args.to, args.maxPoints);
 		default:
 			throw new Error('unknown action: ' + args.action);
 	}
@@ -4920,6 +4957,10 @@ ipcMain.on("rendererReq", async (event, args) =>
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiAlarms.'))
 			{
 				ret = await handleAlarmRequest(args);
+			}
+			else if (typeof args.action === 'string' && args.action.startsWith('hmiTrends.'))
+			{
+				ret = await handleTrendRequest(args);
 			}
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiRetentive.'))
 			{

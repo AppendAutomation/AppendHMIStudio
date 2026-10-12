@@ -52,6 +52,7 @@ Features
 - **Users and security**: users with access levels 0–9999, a built-in login window, the `_Username` and `_AccessLevel` system tags, login script functions, masked password entry and the Enable animation. See [doc/HMI_SECURITY.md](doc/HMI_SECURITY.md).
 - **Indirect tags**: `IndirectDiscrete`, `IndirectAnalog` and `IndirectMessage` tags that a script points at any tag with `LinkIndirectTag("Indirect", "Tag")`, so one faceplate serves many devices. See [doc/HMI_INDIRECT.md](doc/HMI_INDIRECT.md).
 - **Recipes**: recipe books of tag values with optional paired PLC tags, script functions to save, load, upload, download, export, import, delete, rename and select recipes, and a Recipe List object. Recipes saved at run time are kept on the running PC. See [doc/HMI_RECIPES.md](doc/HMI_RECIPES.md).
+- **Trends**: a Trend object with up to 8 analog or discrete pens, each on its own range, recorded from the start of the run with 7 days of history on disk. Scripts select the pen whose scale is shown, pause, scroll back and forward, and return to live. See [doc/HMI_TRENDS.md](doc/HMI_TRENDS.md).
 - **Windows and printing from scripts**: `ShowWindow(...)` opens a window, optionally moved, modeless or waited on; `ScreenToPDF()` saves the screen, popups included, as a landscape PDF through a Save dialog.
 - **Drawing**: circle and ellipse arcs with start and end angles, line widths and arrowheads, and flipping that mirrors a whole group.
 - **Automation and AI agents**: build, check, render and publish projects from the command line or a script, from a plain JSON spec; this is how AI agents build whole applications. See [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md).
@@ -80,6 +81,7 @@ Documentation
 | Users, access levels and login | [doc/HMI_SECURITY.md](doc/HMI_SECURITY.md) |
 | Recipe books, recipe functions and the Recipe List | [doc/HMI_RECIPES.md](doc/HMI_RECIPES.md) |
 | Indirect tags and LinkIndirectTag | [doc/HMI_INDIRECT.md](doc/HMI_INDIRECT.md) |
+| Trends, trend functions and the trend history | [doc/HMI_TRENDS.md](doc/HMI_TRENDS.md) |
 | Publishing a runtime installer | [doc/HMI_PUBLISH.md](doc/HMI_PUBLISH.md) |
 | Command-line automation and the JSON project spec | [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md) |
 | The PLC comms server and its protocol | [comms/README.md](comms/README.md) |

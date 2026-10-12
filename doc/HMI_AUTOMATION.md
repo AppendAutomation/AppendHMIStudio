@@ -217,7 +217,7 @@ bar shows the page name and a × close button.
 | Field | Meaning |
 |---|---|
 | `id` | Optional, unique on the page; needed for connector ends |
-| `type` | Shorthand style: `rect`, `roundedRect`, `ellipse`, `text`, `button`, `line`, `arrow`, `triangle`, `cylinder`, `arc`, `circleArc`, `alarmList`, `alarmHistory` or `recipeList`. Optional when `style` names a shape |
+| `type` | Shorthand style: `rect`, `roundedRect`, `ellipse`, `text`, `button`, `line`, `arrow`, `triangle`, `cylinder`, `arc`, `circleArc`, `alarmList`, `alarmHistory`, `recipeList` or `trend`. Optional when `style` names a shape |
 | `style` | draw.io style keys added after the type's (later keys win), e.g. `fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1;rounded=1;` |
 | `x`, `y`, `width`, `height` | Position and size |
 | `label` | Text (HTML allowed with `html=1`, which the types set) |
@@ -245,7 +245,7 @@ The alarm objects are settings in `style`:
 At Run the Alarm List's heading already has the counts and an **Ack All**
 button, and each unacknowledged row has **Ack**.
 
-A `recipeList` object takes its settings from a `recipeList` link (below).
+A `recipeList` object takes its settings from a `recipeList` link, and a `trend` object from a `trend` link (below). A trend's background, border, pen line width and axis font are its style's `fillColor`, `strokeColor`, `strokeWidth`, `fontFamily`, `fontSize` and `fontColor`.
 
 The arcs are open curves along an ellipse (`arc`, filling the box) or a circle (`circleArc`, kept round). Set them in `style`:
 - `arcStart`, `arcEnd`: degrees as on a protractor, 0 at the right and counterclockwise, the arc running counterclockwise from start to end (default 0 to 180, the top half; a start greater than the end sweeps through 0);
@@ -281,6 +281,7 @@ All fields that take numbers are expressions, as strings.
 | `showWindow`, `hideWindow` | `window` (page name), `enableExpr` |
 | `slider.horizontal`, `slider.vertical` | `tag`, `atMin`, `atMax`, `travelMin`, `travelMax` (pixels) |
 | `recipeList` | On a `recipeList` object only: `book`, `title` (empty: the book's name), `selectedTag` (message tag the selection follows and touch writes), `upTag`, `downTag` (discrete tags; a 0 to 1 change moves the selection), `arrows` (false; ▲▼ buttons in the heading) |
+| `trend` | On a `trend` object only: `name` (unique; empty gets the next free `TrendN`), `title` (`""`), `spanSec` (600; 10 to 86400), `sampleMs` (1000; at least 100), `refreshMs` (1000), `gridColor`, `pens` (up to 8: `[{tag, min, max, color}]`, analog or discrete tags; `min`/`max` `""` for the tag's range, -0.5 to 1.5 for a discrete tag). See [HMI_TRENDS.md](HMI_TRENDS.md) |
 
 ### Expressions and scripts
 
@@ -328,7 +329,13 @@ All fields that take numbers are expressions, as strings.
     page name as the file name (scrubbed of characters a file name cannot
     hold). Like `RecipeExport` it returns 1 once the dialog opens and the
     script carries on; a failure shows a Screen to PDF Error. Append HMI Web
-    downloads the file.
+    downloads the file;
+  - `TrendSetPen(trend, tag)`, `TrendPause(trend)`, `TrendPlay(trend)`,
+    `TrendScrollBack(trend)` and `TrendScrollForward(trend)`, in scripts only:
+    names as text. SetPen selects the pen whose range and name the y axis
+    shows (drawn 1 px thicker); the scrolls move the shown times by half the
+    span (back pauses a live trend; forward stops at now); Play returns to
+    live. 1, or 0 with a function error. See [HMI_TRENDS.md](HMI_TRENDS.md).
 - **Text:** `+` joins text when either side is text, converting the other
   (`"Real" + 2` is `"Real2"`; discrete values give `"1"` or `"0"`).
 - **Bad quality:** an expression with a bad-quality input has a bad result

@@ -37,7 +37,7 @@ append-hmi-studio/
 │   ├── window-bounds.js      # Saved window placement
 │   ├── comms/                # hmi-comms supervisor (spawn/restart) and per-window WebSocket relay
 │   ├── runtime/RuntimeMode.js # Run-only mode for published HMI packages
-│   ├── alarms/, retentive/, security/, recipes/ # Run-time stores in userData (AlarmLog, RetentiveStore, UserStore, RecipeStore)
+│   ├── alarms/, retentive/, security/, recipes/, trends/ # Run-time stores in userData (AlarmLog, RetentiveStore, UserStore, RecipeStore, TrendLog)
 │   ├── print/ScreenPdf.js    # ScreenToPDF: window capture fallback and the Save dialog
 │   └── publish/              # HMI > Publish: Publisher.js, NsisScript.js (also the editor installer)
 ├── src/test/                 # npm test (Node's test runner; files listed in package.json)
@@ -193,6 +193,15 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - **Failures:** go to the shared function error window (`HmiDialogs.queueFunctionError`, titled by its contents).
 - **Scripts read any tag:** a runtime also subscribes the tags its action scripts and window scripts read (`bindScripts`, `config.scripts`), and `getValue` falls back to `driver.get` for a value not yet delivered. A faceplate's On show script reading `FP_Prefix` depends on this.
 - **Example:** LiquidWeighHMI's Device Faceplate (one popup for 14 devices; manual section 9.4).
+
+### Trends
+- **Documentation:** `doc/HMI_TRENDS.md`.
+- **The object:** `shape=hmiTrend` (`js/hmi/HmiTrend.js`, palette entry in `HmiAlarms.installPalette`). Its settings are the hidden `trend` link (milestone 99): `{name, title, spanSec, sampleMs, refreshMs, gridColor, pens: [{tag, min, max, color}]}`, edited in the Animation tab (`B['trend']` in `HmiLinkPanels.js`). Background, border, pen width and axis font are the cell's `fillColor`, `strokeColor`, `strokeWidth` and font keys.
+- **Names:** unique in the project. `Graph.prototype.cellsAdded` (editor graph only, `graph.hmiUi`) gives a new or clashing trend the next free name (`HmiTrend.nameNew`, over every page through `HmiTrend.collect`). Validate reports duplicates, pens that aren't analog or discrete, and script calls naming a trend or pen that doesn't exist (`HmiMenus.trendCallProblem`).
+- **Manager:** `HmiTrendManager`, one per Run, owned by `HmiWindowManager` and passed to runtimes as `config.trends`. It samples every pen of every trend from the start on its own hub client, records on change plus a 60 s heartbeat (the held sample before a change too), keeps 24 h in memory, appends to disk every 5 s (`hmiTrends.append`) and reads older ranges back (`hmiTrends.query`). The store is the alarm history's (`HmiMenus.alarmStore`); with no store nothing is written. It writes a gap at stop.
+- **Functions:** `TrendSetPen`, `TrendPause`, `TrendPlay`, `TrendScrollBack`, `TrendScrollForward` (`HmiTrend.FUNCTIONS`, routed by `HmiRuntime`'s `ctx.call`). The selected pen and paused/scrolled end time belong to the trend name for the Run (`manager.states`). Names are text; `HmiExpr` refuses a bare non-message tag (`checkTrendCall`).
+- **Run view:** `HmiTrendView`, a canvas over the cell (`HmiRuntime.startAlarmViews`), redrawn every `refreshMs` while live and on the manager's `change`. No buttons of its own: navigation is scripted.
+- **Main process:** `src/main/trends/TrendLog.js` (shared with AppendHMIDesktop and AppendHMIWeb): `userData/trends/<store>/trends-YYYY-MM-DD.csv` (`Time` ms, `Tag`, `Value`, empty for a gap), 7 days and 500 MB per store, queries thinned to about 4000 points per tag (`decimate`). `TrendRecorders` lets one browser at a time write a store in Append HMI Web.
 
 ### Arcs
 - **The shape:** `js/hmi/HmiArc.js` registers `shape=hmiArc`, a vertex drawn as a polyline along a circle (`arcType=circle`, with `aspect=fixed`) or an ellipse.
