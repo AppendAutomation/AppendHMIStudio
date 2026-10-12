@@ -353,8 +353,8 @@ def build(save=True):
       'own, which ran full batches and scenario tests and found a real bug before the program ever reached a '
       'controller. Along the way it found and reported places where the I/O list disagreed with the drawings. Only '
       'then did it design the HMI, with every I/O tag addressed to the program\'s real tag paths.')
-    P('The result is the application this manual describes: 419 PLC tags, eight screens, a faceplate shared by '
-      '14 devices, alarms, users with access levels and recipes, in a consistent visual style. The engineer\'s '
+    P('The result is the application this manual describes: 419 PLC tags, nine screens, a faceplate shared by '
+      '14 devices, alarms, users with access levels, recipes and trends, in a consistent visual style. The engineer\'s '
       'part was to supply the documents, review the screens and ask for changes, mostly fine points of layout such '
       'as how pipes meet the valve symbols. The same agent later turned the PLC program into the application '
       'scripts of **LiquidWeighHMISim**, the version of the example that runs without a PLC (section 9.1).')
@@ -413,7 +413,7 @@ def build(save=True):
          'specific to HMI applications'],
         ['Toolbar', 'Zoom, undo, delete, arrange, and quick access to fill, line and shadow'],
         ['Shapes', 'Shape libraries (General, Misc, Advanced and more under More Shapes, including the P&ID '
-         'libraries) and the HMI palette with the Alarm List and Alarm History objects'],
+         'libraries) and the HMI palette with the Alarm List, Alarm History, Recipe List and Trend objects'],
         ['Canvas', 'The page being edited. The dashed Screen frame shows the target screen (1920 × 1080 here)'],
         ['Format panel', 'Style, Text and Arrange for the selected object, and the Animation tab for its links'],
         ['Page tabs', 'One tab per window of the application; + adds one'],
@@ -429,9 +429,9 @@ def build(save=True):
         ['Recipes...', 'Recipe books: the tags a recipe holds and the starting recipes (chapter 11)'],
         ['Application Settings...', 'Target screen, start-up windows, runtime, security and application scripts (chapter 3)'],
         ['Window Properties...', 'Type, position, size and scripts of the current window (chapter 6)'],
-        ['Validate Expressions', 'Check every link, script and address for errors (chapter 12)'],
-        ['Publish...', 'Build a Windows installer of the application (chapter 13)'],
-        ['Run / Stop (F5)', 'Run the application in the Studio against live or simulated data (chapter 12)'],
+        ['Validate Expressions', 'Check every link, script and address for errors (chapter 13)'],
+        ['Publish...', 'Build a Windows installer of the application (chapter 14)'],
+        ['Run / Stop (F5)', 'Run the application in the Studio against live or simulated data (chapter 13)'],
         ['Runtime Log...', 'Messages from the last runs: connections, writes, script errors'],
         ['Clear Retentive Values...', 'Forget the saved values of retentive tags on this computer'],
         ['Clear Runtime User Changes...', 'Forget user changes made while running on this computer'],
@@ -578,10 +578,10 @@ def build(save=True):
     ])
     P('Arcs are objects like any other: animation links such as Line Color, Blink, Visibility and Orientation work '
       'on them, for example to show a gauge sweep or a flow direction.')
-    P('The **HMI** palette adds three objects: the **Alarm List**, the live list of active alarms at the bottom of '
-      'every LiquidWeighHMI screen, the **Alarm History**, used on the Alarm History screen, and the **Recipe List** '
-      '(chapter 11).')
-    figure(doc, 'hmi-palette', 'The HMI palette: Alarm List, Alarm History and Recipe List', max_width_in=2.2)
+    P('The **HMI** palette adds four objects: the **Alarm List**, the live list of active alarms at the bottom of '
+      'every LiquidWeighHMI screen, the **Alarm History**, used on the Alarm History screen, the **Recipe List** '
+      '(chapter 11) and the **Trend** (chapter 12).')
+    figure(doc, 'hmi-palette', 'The HMI palette: Alarm List, Alarm History, Recipe List and Trend', max_width_in=2.2)
     note(doc, 'Keep objects inside the Screen frame, and group repeated symbols (a valve with its tag label) so '
          'they can be copied with their links.')
     P('To mirror an object, select it and choose **Arrange > Direction > Flip Horizontal** or **Flip Vertical**, or '
@@ -722,7 +722,7 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
       '(`12.5`, `"Standard Blend"`), a tag or a whole expression. Function names are not case-sensitive.')
     bullets(doc, [
         '**Math and text functions** return a value and can be used anywhere: in animation links and in scripts.',
-        '**Security, indirect tag, window, screen and recipe functions** do something (open a window, log in, link or '
+        '**Security, indirect tag, window, screen, recipe and trend functions** do something (open a window, log in, link or '
         'write tags, save a file), '
         'so they can be '
         'called only from scripts: Action Scripts and window scripts. Validate reports one used in an animation '
@@ -809,6 +809,22 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
     ])
     P('The recipe functions other than ShowRecipeSelect return 1 when they succeed and 0 when they fail. A failure '
       'also opens the Recipe Error window (section 11.5).')
+    P('In the trend functions, `trend` is the name of a Trend object, set in its Animation tab, and `tag` the name '
+      'of one of its pens, both as text: a literal in quotes or a message tag holding the name. Chapter 12 shows '
+      'them at work.')
+    table(doc, 'Trend functions (scripts only)', [
+        ['Function', 'Arguments', 'What it does'],
+        ['TrendSetPen(trend, tag)', 'trend, tag', 'Selects the pen: the y axis shows its range, name and units, and '
+         'its line is drawn 1 pixel thicker'],
+        ['TrendPause(trend)', 'trend', 'Freezes the plot. Recording goes on'],
+        ['TrendPlay(trend)', 'trend', 'Returns the plot to live, ending at now'],
+        ['TrendScrollBack(trend)', 'trend', 'Moves the start and end times back by half the time span, pausing a '
+         'live trend first'],
+        ['TrendScrollForward(trend)', 'trend', 'Moves them forward by half the time span, stopping at now. The trend '
+         'stays paused until TrendPlay'],
+    ])
+    P('Each trend function returns 1, or 0 with a Function Error window naming the call and the reason, such as a '
+      'trend or pen that does not exist.')
 
     H2('9.4  Indirect tags: one faceplate for every device')
     P('LiquidWeighHMI has 11 valves and 3 pumps, and one **Device Faceplate** for all of them. Its objects use '
@@ -1153,12 +1169,124 @@ ENDIF;
     ])
 
     # ------------------------------------------------------------ 12
-    H1('12  Testing')
-    H2('12.1  Validate')
+    H1('12  Trends')
+    P('A **Trend** plots tag values over time. Drop one from the HMI palette onto a window and give it pens; while '
+      'the application runs it shows the last few minutes, redrawn as the values change. Scripts move it: they pick '
+      'the pen whose scale is shown, pause it, scroll back and forward through the history and return to live. The '
+      'trend has no buttons of its own, so the screen\'s own buttons decide how operators use it.')
+
+    H2('12.1  The Trend object')
+    P('Select the trend and open the Animation tab. Its settings come first:')
+    figure(doc, 'trend-panel', 'The settings of LiquidWeighHMI\'s trend, with its first pens', max_width_in=1.8)
+    table(doc, 'Trend settings', [
+        ['Setting', 'Where', 'Meaning'],
+        ['Name', 'Animation tab', 'The name scripts use. Each trend gets Trend1, Trend2, ... and can be renamed; '
+         'names are unique in the project, so a pasted or duplicated trend gets the next free one'],
+        ['Title', 'Animation tab', 'A heading above the plot; empty shows none'],
+        ['Time span', 'Animation tab', 'The time shown, in seconds: 10 s to 24 hours. 600 by default'],
+        ['Sample period', 'Animation tab', 'How often the pens are sampled, in milliseconds; at least 100'],
+        ['Refresh period', 'Animation tab', 'How often the plot is redrawn while live, in milliseconds'],
+        ['Grid color', 'Animation tab', 'The grid lines and the plot\'s frame'],
+        ['Pens', 'Animation tab', 'Up to 8, each a tag, a color and a Min and Max (section 12.2)'],
+        ['Fill, Line', 'Style tab', 'The background and the border'],
+        ['Line width', 'Style tab', 'The width of every pen\'s line; the selected pen is 1 pixel thicker'],
+        ['Font', 'Text tab', 'The font, size and color of the title and the axis labels'],
+    ])
+    P('At Run the y axis on the left shows the **selected pen**: its range, and its name and units in its color. '
+      'The first pen is selected when the application starts. The time axis along the bottom falls on whole '
+      'seconds, minutes or hours. A gap in a line means there was no good value: bad quality, or the application '
+      'was not running.')
+
+    H2('12.2  Pens and their ranges')
+    P('A pen is an analog or discrete tag. Each pen is drawn against its own range, so lines with different units '
+      'share the plot:')
+    bullets(doc, [
+        '**Min and Max** are the values at the bottom and top of the plot. Left empty, an analog pen uses the '
+        'tag\'s Min EU and Max EU.',
+        '**A discrete pen** is drawn as steps between 0 and 1. With no range of its own it uses -0.5 to 1.5, which '
+        'puts its line in the middle half of the plot. Give each discrete pen its own range to stack them: -4 to 2 '
+        'puts 0 and 1 in the top third, and 0 to 6 in the bottom third.',
+    ])
+    P('To put a discrete pen\'s steps between the fractions a and b of the plot\'s height (0 at the bottom, 1 at '
+      'the top), use Min = -a / (b - a) and Max = (1 - a) / (b - a). LiquidWeighHMI\'s trend stacks its three valves '
+      'in bands near the top, above the weight and pressure lines:')
+    table(doc, 'The pens of LiquidWeighHMI\'s trend', [
+        ['Pen', 'Tag', 'Min', 'Max', 'Drawn'],
+        ['WT-001 hopper weight', 'WT001', '(0)', '(150)', 'lb, from the tag'],
+        ['Ingredient target', 'Seq_IngTarget', '0', '150', 'lb, on the weight\'s scale'],
+        ['PT-001 hopper pressure', 'PT001', '(0)', '(100)', 'psi, from the tag'],
+        ['LIT-100 tank 1 level', 'LIT100', '(0)', '(100)', '%, from the tag'],
+        ['SV-101 full feed', 'SV101_Opened', '-8.6', '1.4', 'Between 86 % and 96 % of the height'],
+        ['SV-100 dribble', 'SV100_Opened', '-7.4', '2.6', 'Between 74 % and 84 %'],
+        ['SV-401 discharge', 'SV401_Opened', '-6.2', '3.8', 'Between 62 % and 72 %'],
+    ])
+    P('A Min or Max in parentheses is left empty in the pen and taken from the tag.')
+
+    H2('12.3  The Trends screen')
+    P('LiquidWeighHMI\'s **Trends** screen, on the TRENDS button of the navigation bar, follows the weigh hopper '
+      'through a batch. In LiquidWeighHMISim press START on the Batch screen, then open TRENDS to see the hopper '
+      'fill ingredient by ingredient, each in a full feed and then a dribble, and discharge.')
+    figure(doc, 'run-trends', 'The Trends screen at Run in LiquidWeighHMISim, during a batch')
+    P('The buttons on the right are Action Scripts calling the trend functions, with the trend\'s name, '
+      'HopperTrend, as a literal:')
+    table(doc, 'The Trends screen\'s buttons', [
+        ['Button', 'On Down script'],
+        ['A pen (WT-001 HOPPER WEIGHT ...)', 'TrendSetPen("HopperTrend", "WT001");'],
+        ['BACK', 'TrendScrollBack("HopperTrend");'],
+        ['FORWARD', 'TrendScrollForward("HopperTrend");'],
+        ['PAUSE', 'TrendPause("HopperTrend");'],
+        ['LIVE', 'TrendPlay("HopperTrend");'],
+    ])
+    P('The color bar beside each pen button is a plain rectangle in the pen\'s color. The names can also come '
+      'from message tags, for one set of buttons shared by several trends:')
+    code(doc, """
+TrendSetPen(TrendName, PenTag);
+""")
+    P('The selected pen and a paused or scrolled position belong to the trend\'s name for the whole Run: they '
+      'apply in every window that shows the trend and survive the window closing and opening again. A new Run '
+      'starts live, with the first pen selected.')
+
+    H2('12.4  Scrolling through the history')
+    P('BACK moves the plot back by half its span, so each press shows half of what was on screen before and half '
+      'that is older. A paused trend shows **Paused** with the date and the times it covers in its top right '
+      'corner. FORWARD moves toward now and stops there; LIVE returns at once.')
+    figure(doc, 'run-trends-paused', 'The trend scrolled back with BACK: paused, with the times it shows, and the '
+           'hopper pressure pen selected. The empty part on the left is before the application started')
+
+    H2('12.5  Recording and where the history is kept')
+    P('Every pen of every trend is recorded from the moment the application starts, whether or not a window shows '
+      'the trend, so a trend opened later already has its data.')
+    bullets(doc, [
+        '**Sampling:** each tag at the shortest sample period among the trends that have it.',
+        '**What is kept:** a value when it changes, and once a minute while it does not. The last unchanged sample '
+        'before a change is kept too, so a line stays flat up to the moment it moved.',
+        '**Memory:** the last 24 hours. Scrolling back further reads the files on disk; long ranges are thinned to '
+        'about 4000 points per pen, keeping the first, lowest, highest and last values of each stretch, so peaks '
+        'still show.',
+        '**Disk:** written every 5 seconds to one CSV file per day, `trends-YYYY-MM-DD.csv`, with the columns '
+        'Time (milliseconds since 1970, UTC), Tag and Value (empty for a gap). Files are kept 7 days and at most '
+        '500 MB per application, the oldest going first.',
+        '**After a restart** a trend shows what was recorded before it, with a gap while the application was not '
+        'running.',
+    ])
+    table(doc, 'Where the trend history is kept', [
+        ['Running in', 'Folder'],
+        ['Append HMI Studio (Run)', 'trends\\<project> in the Studio\'s settings folder'],
+        ['A published application', '%APPDATA%\\<Product>\\trends\\<Product>'],
+        ['Append HMI Desktop, Append HMI Web', 'trends\\<application> in their settings folder'],
+    ])
+    P('In Append HMI Web every browser runs the application and samples its trends, but one browser at a time '
+      'writes the history on the server; when it closes or goes quiet for 15 seconds, another takes over. Browsers '
+      'slow down the timers of a tab that is not shown, so a browser left in a background tab samples less often '
+      'than its trends ask.')
+
+    # ------------------------------------------------------------ 13
+    H1('13  Testing')
+    H2('13.1  Validate')
     P('**HMI > Validate Expressions** checks every link, script and PLC address and lists any problem with the '
       'page and object; click a problem to go to it. Validate before every Run and Publish.')
     figure(doc, 'validate', 'Validation of LiquidWeighHMI: no problems found', max_width_in=4.0)
-    H2('12.2  Run')
+    H2('13.2  Run')
     P('**HMI > Run** (F5) runs the application inside the Studio: the drawing is locked, the start-up windows '
       'open, and the application connects to its PLCs. A green RUNNING banner shows that the screen is live and '
       'that touching it operates real equipment. **HMI > Stop** returns to editing.')
@@ -1176,8 +1304,8 @@ ENDIF;
     figure(doc, 'run-alarm-history', 'Alarm History screen')
     note(doc, 'HMI > Runtime Log lists connections, device errors, writes and script errors from the run.')
 
-    # ------------------------------------------------------------ 13
-    H1('13  Deploying')
+    # ------------------------------------------------------------ 14
+    H1('14  Deploying')
     P('An application can reach the plant floor in three ways.')
     table(doc, 'Deployment options', [
         ['Option', 'What the target gets', 'Best for'],
@@ -1188,18 +1316,18 @@ ENDIF;
         ['Append HMI Web', 'A web server; operators open the application in any browser', 'Viewing and operating from '
          'tablets, laptops and control-room PCs'],
     ])
-    H2('13.1  Publish')
+    H2('14.1  Publish')
     P('**HMI > Publish** builds a Windows installer from the open project. Give the product name, version and '
       'publisher, choose an icon, whether it installs for all users, and whether it adds a desktop shortcut or '
       'starts with Windows. Run the Setup.exe on the target PC; the application then starts full screen as set '
       'in Application Settings.')
     figure(doc, 'publish', 'The Publish dialog', max_width_in=4.0)
-    H2('13.2  Append HMI Desktop')
+    H2('14.2  Append HMI Desktop')
     P('Append HMI Desktop runs .ahmi files without the editor. Choose an application, then **Run now**, create a '
       'desktop shortcut or menu entry, or tick **Run this application automatically when I log in**. From the '
       'command line: `append-hmi-desktop LiquidWeighHMI.ahmi`.')
     figure(doc, 'desktop-launcher', 'The Append HMI Desktop launcher with LiquidWeighHMI selected', max_width_in=4.2)
-    H2('13.3  Append HMI Web')
+    H2('14.3  Append HMI Web')
     P('Append HMI Web serves an application to web browsers on the plant network. Choose the application and a port '
       '(8480 by default), then **Start web server**; the launcher shows the link to share, with a **Copy** button. '
       'If the port is already in use on the PC (by another web server, or another application being served), '
@@ -1213,8 +1341,8 @@ ENDIF;
         'second application running in the background', max_width_in=4.2)
     figure(doc, 'web-browser', 'LiquidWeighHMI in a web browser, with the view menu open')
 
-    # ------------------------------------------------------------ 14
-    H1('14  Tips and troubleshooting')
+    # ------------------------------------------------------------ 15
+    H1('15  Tips and troubleshooting')
     table(doc, 'Common problems', [
         ['Symptom', 'Cause and remedy'],
         ['Values show ####', 'The tag has bad quality: the PLC is not connected or the address is wrong. Check '
@@ -1232,6 +1360,11 @@ ENDIF;
          'or the function failed: the Recipe Error window and HMI > Runtime Log give the reason'],
         ['Run shows old recipes', 'Recipes saved on this computer replace the starting ones. Use HMI > Clear Runtime '
          'Recipes to start from the project\'s recipes again'],
+        ['A trend shows no line, or a gap', 'The pen\'s tag has no good value (the PLC may not be connected), or '
+         'the application was not running then. A pen whose Min and Max leave its values off the plot draws nothing '
+         'visible'],
+        ['A trend button does nothing', 'The Function Error window names the call and the reason: usually a trend '
+         'or pen name that does not match. Validate checks quoted names'],
     ])
     P('Build a symbol once, with its links, group it, and copy it: links travel with the copy. The Animation tab '
       'can also copy links from one object and paste them onto others.')

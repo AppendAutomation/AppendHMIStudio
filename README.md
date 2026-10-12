@@ -24,7 +24,7 @@ Most HMI packages can only be driven through their own screens, one dialog at a 
 - tested with a static checker and a ladder simulator of its own, which found a real bug before the program reached a controller;
 - along the way, it reported where the I/O list disagreed with the drawings.
 
-It then built the HMI on the program's real tags. The application has 419 PLC tags, eight screens, a faceplate shared by 14 devices, alarms, users with access levels and recipes. The engineer supplied the documents, reviewed the screens and asked for changes, mostly fine points of layout. The same agent later turned the PLC program into the application scripts of [LiquidWeighHMISim](examples/), which runs the whole process with no PLC at all.
+It then built the HMI on the program's real tags. The application has 419 PLC tags, nine screens, a faceplate shared by 14 devices, alarms, users with access levels, recipes and trends. The engineer supplied the documents, reviewed the screens and asked for changes, mostly fine points of layout. The same agent later turned the PLC program into the application scripts of [LiquidWeighHMISim](examples/), which runs the whole process with no PLC at all.
 
 **Documentation ready for agents.** Everything an agent needs is written down in a form it can use without guessing:
 

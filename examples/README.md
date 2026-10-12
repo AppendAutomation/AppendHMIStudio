@@ -9,10 +9,11 @@ LiquidWeighHMI
 It was written from scratch by an AI agent, from the system's control narrative, I/O list and electrical drawings, after the agent had written the controller's PLC program from the same documents. See [HMI applications built by AI agents](../README.md#hmi-applications-built-by-ai-agents).
 
 - **Screen:** 1920 × 1080, full screen.
-- **Windows:** eight screens (Process, Batch, Supply, Devices, Setpoints, Recipes, Alarm History, IO Sim), and five popups: one Device Faceplate for all 11 valves and 3 pumps (through indirect tags) and 4 confirmations.
+- **Windows:** nine screens (Process, Batch, Supply, Devices, Setpoints, Recipes, Trends, Alarm History, IO Sim), and five popups: one Device Faceplate for all 11 valves and 3 pumps (through indirect tags) and 4 confirmations.
 - **Data:** 452 tags: 419 on one ControlLogix controller (`LiquidWeighPLC`), 34 of them alarmed, plus memory and indirect tags.
 - **Users:** Operator (level 1000), Maintenance (2000) and Engineer (9999).
 - **Recipes:** the Plasticizer Blends recipe book and a Recipes screen.
+- **Trends:** a Trends screen with the weigh hopper's weight, target and pressure, the bulk tank level and three feed and discharge valves, and buttons that pick the pen and scroll the history through the `Trend` script functions.
 - **Header:** every screen has PRINT SCREEN (`ScreenToPDF()`, a landscape PDF of the screen), the PLC and sequence status, the alarm count and LOGIN.
 
 To try it:
@@ -26,7 +27,7 @@ The controller program is not included. Without a controller holding the same ta
 LiquidWeighHMISim
 -----------------
 
-`LiquidWeighHMISim.ahmi` is LiquidWeighHMI with no PLC: the same screens, users and recipe book, with every PLC tag a memory tag and the controller program carried over into the application. Open it and press **HMI > Run** (F5); START runs a whole batch, and every button, faceplate and alarm works as it does with the controller.
+`LiquidWeighHMISim.ahmi` is LiquidWeighHMI with no PLC: the same screens, users, recipe book and trend, with every PLC tag a memory tag and the controller program carried over into the application. Open it and press **HMI > Run** (F5); START runs a whole batch, and every button, faceplate and alarm works as it does with the controller.
 
 - **The logic:** the application's **While running** script (HMI > Application Settings, every 100 ms) runs the controller's 13 ladder routines, rung for rung: defaults, process simulation, analogs, recipe, sequence, interlocks, valves, pumps, alarms and outputs. It runs whichever screen is up.
 - **First scan:** the **On start** script loads the setpoint defaults on the first run and sets the simulation's starting values.

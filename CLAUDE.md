@@ -261,7 +261,7 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - **Building:**
   - `python3 doc/manual/build_manual.py` writes the .docx from `doc/manual/images/` (python-docx; tables follow the house table rules, measured with Carlito for Calibri);
   - `python3 doc/manual/finish.py --docx` (LibreOffice through uno) fills in the table of contents and writes the PDF.
-- **Screenshots:** taken from a running Studio over its debugging port.
+- **Screenshots:** taken from a running Studio over its debugging port, preferably the installed build on the Windows test box, in the console session so the window can be 1440 × 900 (the user's windows-build skill has the steps); the install is checked in the same pass. LiquidWeighHMI's Run screenshots use the test PLC; the Trends screen uses LiquidWeighHMISim.
   - Open the example from outside the repository: file IPC refuses paths inside the app folder.
   - Turn off scrollbar mode (`ui.setScrollbars(false)`) before fitting a page.
   - Use `window.resizeTo` for the window size, not viewport emulation.
@@ -290,6 +290,7 @@ userData is `%APPDATA%\Append HMI Studio` (Windows) or `~/.config/Append HMI Stu
   - packaging and brand checks.
 - `npm run test-comms`: the hmi-comms xUnit suites. `HMI_COMMS_EXE=<published binary>` tests a trimmed build.
 - **In-app self test:** `urlParams.json` with `{"hmitest": 1}` next to `package.json`, then `HMI_ENV=dev npx electron .`. Results are logged as `HMITEST ...`. The log contains a NUL byte, so grep it with `-a`.
+  - In an installed build (for example on the Windows box, over `--remote-debugging-port`): set `urlParams['hmitest'] = '1'`, load `js/hmi/HmiSelfTest.js` with a script element, then call `HmiSelfTest.run(Hmi.ui)` and collect the console. Without the flag, Run starts asynchronously and the run checks fail.
 - **Windows end-to-end:** use the Windows test box (see the user's windows-build skill) with `.bat` files over SSH.
 
 ## CI
