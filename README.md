@@ -3,7 +3,42 @@ Append HMI Studio
 
 **Append HMI Studio** designs operator screens (HMIs) for PLCs, runs them against live equipment, and publishes them as Windows installers for the target PC.
 
+**It is built for AI agents as well as people.** Give an agent the documents a project already has (the functional description or control narrative, the PLC program and the electrical drawings) and it can build a complete, good-looking and working HMI application, with very little intervention.
+
 ![Append HMI Studio with the LiquidWeighHMI example: the Process screen, with a valve selected and its animation links](doc/images/studio.png)
+
+HMI applications built by AI agents
+-----------------------------------
+
+Most HMI packages can only be driven through their own screens, one dialog at a time. Append HMI Studio also has a complete command-line interface and documentation written for agents, so an AI agent such as Claude Code can do the whole job:
+
+1. **Understand** the process from the functional description, the PLC program and the drawings.
+2. **Describe** the application as a plain JSON spec: tags, devices, screens, objects, animation, alarms, users, recipes and scripts.
+3. **Build and check** it (`--hmi-build`, `--hmi-check`). Errors and `PROBLEM` lines say exactly what to fix.
+4. **Look at its own work** (`--hmi-render` draws every screen to PNG) and correct the layout.
+5. **Change** existing projects without losing anything (`--hmi-dump`, including edits a person made in the Studio).
+6. **Publish** the Windows installer (`--hmi-publish`).
+
+**The LiquidWeighHMI example was written from scratch by an AI agent.** It was given three documents: a control narrative of a liquid weigh-up system, its I/O list, and its electrical drawings (a scanned PDF with no text layer, which the agent read as images). There was no PLC program either, so the agent wrote that first:
+- 13 ControlLogix ladder routines, including a simulation of the process;
+- tested with a static checker and a ladder simulator of its own, which found a real bug before the program reached a controller;
+- along the way, it reported where the I/O list disagreed with the drawings.
+
+It then built the HMI on the program's real tags. The application has 419 PLC tags, eight screens, a faceplate shared by 14 devices, alarms, users with access levels and recipes. The engineer supplied the documents, reviewed the screens and asked for changes, mostly fine points of layout. The same agent later turned the PLC program into the application scripts of [LiquidWeighHMISim](examples/), which runs the whole process with no PLC at all.
+
+**Documentation ready for agents.** Everything an agent needs is written down in a form it can use without guessing:
+
+| Document | What it gives an agent |
+|---|---|
+| [.claude/skills/append-hmi-studio](.claude/skills/append-hmi-studio/SKILL.md) | A Claude Code skill: the workflow, the rules that matter, and good screen practice (palette, text sizes, navigation, alarms) |
+| [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md) | Every command and exit code, every field of the JSON spec, every object and animation link type, and the expression and script syntax |
+| [HMI_ALARMS](doc/HMI_ALARMS.md), [HMI_SECURITY](doc/HMI_SECURITY.md), [HMI_RECIPES](doc/HMI_RECIPES.md), [HMI_INDIRECT](doc/HMI_INDIRECT.md) | How alarms, users, recipes and indirect tags behave, with their spec fields and script functions |
+| [example-spec.json](.claude/skills/append-hmi-studio/example-spec.json) | A complete small application to start from |
+
+Anything an agent builds opens in the Studio like any other project, so a person can carry on by hand at any point. The [User Manual](doc/Append-HMI-Studio-User-Manual.pdf), section 1.1, covers this in more detail.
+
+Features
+--------
 
 - **Design** screens on a diagram canvas, with tags, animation links, window properties and scripts.
 - **Run** them in the editor against real devices through the bundled comms server:
@@ -12,13 +47,14 @@ Append HMI Studio
   - Modbus TCP;
   - a built-in simulator.
 - **Alarms**: analog and discrete alarms with acknowledgement, the `_AlarmsActive`, `_AlarmsUnacked` and `_AckAll` system tags, Alarm List and Alarm History objects, and daily CSV history. See [doc/HMI_ALARMS.md](doc/HMI_ALARMS.md).
+- **Scripts**: action and window scripts, plus application scripts that run On start, While running and On shutdown, with `DIM` local variables. They can carry a whole controller's logic, as in the LiquidWeighHMISim example.
 - **Retentive memory tags** keep their last value from one run to the next.
 - **Users and security**: users with access levels 0–9999, a built-in login window, the `_Username` and `_AccessLevel` system tags, login script functions, masked password entry and the Enable animation. See [doc/HMI_SECURITY.md](doc/HMI_SECURITY.md).
 - **Indirect tags**: `IndirectDiscrete`, `IndirectAnalog` and `IndirectMessage` tags that a script points at any tag with `LinkIndirectTag("Indirect", "Tag")`, so one faceplate serves many devices. See [doc/HMI_INDIRECT.md](doc/HMI_INDIRECT.md).
 - **Recipes**: recipe books of tag values with optional paired PLC tags, script functions to save, load, upload, download, export, import, delete, rename and select recipes, and a Recipe List object. Recipes saved at run time are kept on the running PC. See [doc/HMI_RECIPES.md](doc/HMI_RECIPES.md).
 - **Windows and printing from scripts**: `ShowWindow(...)` opens a window, optionally moved, modeless or waited on; `ScreenToPDF()` saves the screen, popups included, as a landscape PDF through a Save dialog.
 - **Drawing**: circle and ellipse arcs with start and end angles, line widths and arrowheads, and flipping that mirrors a whole group.
-- **Automation**: build, check, render and publish projects from the command line or a script, from a plain JSON spec. See [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md).
+- **Automation and AI agents**: build, check, render and publish projects from the command line or a script, from a plain JSON spec; this is how AI agents build whole applications. See [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md).
 - **Publish** a project as a Windows installer (HMI > Publish). It installs a locked, run-only copy of the app with the comms server, built on any platform. See [doc/HMI_PUBLISH.md](doc/HMI_PUBLISH.md).
 
 Projects are saved as `.ahmi` files. Files saved as `.drawio-hmi` by earlier builds still open.
@@ -50,7 +86,7 @@ Documentation
 | Building and packaging | [doc/BUILDING.md](doc/BUILDING.md) |
 | Releases | [doc/RELEASE_PROCESS.md](doc/RELEASE_PROCESS.md) |
 
-For AI coding agents, [.claude/skills/append-hmi-studio](.claude/skills/append-hmi-studio/SKILL.md) is a Claude Code skill for building and publishing HMI applications from the command line.
+For AI agents, [.claude/skills/append-hmi-studio](.claude/skills/append-hmi-studio/SKILL.md) is a Claude Code skill that teaches the whole workflow, from the project documents to the published installer (see [HMI applications built by AI agents](#hmi-applications-built-by-ai-agents)).
 
 Download
 --------
