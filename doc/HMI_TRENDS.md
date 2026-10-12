@@ -58,14 +58,15 @@ Every pen of every trend is recorded from the moment the Run starts, whether or 
 - **Memory:** the last 24 hours.
 - **Disk:** the history is written every 5 seconds to one CSV file per day, `trends-YYYY-MM-DD.csv`, beside the alarm history:
   - Append HMI Studio's Run: `%APPDATA%\Append HMI Studio\trends\<project>\` (`~/.config/Append HMI Studio/trends/<project>/` on Linux);
-  - a published package or Append HMI Desktop: `%APPDATA%\<Product>\trends\<Product>\`.
+  - a published package: `%APPDATA%\<Product>\trends\<Product>\`;
+  - Append HMI Desktop and Append HMI Web: `trends\<project>\` in their own settings folder (`%APPDATA%\Append HMI Desktop`, `%APPDATA%\Append HMI Web`).
 
   The columns are `Time` (milliseconds since 1970, UTC), `Tag` and `Value` (empty for a gap).
 - **Limits:** files are kept 7 days, and at most 500 MB per application. The oldest day goes first; today's file is never removed.
 - **After a restart** a trend shows what was recorded before it, with a gap where the application wasn't running.
 - **Scrolling back** past what memory holds reads the files. Long ranges are thinned to about 4000 points per pen, keeping each stretch's first, lowest, highest and last values and its gaps, so peaks still show.
 
-Append HMI Web keeps one history on the server. Every browser runs the application and samples its trends, but one browser at a time writes the history. When it closes or goes quiet for 15 seconds, another takes over.
+Append HMI Web keeps one history on the server. Every browser runs the application and samples its trends, but one browser at a time writes the history. When it closes or goes quiet for 15 seconds, another takes over. Browsers slow down the timers of a tab that isn't shown, so a browser left in a background tab samples less often than its trends ask.
 
 The self tests and the command-line tools record nothing to disk.
 
