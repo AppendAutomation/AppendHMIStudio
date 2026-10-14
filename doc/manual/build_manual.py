@@ -446,8 +446,9 @@ def build(save=True):
     bullets(doc, [
         '**Resolution**: choose a common size or type the width and height. LiquidWeighHMI targets a 1920 × '
         '1080 panel PC. The dashed Screen frame on every page follows this size.',
-        '**Startup windows**: the windows that open when the application starts, in page order. LiquidWeighHMI '
-        'opens the Process screen. With none ticked, the page being edited opens.',
+        '**Startup windows**: the windows that open when the application starts, in page order, each with its '
+        'type, size and position. LiquidWeighHMI opens the Process screen and the Header and Footer windows that '
+        'go with every screen (section 6.2). With none ticked, the page being edited opens.',
     ])
     figure(doc, 'app-settings-runtime', 'Application Settings: runtime, security and scripts', max_width_in=4.6)
     bullets(doc, [
@@ -523,13 +524,13 @@ def build(save=True):
 
     # ------------------------------------------------------------ 6
     H1('6  Screens and windows')
-    P('Each page of the drawing is a window of the application, named by its page tab. LiquidWeighHMI has seven '
-      'full screens and eighteen popups.')
+    P('Each page of the drawing is a window of the application, named by its page tab. LiquidWeighHMI has nine '
+      'screens, the Header and Footer windows they share, and five popups.')
     figure(doc, 'pages-tabs', 'Page tabs: every page is a window')
     table(doc, 'Window types', [
         ['Type', 'Behavior', 'Used in LiquidWeighHMI for'],
-        ['Replace', 'Closes any window it overlaps when it opens', 'The seven main screens'],
-        ['Overlay', 'Opens on top and leaves other windows open', 'Information panels'],
+        ['Replace', 'Closes any window it overlaps when it opens', 'The nine screens'],
+        ['Overlay', 'Opens on top and leaves other windows open', 'The header and the navigation bar'],
         ['Popup (modal)', 'Stays on top; nothing beneath it can be touched until it closes', 'Faceplates and confirmations'],
     ])
     H2('6.1  Window properties')
@@ -541,12 +542,20 @@ def build(save=True):
       'every valve and pump (section 9.4), so a few objects for valves and for pumps share a place; visibility links '
       'show the right one while running.')
     figure(doc, 'faceplate-edit', 'The Device Faceplate page in the editor')
-    H2('6.2  Navigation')
-    P('The navigation bar at the bottom of every LiquidWeighHMI screen is a row of buttons, each with a **Show '
-      'Window** link to one screen. Because the main screens are Replace windows, opening one closes the current '
-      'screen. The valve and pump symbols open the Device Faceplate from their Action Scripts instead, with the '
-      '`ShowWindow` function, beside the symbol touched (section 9.5); its DONE button closes it with a **Hide '
-      'Window** link.')
+    H2('6.2  The header, the navigation bar and the screens')
+    P('What every screen shares is drawn once, in two windows of its own. **Header** is an overlay 1920 \u00d7 70 '
+      'at 0, 0 and **Footer** an overlay 1920 \u00d7 68 at 0, 1012; both open with the application and stay open. '
+      'Each screen is a Replace window over the middle of the display, 1920 \u00d7 942 at 0, 70, so opening one '
+      'closes only the screen before it: the header and the navigation bar are never overlapped, so they are '
+      'neither closed nor drawn again, and a screen change rebuilds the middle alone.')
+    P('The navigation bar in the Footer window is a row of buttons, each with a **Show Window** link to one '
+      'screen. The screen being shown is named in the header and its button is highlighted, from two tags that '
+      'each screen sets in its **On show** script:')
+    code(doc, 'ScreenTitle = "BATCH CONTROL"; ScreenNo = 2;')
+    P('The header\'s title has a **Value Display** link on `ScreenTitle`, and each navigation button a **Fill '
+      'Color / Discrete** link on its own number, such as `ScreenNo == 2` (chapter 8). The valve and pump symbols '
+      'open the Device Faceplate from their Action Scripts instead, with the `ShowWindow` function, beside the '
+      'symbol touched (section 9.5); its DONE button closes it with a **Hide Window** link.')
 
     # ------------------------------------------------------------ 7
     H1('7  Drawing objects')
@@ -676,15 +685,17 @@ def build(save=True):
     ])
     H2('9.1  Window and application scripts')
     P('A window can run a script when it opens (**On show**), repeatedly while it is open (**While showing**, every '
-      'n ms) and when it closes (**On hide**). Every LiquidWeighHMI screen turns the PLC\'s sequence step number '
-      'into the text shown in the header, four times a second:')
+      'n ms) and when it closes (**On hide**). LiquidWeighHMI\'s **Header** window, open for as long as the '
+      'application runs, turns the PLC\'s sequence step number into the text shown in the header, four times a '
+      'second:')
     code(doc, '''
 IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF;
 IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF;
 IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF;
 ...
 ''')
-    figure(doc, 'window-scripts', 'Window scripts of the Process screen (While showing every 250 ms)', max_width_in=4.4)
+    figure(doc, 'window-scripts', 'The Header window: an overlay over the top of the screen, with its scripts',
+           max_width_in=4.4)
     P('A window\'s scripts run only while that window is open. Logic that must run all the time belongs in the '
       '**application scripts**, in the Scripts section of **HMI > Application Settings**:')
     bullets(doc, [
@@ -914,8 +925,7 @@ ENDIF;
 
     H2('9.6  Saving the screen as a PDF: ScreenToPDF')
     P('`ScreenToPDF()` keeps a record of a screen: a shift report, a batch at a given moment, or a fault to send '
-      'to maintenance. Every LiquidWeighHMI screen has a **PRINT SCREEN** button in its header, whose Action Script is '
-      'one line:')
+      'to maintenance. LiquidWeighHMI\'s header has a **PRINT SCREEN** button, whose Action Script is one line:')
     code(doc, 'ScreenToPDF();')
     P('The function saves what the operator sees: the screen with its live values, and any popup or overlay '
       'window open on it. The PDF has one landscape Letter page. The screen is fitted to the page as large as '
@@ -1291,10 +1301,11 @@ TrendSetPen(TrendName, PenTag);
       'open, and the application connects to its PLCs. A green RUNNING banner shows that the screen is live and '
       'that touching it operates real equipment. **HMI > Stop** returns to editing.')
     figure(doc, 'run-window', 'LiquidWeighHMI running in the Studio')
-    P('The screens below were captured while LiquidWeighHMI ran against its controller, between batches. Every '
-      'screen has the same header: the system name, the screen title, **PRINT SCREEN** (saves the screen as a '
-      'PDF, section 9.6), the PLC and simulation status, E-STOP, the sequence state, the number of active alarms, '
-      'and the user with **LOGIN**.')
+    P('The screens below were captured while LiquidWeighHMI ran against its controller, between batches. The '
+      'header and the navigation bar above and below them are the Header and Footer windows (section 6.2), open '
+      'over every screen: the system name, the screen title, **PRINT SCREEN** (saves the screen as a PDF, '
+      'section 9.6), the PLC and simulation status, E-STOP, the sequence state, the number of active alarms, and '
+      'the user with **LOGIN**.')
     figure(doc, 'run-process', 'Process screen: tank and hopper levels, valve states, sequence and active alarms')
     figure(doc, 'run-faceplate', 'The Device Faceplate showing SV-001: mode, commands, interlocks and fault reset')
     figure(doc, 'run-batch', 'Batch screen: recipe, sequence control, start permissives and batch progress')

@@ -9,12 +9,12 @@ LiquidWeighHMI
 It was written from scratch by an AI agent, from the system's control narrative, I/O list and electrical drawings, after the agent had written the controller's PLC program from the same documents. See [HMI applications built by AI agents](../README.md#hmi-applications-built-by-ai-agents).
 
 - **Screen:** 1920 × 1080, full screen.
-- **Windows:** nine screens (Process, Batch, Supply, Devices, Setpoints, Recipes, Trends, Alarm History, IO Sim), and five popups: one Device Faceplate for all 11 valves and 3 pumps (through indirect tags) and 4 confirmations.
-- **Data:** 452 tags: 419 on one ControlLogix controller (`LiquidWeighPLC`), 34 of them alarmed, plus memory and indirect tags.
+- **Windows:** nine screens (Process, Batch, Supply, Devices, Setpoints, Recipes, Trends, Alarm History, IO Sim) over the middle of the display, Header and Footer over the top and bottom strips, and five popups: one Device Faceplate for all 11 valves and 3 pumps (through indirect tags) and 4 confirmations.
+- **Data:** 454 tags: 419 on one ControlLogix controller (`LiquidWeighPLC`), 34 of them alarmed, plus memory and indirect tags.
 - **Users:** Operator (level 1000), Maintenance (2000) and Engineer (9999).
 - **Recipes:** the Plasticizer Blends recipe book and a Recipes screen.
 - **Trends:** a Trends screen with the weigh hopper's weight, target and pressure, the bulk tank level and three feed and discharge valves, and buttons that pick the pen and scroll the history through the `Trend` script functions.
-- **Header:** every screen has PRINT SCREEN (`ScreenToPDF()`, a landscape PDF of the screen), the PLC and sequence status, the alarm count and LOGIN.
+- **Header and footer:** the header (PRINT SCREEN — `ScreenToPDF()`, a landscape PDF of the screen — the PLC and sequence status, the alarm count and LOGIN) and the navigation bar are overlay windows, open for the whole run. A screen covers only the middle strip, so changing screen rebuilds that alone. Each screen's On show script sets `ScreenTitle` and `ScreenNo`: the header shows the title and the footer highlights the screen's button.
 
 To try it:
 

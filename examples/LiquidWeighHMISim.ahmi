@@ -1,5 +1,5 @@
-<mxfile hmiVersion="1" host="Electron" pages="14">
-  <diagram id="I7XDETwOP-q5BCYYfAIl" name="Process">
+<mxfile hmiVersion="1" host="Electron" pages="16">
+  <diagram id="qlUR3N3yXMEUdOhnsazI" name="Process">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="0" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -505,117 +505,6 @@
         <mxCell id="al170" parent="1" style="html=1;noLabel=1;shape=hmiAlarmList;fontSize=12;hmiTitle=Active Alarms;hmiColumns=time,tag,description,condition,value,state;fontSize=13;" value="" vertex="1">
           <mxGeometry height="202" width="1900" x="10" y="806" as="geometry" />
         </mxCell>
-        <mxCell id="r171" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="70" width="1920" as="geometry" />
-        </mxCell>
-        <mxCell id="t172" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;align=left;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="LIQUID WEIGH SYSTEM" vertex="1">
-          <mxGeometry height="32" width="420" x="20" y="6" as="geometry" />
-        </mxCell>
-        <mxCell id="t173" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="Mixer Liquids Weigh-Up  |  Banbury Deck" vertex="1">
-          <mxGeometry height="24" width="420" x="20" y="38" as="geometry" />
-        </mxCell>
-        <mxCell id="t174" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=28;fontStyle=1;align=center;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="PROCESS OVERVIEW" vertex="1">
-          <mxGeometry height="50" width="530" x="450" y="10" as="geometry" />
-        </mxCell>
-        <UserObject label="SIM PLC" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &gt;= 192&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r175">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2e9e44;strokeColor=#2e9e44;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PLC&lt;br&gt;COMM FAIL" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &lt; 192&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;700&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r176">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=13;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SIM MODE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Sim_Enable&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r177">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0a500;strokeColor=#f0a500;fontSize=14;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1128" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="E-STOP" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;DI_ES_001_EStopped&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r178">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=16;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1232" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="IDLE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;StepText&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.analog&quot;:{&quot;expr&quot;:&quot;Seq_Step&quot;,&quot;bands&quot;:[{&quot;max&quot;:&quot;1&quot;,&quot;color&quot;:&quot;#7b8794&quot;},{&quot;max&quot;:&quot;95&quot;,&quot;color&quot;:&quot;#2e9e44&quot;},{&quot;max&quot;:&quot;105&quot;,&quot;color&quot;:&quot;#f0a500&quot;},{&quot;max&quot;:null,&quot;color&quot;:&quot;#d32f2f&quot;}]},&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="r179">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#7b8794;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="190" x="1336" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Alarms: 0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;_AlarmsActive&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;Alarms: &quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AlarmsActive &gt; 0&quot;,&quot;on&quot;:&quot;#d32f2f&quot;,&quot;off&quot;:&quot;#46586a&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;_AlarmsUnacked &gt; 0&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r180">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#46586a;strokeColor=#46586a;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="140" x="1534" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r181" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2b3d4f;strokeColor=#4f6477;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="54" width="228" x="1682" y="8" as="geometry" />
-        </mxCell>
-        <mxCell id="t182" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="USER" vertex="1">
-          <mxGeometry height="18" width="116" x="1692" y="11" as="geometry" />
-        </mxCell>
-        <UserObject label="None" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;_Username&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#8fa1b3&quot;}}}" id="t183">
-          <mxCell parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=15;fontStyle=1;align=left;verticalAlign=middle;fontColor=#8fa1b3;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="30" width="116" x="1692" y="28" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="LOGIN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF _Username == \&quot;None\&quot; THEN ShowLogin(); ELSE Logout(); ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;discrete&quot;,&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;LOGOUT&quot;,&quot;offText&quot;:&quot;LOGIN&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#f8cecc&quot;,&quot;off&quot;:&quot;#d5e8d4&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#b85450&quot;,&quot;off&quot;:&quot;#82b366&quot;}}}" id="login184">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="94" x="1810" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PRINT SCREEN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;ScreenToPDF();&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="printScreen184">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;fontColor=#1b1f24;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="120" x="872" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r185" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="68" width="1920" y="1012" as="geometry" />
-        </mxCell>
-        <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b186">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="20" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b187">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="230" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b188">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="440" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b189">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="650" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b190">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="860" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1070" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b191">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1490" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b192">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1700" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="TRENDS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Trends&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navTrends">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1280" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
         <mxCell id="p14" edge="1" parent="1" style="endArrow=none;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="20" y="175" as="sourcePoint" />
@@ -896,7 +785,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="DCz4gQpQl0u3NtpdfKJA" name="Batch">
+  <diagram id="CrYunZHTzyeUeelLEgEw" name="Batch">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -1432,121 +1321,10 @@
         <mxCell id="al321" parent="1" style="html=1;noLabel=1;shape=hmiAlarmList;fontSize=12;hmiTitle=Active Alarms;hmiColumns=time,tag,description,condition,value,state;fontSize=13;" value="" vertex="1">
           <mxGeometry height="202" width="1900" x="10" y="806" as="geometry" />
         </mxCell>
-        <mxCell id="r322" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="70" width="1920" as="geometry" />
-        </mxCell>
-        <mxCell id="t323" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;align=left;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="LIQUID WEIGH SYSTEM" vertex="1">
-          <mxGeometry height="32" width="420" x="20" y="6" as="geometry" />
-        </mxCell>
-        <mxCell id="t324" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="Mixer Liquids Weigh-Up  |  Banbury Deck" vertex="1">
-          <mxGeometry height="24" width="420" x="20" y="38" as="geometry" />
-        </mxCell>
-        <mxCell id="t325" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=28;fontStyle=1;align=center;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="BATCH CONTROL" vertex="1">
-          <mxGeometry height="50" width="530" x="450" y="10" as="geometry" />
-        </mxCell>
-        <UserObject label="SIM PLC" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &gt;= 192&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r326">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2e9e44;strokeColor=#2e9e44;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PLC&lt;br&gt;COMM FAIL" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &lt; 192&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;700&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r327">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=13;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SIM MODE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Sim_Enable&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r328">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0a500;strokeColor=#f0a500;fontSize=14;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1128" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="E-STOP" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;DI_ES_001_EStopped&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r329">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=16;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1232" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="IDLE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;StepText&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.analog&quot;:{&quot;expr&quot;:&quot;Seq_Step&quot;,&quot;bands&quot;:[{&quot;max&quot;:&quot;1&quot;,&quot;color&quot;:&quot;#7b8794&quot;},{&quot;max&quot;:&quot;95&quot;,&quot;color&quot;:&quot;#2e9e44&quot;},{&quot;max&quot;:&quot;105&quot;,&quot;color&quot;:&quot;#f0a500&quot;},{&quot;max&quot;:null,&quot;color&quot;:&quot;#d32f2f&quot;}]},&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="r330">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#7b8794;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="190" x="1336" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Alarms: 0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;_AlarmsActive&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;Alarms: &quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AlarmsActive &gt; 0&quot;,&quot;on&quot;:&quot;#d32f2f&quot;,&quot;off&quot;:&quot;#46586a&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;_AlarmsUnacked &gt; 0&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r331">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#46586a;strokeColor=#46586a;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="140" x="1534" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r332" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2b3d4f;strokeColor=#4f6477;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="54" width="228" x="1682" y="8" as="geometry" />
-        </mxCell>
-        <mxCell id="t333" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="USER" vertex="1">
-          <mxGeometry height="18" width="116" x="1692" y="11" as="geometry" />
-        </mxCell>
-        <UserObject label="None" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;_Username&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#8fa1b3&quot;}}}" id="t334">
-          <mxCell parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=15;fontStyle=1;align=left;verticalAlign=middle;fontColor=#8fa1b3;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="30" width="116" x="1692" y="28" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="LOGIN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF _Username == \&quot;None\&quot; THEN ShowLogin(); ELSE Logout(); ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;discrete&quot;,&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;LOGOUT&quot;,&quot;offText&quot;:&quot;LOGIN&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#f8cecc&quot;,&quot;off&quot;:&quot;#d5e8d4&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#b85450&quot;,&quot;off&quot;:&quot;#82b366&quot;}}}" id="login335">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="94" x="1810" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PRINT SCREEN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;ScreenToPDF();&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="printScreen335">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;fontColor=#1b1f24;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="120" x="872" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r336" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="68" width="1920" y="1012" as="geometry" />
-        </mxCell>
-        <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b337">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="20" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b338">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="230" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b339">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="440" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b340">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="650" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b341">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="860" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1070" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b342">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1490" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b343">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1700" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="TRENDS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Trends&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navTrends">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1280" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="gkwaulaqN1HxgKRHd8QW" name="Supply">
+  <diagram id="K2AaK8K8WjC8HGS3PnHE" name="Supply">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -1935,117 +1713,6 @@
         <mxCell id="al443" parent="1" style="html=1;noLabel=1;shape=hmiAlarmList;fontSize=12;hmiTitle=Active Alarms;hmiColumns=time,tag,description,condition,value,state;fontSize=13;" value="" vertex="1">
           <mxGeometry height="202" width="1900" x="10" y="806" as="geometry" />
         </mxCell>
-        <mxCell id="r444" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="70" width="1920" as="geometry" />
-        </mxCell>
-        <mxCell id="t445" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;align=left;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="LIQUID WEIGH SYSTEM" vertex="1">
-          <mxGeometry height="32" width="420" x="20" y="6" as="geometry" />
-        </mxCell>
-        <mxCell id="t446" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="Mixer Liquids Weigh-Up  |  Banbury Deck" vertex="1">
-          <mxGeometry height="24" width="420" x="20" y="38" as="geometry" />
-        </mxCell>
-        <mxCell id="t447" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=28;fontStyle=1;align=center;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="PLASTICIZER SUPPLY" vertex="1">
-          <mxGeometry height="50" width="530" x="450" y="10" as="geometry" />
-        </mxCell>
-        <UserObject label="SIM PLC" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &gt;= 192&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r448">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2e9e44;strokeColor=#2e9e44;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PLC&lt;br&gt;COMM FAIL" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &lt; 192&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;700&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r449">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=13;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SIM MODE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Sim_Enable&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r450">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0a500;strokeColor=#f0a500;fontSize=14;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1128" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="E-STOP" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;DI_ES_001_EStopped&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r451">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=16;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1232" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="IDLE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;StepText&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.analog&quot;:{&quot;expr&quot;:&quot;Seq_Step&quot;,&quot;bands&quot;:[{&quot;max&quot;:&quot;1&quot;,&quot;color&quot;:&quot;#7b8794&quot;},{&quot;max&quot;:&quot;95&quot;,&quot;color&quot;:&quot;#2e9e44&quot;},{&quot;max&quot;:&quot;105&quot;,&quot;color&quot;:&quot;#f0a500&quot;},{&quot;max&quot;:null,&quot;color&quot;:&quot;#d32f2f&quot;}]},&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="r452">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#7b8794;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="190" x="1336" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Alarms: 0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;_AlarmsActive&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;Alarms: &quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AlarmsActive &gt; 0&quot;,&quot;on&quot;:&quot;#d32f2f&quot;,&quot;off&quot;:&quot;#46586a&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;_AlarmsUnacked &gt; 0&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r453">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#46586a;strokeColor=#46586a;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="140" x="1534" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r454" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2b3d4f;strokeColor=#4f6477;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="54" width="228" x="1682" y="8" as="geometry" />
-        </mxCell>
-        <mxCell id="t455" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="USER" vertex="1">
-          <mxGeometry height="18" width="116" x="1692" y="11" as="geometry" />
-        </mxCell>
-        <UserObject label="None" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;_Username&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#8fa1b3&quot;}}}" id="t456">
-          <mxCell parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=15;fontStyle=1;align=left;verticalAlign=middle;fontColor=#8fa1b3;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="30" width="116" x="1692" y="28" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="LOGIN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF _Username == \&quot;None\&quot; THEN ShowLogin(); ELSE Logout(); ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;discrete&quot;,&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;LOGOUT&quot;,&quot;offText&quot;:&quot;LOGIN&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#f8cecc&quot;,&quot;off&quot;:&quot;#d5e8d4&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#b85450&quot;,&quot;off&quot;:&quot;#82b366&quot;}}}" id="login457">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="94" x="1810" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PRINT SCREEN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;ScreenToPDF();&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="printScreen457">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;fontColor=#1b1f24;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="120" x="872" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r458" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="68" width="1920" y="1012" as="geometry" />
-        </mxCell>
-        <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b459">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="20" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b460">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="230" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b461">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="440" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b462">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="650" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b463">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="860" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1070" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b464">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1490" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b465">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1700" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="TRENDS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Trends&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navTrends">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1280" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
         <mxCell id="p403" edge="1" parent="1" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#5d6a77;rounded=0;edgeStyle=none;" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="1350" y="224" as="sourcePoint" />
@@ -2061,7 +1728,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="IDBQApBZuLkjccKQJPPt" name="Devices">
+  <diagram id="tNwH4MBg47_yQ9ylQVpd" name="Devices">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -3094,121 +2761,10 @@
         <mxCell id="al693" parent="1" style="html=1;noLabel=1;shape=hmiAlarmList;fontSize=12;hmiTitle=Active Alarms;hmiColumns=time,tag,description,condition,value,state;fontSize=13;" value="" vertex="1">
           <mxGeometry height="202" width="1900" x="10" y="806" as="geometry" />
         </mxCell>
-        <mxCell id="r694" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="70" width="1920" as="geometry" />
-        </mxCell>
-        <mxCell id="t695" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;align=left;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="LIQUID WEIGH SYSTEM" vertex="1">
-          <mxGeometry height="32" width="420" x="20" y="6" as="geometry" />
-        </mxCell>
-        <mxCell id="t696" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="Mixer Liquids Weigh-Up  |  Banbury Deck" vertex="1">
-          <mxGeometry height="24" width="420" x="20" y="38" as="geometry" />
-        </mxCell>
-        <mxCell id="t697" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=28;fontStyle=1;align=center;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="DEVICES" vertex="1">
-          <mxGeometry height="50" width="530" x="450" y="10" as="geometry" />
-        </mxCell>
-        <UserObject label="SIM PLC" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &gt;= 192&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r698">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2e9e44;strokeColor=#2e9e44;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PLC&lt;br&gt;COMM FAIL" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &lt; 192&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;700&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r699">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=13;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SIM MODE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Sim_Enable&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r700">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0a500;strokeColor=#f0a500;fontSize=14;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1128" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="E-STOP" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;DI_ES_001_EStopped&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r701">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=16;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1232" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="IDLE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;StepText&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.analog&quot;:{&quot;expr&quot;:&quot;Seq_Step&quot;,&quot;bands&quot;:[{&quot;max&quot;:&quot;1&quot;,&quot;color&quot;:&quot;#7b8794&quot;},{&quot;max&quot;:&quot;95&quot;,&quot;color&quot;:&quot;#2e9e44&quot;},{&quot;max&quot;:&quot;105&quot;,&quot;color&quot;:&quot;#f0a500&quot;},{&quot;max&quot;:null,&quot;color&quot;:&quot;#d32f2f&quot;}]},&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="r702">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#7b8794;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="190" x="1336" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Alarms: 0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;_AlarmsActive&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;Alarms: &quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AlarmsActive &gt; 0&quot;,&quot;on&quot;:&quot;#d32f2f&quot;,&quot;off&quot;:&quot;#46586a&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;_AlarmsUnacked &gt; 0&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r703">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#46586a;strokeColor=#46586a;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="140" x="1534" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r704" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2b3d4f;strokeColor=#4f6477;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="54" width="228" x="1682" y="8" as="geometry" />
-        </mxCell>
-        <mxCell id="t705" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="USER" vertex="1">
-          <mxGeometry height="18" width="116" x="1692" y="11" as="geometry" />
-        </mxCell>
-        <UserObject label="None" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;_Username&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#8fa1b3&quot;}}}" id="t706">
-          <mxCell parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=15;fontStyle=1;align=left;verticalAlign=middle;fontColor=#8fa1b3;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="30" width="116" x="1692" y="28" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="LOGIN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF _Username == \&quot;None\&quot; THEN ShowLogin(); ELSE Logout(); ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;discrete&quot;,&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;LOGOUT&quot;,&quot;offText&quot;:&quot;LOGIN&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#f8cecc&quot;,&quot;off&quot;:&quot;#d5e8d4&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#b85450&quot;,&quot;off&quot;:&quot;#82b366&quot;}}}" id="login707">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="94" x="1810" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PRINT SCREEN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;ScreenToPDF();&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="printScreen707">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;fontColor=#1b1f24;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="120" x="872" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r708" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="68" width="1920" y="1012" as="geometry" />
-        </mxCell>
-        <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b709">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="20" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b710">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="230" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b711">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="440" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b712">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="650" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b713">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="860" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1070" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b714">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1490" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b715">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1700" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="TRENDS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Trends&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navTrends">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1280" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="hvtewPMjdmh9m9zuhe1K" name="Setpoints">
+  <diagram id="Btat6ag48juQCq8o_JsI" name="Setpoints">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -3556,121 +3112,10 @@
         <mxCell id="al808" parent="1" style="html=1;noLabel=1;shape=hmiAlarmList;fontSize=12;hmiTitle=Active Alarms;hmiColumns=time,tag,description,condition,value,state;fontSize=13;" value="" vertex="1">
           <mxGeometry height="202" width="1900" x="10" y="806" as="geometry" />
         </mxCell>
-        <mxCell id="r809" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="70" width="1920" as="geometry" />
-        </mxCell>
-        <mxCell id="t810" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;align=left;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="LIQUID WEIGH SYSTEM" vertex="1">
-          <mxGeometry height="32" width="420" x="20" y="6" as="geometry" />
-        </mxCell>
-        <mxCell id="t811" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="Mixer Liquids Weigh-Up  |  Banbury Deck" vertex="1">
-          <mxGeometry height="24" width="420" x="20" y="38" as="geometry" />
-        </mxCell>
-        <mxCell id="t812" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=28;fontStyle=1;align=center;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="SETPOINTS" vertex="1">
-          <mxGeometry height="50" width="530" x="450" y="10" as="geometry" />
-        </mxCell>
-        <UserObject label="SIM PLC" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &gt;= 192&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r813">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2e9e44;strokeColor=#2e9e44;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PLC&lt;br&gt;COMM FAIL" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &lt; 192&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;700&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r814">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=13;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SIM MODE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Sim_Enable&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r815">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0a500;strokeColor=#f0a500;fontSize=14;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1128" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="E-STOP" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;DI_ES_001_EStopped&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r816">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=16;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1232" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="IDLE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;StepText&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.analog&quot;:{&quot;expr&quot;:&quot;Seq_Step&quot;,&quot;bands&quot;:[{&quot;max&quot;:&quot;1&quot;,&quot;color&quot;:&quot;#7b8794&quot;},{&quot;max&quot;:&quot;95&quot;,&quot;color&quot;:&quot;#2e9e44&quot;},{&quot;max&quot;:&quot;105&quot;,&quot;color&quot;:&quot;#f0a500&quot;},{&quot;max&quot;:null,&quot;color&quot;:&quot;#d32f2f&quot;}]},&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="r817">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#7b8794;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="190" x="1336" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Alarms: 0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;_AlarmsActive&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;Alarms: &quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AlarmsActive &gt; 0&quot;,&quot;on&quot;:&quot;#d32f2f&quot;,&quot;off&quot;:&quot;#46586a&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;_AlarmsUnacked &gt; 0&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r818">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#46586a;strokeColor=#46586a;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="140" x="1534" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r819" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2b3d4f;strokeColor=#4f6477;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="54" width="228" x="1682" y="8" as="geometry" />
-        </mxCell>
-        <mxCell id="t820" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="USER" vertex="1">
-          <mxGeometry height="18" width="116" x="1692" y="11" as="geometry" />
-        </mxCell>
-        <UserObject label="None" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;_Username&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#8fa1b3&quot;}}}" id="t821">
-          <mxCell parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=15;fontStyle=1;align=left;verticalAlign=middle;fontColor=#8fa1b3;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="30" width="116" x="1692" y="28" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="LOGIN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF _Username == \&quot;None\&quot; THEN ShowLogin(); ELSE Logout(); ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;discrete&quot;,&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;LOGOUT&quot;,&quot;offText&quot;:&quot;LOGIN&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#f8cecc&quot;,&quot;off&quot;:&quot;#d5e8d4&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#b85450&quot;,&quot;off&quot;:&quot;#82b366&quot;}}}" id="login822">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="94" x="1810" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PRINT SCREEN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;ScreenToPDF();&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="printScreen822">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;fontColor=#1b1f24;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="120" x="872" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r823" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="68" width="1920" y="1012" as="geometry" />
-        </mxCell>
-        <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b824">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="20" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b825">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="230" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b826">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="440" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b827">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="650" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b828">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="860" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1070" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b829">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1490" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b830">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1700" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="TRENDS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Trends&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navTrends">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1280" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="3HTuTo4DbCs4A8dNAMXl" name="Recipes">
+  <diagram id="5V-Ryhhaj6NYmxk8UpvZ" name="Recipes">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -3869,121 +3314,10 @@
         <mxCell id="al808" parent="1" style="html=1;noLabel=1;shape=hmiAlarmList;fontSize=12;hmiTitle=Active Alarms;hmiColumns=time,tag,description,condition,value,state;fontSize=13;" value="" vertex="1">
           <mxGeometry height="202" width="1900" x="10" y="806" as="geometry" />
         </mxCell>
-        <mxCell id="r809" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="70" width="1920" as="geometry" />
-        </mxCell>
-        <mxCell id="t810" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;align=left;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="LIQUID WEIGH SYSTEM" vertex="1">
-          <mxGeometry height="32" width="420" x="20" y="6" as="geometry" />
-        </mxCell>
-        <mxCell id="t811" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="Mixer Liquids Weigh-Up  |  Banbury Deck" vertex="1">
-          <mxGeometry height="24" width="420" x="20" y="38" as="geometry" />
-        </mxCell>
-        <mxCell id="t812" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=28;fontStyle=1;align=center;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="RECIPES" vertex="1">
-          <mxGeometry height="50" width="530" x="450" y="10" as="geometry" />
-        </mxCell>
-        <UserObject label="SIM PLC" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &gt;= 192&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r813">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2e9e44;strokeColor=#2e9e44;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PLC&lt;br&gt;COMM FAIL" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &lt; 192&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;700&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r814">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=13;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SIM MODE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Sim_Enable&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r815">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0a500;strokeColor=#f0a500;fontSize=14;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1128" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="E-STOP" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;DI_ES_001_EStopped&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r816">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=16;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1232" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="IDLE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;StepText&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.analog&quot;:{&quot;expr&quot;:&quot;Seq_Step&quot;,&quot;bands&quot;:[{&quot;max&quot;:&quot;1&quot;,&quot;color&quot;:&quot;#7b8794&quot;},{&quot;max&quot;:&quot;95&quot;,&quot;color&quot;:&quot;#2e9e44&quot;},{&quot;max&quot;:&quot;105&quot;,&quot;color&quot;:&quot;#f0a500&quot;},{&quot;max&quot;:null,&quot;color&quot;:&quot;#d32f2f&quot;}]},&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="r817">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#7b8794;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="190" x="1336" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Alarms: 0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;_AlarmsActive&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;Alarms: &quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AlarmsActive &gt; 0&quot;,&quot;on&quot;:&quot;#d32f2f&quot;,&quot;off&quot;:&quot;#46586a&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;_AlarmsUnacked &gt; 0&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r818">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#46586a;strokeColor=#46586a;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="140" x="1534" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r819" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2b3d4f;strokeColor=#4f6477;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="54" width="228" x="1682" y="8" as="geometry" />
-        </mxCell>
-        <mxCell id="t820" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="USER" vertex="1">
-          <mxGeometry height="18" width="116" x="1692" y="11" as="geometry" />
-        </mxCell>
-        <UserObject label="None" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;_Username&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#8fa1b3&quot;}}}" id="t821">
-          <mxCell parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=15;fontStyle=1;align=left;verticalAlign=middle;fontColor=#8fa1b3;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="30" width="116" x="1692" y="28" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="LOGIN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF _Username == \&quot;None\&quot; THEN ShowLogin(); ELSE Logout(); ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;discrete&quot;,&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;LOGOUT&quot;,&quot;offText&quot;:&quot;LOGIN&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#f8cecc&quot;,&quot;off&quot;:&quot;#d5e8d4&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#b85450&quot;,&quot;off&quot;:&quot;#82b366&quot;}}}" id="login822">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="94" x="1810" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PRINT SCREEN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;ScreenToPDF();&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="printScreen822">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;fontColor=#1b1f24;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="120" x="872" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r823" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="68" width="1920" y="1012" as="geometry" />
-        </mxCell>
-        <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b824">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="20" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b825">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="230" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b826">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="440" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b827">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="650" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b828">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="860" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1070" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b829">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1490" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b830">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1700" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="TRENDS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Trends&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navTrends">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1280" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="aPB73QhNHGET8BOS8XSM" name="Trends">
+  <diagram id="6LnJi0izenHQPIKUKuy0" name="Trends">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4093,121 +3427,10 @@
         <mxCell id="tr_al808" parent="1" style="html=1;noLabel=1;shape=hmiAlarmList;fontSize=12;hmiTitle=Active Alarms;hmiColumns=time,tag,description,condition,value,state;fontSize=13;" value="" vertex="1">
           <mxGeometry height="202" width="1900" x="10" y="806" as="geometry" />
         </mxCell>
-        <mxCell id="tr_r809" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="70" width="1920" as="geometry" />
-        </mxCell>
-        <mxCell id="tr_t810" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;align=left;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="LIQUID WEIGH SYSTEM" vertex="1">
-          <mxGeometry height="32" width="420" x="20" y="6" as="geometry" />
-        </mxCell>
-        <mxCell id="tr_t811" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="Mixer Liquids Weigh-Up  |  Banbury Deck" vertex="1">
-          <mxGeometry height="24" width="420" x="20" y="38" as="geometry" />
-        </mxCell>
-        <mxCell id="tr_t812" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=28;fontStyle=1;align=center;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="TRENDS" vertex="1">
-          <mxGeometry height="50" width="530" x="450" y="10" as="geometry" />
-        </mxCell>
-        <UserObject label="SIM PLC" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &gt;= 192&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="tr_r813">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2e9e44;strokeColor=#2e9e44;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PLC&lt;br&gt;COMM FAIL" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &lt; 192&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;700&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="tr_r814">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=13;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SIM MODE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Sim_Enable&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="tr_r815">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0a500;strokeColor=#f0a500;fontSize=14;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1128" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="E-STOP" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;DI_ES_001_EStopped&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="tr_r816">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=16;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1232" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="IDLE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;StepText&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.analog&quot;:{&quot;expr&quot;:&quot;Seq_Step&quot;,&quot;bands&quot;:[{&quot;max&quot;:&quot;1&quot;,&quot;color&quot;:&quot;#7b8794&quot;},{&quot;max&quot;:&quot;95&quot;,&quot;color&quot;:&quot;#2e9e44&quot;},{&quot;max&quot;:&quot;105&quot;,&quot;color&quot;:&quot;#f0a500&quot;},{&quot;max&quot;:null,&quot;color&quot;:&quot;#d32f2f&quot;}]},&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="tr_r817">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#7b8794;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="190" x="1336" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Alarms: 0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;_AlarmsActive&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;Alarms: &quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AlarmsActive &gt; 0&quot;,&quot;on&quot;:&quot;#d32f2f&quot;,&quot;off&quot;:&quot;#46586a&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;_AlarmsUnacked &gt; 0&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="tr_r818">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#46586a;strokeColor=#46586a;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="140" x="1534" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="tr_r819" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2b3d4f;strokeColor=#4f6477;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="54" width="228" x="1682" y="8" as="geometry" />
-        </mxCell>
-        <mxCell id="tr_t820" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="USER" vertex="1">
-          <mxGeometry height="18" width="116" x="1692" y="11" as="geometry" />
-        </mxCell>
-        <UserObject label="None" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;_Username&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#8fa1b3&quot;}}}" id="tr_t821">
-          <mxCell parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=15;fontStyle=1;align=left;verticalAlign=middle;fontColor=#8fa1b3;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="30" width="116" x="1692" y="28" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="LOGIN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF _Username == \&quot;None\&quot; THEN ShowLogin(); ELSE Logout(); ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;discrete&quot;,&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;LOGOUT&quot;,&quot;offText&quot;:&quot;LOGIN&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#f8cecc&quot;,&quot;off&quot;:&quot;#d5e8d4&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#b85450&quot;,&quot;off&quot;:&quot;#82b366&quot;}}}" id="tr_login822">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="94" x="1810" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PRINT SCREEN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;ScreenToPDF();&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="tr_printScreen822">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;fontColor=#1b1f24;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="120" x="872" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="tr_r823" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="68" width="1920" y="1012" as="geometry" />
-        </mxCell>
-        <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="tr_b824">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="20" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="tr_b825">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="230" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="tr_b826">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="440" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="tr_b827">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="650" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="tr_b828">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="860" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="tr_navRecipes">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1070" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="tr_b829">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1490" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="tr_b830">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1700" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="TRENDS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Trends&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navTrends">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1280" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="dmJxEigS4c7USjSNAKqS" name="Alarm History">
+  <diagram id="_nf1GJl_e09oomGGTnQB" name="Alarm History">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4221,121 +3444,10 @@
         <mxCell id="al833" parent="1" style="html=1;noLabel=1;shape=hmiAlarmList;fontSize=12;hmiTitle=Active Alarms;hmiColumns=time,tag,description,condition,value,state;fontSize=13;" value="" vertex="1">
           <mxGeometry height="202" width="1900" x="10" y="806" as="geometry" />
         </mxCell>
-        <mxCell id="r834" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="70" width="1920" as="geometry" />
-        </mxCell>
-        <mxCell id="t835" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;align=left;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="LIQUID WEIGH SYSTEM" vertex="1">
-          <mxGeometry height="32" width="420" x="20" y="6" as="geometry" />
-        </mxCell>
-        <mxCell id="t836" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="Mixer Liquids Weigh-Up  |  Banbury Deck" vertex="1">
-          <mxGeometry height="24" width="420" x="20" y="38" as="geometry" />
-        </mxCell>
-        <mxCell id="t837" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=28;fontStyle=1;align=center;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="ALARM HISTORY" vertex="1">
-          <mxGeometry height="50" width="530" x="450" y="10" as="geometry" />
-        </mxCell>
-        <UserObject label="SIM PLC" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &gt;= 192&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r838">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2e9e44;strokeColor=#2e9e44;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PLC&lt;br&gt;COMM FAIL" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &lt; 192&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;700&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r839">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=13;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SIM MODE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Sim_Enable&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r840">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0a500;strokeColor=#f0a500;fontSize=14;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1128" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="E-STOP" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;DI_ES_001_EStopped&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r841">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=16;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="96" x="1232" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="IDLE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;StepText&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.analog&quot;:{&quot;expr&quot;:&quot;Seq_Step&quot;,&quot;bands&quot;:[{&quot;max&quot;:&quot;1&quot;,&quot;color&quot;:&quot;#7b8794&quot;},{&quot;max&quot;:&quot;95&quot;,&quot;color&quot;:&quot;#2e9e44&quot;},{&quot;max&quot;:&quot;105&quot;,&quot;color&quot;:&quot;#f0a500&quot;},{&quot;max&quot;:null,&quot;color&quot;:&quot;#d32f2f&quot;}]},&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="r842">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#7b8794;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="190" x="1336" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Alarms: 0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;_AlarmsActive&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;Alarms: &quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AlarmsActive &gt; 0&quot;,&quot;on&quot;:&quot;#d32f2f&quot;,&quot;off&quot;:&quot;#46586a&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;_AlarmsUnacked &gt; 0&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r843">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#46586a;strokeColor=#46586a;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="42" width="140" x="1534" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r844" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2b3d4f;strokeColor=#4f6477;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="54" width="228" x="1682" y="8" as="geometry" />
-        </mxCell>
-        <mxCell id="t845" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="USER" vertex="1">
-          <mxGeometry height="18" width="116" x="1692" y="11" as="geometry" />
-        </mxCell>
-        <UserObject label="None" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;_Username&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#8fa1b3&quot;}}}" id="t846">
-          <mxCell parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=15;fontStyle=1;align=left;verticalAlign=middle;fontColor=#8fa1b3;whiteSpace=wrap;" vertex="1">
-            <mxGeometry height="30" width="116" x="1692" y="28" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="LOGIN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF _Username == \&quot;None\&quot; THEN ShowLogin(); ELSE Logout(); ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;discrete&quot;,&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;LOGOUT&quot;,&quot;offText&quot;:&quot;LOGIN&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#f8cecc&quot;,&quot;off&quot;:&quot;#d5e8d4&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#b85450&quot;,&quot;off&quot;:&quot;#82b366&quot;}}}" id="login847">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="94" x="1810" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="PRINT SCREEN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;ScreenToPDF();&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="printScreen847">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;fontColor=#1b1f24;arcSize=10;" vertex="1">
-            <mxGeometry height="42" width="120" x="872" y="14" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="r848" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
-          <mxGeometry height="68" width="1920" y="1012" as="geometry" />
-        </mxCell>
-        <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b849">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="20" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b850">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="230" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b851">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="440" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b852">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="650" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b853">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="860" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1070" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b854">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1490" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b855">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1700" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="TRENDS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Trends&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navTrends">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
-            <mxGeometry height="56" width="200" x="1280" y="1018" as="geometry" />
-          </mxCell>
-        </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="Mli_Ci8sAvFrDL-JujrH" name="IO Sim">
+  <diagram id="a5f1vHomntWsKs3CQrMw" name="IO Sim">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4819,121 +3931,139 @@
         <mxCell id="al964" parent="1" style="html=1;noLabel=1;shape=hmiAlarmList;fontSize=12;hmiTitle=Active Alarms;hmiColumns=time,tag,description,condition,value,state;fontSize=13;" value="" vertex="1">
           <mxGeometry height="202" width="1900" x="10" y="806" as="geometry" />
         </mxCell>
-        <mxCell id="r965" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="orTEYaKm0jERod0DQWGS" name="Header">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#1f2d3a" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="hdr_r171" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
           <mxGeometry height="70" width="1920" as="geometry" />
         </mxCell>
-        <mxCell id="t966" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;align=left;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="LIQUID WEIGH SYSTEM" vertex="1">
+        <mxCell id="hdr_t172" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;align=left;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="LIQUID WEIGH SYSTEM" vertex="1">
           <mxGeometry height="32" width="420" x="20" y="6" as="geometry" />
         </mxCell>
-        <mxCell id="t967" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="Mixer Liquids Weigh-Up  |  Banbury Deck" vertex="1">
+        <mxCell id="hdr_t173" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=0;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="Mixer Liquids Weigh-Up  |  Banbury Deck" vertex="1">
           <mxGeometry height="24" width="420" x="20" y="38" as="geometry" />
         </mxCell>
-        <mxCell id="t968" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=28;fontStyle=1;align=center;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" value="I/O  &amp;  SIMULATION" vertex="1">
-          <mxGeometry height="50" width="530" x="450" y="10" as="geometry" />
-        </mxCell>
-        <UserObject label="SIM PLC" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &gt;= 192&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r969">
+        <UserObject label="SCREEN TITLE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;ScreenTitle&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="hdr_t174">
+          <mxCell parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=28;fontStyle=1;align=center;verticalAlign=middle;fontColor=#ffffff;whiteSpace=wrap;" vertex="1">
+            <mxGeometry height="50" width="530" x="450" y="10" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="SIM PLC" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &gt;= 192&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="hdr_r175">
           <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2e9e44;strokeColor=#2e9e44;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
             <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="PLC&lt;br&gt;COMM FAIL" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &lt; 192&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;700&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r970">
+        <UserObject label="PLC&lt;br&gt;COMM FAIL" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Seq_Step.Quality &lt; 192&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;700&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="hdr_r176">
           <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=13;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
             <mxGeometry height="42" width="120" x="1000" y="14" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="SIM MODE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Sim_Enable&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="r971">
+        <UserObject label="SIM MODE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;Sim_Enable&quot;,&quot;sense&quot;:&quot;visible&quot;}}}" id="hdr_r177">
           <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0a500;strokeColor=#f0a500;fontSize=14;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
             <mxGeometry height="42" width="96" x="1128" y="14" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="E-STOP" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;DI_ES_001_EStopped&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r972">
+        <UserObject label="E-STOP" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;visibility&quot;:{&quot;expr&quot;:&quot;DI_ES_001_EStopped&quot;,&quot;sense&quot;:&quot;visible&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;1&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="hdr_r178">
           <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d32f2f;strokeColor=#d32f2f;fontSize=16;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
             <mxGeometry height="42" width="96" x="1232" y="14" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="IDLE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;StepText&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.analog&quot;:{&quot;expr&quot;:&quot;Seq_Step&quot;,&quot;bands&quot;:[{&quot;max&quot;:&quot;1&quot;,&quot;color&quot;:&quot;#7b8794&quot;},{&quot;max&quot;:&quot;95&quot;,&quot;color&quot;:&quot;#2e9e44&quot;},{&quot;max&quot;:&quot;105&quot;,&quot;color&quot;:&quot;#f0a500&quot;},{&quot;max&quot;:null,&quot;color&quot;:&quot;#d32f2f&quot;}]},&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="r973">
+        <UserObject label="IDLE" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;StepText&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.analog&quot;:{&quot;expr&quot;:&quot;Seq_Step&quot;,&quot;bands&quot;:[{&quot;max&quot;:&quot;1&quot;,&quot;color&quot;:&quot;#7b8794&quot;},{&quot;max&quot;:&quot;95&quot;,&quot;color&quot;:&quot;#2e9e44&quot;},{&quot;max&quot;:&quot;105&quot;,&quot;color&quot;:&quot;#f0a500&quot;},{&quot;max&quot;:null,&quot;color&quot;:&quot;#d32f2f&quot;}]},&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="hdr_r179">
           <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#7b8794;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
             <mxGeometry height="42" width="190" x="1336" y="14" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Alarms: 0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;_AlarmsActive&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;Alarms: &quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AlarmsActive &gt; 0&quot;,&quot;on&quot;:&quot;#d32f2f&quot;,&quot;off&quot;:&quot;#46586a&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;_AlarmsUnacked &gt; 0&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="r974">
+        <UserObject label="Alarms: 0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;_AlarmsActive&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;Alarms: &quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_AlarmsActive &gt; 0&quot;,&quot;on&quot;:&quot;#d32f2f&quot;,&quot;off&quot;:&quot;#46586a&quot;},&quot;blink&quot;:{&quot;expr&quot;:&quot;_AlarmsUnacked &gt; 0&quot;,&quot;rateMs&quot;:&quot;500&quot;,&quot;attrs&quot;:[&quot;fill&quot;],&quot;fill&quot;:&quot;#7a1010&quot;,&quot;line&quot;:&quot;#FFFFFF&quot;,&quot;text&quot;:&quot;#000000&quot;,&quot;blank&quot;:false}}}" id="hdr_r180">
           <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#46586a;strokeColor=#46586a;fontSize=15;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=8;whiteSpace=wrap;" vertex="1">
             <mxGeometry height="42" width="140" x="1534" y="14" as="geometry" />
           </mxCell>
         </UserObject>
-        <mxCell id="r975" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2b3d4f;strokeColor=#4f6477;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
+        <mxCell id="hdr_r181" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2b3d4f;strokeColor=#4f6477;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=1;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
           <mxGeometry height="54" width="228" x="1682" y="8" as="geometry" />
         </mxCell>
-        <mxCell id="t976" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="USER" vertex="1">
+        <mxCell id="hdr_t182" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;align=left;verticalAlign=middle;fontColor=#aebccb;whiteSpace=wrap;" value="USER" vertex="1">
           <mxGeometry height="18" width="116" x="1692" y="11" as="geometry" />
         </mxCell>
-        <UserObject label="None" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;_Username&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#8fa1b3&quot;}}}" id="t977">
+        <UserObject label="None" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;_Username&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#8fa1b3&quot;}}}" id="hdr_t183">
           <mxCell parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=15;fontStyle=1;align=left;verticalAlign=middle;fontColor=#8fa1b3;whiteSpace=wrap;" vertex="1">
             <mxGeometry height="30" width="116" x="1692" y="28" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="LOGIN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF _Username == \&quot;None\&quot; THEN ShowLogin(); ELSE Logout(); ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;discrete&quot;,&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;LOGOUT&quot;,&quot;offText&quot;:&quot;LOGIN&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#f8cecc&quot;,&quot;off&quot;:&quot;#d5e8d4&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#b85450&quot;,&quot;off&quot;:&quot;#82b366&quot;}}}" id="login978">
+        <UserObject label="LOGIN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;IF _Username == \&quot;None\&quot; THEN ShowLogin(); ELSE Logout(); ENDIF;&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;},&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;discrete&quot;,&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;LOGOUT&quot;,&quot;offText&quot;:&quot;LOGIN&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#f8cecc&quot;,&quot;off&quot;:&quot;#d5e8d4&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;_Username &lt;&gt; \&quot;None\&quot;&quot;,&quot;on&quot;:&quot;#b85450&quot;,&quot;off&quot;:&quot;#82b366&quot;}}}" id="hdr_login184">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;" vertex="1">
             <mxGeometry height="42" width="94" x="1810" y="14" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="PRINT SCREEN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;ScreenToPDF();&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="printScreen978">
+        <UserObject label="PRINT SCREEN" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;ScreenToPDF();&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="hdr_printScreen184">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;fontColor=#1b1f24;arcSize=10;" vertex="1">
             <mxGeometry height="42" width="120" x="872" y="14" as="geometry" />
           </mxCell>
         </UserObject>
-        <mxCell id="r979" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="AMyBgUPSK6vpMmXHdMa8" name="Footer">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#1f2d3a" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ftr_r185" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2d3a;strokeColor=#1f2d3a;fontSize=14;fontStyle=0;fontColor=#1b1f24;rounded=0;arcSize=8;whiteSpace=wrap;" value="" vertex="1">
           <mxGeometry height="68" width="1920" y="1012" as="geometry" />
         </mxCell>
-        <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b980">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+        <UserObject label="PROCESS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Process&quot;,&quot;enableExpr&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 1&quot;,&quot;on&quot;:&quot;#1e6fd9&quot;,&quot;off&quot;:&quot;#dfe4ea&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 1&quot;,&quot;on&quot;:&quot;#0d3f86&quot;,&quot;off&quot;:&quot;#7b8794&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 1&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#1b1f24&quot;}}}" id="ftr_b186">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
             <mxGeometry height="56" width="200" x="20" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b981">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+        <UserObject label="BATCH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch&quot;,&quot;enableExpr&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 2&quot;,&quot;on&quot;:&quot;#1e6fd9&quot;,&quot;off&quot;:&quot;#dfe4ea&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 2&quot;,&quot;on&quot;:&quot;#0d3f86&quot;,&quot;off&quot;:&quot;#7b8794&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 2&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#1b1f24&quot;}}}" id="ftr_b187">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
             <mxGeometry height="56" width="200" x="230" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b982">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+        <UserObject label="SUPPLY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Supply&quot;,&quot;enableExpr&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 3&quot;,&quot;on&quot;:&quot;#1e6fd9&quot;,&quot;off&quot;:&quot;#dfe4ea&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 3&quot;,&quot;on&quot;:&quot;#0d3f86&quot;,&quot;off&quot;:&quot;#7b8794&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 3&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#1b1f24&quot;}}}" id="ftr_b188">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
             <mxGeometry height="56" width="200" x="440" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b983">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+        <UserObject label="DEVICES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Devices&quot;,&quot;enableExpr&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 4&quot;,&quot;on&quot;:&quot;#1e6fd9&quot;,&quot;off&quot;:&quot;#dfe4ea&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 4&quot;,&quot;on&quot;:&quot;#0d3f86&quot;,&quot;off&quot;:&quot;#7b8794&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 4&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#1b1f24&quot;}}}" id="ftr_b189">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
             <mxGeometry height="56" width="200" x="650" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b984">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+        <UserObject label="SETPOINTS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Setpoints&quot;,&quot;enableExpr&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 5&quot;,&quot;on&quot;:&quot;#1e6fd9&quot;,&quot;off&quot;:&quot;#dfe4ea&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 5&quot;,&quot;on&quot;:&quot;#0d3f86&quot;,&quot;off&quot;:&quot;#7b8794&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 5&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#1b1f24&quot;}}}" id="ftr_b190">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
             <mxGeometry height="56" width="200" x="860" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navRecipes">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+        <UserObject label="RECIPES" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Recipes&quot;,&quot;enableExpr&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 6&quot;,&quot;on&quot;:&quot;#1e6fd9&quot;,&quot;off&quot;:&quot;#dfe4ea&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 6&quot;,&quot;on&quot;:&quot;#0d3f86&quot;,&quot;off&quot;:&quot;#7b8794&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 6&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#1b1f24&quot;}}}" id="ftr_navRecipes">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
             <mxGeometry height="56" width="200" x="1070" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b985">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+        <UserObject label="ALARM HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Alarm History&quot;,&quot;enableExpr&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 8&quot;,&quot;on&quot;:&quot;#1e6fd9&quot;,&quot;off&quot;:&quot;#dfe4ea&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 8&quot;,&quot;on&quot;:&quot;#0d3f86&quot;,&quot;off&quot;:&quot;#7b8794&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 8&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#1b1f24&quot;}}}" id="ftr_b191">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
             <mxGeometry height="56" width="200" x="1490" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="b986">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#1e6fd9;strokeColor=#0d3f86;fontSize=17;fontStyle=1;fontColor=#ffffff;rounded=1;arcSize=10;shadow=0;" vertex="1">
+        <UserObject label="I/O &amp; SIM" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;IO Sim&quot;,&quot;enableExpr&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 9&quot;,&quot;on&quot;:&quot;#1e6fd9&quot;,&quot;off&quot;:&quot;#dfe4ea&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 9&quot;,&quot;on&quot;:&quot;#0d3f86&quot;,&quot;off&quot;:&quot;#7b8794&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 9&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#1b1f24&quot;}}}" id="ftr_b192">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
             <mxGeometry height="56" width="200" x="1700" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="TRENDS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Trends&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="navTrends">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
+        <UserObject label="TRENDS" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Trends&quot;,&quot;enableExpr&quot;:&quot;&quot;},&quot;fillColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 7&quot;,&quot;on&quot;:&quot;#1e6fd9&quot;,&quot;off&quot;:&quot;#dfe4ea&quot;},&quot;lineColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 7&quot;,&quot;on&quot;:&quot;#0d3f86&quot;,&quot;off&quot;:&quot;#7b8794&quot;},&quot;textColor.discrete&quot;:{&quot;expr&quot;:&quot;ScreenNo == 7&quot;,&quot;on&quot;:&quot;#ffffff&quot;,&quot;off&quot;:&quot;#1b1f24&quot;}}}" id="ftr_navTrends">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontStyle=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=17;fontStyle=1;fontColor=#1b1f24;rounded=1;arcSize=10;shadow=0;" vertex="1">
             <mxGeometry height="56" width="200" x="1280" y="1018" as="geometry" />
           </mxCell>
         </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="3xuyGS31hufczALVhbex" name="Device Faceplate">
+  <diagram id="OT73N81Z3uddc_nxAD_h" name="Device Faceplate">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -5113,7 +4243,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="QINTZdFQHz-AWn36Gepy" name="Confirm Abort">
+  <diagram id="q3wdW7gHwS_gdq6pfrIm" name="Confirm Abort">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -5137,7 +4267,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="UdGQxRVSMv6WRYSlchgr" name="Confirm Empty Hopper">
+  <diagram id="EamLlZMG1l1mYTc-YcEj" name="Confirm Empty Hopper">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -5161,7 +4291,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="1ViHyyaKcaMpwq9gZzQz" name="Confirm Load Defaults">
+  <diagram id="5KyWZhv7LGCwHCAUUcfO" name="Confirm Load Defaults">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -5185,7 +4315,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="-faKnwSKgcDIqo_w197S" name="Confirm Reset Counter">
+  <diagram id="vmSUTA36NBGLHOysrlV5" name="Confirm Reset Counter">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -5732,6 +4862,8 @@
       <tag name="FP_Running" type="IndirectDiscrete" comment="Faceplate: pump run feedback" />
       <tag name="FP_HandRun" type="IndirectDiscrete" comment="Faceplate: pump H-O-A in Hand" />
       <tag name="AbortConfirmed" type="MemoryDiscrete" comment="Confirm Abort popup: YES pressed" initial="0" onMsg="Yes" offMsg="No" />
+      <tag name="ScreenTitle" type="MemoryMessage" comment="Title of the screen in the middle window, shown in the header" initial="PROCESS OVERVIEW" />
+      <tag name="ScreenNo" type="MemoryInteger" comment="Number of the screen in the middle window: the footer highlights its button" initial="1" minEU="0" maxEU="100" />
       <tag name="Sim_Clock" type="MemoryInteger" comment="Simulation: pass counter, stamped with the time of each pass" initial="0" minEU="0" maxEU="100" />
       <tag name="Sim_LastMs" type="MemoryReal" comment="Simulation: time of the previous pass (ms)" initial="0" minEU="0" maxEU="100" />
       <tag name="Sim_BlowThru" type="MemoryReal" comment="Simulation: hopper pressure while air blows through (psig)" initial="2" minEU="0" maxEU="100" />
@@ -5854,7 +4986,9 @@
       <tag name="Alm_OS3" type="MemoryDiscrete" comment="Alarm one-shot storage" initial="0" onMsg="On" offMsg="Off" />
     </tags>
     <settings width="1920" height="1080">
-      <startup page="I7XDETwOP-q5BCYYfAIl" />
+      <startup page="qlUR3N3yXMEUdOhnsazI" />
+      <startup page="orTEYaKm0jERod0DQWGS" />
+      <startup page="AMyBgUPSK6vpMmXHdMa8" />
       <runtime windowMode="fullscreen" exit="shortcut" />
       <publish productName="LiquidWeighHMISim" version="1.0.2" publisher="" icon="" scope="machine" desktop="true" autostart="false" compression="small" output="" />
       <appScripts everyMs="100">
@@ -8364,17 +7498,35 @@ IF PB_AllManual THEN PB_AllManual = 0; ENDIF;
       </recipeBook>
     </recipeBooks>
     <windows>
-      <window page="-faKnwSKgcDIqo_w197S" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
-      <window page="1ViHyyaKcaMpwq9gZzQz" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
-      <window page="3HTuTo4DbCs4A8dNAMXl" everyMs="250">
+      <window page="5KyWZhv7LGCwHCAUUcfO" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="5V-Ryhhaj6NYmxk8UpvZ" y="70" height="942">
         <onShow>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
+          ScreenTitle = "RECIPES"; ScreenNo = 6;
         </onShow>
-        <whileShowing>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </whileShowing>
       </window>
-      <window page="3xuyGS31hufczALVhbex" titleBar="1" type="popup" x="730" y="150" width="460" height="560" everyMs="250">
+      <window page="6LnJi0izenHQPIKUKuy0" y="70" height="942">
+        <onShow>
+          ScreenTitle = "TRENDS"; ScreenNo = 7;
+        </onShow>
+      </window>
+      <window page="AMyBgUPSK6vpMmXHdMa8" type="overlay" y="1012" height="68" />
+      <window page="Btat6ag48juQCq8o_JsI" y="70" height="942">
+        <onShow>
+          ScreenTitle = "SETPOINTS"; ScreenNo = 5;
+        </onShow>
+      </window>
+      <window page="CrYunZHTzyeUeelLEgEw" y="70" height="942">
+        <onShow>
+          ScreenTitle = "BATCH CONTROL"; ScreenNo = 2;
+        </onShow>
+      </window>
+      <window page="EamLlZMG1l1mYTc-YcEj" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="K2AaK8K8WjC8HGS3PnHE" y="70" height="942">
+        <onShow>
+          ScreenTitle = "PLASTICIZER SUPPLY"; ScreenNo = 3;
+        </onShow>
+      </window>
+      <window page="OT73N81Z3uddc_nxAD_h" titleBar="1" type="popup" x="730" y="150" width="460" height="560" everyMs="250">
         <onShow>
           { Points the faceplate's indirect tags at the tags of the device
   the opening button chose: FP_Prefix + "_Status" is SV100_Status, ... }
@@ -8432,7 +7584,17 @@ ELSE
 ENDIF;
         </whileShowing>
       </window>
-      <window page="DCz4gQpQl0u3NtpdfKJA" everyMs="250">
+      <window page="_nf1GJl_e09oomGGTnQB" y="70" height="942">
+        <onShow>
+          ScreenTitle = "ALARM HISTORY"; ScreenNo = 8;
+        </onShow>
+      </window>
+      <window page="a5f1vHomntWsKs3CQrMw" y="70" height="942">
+        <onShow>
+          ScreenTitle = "I/O  &amp;  SIMULATION"; ScreenNo = 9;
+        </onShow>
+      </window>
+      <window page="orTEYaKm0jERod0DQWGS" type="overlay" height="70" everyMs="250">
         <onShow>
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </onShow>
@@ -8440,64 +7602,18 @@ ENDIF;
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </whileShowing>
       </window>
-      <window page="I7XDETwOP-q5BCYYfAIl" everyMs="250">
+      <window page="q3wdW7gHwS_gdq6pfrIm" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="qlUR3N3yXMEUdOhnsazI" y="70" height="942">
         <onShow>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
+          ScreenTitle = "PROCESS OVERVIEW"; ScreenNo = 1;
         </onShow>
-        <whileShowing>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </whileShowing>
       </window>
-      <window page="IDBQApBZuLkjccKQJPPt" everyMs="250">
+      <window page="tNwH4MBg47_yQ9ylQVpd" y="70" height="942">
         <onShow>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
+          ScreenTitle = "DEVICES"; ScreenNo = 4;
         </onShow>
-        <whileShowing>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </whileShowing>
       </window>
-      <window page="Mli_Ci8sAvFrDL-JujrH" everyMs="250">
-        <onShow>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </onShow>
-        <whileShowing>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </whileShowing>
-      </window>
-      <window page="QINTZdFQHz-AWn36Gepy" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
-      <window page="UdGQxRVSMv6WRYSlchgr" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
-      <window page="aPB73QhNHGET8BOS8XSM" everyMs="250">
-        <onShow>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </onShow>
-        <whileShowing>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </whileShowing>
-      </window>
-      <window page="dmJxEigS4c7USjSNAKqS" everyMs="250">
-        <onShow>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </onShow>
-        <whileShowing>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </whileShowing>
-      </window>
-      <window page="gkwaulaqN1HxgKRHd8QW" everyMs="250">
-        <onShow>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </onShow>
-        <whileShowing>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </whileShowing>
-      </window>
-      <window page="hvtewPMjdmh9m9zuhe1K" everyMs="250">
-        <onShow>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </onShow>
-        <whileShowing>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </whileShowing>
-      </window>
+      <window page="vmSUTA36NBGLHOysrlV5" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
     </windows>
   </hmiProject>
 </mxfile>
