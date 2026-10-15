@@ -76,6 +76,20 @@ describe('hmi command line', {skip}, () =>
 		assert.match(r.out, /PROBLEM Main \| cell tank "Tank" \| .*unknown tag "Levl"/);
 	});
 
+	// A range bound is an expression like any other: it used to be checked
+	// nowhere, so an unknown tag in it reached the target PC unreported.
+	test('check reports an unknown tag in a range bound', () =>
+	{
+		const broken = JSON.parse(JSON.stringify(spec));
+		broken.pages[0].objects[0].links['percentFill.vertical'].pctMax = 'Nope';
+		const bf = path.join(dir, 'broken-bound.json');
+		fs.writeFileSync(bf, JSON.stringify(broken));
+		const r = studio('--hmi-build', bf, '-o', path.join(dir, 'broken-bound.ahmi'));
+
+		assert.equal(r.status, 2, r.out + r.err);
+		assert.match(r.out, /unknown tag "Nope"/);
+	});
+
 	test('spec errors write nothing', () =>
 	{
 		const bad = JSON.parse(JSON.stringify(spec));
