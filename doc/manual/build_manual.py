@@ -1011,6 +1011,9 @@ Return Raw * 100 / Span;
         ['A function may call other QuickFunctions, but not itself',
          'Directly or through a chain. Validate reports the whole cycle'],
     ])
+    P('Three buttons under the body help while it is being written: **Validate** checks the script on demand '
+      'and reports what it finds, **New Tag** makes a tag the script needs without leaving it, and **Browse '
+      'Tags** lists the tags with a filter and copies the one picked to the clipboard, to paste into the body.')
     bullets(doc, [
         '**Names are strict:** a function or an argument cannot take the name of a tag, a system tag, a '
         'built-in function or a keyword, for the same reason a local variable cannot -- inside the body a name '

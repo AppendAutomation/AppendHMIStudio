@@ -69,6 +69,22 @@ any of them changes.
 project with a tag called `Return` keeps working: `Return = 1;` still assigns
 that tag, and `x = Return + 1;` still reads it.
 
+### While you are writing one
+
+Three buttons sit under the body:
+
+- **Validate** checks the script there and then, and writes what it finds —
+  or `No problems found.` — under the buttons. The field also marks itself as
+  you type, as every script field does; the button is for asking, and for
+  clearing the message once you have dealt with it.
+- **New Tag...** opens the single-tag editor on a name nothing has yet, so a
+  tag the script needs can be made without leaving it. Saving one re-checks the
+  script, so an `unknown tag` complaint clears as soon as the tag exists.
+- **Browse Tags...** lists the project's tags with a filter — on the name or
+  the comment — and copies the one you pick to the clipboard, ready to paste
+  into the body. Double-clicking a row picks it. If the clipboard cannot be
+  reached, the message names the tag anyway.
+
 ## Calling one
 
 From a script:
