@@ -22,6 +22,10 @@ import * as retentiveStore from './retentive/RetentiveStore.js';
 import * as userStore from './security/UserStore.js';
 import * as recipeStore from './recipes/RecipeStore.js';
 import * as screenPdf from './print/ScreenPdf.js';
+import {SqlSession, validateSqlArgs} from './sql/SqlSession.js';
+import * as dataSourceStore from './sql/DataSourceStore.js';
+import * as sqlClient from './sql/SqlClient.js';
+import * as sqlSecret from './sql/Secret.js';
 import {PRODUCT_NAME, ISSUES_URL} from './brand.js';
 import {findRuntimeDir, loadRuntimeConfig, runtimeUserDataDir, runtimeWindowOptions, mayExit,
 		readRuntimeProject, publicRuntimeInfo} from './runtime/RuntimeMode.js';
@@ -2741,6 +2745,92 @@ async function handleCommsRequest(contents, args)
 	}
 }
 
+// One set of database connections per window, closed with the window so the
+// database releases them (sql/SqlSession.js).
+const sqlSessions = new Map();
+
+function sqlEnv()
+{
+	let documents = null;
+
+	try
+	{
+		// A misconfigured Documents folder throws on Windows; the application
+		// data folder is then the only root a database file may use
+		documents = app.getPath('documents');
+	}
+	catch (e) {}
+
+	return {userData: app.getPath('userData'), documents: documents};
+}
+
+function sqlSessionFor(contents)
+{
+	let session = sqlSessions.get(contents.id);
+
+	if (session == null)
+	{
+		session = new SqlSession(sqlEnv());
+		sqlSessions.set(contents.id, session);
+
+		const drop = () =>
+		{
+			sqlSessions.delete(contents.id);
+			session.closeAll();
+		};
+
+		contents.once('destroyed', drop);
+		contents.once('render-process-gone', drop);
+	}
+
+	return session;
+}
+
+// SQL database access for the SQL* script functions (sql/SqlClient.js). The
+// window names a data source and sends statements; it never names a file path
+// and never gets a stored password back.
+async function handleSqlRequest(contents, args)
+{
+	validateSqlArgs(args.action, args);
+
+	const base = app.getPath('userData');
+
+	switch (args.action)
+	{
+		case 'hmiSql.probe':
+			return sqlClient.probe(args.dataSource, sqlEnv());
+		case 'hmiSql.overrides':
+			return dataSourceStore.summary(base, args.store);
+		case 'hmiSql.setOverride':
+			return dataSourceStore.setOverride(base, args.store, args.name, args.override);
+		case 'hmiSql.clearOverrides':
+			if (hmiRuntime != null) throw new Error('not available in the HMI runtime');
+			await dataSourceStore.clear(base, args.store);
+
+			return {ok: true};
+		case 'hmiSql.wrapSecret':
+			return {password: sqlSecret.wrap(args.password)};
+	}
+
+	const session = sqlSessionFor(contents);
+
+	switch (args.action)
+	{
+		case 'hmiSql.connect':
+			return session.connect(args);
+		case 'hmiSql.exec':
+			return session.exec(args);
+		case 'hmiSql.close':
+			return session.close(args);
+		case 'hmiSql.begin':
+			return session.transaction('begin', args);
+		case 'hmiSql.commit':
+			return session.transaction('commit', args);
+		case 'hmiSql.rollback':
+			return session.transaction('rollback', args);
+	}
+}
+
 app.on('will-quit', function ()
 {
 	// The server also exits by itself when its stdin closes with this
@@ -2749,6 +2839,13 @@ app.on('will-quit', function ()
 	{
 		commsSupervisor.stop();
 	}
+
+	for (const session of sqlSessions.values())
+	{
+		session.closeAll();
+	}
+
+	sqlSessions.clear();
 });
 
 // Quit when all windows are closed.
@@ -4977,6 +5074,10 @@ ipcMain.on("rendererReq", async (event, args) =>
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiScreenPdf.'))
 			{
 				ret = await handleScreenPdfRequest(event.sender, args);
+			}
+			else if (typeof args.action === 'string' && args.action.startsWith('hmiSql.'))
+			{
+				ret = await handleSqlRequest(event.sender, args);
 			}
 			else if (typeof args.action === 'string' && args.action.startsWith('hmiCli.'))
 			{

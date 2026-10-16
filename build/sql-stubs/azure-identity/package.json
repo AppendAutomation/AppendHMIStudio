@@ -1,0 +1,7 @@
+{
+  "name": "@azure/identity",
+  "version": "4.0.0-stub",
+  "description": "Stub: Azure AD authentication is not offered by this application",
+  "main": "index.js",
+  "license": "Apache-2.0"
+}

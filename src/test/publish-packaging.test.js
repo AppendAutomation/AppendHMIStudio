@@ -34,6 +34,68 @@ describe('publish packaging', () =>
 		}
 	});
 
+	test('the SQL Server driver ships without its Azure AD half', () =>
+	{
+		for (const name of CONFIGS)
+		{
+			const files = readConfig(name).files;
+			assert.ok(files.includes(
+				'!node_modules/@azure/{identity,keyvault-keys,msal-browser,msal-node,msal-common}{,/**}'),
+				name + ' packs the Azure AD packages, which are about 43 MB of code that cannot run here');
+			assert.ok(files.includes('!node_modules/@types{,/**}'), name);
+
+			// The driver requires both eagerly, so they cannot simply be left
+			// out: stubs take their place (build/sql-stubs/README.md)
+			const mapped = Object.fromEntries(files.filter((f) => typeof f === 'object')
+				.map((f) => [f.to, f.from]));
+			assert.equal(mapped['node_modules/@azure/identity'], 'build/sql-stubs/azure-identity', name);
+			assert.equal(mapped['node_modules/@azure/keyvault-keys'],
+				'build/sql-stubs/azure-keyvault-keys', name);
+		}
+	});
+
+	test('every glob comes before the first file set, or the ones after it stop applying', () =>
+	{
+		// electron-builder reads a pattern that follows a {from, to} entry as
+		// part of that entry's file set. With the exclusions after the stub
+		// mappings, dist/ and the previous unpacked build went into app.asar
+		// and it came out at 10 GB.
+		for (const name of CONFIGS)
+		{
+			const files = readConfig(name).files;
+			const firstObject = files.findIndex((f) => typeof f === 'object');
+
+			if (firstObject >= 0)
+			{
+				assert.ok(files.slice(firstObject).every((f) => typeof f === 'object'),
+					name + ' has a glob after a file set entry, so the exclusions after it are ignored');
+			}
+		}
+	});
+
+	test('the stub packages are present and export what the driver looks up', () =>
+	{
+		for (const stub of ['azure-identity', 'azure-keyvault-keys'])
+		{
+			const dir = path.join(root, 'build', 'sql-stubs', stub);
+			assert.ok(fs.existsSync(path.join(dir, 'package.json')), stub);
+			assert.ok(fs.existsSync(path.join(dir, 'index.js')), stub);
+		}
+
+		const identity = fs.readFileSync(path.join(root, 'build', 'sql-stubs',
+			'azure-identity', 'index.js'), 'utf8');
+
+		for (const name of ['ClientSecretCredential', 'DefaultAzureCredential',
+			'ManagedIdentityCredential', 'UsernamePasswordCredential'])
+		{
+			assert.ok(identity.includes(name), 'the identity stub is missing ' + name);
+		}
+
+		const vault = fs.readFileSync(path.join(root, 'build', 'sql-stubs',
+			'azure-keyvault-keys', 'index.js'), 'utf8');
+		assert.ok(vault.includes('KeyClient') && vault.includes('CryptographyClient'));
+	});
+
 	test('the Windows editor ships NSIS and uses its own install as the template', () =>
 	{
 		const res = resources(readConfig('electron-builder-win.json').extraResources);

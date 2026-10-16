@@ -14,6 +14,8 @@
     "!drawio/src/main/webapp/mxgraph/src{,/**}",
     "!drawio/src/main/webapp/mxgraph/mxClient.js",
     "!node_modules/@cantoo/pdf-lib/{cjs,dist,src,ts3.4}{,/**}",
+    "!node_modules/@azure/{identity,keyvault-keys,msal-browser,msal-node,msal-common}{,/**}",
+    "!node_modules/@types{,/**}",
     "!**/*.map",
     "!comms{,/**}",
     "!scripts{,/**}",
@@ -22,7 +24,15 @@
     "!src/test{,/**}",
     "!doc{,/**}",
     "!examples{,/**}",
-    "!.github{,/**}"
+    "!.github{,/**}",
+    {
+      "from": "build/sql-stubs/azure-identity",
+      "to": "node_modules/@azure/identity"
+    },
+    {
+      "from": "build/sql-stubs/azure-keyvault-keys",
+      "to": "node_modules/@azure/keyvault-keys"
+    }
   ],
   "extraResources": [
     {
