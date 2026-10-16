@@ -35,6 +35,21 @@ const spec = {
 	quickFunctions: [
 		{name: 'Halved', args: [{name: 'Raw', type: 'Analog'}], body: 'Return Raw / 2;'}
 	],
+	dataSources: [
+		{name: 'Plant', provider: 'mssql', host: 'db.example', port: 1433, database: 'Batches',
+			user: 'hmi', password: 'secret', options: {legacyTls: true}},
+		{name: 'Local', provider: 'sqlite', file: 'batches.db', folder: 'documents'}
+	],
+	bindLists: [
+		{name: 'BatchRow', items: [{tag: 'Level', column: 'Level'},
+			{tag: 'Level', field: 'InAlarm', column: 'InAlarm'}, 'Pump']}
+	],
+	tableTemplates: [
+		{name: 'BatchLog', columns: [{name: 'Level', type: 'number'},
+			{name: 'Stamp', type: 'datetime'},
+			{name: 'Note', type: 'text', length: 80, allowNull: false, index: 'nonunique'}]}
+	],
+	queries: [{name: 'Recent', sql: 'SELECT Level, Stamp\nFROM BatchLog\nORDER BY Stamp DESC'}],
 	pages: [
 		{name: 'Main', background: '#ffffff', objects: [
 			{id: 'tank', type: 'cylinder', x: 40, y: 40, width: 100, height: 160, label: 'Tank',
@@ -158,6 +173,85 @@ describe('hmi command line', {skip}, () =>
 		assert.equal(studio('--hmi-build', d1, '-o', again).status, 0);
 		assert.equal(studio('--hmi-dump', again, '-o', d2).status, 0);
 		assert.deepEqual(JSON.parse(fs.readFileSync(d2, 'utf8')), JSON.parse(fs.readFileSync(d1, 'utf8')));
+	});
+
+	test('a data source password is wrapped, never written as it was given', () =>
+	{
+		const xml = fs.readFileSync(project, 'utf8');
+
+		assert.ok(!xml.includes('"secret"') && !xml.includes('password="secret"'),
+			'the spec password is in the project as it was typed');
+		assert.match(xml, /password="hmi1:/);
+
+		// A dump gives the wrapped form, so building from it does not wrap
+		// twice and the round trip stays lossless
+		const d = path.join(dir, 'pw.json');
+		assert.equal(studio('--hmi-dump', project, '-o', d).status, 0);
+		const dumped = JSON.parse(fs.readFileSync(d, 'utf8'));
+		assert.match(dumped.dataSources[0].password, /^hmi1:/);
+		assert.equal(dumped.dataSources[1].password, undefined, 'a SQLite source has no password');
+	});
+
+	test('the bind list, template and query sections survive the file', () =>
+	{
+		const d = path.join(dir, 'sql.json');
+		assert.equal(studio('--hmi-dump', project, '-o', d).status, 0);
+		const dumped = JSON.parse(fs.readFileSync(d, 'utf8'));
+
+		assert.deepEqual(dumped.bindLists, [{name: 'BatchRow', items: [
+			{tag: 'Level', column: 'Level'},
+			{tag: 'Level', column: 'InAlarm', field: 'InAlarm'},
+			{tag: 'Pump', column: 'Pump'}]}], 'a bare item is the tag into a column of its name');
+		assert.equal(dumped.tableTemplates[0].columns[2].length, '80');
+		assert.equal(dumped.tableTemplates[0].columns[2].allowNull, false);
+		assert.equal(dumped.queries[0].sql, 'SELECT Level, Stamp\nFROM BatchLog\nORDER BY Stamp DESC',
+			'the statement keeps its own line breaks');
+		assert.equal(dumped.dataSources[0].options.legacyTls, true);
+		assert.equal(dumped.dataSources[1].folder, 'documents',
+			'a project names a folder, never a machine-specific path');
+	});
+
+	test('the SQL sections are checked', () =>
+	{
+		const cases = [
+			[{dataSources: [{name: 'A', provider: 'oracle', host: 'h'}]},
+				/not a kind of database/],
+			[{dataSources: [{name: 'A', provider: 'sqlite', file: '/etc/passwd'}]},
+				/cannot be an absolute path/],
+			[{dataSources: [{name: 'A', provider: 'sqlite', file: '../up.db'}]},
+				/cannot be an absolute path or contain/],
+			[{dataSources: [{name: 'A', provider: 'mssql'}]}, /needs a server/],
+			[{dataSources: [{name: 'A', provider: 'sqlite', file: 'a.db'},
+				{name: 'a', provider: 'sqlite', file: 'b.db'}]}, /two of these named/],
+			[{dataSources: [{name: 'A', provider: 'sqlite', file: 'a.db', typo: 1}]},
+				/unknown field "typo"/],
+			[{bindLists: [{name: 'L', items: []}]}, /has no tags in it/],
+			[{bindLists: [{name: 'L', items: [{tag: 'Level', column: ''}]}]},
+				/needs a column name/],
+			[{bindLists: [{name: 'L', items: [{tag: 'Level', column: 'X'},
+				{tag: 'Pump', column: 'x'}]}]}, /uses the column "x" twice/],
+			[{tableTemplates: [{name: 'T', columns: []}]}, /has no columns/],
+			[{tableTemplates: [{name: 'T', columns: [{name: 'A', type: 'text', length: 'wide'}]}]},
+				/must be a number of characters/],
+			[{queries: [{name: 'Q', sql: '   '}]}, /has no statement/]
+		];
+
+		for (const [patch, expected] of cases)
+		{
+			const bad = JSON.parse(JSON.stringify(spec));
+			delete bad.dataSources;
+			delete bad.bindLists;
+			delete bad.tableTemplates;
+			delete bad.queries;
+			Object.assign(bad, patch);
+
+			const bf = path.join(dir, 'sqlbad.json');
+			fs.writeFileSync(bf, JSON.stringify(bad));
+			const r = studio('--hmi-build', bf, '-o', path.join(dir, 'sqlbad.ahmi'));
+
+			assert.equal(r.status, 1, JSON.stringify(patch) + ' built anyway: ' + r.out + r.err);
+			assert.match(r.err, expected);
+		}
 	});
 
 	test('a missing file says so', () =>

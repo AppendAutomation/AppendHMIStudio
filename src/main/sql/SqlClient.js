@@ -94,6 +94,7 @@ export function checkSpec(spec)
 	if (provider === 'sqlite')
 	{
 		out.file = text(spec.file, 'file', 1024);
+		out.folder = (String(spec.folder || '').toLowerCase() === 'documents') ? 'documents' : 'appdata';
 
 		if (out.file === '')
 		{
@@ -138,28 +139,33 @@ export function checkSpec(spec)
  * Where a SQLite file may live: the application data folder, or the user's
  * Documents. A project names a file, not a path the renderer chose, so there
  * is no OS dialog to bless it -- these two roots take the place of that.
- * A relative name belongs to <userData>/databases.
+ *
+ * The project holds a name and which of the two folders it belongs to. An
+ * absolute path would name one machine's account, and a published application
+ * runs on another PC, often as another user; one is still accepted from a
+ * hand-written command-line spec, as long as it is inside one of the roots.
  */
-export function resolveFile(file, env)
+export function resolveFile(file, env, folder)
 {
-	const roots = [];
-
-	if (env != null && env.userData)
-	{
-		roots.push(path.resolve(env.userData, 'databases'));
-	}
-
-	if (env != null && env.documents)
-	{
-		roots.push(path.resolve(env.documents));
-	}
+	const appData = (env != null && env.userData) ? path.resolve(env.userData, 'databases') : null;
+	const documents = (env != null && env.documents) ? path.resolve(env.documents) : null;
+	const roots = [appData, documents].filter((r) => r != null);
 
 	if (roots.length === 0)
 	{
 		throw new SqlError(codes.FILE_NOT_ALLOWED, codes.MESSAGES[codes.FILE_NOT_ALLOWED]);
 	}
 
-	const full = path.isAbsolute(file) ? path.normalize(file) : path.resolve(roots[0], file);
+	const chosen = (folder === 'documents') ? documents : appData;
+
+	if (!path.isAbsolute(file) && chosen == null)
+	{
+		throw new SqlError(codes.FILE_NOT_ALLOWED, (folder === 'documents') ?
+			'The Documents folder cannot be found on this computer.' :
+			codes.MESSAGES[codes.FILE_NOT_ALLOWED]);
+	}
+
+	const full = path.isAbsolute(file) ? path.normalize(file) : path.resolve(chosen, file);
 	const inside = roots.some((root) => full === root || full.startsWith(root + path.sep));
 
 	if (!inside || full.split(path.sep).indexOf('..') >= 0)
@@ -621,7 +627,7 @@ function mssqlStatement(conn, sql)
 
 async function sqliteOpen(spec, env)
 {
-	const file = resolveFile(spec.file, env);
+	const file = resolveFile(spec.file, env, spec.folder);
 
 	let DatabaseSync;
 

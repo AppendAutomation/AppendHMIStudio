@@ -114,6 +114,15 @@ describe('password wrapping', () =>
 
 describe('checkSpec', () =>
 {
+	test('a SQLite source carries a folder choice, defaulting to the app data folder', () =>
+	{
+		assert.equal(client.checkSpec({name: 'A', provider: 'sqlite', file: 'a.db'}).folder, 'appdata');
+		assert.equal(client.checkSpec({name: 'A', provider: 'sqlite', file: 'a.db',
+			folder: 'Documents'}).folder, 'documents');
+		assert.equal(client.checkSpec({name: 'A', provider: 'sqlite', file: 'a.db',
+			folder: 'nonsense'}).folder, 'appdata');
+	});
+
 	test('normalizes SQL Server defaults', () =>
 	{
 		const spec = client.checkSpec({name: 'Plant', provider: 'mssql', host: 'db', database: 'D'});
@@ -157,12 +166,33 @@ describe('resolveFile', () =>
 	test('a bare name belongs to the application data folder', () =>
 	{
 		assert.equal(client.resolveFile('batches.db', env), path.join('/var/app', 'databases', 'batches.db'));
+		assert.equal(client.resolveFile('batches.db', env, 'appdata'),
+			path.join('/var/app', 'databases', 'batches.db'));
 	});
 
-	test('Documents is allowed', () =>
+	test('the folder choice puts the same name in Documents', () =>
+	{
+		// A project carries a name and a folder, never a path: an absolute
+		// path names one machine's account, and a published application runs
+		// on another PC
+		assert.equal(client.resolveFile('batches.db', env, 'documents'),
+			path.join('/home/u/Documents', 'batches.db'));
+		assert.equal(client.resolveFile('sub/batches.db', env, 'documents'),
+			path.join('/home/u/Documents', 'sub', 'batches.db'));
+	});
+
+	test('with no Documents folder the choice is refused, not silently moved', () =>
+	{
+		assert.throws(() => client.resolveFile('x.db', {userData: '/var/app'}, 'documents'),
+			(e) => e.code === codes.FILE_NOT_ALLOWED && /Documents folder cannot be found/.test(e.message));
+	});
+
+	test('an absolute path inside either folder is still accepted', () =>
 	{
 		assert.equal(client.resolveFile('/home/u/Documents/plant.db', env), '/home/u/Documents/plant.db');
 		assert.equal(client.resolveFile('/home/u/Documents/sub/plant.db', env), '/home/u/Documents/sub/plant.db');
+		assert.equal(client.resolveFile('/var/app/databases/x.db', env, 'documents'),
+			'/var/app/databases/x.db');
 	});
 
 	test('anywhere else is refused', () =>

@@ -173,6 +173,107 @@ A function that writes a tag or calls an action function can be called from a
 script only. A body may not call `ShowRecipeSelect` or a waiting `ShowWindow`,
 and may not take part in recursion.
 
+### dataSources
+
+The databases the application can open, named by the `SQL*` script functions.
+
+```json
+"dataSources": [
+  {"name": "Plant", "provider": "mssql", "host": "10.0.0.5", "database": "Batches",
+   "user": "hmi", "password": "secret", "options": {"legacyTls": true}},
+  {"name": "Local", "provider": "sqlite", "file": "batches.db", "folder": "documents"}
+]
+```
+
+| Field | Meaning |
+|---|---|
+| `name` | What `SQLConnect` names. Up to 64 characters, no quotation marks |
+| `provider` | `mssql` (Microsoft SQL Server) or `sqlite` (a local file) |
+| `host`, `port`, `database`, `user` | SQL Server only. The port defaults to 1433 |
+| `password` | SQL Server only. Given in plain text, it is wrapped before the project is written, so the project never holds it as typed; a dump gives the wrapped form back. **Wrapping is obfuscation, not security** |
+| `file` | SQLite only: a file name, never a path. It may not be absolute or contain `..` |
+| `folder` | SQLite only: `appdata` (the default) or `documents`. A project names a folder rather than a path, because an absolute path names one machine's account and a published application runs on another PC |
+| `timeoutMs` | How long to wait for the database, 100 to 600000. Default 15000 |
+| `options` | SQL Server only: `encrypt` (default false), `trustServerCertificate` (default true), `legacyTls`, `instanceName` |
+
+Encryption is off by default, and `legacyTls` exists because a plant SQL Server
+is often old enough to offer only TLS versions a current computer refuses. If a
+connection fails with a protocol or handshake error, turn `legacyTls` on, or
+leave `encrypt` off.
+
+A target PC can hold its own credentials for a data source, which win over the
+project's, so a site can keep the password out of the project altogether.
+
+### bindLists
+
+A bind list pairs a tag with a database column. A select writes the columns
+into the tags; an insert or an update reads the tags into the columns.
+
+```json
+"bindLists": [
+  {"name": "BatchRow", "items": [
+    {"tag": "Batch_Name", "column": "BatchName"},
+    {"tag": "Tank_Level", "field": "InAlarm", "column": "LevelAlarm"},
+    "Batch_Operator"
+  ]}
+]
+```
+
+| Field | Meaning |
+|---|---|
+| `name` | What the functions that take a bind list name |
+| `items` | `{tag, column}`, in order. A plain string is a tag written to a column of the same name |
+| `field` | A tag dotfield, so a bind list can carry `InAlarm` or `Acked` |
+| `delim` | What to wrap the value in for databases that want a date delimited, for example `"''"` |
+
+Every item needs a tag and a column, and a column may appear only once in a
+list.
+
+### tableTemplates
+
+The shape of a table the application creates for itself with
+`SQLCreateTable`.
+
+```json
+"tableTemplates": [
+  {"name": "BatchLog", "columns": [
+    {"name": "BatchName", "type": "text", "length": 80, "allowNull": false, "index": "nonunique"},
+    {"name": "Target", "type": "number"},
+    {"name": "Stamp", "type": "datetime"}
+  ]}
+]
+```
+
+| Field | Meaning |
+|---|---|
+| `name` | What `SQLCreateTable` names |
+| `columns` | `{name, type}` and the fields below. A plain string is a text column |
+| `type` | `text`, `integer`, `number`, `decimal`, `boolean`, `date`, `time` or `datetime`. These are the studio's own types; the statement that creates the table maps them to whatever the data source wants |
+| `length` | Characters for `text`, total digits for `decimal` |
+| `scale` | `decimal` only: digits after the point, 0 to 38 |
+| `index` | `none` (default), `nonunique` or `unique` |
+| `allowNull` | False to refuse an empty value. Default true |
+
+A column name may appear only once in a template. Avoid naming a column after
+a SQL keyword — `DATE` and `TIME` are the two that usually bite.
+
+### queries
+
+SQL statements kept in the project by name, so nothing has to be deployed
+beside the installer. `SQLLoadStatement(ConnectionID, "Name")` loads one.
+
+```json
+"queries": [
+  {"name": "RecentBatches",
+   "sql": "SELECT BatchName, Target, Stamp\nFROM BatchLog\nWHERE Target > ?\nORDER BY Stamp DESC"}
+]
+```
+
+| Field | Meaning |
+|---|---|
+| `name` | What `SQLLoadStatement` names |
+| `sql` | The statement. Any length, line breaks and all. A `?` marks a parameter to be set before the statement runs |
+
 ### devices
 
 | Field | Meaning |
