@@ -32,10 +32,13 @@ const spec = {
 		{name: 'Level', type: 'MemoryReal', comment: 'Tank level', initial: 50, maxEU: 100, alarms: {high: 90}},
 		{name: 'Pump', type: 'MemoryDiscrete', comment: 'Pump', alarms: {state: 'on'}}
 	],
+	quickFunctions: [
+		{name: 'Halved', args: [{name: 'Raw', type: 'Analog'}], body: 'Return Raw / 2;'}
+	],
 	pages: [
 		{name: 'Main', background: '#ffffff', objects: [
 			{id: 'tank', type: 'cylinder', x: 40, y: 40, width: 100, height: 160, label: 'Tank',
-				links: {'percentFill.vertical': {expr: 'Level'}}},
+				links: {'percentFill.vertical': {expr: 'Halved(Level)'}}},
 			{id: 'go', type: 'button', x: 200, y: 40, width: 120, height: 40, label: 'Alarms',
 				links: {showWindow: {window: 'Alarms'}}},
 			{edge: true, source: 'tank', target: 'go'}
@@ -74,6 +77,36 @@ describe('hmi command line', {skip}, () =>
 
 		assert.equal(r.status, 2, r.out + r.err);
 		assert.match(r.out, /PROBLEM Main \| cell tank "Tank" \| .*unknown tag "Levl"/);
+	});
+
+	// A QuickFunction may not take the name of a built-in, whichever way the
+	// project was made.
+	test('build refuses a QuickFunction named after a built-in', () =>
+	{
+		const broken = JSON.parse(JSON.stringify(spec));
+		broken.quickFunctions.push({name: 'Abs', args: [], body: 'Return 1;'});
+		const bf = path.join(dir, 'broken-fn.json');
+		fs.writeFileSync(bf, JSON.stringify(broken));
+		const out = path.join(dir, 'broken-fn.ahmi');
+		const r = studio('--hmi-build', bf, '-o', out);
+
+		assert.equal(r.status, 1, r.out + r.err);
+		assert.match(r.out + r.err, /built-in function/);
+		assert.equal(fs.existsSync(out), false);
+	});
+
+	// One that writes a tag acts, so an animation link may not call it.
+	test('check refuses a writing QuickFunction in an animation link', () =>
+	{
+		const broken = JSON.parse(JSON.stringify(spec));
+		broken.quickFunctions.push({name: 'Starter', args: [], body: 'Pump = 1;\nReturn 1;'});
+		broken.pages[0].objects[0].links['percentFill.vertical'].expr = 'Starter()';
+		const bf = path.join(dir, 'impure.json');
+		fs.writeFileSync(bf, JSON.stringify(broken));
+		const r = studio('--hmi-build', bf, '-o', path.join(dir, 'impure.ahmi'));
+
+		assert.equal(r.status, 2, r.out + r.err);
+		assert.match(r.out, /only be used in a script/);
 	});
 
 	// A range bound is an expression like any other: it used to be checked

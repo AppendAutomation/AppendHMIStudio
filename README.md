@@ -34,6 +34,7 @@ It then built the HMI on the program's real tags. The application has 419 PLC ta
 | [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md) | Every command and exit code, every field of the JSON spec, every object and animation link type, and the expression and script syntax |
 | [HMI_ALARMS](doc/HMI_ALARMS.md), [HMI_SECURITY](doc/HMI_SECURITY.md), [HMI_RECIPES](doc/HMI_RECIPES.md), [HMI_INDIRECT](doc/HMI_INDIRECT.md) | How alarms, users, recipes and indirect tags behave, with their spec fields and script functions |
 | [HMI_TAG_REFERENCES](doc/HMI_TAG_REFERENCES.md) | Where tag names live, Find/Replace Tag References, and what a rename reaches |
+| [HMI_QUICKFUNCTIONS](doc/HMI_QUICKFUNCTIONS.md) | Defining and calling QuickFunctions, and what a body may do |
 | [example-spec.json](.claude/skills/append-hmi-studio/example-spec.json) | A complete small application to start from |
 
 Anything an agent builds opens in the Studio like any other project, so a person can carry on by hand at any point. The [User Manual](doc/Append-HMI-Studio-User-Manual.pdf), section 1.1, covers this in more detail.
@@ -55,6 +56,7 @@ Features
 - **Recipes**: recipe books of tag values with optional paired PLC tags, script functions to save, load, upload, download, export, import, delete, rename and select recipes, and a Recipe List object. Recipes saved at run time are kept on the running PC. See [doc/HMI_RECIPES.md](doc/HMI_RECIPES.md).
 - **Trends**: a Trend object with up to 8 analog or discrete pens, each on its own range, recorded from the start of the run with 7 days of history on disk. Scripts select the pen whose scale is shown, pause, scroll back and forward, and return to live. See [doc/HMI_TRENDS.md](doc/HMI_TRENDS.md).
 - **Windows and printing from scripts**: `ShowWindow(...)` opens a window, optionally moved, modeless or waited on; `ScreenToPDF()` saves the screen, popups included, as a landscape PDF through a Save dialog.
+- **QuickFunctions**: name a piece of script logic once, with typed arguments and a `Return` value, and call it from scripts and from animation expressions. Managed in HMI > QuickFunctions. See [doc/HMI_QUICKFUNCTIONS.md](doc/HMI_QUICKFUNCTIONS.md).
 - **Tag find and replace**: Edit > Find/Replace Tag References lists every tag the page or the selection names and re-points them in one undoable step, with a text replace across the names, a validate pass and a single-tag editor for creating what is missing. Renaming a tag in the Tag Dictionary now carries every reference in the project with it. See [doc/HMI_TAG_REFERENCES.md](doc/HMI_TAG_REFERENCES.md).
 - **Drawing**: circle and ellipse arcs with start and end angles, line widths and arrowheads, and flipping that mirrors a whole group.
 - **Automation and AI agents**: build, check, render and publish projects from the command line or a script, from a plain JSON spec; this is how AI agents build whole applications. See [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md).
@@ -85,6 +87,7 @@ Documentation
 | Indirect tags and LinkIndirectTag | [doc/HMI_INDIRECT.md](doc/HMI_INDIRECT.md) |
 | Trends, trend functions and the trend history | [doc/HMI_TRENDS.md](doc/HMI_TRENDS.md) |
 | Finding and replacing tag references | [doc/HMI_TAG_REFERENCES.md](doc/HMI_TAG_REFERENCES.md) |
+| QuickFunctions | [doc/HMI_QUICKFUNCTIONS.md](doc/HMI_QUICKFUNCTIONS.md) |
 | Publishing a runtime installer | [doc/HMI_PUBLISH.md](doc/HMI_PUBLISH.md) |
 | Command-line automation and the JSON project spec | [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md) |
 | The PLC comms server and its protocol | [comms/README.md](comms/README.md) |

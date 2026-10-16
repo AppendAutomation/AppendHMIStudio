@@ -150,6 +150,29 @@ functions. See [HMI_RECIPES.md](HMI_RECIPES.md).
 | `items` | The Save/Load tags, in order: `{"tag", "ioTag"}`, or plain tag names. `ioTag` needs `uploadDownload` |
 | `recipes` | Optional starting recipes, `{name: {tag: number or text}}`, used until a PC saves its own |
 
+### quickFunctions
+
+Functions this project defines, callable from scripts and from animation
+expressions. See [HMI_QUICKFUNCTIONS.md](HMI_QUICKFUNCTIONS.md).
+
+```json
+"quickFunctions": [
+  {"name": "Scaled",
+   "args": [{"name": "Raw", "type": "Analog"}, {"name": "Span", "type": "Analog"}],
+   "body": "IF Span == 0 THEN\n\tReturn 0;\nENDIF;\nReturn Raw * 100 / Span;"}
+]
+```
+
+| Field | Meaning |
+|---|---|
+| `name` | What calls it. The tag name rules, and not a tag's, a system tag's, a built-in function's or another QuickFunction's name |
+| `args` | Up to 8: `{name, type}` with `type` `Analog`, `Discrete` or `Message`. A plain string is an Analog argument. An argument may not take a tag's name |
+| `body` | The script that runs, with the arguments in scope. `Return <expression>;` gives a value back and stops there; without one it gives 0 |
+
+A function that writes a tag or calls an action function can be called from a
+script only. A body may not call `ShowRecipeSelect` or a waiting `ShowWindow`,
+and may not take part in recursion.
+
 ### devices
 
 | Field | Meaning |
@@ -323,6 +346,12 @@ All fields that take numbers are expressions, as strings.
     modality; `wait` 1 pauses the script until the window closes (default:
     carry on at once). Only as a statement or the whole right-hand side of an
     assignment; 1, or 0 with a Window Error;
+  - **QuickFunctions**, the functions the project defines (`quickFunctions`,
+    above): called like any other, `Scaled(Raw, 4000)`, from a script or from
+    an animation expression. Their arguments are typed and their bodies give a
+    value back with `Return <expression>;` (without one, 0). One that writes a
+    tag or calls an action function can be used in scripts only. See
+    [HMI_QUICKFUNCTIONS.md](HMI_QUICKFUNCTIONS.md);
   - `ScreenToPDF()`, in scripts only: saves the screen as shown (popups
     included) as a one-page landscape Letter PDF, fitted and centered with
     at least 1/4" margins, through a Save dialog that offers the screen's

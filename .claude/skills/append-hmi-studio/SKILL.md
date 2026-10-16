@@ -24,6 +24,7 @@ The studio does the modeling, validation and packaging itself, so never write
 - **Recipes:** [recipes.md](recipes.md).
 - **Indirect tags:** [indirect.md](indirect.md).
 - **Trends:** [trends.md](trends.md).
+- **QuickFunctions:** [quickfunctions.md](quickfunctions.md).
 - **A complete example:** [example-spec.json](example-spec.json). It has a
   Logix PLC, alarmed tags, an overview page with a tank, a pump button and a
   popup alarm window.
@@ -118,6 +119,12 @@ To **change an existing project**:
     `IF … THEN … ELSE … ENDIF;`, and `DIM a, b AS Analog;` (or `Discrete`,
     `Message`) declares local variables at the top level, which may not
     share a tag's name.
+- **QuickFunctions** (`quickFunctions`): functions the project defines, with
+  typed arguments and a body that gives a value back with
+  `Return <expression>;`. Call one like any built-in, from a script or from an
+  animation expression; one that writes a tag or calls an action function is
+  script-only. Use them to write a rule once instead of copying an expression
+  into every object. See [quickfunctions.md](quickfunctions.md).
 - **Application scripts** (`settings.scripts`): `onStart`, `whileRunning`
   (every `everyMs`) and `onShutdown` run for the whole application,
   whichever windows are open. Put logic that must always run there, not in a

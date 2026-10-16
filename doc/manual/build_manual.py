@@ -980,6 +980,49 @@ IF Found THEN StepText = Label; ENDIF;
         'variables: the time since the last pass, flows, the next sequence step and the flasher.',
     ])
 
+    H2('9.8  QuickFunctions')
+    P('A **QuickFunction** is script logic with a name, kept in the project and called like any built-in '
+      'function. Write a rule once and use it everywhere instead of copying an expression into every object. '
+      'Open **HMI > QuickFunctions** to define them.')
+    P('Each one has a name, up to eight typed arguments, and a body. The body reads the arguments like '
+      'variables and gives a value back with `Return`:')
+    code(doc, """
+{ Scaled(Raw, Span): the raw count as a percentage of Span }
+IF Span == 0 THEN
+	Return 0;
+ENDIF;
+Return Raw * 100 / Span;
+""")
+    P('Call it from a script, `Tank_Percent = Scaled(Tank_Raw, 4000);`, or straight from an animation link, '
+      '`Scaled(Tank_Raw, 4000)` in a Value Display or a percent fill.')
+    table(doc, 'What a QuickFunction may do', [
+        ['Rule', 'Why'],
+        ['A function that writes a tag or calls an action function can be used in scripts only',
+         'An animation link runs on every repaint, and acting on every repaint is not what an animation is '
+         'for. The dialog says which of the two each function is, and Validate reports a link that calls one'],
+        ['Return gives the value back and stops there, wherever it is',
+         'Including inside IF. Return on its own stops with the default. A function that never returns gives '
+         '0, and Validate says so'],
+        ['The value carries its quality',
+         'A function returning a tag from a dead device returns bad quality, and the display shows ####'],
+        ['ShowRecipeSelect and ShowWindow with wait cannot be used in a body',
+         'They pause a script until the operator answers, and a function cannot be paused. Call them from the '
+         'script that calls the function. A plain ShowWindow, which opens a window and carries on, is allowed'],
+        ['A function may call other QuickFunctions, but not itself',
+         'Directly or through a chain. Validate reports the whole cycle'],
+    ])
+    bullets(doc, [
+        '**Names are strict:** a function or an argument cannot take the name of a tag, a system tag, a '
+        'built-in function or a keyword, for the same reason a local variable cannot -- inside the body a name '
+        'has to mean one thing. `Return` is a keyword only where a statement begins, so a project with a tag '
+        'called Return keeps working.',
+        '**Arguments are typed** Analog, Discrete or Message, and what is passed is converted to that type, '
+        'exactly as a local variable is.',
+        '**Cost:** a function used in an animation link runs every time that object repaints. Keep the body '
+        'short, and leave heavy work to a window or application script that writes a tag the link reads.',
+        '**Renaming a tag** reaches into the bodies, and leaves arguments of the same name alone.',
+    ])
+
     # ------------------------------------------------------------ 10
     H1('10  Alarms and security')
     H2('10.1  Alarms')
