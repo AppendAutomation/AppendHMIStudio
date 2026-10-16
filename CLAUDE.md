@@ -216,7 +216,7 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 
 ### Editor conveniences
 - **Duplicating counts up:** `HmiDialogs.nextName(name, taken)` increments the number at the end of a name and adds a 1 when there is none (NewTag, NewTag1, NewTag2; only a trailing number counts, so Pump9_Run gives Pump9_Run1). `HmiDialogs.freeName` keeps a name that nothing has. Used by the Tag Dictionary's Duplicate and New tag, the QuickFunctions dialog's Duplicate and Add, and the New Tag button under a script.
-- **The screen area at start-up:** a new document opens with the canvas origin in the middle of the window, which shows only the top left corner of the screen frame. `HmiFrame.showScreen` (called once from `Hmi.captureUi`'s init, and only while the canvas is empty, so a file keeps its own view) zooms out to fit the whole screen area, never past 100%, and centers it.
+- **The screen area at start-up:** a new document opens with the canvas origin in the middle of the window, which shows only the top left corner of the screen frame. `HmiFrame.showScreen` zooms out to fit the whole screen area, never past 100%, and centers it. It is called from the `setFileData` wrapper in `HmiFile.js` (deferred a tick), not from init: loading the empty file is what sets the view, through `Editor.setGraphXml`, about a second after init, so anything done earlier is undone. `showScreenIfEmpty` makes it skip a document that has cells, which is how an opened file keeps the view it came with.
 
 ### Tag references (find/replace, and what a rename reaches)
 - **Documentation:** `doc/HMI_TAG_REFERENCES.md`.
