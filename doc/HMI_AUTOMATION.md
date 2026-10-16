@@ -254,8 +254,10 @@ The shape of a table the application creates for itself with
 | `index` | `none` (default), `nonunique` or `unique` |
 | `allowNull` | False to refuse an empty value. Default true |
 
-A column name may appear only once in a template. Avoid naming a column after
-a SQL keyword — `DATE` and `TIME` are the two that usually bite.
+A column name may appear only once in a template. Validate warns if a column
+is named after a keyword that SQL Server or SQLite reserves, such as `USER`,
+`KEY` or `ORDER`, and if a name needs square brackets around it wherever a
+script mentions it.
 
 ### queries
 
