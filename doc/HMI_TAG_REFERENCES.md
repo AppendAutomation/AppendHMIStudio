@@ -3,11 +3,11 @@
 Append HMI Studio keeps tag names in more places than an animation's main
 expression: in band limits, in range bounds, in trend pens, in Recipe List
 tags, in action and window scripts, and in the tag names handed as text to
-`LinkIndirectTag` and `TrendSetPen`. **Edit > Find/Replace Tag References...**
+`LinkIndirectTag` and `TrendSetPen`. **HMI > Find/Replace Tag References...**
 re-points all of them at once, and the same map is what makes a Tag Dictionary
 rename complete.
 
-## Edit > Find/Replace Tag References...
+## HMI > Find/Replace Tag References...
 
 The dialog lists every tag named by what is in scope, each with a field for the
 name to use instead.
