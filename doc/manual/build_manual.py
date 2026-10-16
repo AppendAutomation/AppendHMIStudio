@@ -522,6 +522,26 @@ def build(save=True):
     P('Tags can also be exported to and imported from CSV (**Export CSV**, **Import CSV...**), which is the fastest '
       'way to create hundreds of tags from a PLC tag list: LiquidWeighHMI\'s 420 tags were entered that way.')
 
+    H2('5.3  Renaming, and finding and replacing tag references')
+    P('Renaming a tag in the Tag Dictionary carries every reference in the project with it: the animation links '
+      'on every page, the window and application scripts, QuickFunction bodies, and the recipe books. The '
+      'dictionary says what it changed, and warns that what it changed outside the page you are on cannot be '
+      'undone.')
+    P('To point part of a screen at different tags -- a copied unit, say -- use **HMI > Find/Replace Tag '
+      'References**. It lists every tag named by the current window, or by the objects selected, with how many '
+      'times each is used:')
+    bullets(doc, [
+        'Type a replacement beside a tag, or use **Find** and **Replace with** at the top to change a piece of '
+        'text in all of the names at once -- Pump1_ to Pump2_, for example. A tag left blank is not touched.',
+        '**Validate** checks the replacements and reports anything they would break; **Apply** makes them all in '
+        'one step, which one Undo reverses.',
+        'Double-click a name to create or edit that tag without leaving the dialog, which is how a replacement '
+        'that does not exist yet is made.',
+    ])
+    P('Expressions, scripts, color bands, trend pens and the tag names given to LinkIndirectTag and TrendSetPen '
+      'are all updated. A dotfield moves with its tag, text inside comments and strings is left alone, and a '
+      'QuickFunction\'s arguments are never mistaken for tags.')
+
     # ------------------------------------------------------------ 6
     H1('6  Screens and windows')
     P('Each page of the drawing is a window of the application, named by its page tab. LiquidWeighHMI has nine '
