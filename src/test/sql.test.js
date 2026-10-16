@@ -71,6 +71,60 @@ describe('result codes', () =>
 	});
 });
 
+// The renderer cannot import from the main process, so it keeps its own copy
+// of the codes and their messages. Nothing but a test stops the two drifting.
+describe('the renderer result codes match the main process', () =>
+{
+	const rendererSource = fs.readFileSync(path.join(
+		import.meta.dirname, '..', '..', 'drawio', 'src', 'main', 'webapp', 'js', 'hmi', 'HmiSql.js'), 'utf8');
+
+	const block = (name) =>
+	{
+		const at = rendererSource.indexOf('HmiSql.' + name + ' = {');
+		assert.ok(at >= 0, 'HmiSql.' + name + ' not found');
+		const end = rendererSource.indexOf('\n};', at);
+
+		return rendererSource.substring(at, end);
+	};
+
+	test('every code has the same number on both sides', () =>
+	{
+		const text = block('CODES');
+
+		for (const [name, value] of Object.entries(codes))
+		{
+			if (typeof value !== 'number') { continue; }
+
+			const found = text.match(new RegExp('\\b' + name + ':\\s*(-?\\d+)'));
+			assert.ok(found, name + ' is missing from the renderer\'s HmiSql.CODES');
+			assert.equal(Number(found[1]), value, name + ' differs');
+		}
+	});
+
+	test('every message is word for word the same', () =>
+	{
+		const text = block('MESSAGES');
+
+		for (const [number, message] of Object.entries(codes.MESSAGES))
+		{
+			const found = text.match(new RegExp("'?" + number + "'?:\\s*(\"[^\"]*\"|'[^']*')"));
+			assert.ok(found, 'code ' + number + ' is missing from the renderer\'s HmiSql.MESSAGES');
+			assert.equal(found[1].slice(1, -1), message, 'code ' + number + ' differs');
+		}
+	});
+
+	test('the renderer adds no code of its own', () =>
+	{
+		const text = block('CODES');
+		const names = [...text.matchAll(/\n\t([A-Z_]+):/g)].map((m) => m[1]);
+
+		for (const name of names)
+		{
+			assert.ok(codes[name] != null, name + ' is in the renderer only');
+		}
+	});
+});
+
 describe('password wrapping', () =>
 {
 	test('round trips', () =>
