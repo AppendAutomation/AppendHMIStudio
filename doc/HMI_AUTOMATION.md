@@ -184,6 +184,7 @@ and may not take part in recursion.
 ### dataSources
 
 The databases the application can open, named by the `SQL*` script functions.
+The whole feature is described in [HMI_SQL.md](HMI_SQL.md).
 
 ```json
 "dataSources": [
@@ -292,7 +293,8 @@ is named after a keyword that SQL Server or SQLite reserves, such as `USER`,
 script mentions it.
 
 `SQLCreateTable` creates the table and then one index per column that asks for
-one, named `<table>_<column>_idx`. The types become SQL Server's
+one, named `<table>_<column>_idx`. A table that is already there is left as it
+is, so an application can make sure of its table every time it starts. The types become SQL Server's
 `NVARCHAR(n)`, `INT`, `FLOAT`, `DECIMAL(p,s)`, `BIT`, `DATE`, `TIME` and
 `DATETIME`. SQLite has no date type of its own and treats types as
 preferences, so there a date column is `TEXT`, holding what the application
@@ -593,7 +595,23 @@ All fields that take numbers are expressions, as strings.
     names as text. SetPen selects the pen whose range and name the y axis
     shows (drawn 1 px thicker); the scrolls move the shown times by half the
     span (back pauses a live trend; forward stops at now); Play returns to
-    live. 1, or 0 with a function error. See [HMI_TRENDS.md](HMI_TRENDS.md).
+    live. 1, or 0 with a function error. See [HMI_TRENDS.md](HMI_TRENDS.md);
+  - **the `SQL*` family**, in scripts only: `SQLConnect(ConnIdTag,
+    "DataSource")` and `SQLDisconnect`; `SQLSelect(ConnId, "Table",
+    "BindList", "WhereExpr", "OrderByExpr")` with `SQLFirst`, `SQLNext`,
+    `SQLPrev`, `SQLLast`, `SQLGetRecord`, `SQLNumRows` and `SQLEnd`;
+    `SQLInsert`, `SQLUpdate`, `SQLUpdateCurrent`, `SQLDelete`,
+    `SQLClearTable`, `SQLCreateTable` and `SQLDropTable`; the statement and
+    parameter calls `SQLSetStatement`, `SQLAppendStatement`,
+    `SQLLoadStatement`, `SQLPrepareStatement`, the `SQLSetParam*` family,
+    `SQLClearParam`, `SQLExecute` and `SQLClearStatement`; the prepared
+    insert `SQLInsertPrepare`, `SQLInsertExecute` and `SQLInsertEnd`;
+    `SQLTransact`, `SQLCommit` and `SQLRollback`; and `SQLErrorMsg(code)`,
+    which gives the words for a result code as text. Each of the others
+    returns a result code, 0 for success (`SQLNumRows` returns the count).
+    The ones that reach a database pause the script, so like
+    `ShowRecipeSelect` they may be used only as a statement or as the whole
+    right-hand side of an assignment. See [HMI_SQL.md](HMI_SQL.md).
 - **Text:** `+` joins text when either side is text, converting the other
   (`"Real" + 2` is `"Real2"`; discrete values give `"1"` or `"0"`).
 - **Bad quality:** an expression with a bad-quality input has a bad result

@@ -1,6 +1,6 @@
-<mxfile hmiVersion="1" host="Electron" pages="16">
-  <diagram id="qlUR3N3yXMEUdOhnsazI" name="Process">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="0" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
+<mxfile hmiVersion="1" host="Electron" pages="17">
+  <diagram id="mihGNNIGZz-gVBZa9Ln-" name="Process">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="0" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -785,8 +785,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="CrYunZHTzyeUeelLEgEw" name="Batch">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
+  <diagram id="Q41XcnUKifqP36RrTftc" name="Batch">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1321,11 +1321,16 @@
         <mxCell id="al321" parent="1" style="html=1;noLabel=1;shape=hmiAlarmList;fontSize=12;hmiTitle=Active Alarms;hmiColumns=time,tag,description,condition,value,state;fontSize=13;" value="" vertex="1">
           <mxGeometry height="202" width="1900" x="10" y="806" as="geometry" />
         </mxCell>
+        <UserObject label="BATCH HISTORY" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;showWindow&quot;:{&quot;window&quot;:&quot;Batch History&quot;,&quot;enableExpr&quot;:&quot;&quot;}}}" id="bh_open">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#1b1f24;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="40" width="240" x="1640" y="596" as="geometry" />
+          </mxCell>
+        </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="K2AaK8K8WjC8HGS3PnHE" name="Supply">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
+  <diagram id="isHYW9uclOfOnEuvLFh_" name="Supply">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1728,8 +1733,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="tNwH4MBg47_yQ9ylQVpd" name="Devices">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
+  <diagram id="xDDYMndFpWB_ErI6C3Yw" name="Devices">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -2764,8 +2769,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="Btat6ag48juQCq8o_JsI" name="Setpoints">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
+  <diagram id="OdLXc7R3Jir2xHB1QB0D" name="Setpoints">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -3115,8 +3120,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="5V-Ryhhaj6NYmxk8UpvZ" name="Recipes">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
+  <diagram id="Xr7p-XYVgbHD8JRUCIxC" name="Recipes">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -3317,8 +3322,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="6LnJi0izenHQPIKUKuy0" name="Trends">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
+  <diagram id="bcux3YtViYkyrjtbLEec" name="Trends">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -3430,8 +3435,204 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="_nf1GJl_e09oomGGTnQB" name="Alarm History">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
+  <diagram id="DG-yTgzLexXSHYS6Q4vN" name="Batch History">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bh_bg" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3e7ec;strokeColor=#e3e7ec;fontSize=14;" value="" vertex="1">
+          <mxGeometry height="742" width="1920" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="bh_p1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f6f8;strokeColor=#a9b3bd;fontSize=14;" value="" vertex="1">
+          <mxGeometry height="712" width="1180" x="20" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="bh_p1t" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#34495e;strokeColor=#34495e;fontSize=15;fontStyle=1;fontColor=#ffffff;align=left;spacingLeft=12;" value="BATCH RECORD" vertex="1">
+          <mxGeometry height="32" width="1180" x="20" y="84" as="geometry" />
+        </mxCell>
+        <UserObject label="NEWEST" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;DIM res AS Analog;\n\nres = SQLFirst(Db_ConnId);\n\nIF res == 0 THEN\n    Hist_Row = 1;\n    Db_Status = \&quot;Batch \&quot; + StringFromIntg(Hist_Row) + \&quot; of \&quot; + StringFromIntg(Db_Rows);\nELSE\n    Db_Status = \&quot;No batches have been logged yet\&quot;;\nENDIF;\n&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="bh_b0">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#1b1f24;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="200" x="40" y="132" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="&amp;#9664; NEWER" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;DIM res AS Analog;\n\nres = SQLPrev(Db_ConnId);\n\nIF res == 0 THEN\n    Hist_Row = Hist_Row - 1;\n    Db_Status = \&quot;Batch \&quot; + StringFromIntg(Hist_Row) + \&quot; of \&quot; + StringFromIntg(Db_Rows);\nELSE\n    Db_Status = \&quot;That is the newest batch\&quot;;\nENDIF;\n&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="bh_b1">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#1b1f24;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="200" x="250" y="132" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="OLDER &amp;#9654;" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;DIM res AS Analog;\n\nres = SQLNext(Db_ConnId);\n\nIF res == 0 THEN\n    Hist_Row = Hist_Row + 1;\n    Db_Status = \&quot;Batch \&quot; + StringFromIntg(Hist_Row) + \&quot; of \&quot; + StringFromIntg(Db_Rows);\nELSE\n    Db_Status = \&quot;That is the oldest batch\&quot;;\nENDIF;\n&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="bh_b2">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#1b1f24;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="200" x="460" y="132" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="OLDEST" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;DIM res AS Analog;\n\nres = SQLLast(Db_ConnId);\n\nIF res == 0 THEN\n    Hist_Row = Db_Rows;\n    Db_Status = \&quot;Batch \&quot; + StringFromIntg(Hist_Row) + \&quot; of \&quot; + StringFromIntg(Db_Rows);\nELSE\n    Db_Status = \&quot;No batches have been logged yet\&quot;;\nENDIF;\n&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="bh_b3">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#1b1f24;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="200" x="670" y="132" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="REFRESH" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;DIM res AS Analog;\n\nHist_Row = 0;\nDb_Rows = 0;\n\nIF Db_ConnId &lt;= 0 THEN\n    Db_Status = \&quot;There is no database connection\&quot;;\nELSE\n    res = SQLLoadStatement(Db_ConnId, \&quot;RecentBatches\&quot;);\n\n    IF res == 0 THEN\n        res = SQLExecute(Db_ConnId, \&quot;BatchHistoryRow\&quot;, 0);\n    ENDIF;\n\n    IF res &lt;&gt; 0 THEN\n        Db_Status = SQLErrorMsg(res);\n    ELSE\n        Db_Rows = SQLNumRows(Db_ConnId);\n        res = SQLFirst(Db_ConnId);\n\n        IF res == 0 THEN\n            Hist_Row = 1;\n            Db_Status = \&quot;Showing the newest of \&quot; + StringFromIntg(Db_Rows) + \&quot; batches\&quot;;\n        ELSE\n            Db_Status = \&quot;No batches have been logged yet\&quot;;\n        ENDIF;\n    ENDIF;\nENDIF;\n&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="bh_b4">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#1b1f24;arcSize=10;shadow=0;" vertex="1">
+            <mxGeometry height="56" width="260" x="920" y="132" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_posl" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;align=left;verticalAlign=middle;fontColor=#34495e;" value="Showing" vertex="1">
+          <mxGeometry height="32" width="120" x="40" y="210" as="geometry" />
+        </mxCell>
+        <UserObject label="0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Hist_Row&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_pos">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="80" x="160" y="206" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_ofl" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;align=left;verticalAlign=middle;fontColor=#34495e;" value="of" vertex="1">
+          <mxGeometry height="32" width="30" x="250" y="210" as="geometry" />
+        </mxCell>
+        <UserObject label="0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Db_Rows&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_of">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="80" x="285" y="206" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_ofn" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;align=left;verticalAlign=middle;fontColor=#34495e;" value="batches, newest first" vertex="1">
+          <mxGeometry height="32" width="300" x="375" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="bh_ll0" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;" value="Date and time" vertex="1">
+          <mxGeometry height="34" width="220" x="40" y="272" as="geometry" />
+        </mxCell>
+        <UserObject label="----" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;Hist_Stamp&quot;,&quot;format&quot;:&quot;&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_lv0">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=left;spacingLeft=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="300" x="270" y="272" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_ll1" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;" value="Batch number" vertex="1">
+          <mxGeometry height="34" width="220" x="40" y="322" as="geometry" />
+        </mxCell>
+        <UserObject label="0" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Hist_Number&quot;,&quot;format&quot;:&quot;0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_lv1">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="300" x="270" y="322" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_ll2" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;" value="Recipe" vertex="1">
+          <mxGeometry height="34" width="220" x="40" y="372" as="geometry" />
+        </mxCell>
+        <UserObject label="----" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;Hist_Recipe&quot;,&quot;format&quot;:&quot;&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_lv2">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=left;spacingLeft=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="300" x="270" y="372" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_ll3" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;" value="Operator" vertex="1">
+          <mxGeometry height="34" width="220" x="40" y="422" as="geometry" />
+        </mxCell>
+        <UserObject label="----" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;Hist_Operator&quot;,&quot;format&quot;:&quot;&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_lv3">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=left;spacingLeft=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="300" x="270" y="422" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_rl0" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;" value="Batch volume" vertex="1">
+          <mxGeometry height="34" width="220" x="640" y="272" as="geometry" />
+        </mxCell>
+        <UserObject label="0 gal" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Hist_Volume&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; gal&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_rv0">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="180" x="870" y="272" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_rl1" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;" value="Total target" vertex="1">
+          <mxGeometry height="34" width="220" x="640" y="322" as="geometry" />
+        </mxCell>
+        <UserObject label="0 lb" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Hist_Target&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; lb&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_rv1">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="180" x="870" y="322" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_rl2" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;" value="Total actual" vertex="1">
+          <mxGeometry height="34" width="220" x="640" y="372" as="geometry" />
+        </mxCell>
+        <UserObject label="0 lb" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Hist_Actual&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; lb&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_rv2">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="180" x="870" y="372" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_rl3" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;" value="Cycle time" vertex="1">
+          <mxGeometry height="34" width="220" x="640" y="422" as="geometry" />
+        </mxCell>
+        <UserObject label="0 s" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Hist_Cycle&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; s&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_rv3">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="180" x="870" y="422" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_ingt" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;align=left;verticalAlign=middle;fontColor=#34495e;" value="INGREDIENTS" vertex="1">
+          <mxGeometry height="26" width="400" x="40" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="bh_ingh1" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;align=right;verticalAlign=middle;fontColor=#34495e;" value="Target" vertex="1">
+          <mxGeometry height="24" width="180" x="270" y="512" as="geometry" />
+        </mxCell>
+        <mxCell id="bh_ingh2" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;align=right;verticalAlign=middle;fontColor=#34495e;" value="Actual" vertex="1">
+          <mxGeometry height="24" width="180" x="470" y="512" as="geometry" />
+        </mxCell>
+        <mxCell id="bh_ingl1" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;" value="Plasticizer #1" vertex="1">
+          <mxGeometry height="34" width="220" x="40" y="542" as="geometry" />
+        </mxCell>
+        <UserObject label="0 lb" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Hist_Target1&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; lb&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_ingt1">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="180" x="270" y="542" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="0 lb" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Hist_Actual1&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; lb&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_inga1">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="180" x="470" y="542" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_ingl2" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;" value="Plasticizer #2" vertex="1">
+          <mxGeometry height="34" width="220" x="40" y="586" as="geometry" />
+        </mxCell>
+        <UserObject label="0 lb" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Hist_Target2&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; lb&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_ingt2">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="180" x="270" y="586" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="0 lb" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Hist_Actual2&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; lb&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_inga2">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="180" x="470" y="586" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_ingl3" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;fontColor=#1b1f24;" value="Plasticizer #3" vertex="1">
+          <mxGeometry height="34" width="220" x="40" y="630" as="geometry" />
+        </mxCell>
+        <UserObject label="0 lb" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Hist_Target3&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; lb&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_ingt3">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="180" x="270" y="630" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="0 lb" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;analog&quot;,&quot;expr&quot;:&quot;Hist_Actual3&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot; lb&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_inga3">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=right;spacingRight=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="34" width="180" x="470" y="630" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_stl" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;align=left;verticalAlign=middle;fontColor=#34495e;" value="Database" vertex="1">
+          <mxGeometry height="32" width="120" x="40" y="684" as="geometry" />
+        </mxCell>
+        <UserObject label="----" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;Db_Status&quot;,&quot;format&quot;:&quot;0.0&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_st">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1e6fd9;fontSize=16;fontStyle=1;fontColor=#1b1f24;arcSize=8;whiteSpace=wrap;align=left;spacingLeft=8;strokeWidth=2;" vertex="1">
+            <mxGeometry height="36" width="1000" x="160" y="680" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="bh_note" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=12;align=left;verticalAlign=top;fontColor=#4a545e;" value="A batch is written to the database as the batch counter moves on, by the application’s While running script. This screen runs the project’s RecentBatches query and walks the rows it found: NEWEST, OLDER, NEWER and OLDEST move the cursor one row at a time, and each row is written into the tags of the BatchHistoryRow bind list, which is what the boxes above show. REFRESH runs the query again, so batches logged since the screen opened are included." vertex="1">
+          <mxGeometry height="60" width="1120" x="40" y="728" as="geometry" />
+        </mxCell>
+        <mxCell id="bh_p2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f6f8;strokeColor=#a9b3bd;fontSize=14;" value="" vertex="1">
+          <mxGeometry height="712" width="680" x="1220" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="bh_p2t" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#34495e;strokeColor=#34495e;fontSize=15;fontStyle=1;fontColor=#ffffff;align=left;spacingLeft=12;" value="HOW THE LOG IS SET UP" vertex="1">
+          <mxGeometry height="32" width="680" x="1220" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="bh_p2n" parent="1" style="text;html=1;whiteSpace=wrap;fontSize=13;align=left;verticalAlign=top;fontColor=#4a545e;" value="&lt;b&gt;Data source BatchDb&lt;/b&gt;&lt;br&gt;A SQLite file, LiquidWeighBatches.db, in the Documents folder of the computer that runs the application. SQLite needs no server and no password, so nothing has to be set up on site.&lt;br&gt;&lt;br&gt;&lt;b&gt;Table template BatchLogTable&lt;/b&gt;&lt;br&gt;Stamp, BatchNo, Recipe, Volume, TotalTarget, TotalActual, CycleSec, Operator and a target and an actual for each of the three plasticizers. The On start script creates the table with it, so the first run makes its own table, and a later run finds it there and leaves it alone.&lt;br&gt;&lt;br&gt;&lt;b&gt;Bind list BatchRow&lt;/b&gt;&lt;br&gt;Pairs each batch tag with its column. SQLInsert reads the tags and writes one row. Db_Stamp is set from the _DateTime system tag just before the insert, and Db_Operator from _Username.&lt;br&gt;&lt;br&gt;&lt;b&gt;Bind list BatchHistoryRow&lt;/b&gt;&lt;br&gt;The same columns, paired with the Hist_ tags this screen shows. A select writes the columns into the tags, which is the other direction.&lt;br&gt;&lt;br&gt;&lt;b&gt;Query RecentBatches&lt;/b&gt;&lt;br&gt;Kept in the project, not in a file beside the installer. SQLLoadStatement loads it and SQLExecute runs it.&lt;br&gt;&lt;br&gt;&lt;b&gt;On a site with a server&lt;/b&gt;&lt;br&gt;Change the data source’s Kind to Microsoft SQL Server and give it the server, the database and a login. Nothing else in the project changes: the bind lists, the template and the query are the same, and the statements this screen runs are the same.&lt;br&gt;&lt;br&gt;&lt;b&gt;Where the rows are&lt;/b&gt;&lt;br&gt;The file can be opened with any SQLite tool while the application is running. In Append HMI Desktop and Append HMI Web the same project logs to those applications’ own folders instead, and in Append HMI Web the database work happens on the server rather than in the browser." vertex="1">
+          <mxGeometry height="640" width="640" x="1240" y="132" as="geometry" />
+        </mxCell>
+        <mxCell id="bh_al" parent="1" style="html=1;noLabel=1;shape=hmiAlarmList;fontSize=12;hmiTitle=Active Alarms;hmiColumns=time,tag,description,condition,value,state;fontSize=13;" value="" vertex="1">
+          <mxGeometry height="202" width="1900" x="10" y="806" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="LXSk0eUwzbl2vhaEn6C9" name="Alarm History">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -3447,8 +3648,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="a5f1vHomntWsKs3CQrMw" name="IO Sim">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#e3e7ec" math="0" shadow="0">
+  <diagram id="zUHrM8y_18HSsFbsFd2l" name="IO Sim">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -3934,8 +4135,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="orTEYaKm0jERod0DQWGS" name="Header">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#1f2d3a" math="0" shadow="0">
+  <diagram id="RY-ccqJwxutEBqhLSlh6" name="Header">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#1f2d3a" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -4007,8 +4208,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="AMyBgUPSK6vpMmXHdMa8" name="Footer">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#1f2d3a" math="0" shadow="0">
+  <diagram id="SZw5J0t-iSvYPJIq47ID" name="Footer">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#1f2d3a" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -4063,8 +4264,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="OT73N81Z3uddc_nxAD_h" name="Device Faceplate">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
+  <diagram id="H8H-ngq0nEIIxI88CdW6" name="Device Faceplate">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -4243,8 +4444,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="q3wdW7gHwS_gdq6pfrIm" name="Confirm Abort">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
+  <diagram id="R3KwSOVV5vmqhiIbYeNS" name="Confirm Abort">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -4267,8 +4468,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="EamLlZMG1l1mYTc-YcEj" name="Confirm Empty Hopper">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
+  <diagram id="NH-Yq9HyN0uQ7oKNpVMI" name="Confirm Empty Hopper">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -4291,8 +4492,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="5KyWZhv7LGCwHCAUUcfO" name="Confirm Load Defaults">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
+  <diagram id="NdJdJPQwJAc534bDGzQe" name="Confirm Load Defaults">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -4315,8 +4516,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="vmSUTA36NBGLHOysrlV5" name="Confirm Reset Counter">
-    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#f5f6f8" math="0" shadow="0">
+  <diagram id="wbCVRUhgbF8aaxWoZBme" name="Confirm Reset Counter">
+    <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -4864,6 +5065,28 @@
       <tag name="AbortConfirmed" type="MemoryDiscrete" comment="Confirm Abort popup: YES pressed" initial="0" onMsg="Yes" offMsg="No" />
       <tag name="ScreenTitle" type="MemoryMessage" comment="Title of the screen in the middle window, shown in the header" initial="PROCESS OVERVIEW" />
       <tag name="ScreenNo" type="MemoryInteger" comment="Number of the screen in the middle window: the footer highlights its button" initial="1" minEU="0" maxEU="100" />
+      <tag name="Db_ConnId" type="MemoryInteger" comment="Database connection number (SQLConnect)" initial="0" minEU="0" maxEU="100" />
+      <tag name="Db_Status" type="MemoryMessage" comment="What the database last said" />
+      <tag name="Db_Stamp" type="MemoryMessage" comment="When the batch finished, from _DateTime, logged as the Stamp column" />
+      <tag name="Db_Operator" type="MemoryMessage" comment="Who was logged in when the batch finished, logged as the Operator column" />
+      <tag name="Db_LastCount" type="MemoryInteger" comment="Batch counter when the last row was logged" initial="0" minEU="0" maxEU="1000000" />
+      <tag name="Db_Counted" type="MemoryDiscrete" comment="The batch counter has been read at least once this run" initial="0" onMsg="On" offMsg="Off" />
+      <tag name="Db_Rows" type="MemoryInteger" comment="Batches the history query found" initial="0" minEU="0" maxEU="1000000" />
+      <tag name="Hist_Row" type="MemoryInteger" comment="Which row of the history the screen is on" initial="0" minEU="0" maxEU="1000000" />
+      <tag name="Hist_Stamp" type="MemoryMessage" comment="History: date and time of the batch" />
+      <tag name="Hist_Number" type="MemoryInteger" comment="History: batch number" initial="0" minEU="0" maxEU="1000000" />
+      <tag name="Hist_Recipe" type="MemoryMessage" comment="History: recipe" />
+      <tag name="Hist_Volume" type="MemoryReal" comment="History: batch volume" engUnits="gal" initial="0" minEU="0" maxEU="1000" />
+      <tag name="Hist_Target" type="MemoryReal" comment="History: total target weight" engUnits="lb" initial="0" minEU="0" maxEU="10000" />
+      <tag name="Hist_Actual" type="MemoryReal" comment="History: total actual weight" engUnits="lb" initial="0" minEU="0" maxEU="10000" />
+      <tag name="Hist_Cycle" type="MemoryReal" comment="History: cycle time" engUnits="s" initial="0" minEU="0" maxEU="10000" />
+      <tag name="Hist_Operator" type="MemoryMessage" comment="History: who was logged in" />
+      <tag name="Hist_Target1" type="MemoryReal" comment="History: Plast #1 target" engUnits="lb" initial="0" minEU="0" maxEU="10000" />
+      <tag name="Hist_Actual1" type="MemoryReal" comment="History: Plast #1 actual" engUnits="lb" initial="0" minEU="0" maxEU="10000" />
+      <tag name="Hist_Target2" type="MemoryReal" comment="History: Plast #2 target" engUnits="lb" initial="0" minEU="0" maxEU="10000" />
+      <tag name="Hist_Actual2" type="MemoryReal" comment="History: Plast #2 actual" engUnits="lb" initial="0" minEU="0" maxEU="10000" />
+      <tag name="Hist_Target3" type="MemoryReal" comment="History: Plast #3 target" engUnits="lb" initial="0" minEU="0" maxEU="10000" />
+      <tag name="Hist_Actual3" type="MemoryReal" comment="History: Plast #3 actual" engUnits="lb" initial="0" minEU="0" maxEU="10000" />
       <tag name="Sim_Clock" type="MemoryInteger" comment="Simulation: pass counter, stamped with the time of each pass" initial="0" minEU="0" maxEU="100" />
       <tag name="Sim_LastMs" type="MemoryReal" comment="Simulation: time of the previous pass (ms)" initial="0" minEU="0" maxEU="100" />
       <tag name="Sim_BlowThru" type="MemoryReal" comment="Simulation: hopper pressure while air blows through (psig)" initial="2" minEU="0" maxEU="100" />
@@ -4986,9 +5209,9 @@
       <tag name="Alm_OS3" type="MemoryDiscrete" comment="Alarm one-shot storage" initial="0" onMsg="On" offMsg="Off" />
     </tags>
     <settings width="1920" height="1080">
-      <startup page="qlUR3N3yXMEUdOhnsazI" />
-      <startup page="orTEYaKm0jERod0DQWGS" />
-      <startup page="AMyBgUPSK6vpMmXHdMa8" />
+      <startup page="mihGNNIGZz-gVBZa9Ln-" />
+      <startup page="RY-ccqJwxutEBqhLSlh6" />
+      <startup page="SZw5J0t-iSvYPJIq47ID" />
       <runtime windowMode="fullscreen" exit="shortcut" />
       <publish productName="LiquidWeighHMISim" version="1.0.2" publisher="" icon="" scope="machine" desktop="true" autostart="false" compression="small" output="" />
       <appScripts everyMs="100">
@@ -5066,6 +5289,19 @@ Sim_FastRate = 4.0;
 Sim_SlowRate = 0.4;
 Sim_DischRate = 6.0;
 Sim_RefillRate = 10.0;
+
+{ The project's own application script follows. }
+
+DIM res AS Analog;
+
+res = SQLConnect(Db_ConnId, "BatchDb");
+
+IF res &lt;&gt; 0 THEN
+    Db_Status = SQLErrorMsg(res);
+ELSE
+    res = SQLCreateTable(Db_ConnId, "BatchLog", "BatchLogTable");
+    Db_Status = "Logging batches to BatchDb";
+ENDIF;
         </onStart>
         <whileRunning>
           DIM Dt, Flow1, Flow2, Flow3, DischFlow, PressTarget, NextStep, ActStep AS Analog;
@@ -7451,7 +7687,39 @@ IF PB_LoadDefaults THEN PB_LoadDefaults = 0; ENDIF;
 IF PB_ResetCount THEN PB_ResetCount = 0; ENDIF;
 IF PB_AllAuto THEN PB_AllAuto = 0; ENDIF;
 IF PB_AllManual THEN PB_AllManual = 0; ENDIF;
+
+{ The project's own application script follows. }
+
+DIM res AS Analog;
+
+IF Bat_Count.Quality &gt;= 192 THEN
+    IF Db_Counted == 0 THEN
+        Db_LastCount = Bat_Count;
+        Db_Counted = 1;
+    ENDIF;
+
+    IF Bat_Count &lt;&gt; Db_LastCount AND Db_ConnId &gt; 0 THEN
+        Db_LastCount = Bat_Count;
+        Db_Stamp = _DateTime;
+        Db_Operator = _Username;
+        res = SQLInsert(Db_ConnId, "BatchLog", "BatchRow");
+
+        IF res == 0 THEN
+            Db_Status = "Batch " + StringFromIntg(Bat_Count) + " logged at " + _TimeString;
+        ELSE
+            Db_Status = SQLErrorMsg(res);
+        ENDIF;
+    ENDIF;
+ENDIF;
         </whileRunning>
+        <onShutdown>
+          DIM res AS Analog;
+
+IF Db_ConnId &gt; 0 THEN
+    res = SQLDisconnect(Db_ConnId);
+    Db_ConnId = 0;
+ENDIF;
+        </onShutdown>
       </appScripts>
     </settings>
     <users>
@@ -7497,36 +7765,106 @@ IF PB_AllManual THEN PB_AllManual = 0; ENDIF;
         </recipeData>
       </recipeBook>
     </recipeBooks>
+    <dataSources>
+      <dataSource name="BatchDb" provider="sqlite" file="LiquidWeighBatches.db" folder="documents" />
+    </dataSources>
+    <bindLists>
+      <bindList name="BatchRow">
+        <bindItem tag="Db_Stamp" column="Stamp" />
+        <bindItem tag="Bat_Count" column="BatchNo" />
+        <bindItem tag="RecipeName" column="Recipe" />
+        <bindItem tag="Bat_Volume" column="Volume" />
+        <bindItem tag="Rcp_TotalTarget" column="TotalTarget" />
+        <bindItem tag="Bat_Total" column="TotalActual" />
+        <bindItem tag="Bat_LastCycle" column="CycleSec" />
+        <bindItem tag="Db_Operator" column="Operator" />
+        <bindItem tag="Bat_Target0" column="Target1" />
+        <bindItem tag="Bat_Actual0" column="Actual1" />
+        <bindItem tag="Bat_Target1" column="Target2" />
+        <bindItem tag="Bat_Actual1" column="Actual2" />
+        <bindItem tag="Bat_Target2" column="Target3" />
+        <bindItem tag="Bat_Actual2" column="Actual3" />
+      </bindList>
+      <bindList name="BatchHistoryRow">
+        <bindItem tag="Hist_Stamp" column="Stamp" />
+        <bindItem tag="Hist_Number" column="BatchNo" />
+        <bindItem tag="Hist_Recipe" column="Recipe" />
+        <bindItem tag="Hist_Volume" column="Volume" />
+        <bindItem tag="Hist_Target" column="TotalTarget" />
+        <bindItem tag="Hist_Actual" column="TotalActual" />
+        <bindItem tag="Hist_Cycle" column="CycleSec" />
+        <bindItem tag="Hist_Operator" column="Operator" />
+        <bindItem tag="Hist_Target1" column="Target1" />
+        <bindItem tag="Hist_Actual1" column="Actual1" />
+        <bindItem tag="Hist_Target2" column="Target2" />
+        <bindItem tag="Hist_Actual2" column="Actual2" />
+        <bindItem tag="Hist_Target3" column="Target3" />
+        <bindItem tag="Hist_Actual3" column="Actual3" />
+      </bindList>
+    </bindLists>
+    <tableTemplates>
+      <tableTemplate name="BatchLogTable">
+        <templateColumn name="Stamp" type="datetime" index="nonunique" allowNull="0" />
+        <templateColumn name="BatchNo" type="integer" />
+        <templateColumn name="Recipe" type="text" length="32" />
+        <templateColumn name="Volume" type="number" />
+        <templateColumn name="TotalTarget" type="number" />
+        <templateColumn name="TotalActual" type="number" />
+        <templateColumn name="CycleSec" type="number" />
+        <templateColumn name="Operator" type="text" length="32" />
+        <templateColumn name="Target1" type="number" />
+        <templateColumn name="Actual1" type="number" />
+        <templateColumn name="Target2" type="number" />
+        <templateColumn name="Actual2" type="number" />
+        <templateColumn name="Target3" type="number" />
+        <templateColumn name="Actual3" type="number" />
+      </tableTemplate>
+    </tableTemplates>
+    <queries>
+      <query name="RecentBatches">
+        <querySql>
+          SELECT Stamp, BatchNo, Recipe, Volume, TotalTarget, TotalActual, CycleSec, Operator,
+       Target1, Actual1, Target2, Actual2, Target3, Actual3
+FROM BatchLog
+ORDER BY Stamp DESC
+        </querySql>
+      </query>
+    </queries>
     <windows>
-      <window page="5KyWZhv7LGCwHCAUUcfO" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
-      <window page="5V-Ryhhaj6NYmxk8UpvZ" y="70" height="942">
+      <window page="DG-yTgzLexXSHYS6Q4vN" y="70" height="942">
         <onShow>
-          ScreenTitle = "RECIPES"; ScreenNo = 6;
+          ScreenTitle = "BATCH HISTORY"; ScreenNo = 2;
+DIM res AS Analog;
+
+Hist_Row = 0;
+Db_Rows = 0;
+
+IF Db_ConnId &lt;= 0 THEN
+    Db_Status = "There is no database connection";
+ELSE
+    res = SQLLoadStatement(Db_ConnId, "RecentBatches");
+
+    IF res == 0 THEN
+        res = SQLExecute(Db_ConnId, "BatchHistoryRow", 0);
+    ENDIF;
+
+    IF res &lt;&gt; 0 THEN
+        Db_Status = SQLErrorMsg(res);
+    ELSE
+        Db_Rows = SQLNumRows(Db_ConnId);
+        res = SQLFirst(Db_ConnId);
+
+        IF res == 0 THEN
+            Hist_Row = 1;
+            Db_Status = "Showing the newest of " + StringFromIntg(Db_Rows) + " batches";
+        ELSE
+            Db_Status = "No batches have been logged yet";
+        ENDIF;
+    ENDIF;
+ENDIF;
         </onShow>
       </window>
-      <window page="6LnJi0izenHQPIKUKuy0" y="70" height="942">
-        <onShow>
-          ScreenTitle = "TRENDS"; ScreenNo = 7;
-        </onShow>
-      </window>
-      <window page="AMyBgUPSK6vpMmXHdMa8" type="overlay" y="1012" height="68" />
-      <window page="Btat6ag48juQCq8o_JsI" y="70" height="942">
-        <onShow>
-          ScreenTitle = "SETPOINTS"; ScreenNo = 5;
-        </onShow>
-      </window>
-      <window page="CrYunZHTzyeUeelLEgEw" y="70" height="942">
-        <onShow>
-          ScreenTitle = "BATCH CONTROL"; ScreenNo = 2;
-        </onShow>
-      </window>
-      <window page="EamLlZMG1l1mYTc-YcEj" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
-      <window page="K2AaK8K8WjC8HGS3PnHE" y="70" height="942">
-        <onShow>
-          ScreenTitle = "PLASTICIZER SUPPLY"; ScreenNo = 3;
-        </onShow>
-      </window>
-      <window page="OT73N81Z3uddc_nxAD_h" titleBar="1" type="popup" x="730" y="150" width="460" height="560" everyMs="250">
+      <window page="H8H-ngq0nEIIxI88CdW6" titleBar="1" type="popup" x="730" y="150" width="460" height="560" everyMs="250">
         <onShow>
           { Points the faceplate's indirect tags at the tags of the device
   the opening button chose: FP_Prefix + "_Status" is SV100_Status, ... }
@@ -7584,17 +7922,25 @@ ELSE
 ENDIF;
         </whileShowing>
       </window>
-      <window page="_nf1GJl_e09oomGGTnQB" y="70" height="942">
+      <window page="LXSk0eUwzbl2vhaEn6C9" y="70" height="942">
         <onShow>
           ScreenTitle = "ALARM HISTORY"; ScreenNo = 8;
         </onShow>
       </window>
-      <window page="a5f1vHomntWsKs3CQrMw" y="70" height="942">
+      <window page="NH-Yq9HyN0uQ7oKNpVMI" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="NdJdJPQwJAc534bDGzQe" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="OdLXc7R3Jir2xHB1QB0D" y="70" height="942">
         <onShow>
-          ScreenTitle = "I/O  &amp;  SIMULATION"; ScreenNo = 9;
+          ScreenTitle = "SETPOINTS"; ScreenNo = 5;
         </onShow>
       </window>
-      <window page="orTEYaKm0jERod0DQWGS" type="overlay" height="70" everyMs="250">
+      <window page="Q41XcnUKifqP36RrTftc" y="70" height="942">
+        <onShow>
+          ScreenTitle = "BATCH CONTROL"; ScreenNo = 2;
+        </onShow>
+      </window>
+      <window page="R3KwSOVV5vmqhiIbYeNS" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="RY-ccqJwxutEBqhLSlh6" type="overlay" height="70" everyMs="250">
         <onShow>
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </onShow>
@@ -7602,18 +7948,38 @@ ENDIF;
           IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </whileShowing>
       </window>
-      <window page="q3wdW7gHwS_gdq6pfrIm" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
-      <window page="qlUR3N3yXMEUdOhnsazI" y="70" height="942">
+      <window page="SZw5J0t-iSvYPJIq47ID" type="overlay" y="1012" height="68" />
+      <window page="Xr7p-XYVgbHD8JRUCIxC" y="70" height="942">
+        <onShow>
+          ScreenTitle = "RECIPES"; ScreenNo = 6;
+        </onShow>
+      </window>
+      <window page="bcux3YtViYkyrjtbLEec" y="70" height="942">
+        <onShow>
+          ScreenTitle = "TRENDS"; ScreenNo = 7;
+        </onShow>
+      </window>
+      <window page="isHYW9uclOfOnEuvLFh_" y="70" height="942">
+        <onShow>
+          ScreenTitle = "PLASTICIZER SUPPLY"; ScreenNo = 3;
+        </onShow>
+      </window>
+      <window page="mihGNNIGZz-gVBZa9Ln-" y="70" height="942">
         <onShow>
           ScreenTitle = "PROCESS OVERVIEW"; ScreenNo = 1;
         </onShow>
       </window>
-      <window page="tNwH4MBg47_yQ9ylQVpd" y="70" height="942">
+      <window page="wbCVRUhgbF8aaxWoZBme" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="xDDYMndFpWB_ErI6C3Yw" y="70" height="942">
         <onShow>
           ScreenTitle = "DEVICES"; ScreenNo = 4;
         </onShow>
       </window>
-      <window page="vmSUTA36NBGLHOysrlV5" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="zUHrM8y_18HSsFbsFd2l" y="70" height="942">
+        <onShow>
+          ScreenTitle = "I/O  &amp;  SIMULATION"; ScreenNo = 9;
+        </onShow>
+      </window>
     </windows>
   </hmiProject>
 </mxfile>

@@ -321,12 +321,15 @@ def build(save=True):
         ['Part', 'In the example'],
         ['Target screen', '1920 × 1080, full screen'],
         ['PLC', 'One ControlLogix controller (EtherNet/IP), 419 I/O tags'],
-        ['Screens', 'Process, Batch, Supply, Devices, Setpoints, Recipes, Alarm History and IO Sim'],
+        ['Screens', 'Process, Batch, Supply, Devices, Setpoints, Recipes, Trends, Batch History, Alarm History '
+         'and IO Sim'],
         ['Popup windows', 'One faceplate for all 11 valves and 3 pumps, through indirect tags, and 4 confirmation dialogs'],
         ['Alarms', '34 alarmed tags, an Active Alarms list on every screen and an Alarm History screen'],
         ['Security', 'Three users (Operator, Maintenance, Engineer) with access levels'],
         ['Recipes', 'A recipe book of plasticizer blends with five starting recipes, and a Recipes screen to '
          'select, edit, save and download them'],
+        ['Database', 'Every completed batch written to a SQLite file in Documents, and a Batch History screen '
+         'that reads them back (chapter 13)'],
         ['Built by', 'An AI agent, from the control narrative, the I/O list and the electrical drawings, after it '
          'had written the PLC program (section 1.1)'],
         ['Scripts', 'Window scripts that turn the sequence step number into text, and action scripts that call '
@@ -429,9 +432,9 @@ def build(save=True):
         ['Recipes...', 'Recipe books: the tags a recipe holds and the starting recipes (chapter 11)'],
         ['Application Settings...', 'Target screen, start-up windows, runtime, security and application scripts (chapter 3)'],
         ['Window Properties...', 'Type, position, size and scripts of the current window (chapter 6)'],
-        ['Validate Expressions', 'Check every link, script and address for errors (chapter 13)'],
-        ['Publish...', 'Build a Windows installer of the application (chapter 14)'],
-        ['Run / Stop (F5)', 'Run the application in the Studio against live or simulated data (chapter 13)'],
+        ['Validate Expressions', 'Check every link, script and address for errors (chapter 14)'],
+        ['Publish...', 'Build a Windows installer of the application (chapter 15)'],
+        ['Run / Stop (F5)', 'Run the application in the Studio against live or simulated data (chapter 14)'],
         ['Runtime Log...', 'Messages from the last runs: connections, writes, script errors'],
         ['Clear Retentive Values...', 'Forget the saved values of retentive tags on this computer'],
         ['Clear Runtime User Changes...', 'Forget user changes made while running on this computer'],
@@ -702,7 +705,14 @@ def build(save=True):
         ['_AckAll', 'Write 1 to acknowledge every alarm'],
         ['_Username', 'Logged-in user, or None'],
         ['_AccessLevel', 'Logged-in user\'s access level, or 0'],
+        ['_DateString, _TimeString, _DateTime', 'The date, the time and both as text: 2026-10-17, 14:05:09 and '
+         '2026-10-17 14:05:09.270. The last is what a date and time column takes as it stands'],
+        ['_Year, _Month, _Day', 'Numbers: the month 1 to 12'],
+        ['_Hour, _Minute, _Second, _Msec', 'Numbers: the hour 0 to 23'],
     ])
+    P('The date and time tags are this PC\'s local time, worked out as they are read, so a script reading _Msec '
+      'gets the millisecond it ran in; a box showing one is repainted once a second. All the system tags are '
+      'read-only, apart from _AckAll.')
     H2('9.1  Window and application scripts')
     P('A window can run a script when it opens (**On show**), repeatedly while it is open (**While showing**, every '
       'n ms) and when it closes (**On hide**). LiquidWeighHMI\'s **Header** window, open for as long as the '
@@ -775,6 +785,29 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
         ['Text(value, format)', 'value: a number\nformat: text', 'The number as text, formatted by a picture such as "0.00". '
          'The digits after the point in format give the decimals, and the digits before it the minimum number of '
          'whole digits, padded with zeros. `Text(3.14159, "0.00")` is "3.14" and `Text(7, "000")` is "007"'],
+    ])
+    P('The text functions below work on message tags and literals. A character position counts from 1, and a '
+      'count that runs past the end of the text stops there.')
+    table(doc, 'Text functions (links and scripts)', [
+        ['Function', 'Arguments', 'What it does'],
+        ['StringLeft(text, count)', 'text\ncount: a number', 'The first count characters. '
+         '`StringLeft(_DateTime, 10)` is the date'],
+        ['StringRight(text, count)', 'text, count', 'The last count characters'],
+        ['StringMid(text, start, count)', 'text, start, count', 'count characters from position start. '
+         '`StringMid(_DateTime, 12, 8)` is the time'],
+        ['StringTrim(text)', 'text', 'text without the spaces at either end'],
+        ['StringUpper(text), StringLower(text)', 'text', 'text in capitals, or in small letters'],
+        ['StringInString(text, find)', 'text, find', 'The position where find starts in text, or 0 when it is '
+         'not there'],
+        ['StringReplace(text, find, with)', 'text, find, with', 'text with every occurrence of find replaced by '
+         'with'],
+        ['StringFromIntg(number, base)', 'number\nbase: optional', 'The whole number as text, in base 2 to 36 '
+         '(10 unless given). Base 16 gives small letters, so wrap it in StringUpper for FF'],
+        ['StringFromReal(number, decimals, kind)', 'number, decimals\nkind: optional',
+         'The number as text with that many decimals. kind "f" is a plain number (the default), "e" is '
+         'exponential, and "g" is the shorter of the two with trailing zeros dropped, counting significant digits'],
+        ['StringToIntg(text), StringToReal(text)', 'text', 'The number the text starts with, or 0 when it holds '
+         'none, so an operator\'s typing cannot break them'],
     ])
     table(doc, 'Security functions (scripts only)', [
         ['Function', 'Arguments', 'What it does'],
@@ -856,6 +889,24 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
     ])
     P('Each trend function returns 1, or 0 with a Function Error window naming the call and the reason, such as a '
       'trend or pen that does not exist.')
+    P('The **database functions** read and write SQL databases. There are 40 of them, and chapter 13 describes '
+      'them all; these are the ones most applications use:')
+    table(doc, 'Database functions (scripts only)', [
+        ['Function', 'Arguments', 'What it does'],
+        ['SQLConnect(ConnIdTag, source)', 'ConnIdTag: an analog tag\nsource: text',
+         'Opens the data source named by source and writes the connection number into ConnIdTag'],
+        ['SQLInsert(ConnId, table, bindList)', 'ConnId\ntable, bindList: text',
+         'Writes one row from the current values of the bind list\'s tags'],
+        ['SQLSelect(ConnId, table, bindList, where, orderBy)', 'ConnId\nthe rest: text',
+         'Fetches the bind list\'s columns; where and orderBy may be ""'],
+        ['SQLFirst(ConnId), SQLNext(ConnId)', 'ConnId', 'Moves to the first or next row of the selection and '
+         'writes it into the bind list\'s tags'],
+        ['SQLErrorMsg(code)', 'code: a result code', 'What a result code means, as text to show the operator'],
+        ['SQLDisconnect(ConnId)', 'ConnId', 'Closes the connection'],
+    ])
+    P('Each one returns 0 when it worked and a negative result code when it did not, except SQLNumRows, which '
+      'returns the number of rows, and SQLErrorMsg, which returns text. A failure also opens a Database Error '
+      'window.')
 
     H2('9.4  Indirect tags: one faceplate for every device')
     P('LiquidWeighHMI has 11 valves and 3 pumps, and one **Device Faceplate** for all of them. Its objects use '
@@ -1357,12 +1408,225 @@ TrendSetPen(TrendName, PenTag);
       'than its trends ask.')
 
     # ------------------------------------------------------------ 13
-    H1('13  Testing')
-    H2('13.1  Validate')
+    H1('13  Databases')
+    P('An application can read and write SQL databases from its scripts: log a batch as it finishes, keep a shift '
+      'report, fetch the last records into a screen, look a part number up. Two kinds of database are supported, '
+      '**Microsoft SQL Server** and **SQLite**, a single file that needs no server at all.')
+    P('Four things are set up in **HMI > Database**, and the SQL functions work through them: **data sources** (the '
+      'databases the application can open), **bind lists** (which tag goes in which column), **table templates** '
+      '(the shape of a table the application creates for itself) and **queries** (statements kept in the project). '
+      'LiquidWeighHMI uses all four to log every batch it completes.')
+    figure(doc, 'database-sources', 'HMI > Database: the BatchDb data source of LiquidWeighHMI', max_width_in=4.6)
+
+    H2('13.1  Data sources')
+    P('A data source is a database the application can open. `SQLConnect` names one and hands back a connection '
+      'number that every other function uses.')
+    table(doc, 'Data source settings', [
+        ['Setting', 'Applies to', 'Meaning'],
+        ['Name', 'both', 'What SQLConnect names, up to 64 characters'],
+        ['Kind', 'both', 'Microsoft SQL Server, or a SQLite file'],
+        ['Server, Port, Database, User, Password', 'SQL Server', 'Where the server is and who to log in as. The '
+         'port is 1433 unless set'],
+        ['Instance name', 'SQL Server', 'A named instance, in place of a port'],
+        ['Encrypt the connection', 'SQL Server', 'Off by default'],
+        ['Accept any certificate', 'SQL Server', 'On by default, which is what a server with a self-signed '
+         'certificate needs'],
+        ['Allow older TLS versions', 'SQL Server', 'For an older server that offers only a TLS version this PC '
+         'refuses by default'],
+        ['Timeout (ms)', 'both', 'How long a statement may take: 100 to 600,000. 15,000 unless set'],
+        ['File name, Kept in', 'SQLite', 'The file name, and whether it lives in the application data folder or '
+         'in Documents'],
+    ])
+    P('**Test Connection** opens the data source and closes it again, and says what went wrong if it could not.')
+    P('A SQLite data source names a **file and a folder, never a path**: an absolute path names one PC\'s account, '
+      'and a published application runs on another PC, often as another user. The file is created the first time '
+      'something writes to it. Documents is the place for a file somebody will open with another tool; the '
+      'application data folder is the place for one that is the application\'s own business.')
+    note(doc, 'A password kept in the project is **obfuscated, not protected**: it is out of plain sight, and '
+         'anyone with the project file and this product can read it back. Where that is not good enough, leave it '
+         'empty and give each PC its own in the **On this computer** section of the same dialog, which is kept '
+         'outside the project and wins over it. HMI > Clear Database Passwords forgets what this PC holds.')
+
+    H2('13.2  Bind lists')
+    P('A bind list pairs a tag with a database column. It works in both directions: a **select writes the columns '
+      'into the tags**, and an **insert or update reads the tags into the columns**. The order of the rows is the '
+      'order of the columns.')
+    figure(doc, 'database-bindlist', 'The BatchRow bind list: each batch tag against its column', max_width_in=4.6)
+    P('A row can read a **dotfield** instead of the tag\'s value, such as `TimeDate` or `InAlarm`. A dotfield can '
+      'only be read, so such a row is filled on an insert and skipped when rows are fetched.')
+    bullets(doc, [
+        'Values travel as **parameters**, never as text pasted into the statement, so nothing needs quoting and a '
+        'tag holding an apostrophe cannot rewrite the statement.',
+        'An insert sends the tags\' **current** values. Every bind list\'s tags are watched from the moment the '
+        'application starts, whether or not any window shows them, so a batch log records points nobody is '
+        'watching.',
+        'A value of bad quality is written as a null, and noted in the runtime log: one tag of twenty may be on a '
+        'link that is down, and a record with a null in it still says what was known.',
+        'A bind list names tags from the Tag Dictionary, so a system tag cannot be in one. To stamp a row with the '
+        'time, use a tag\'s TimeDate dotfield, copy `_DateTime` into a message tag just before the insert, or let '
+        'the database stamp it with GETDATE() or CURRENT_TIMESTAMP in a statement of your own.',
+    ])
+
+    H2('13.3  Table templates and queries')
+    P('A **table template** is the shape of a table, so an application can create the table it needs the first '
+      'time it runs instead of somebody creating it by hand on every PC. Each column has a name, a type, a length '
+      'or precision, whether it is indexed and whether it may be empty. `SQLCreateTable` creates the table and one '
+      'index per column that asks for one. The types are the Studio\'s own, and each database gets whatever it '
+      'wants:')
+    table(doc, 'Column types', [
+        ['Type', 'Microsoft SQL Server', 'SQLite'],
+        ['Text', 'NVARCHAR(length), 255 unless set', 'TEXT'],
+        ['Whole number', 'INT', 'INTEGER'],
+        ['Number', 'FLOAT', 'REAL'],
+        ['Decimal', 'DECIMAL(precision, scale), 18 and 2 unless set', 'NUMERIC'],
+        ['On or off', 'BIT', 'INTEGER'],
+        ['Date, Time, Date and time', 'DATE, TIME, DATETIME', 'TEXT (ISO 8601, which SQLite\'s date functions read)'],
+    ])
+    P('A table that is already there is left as it is, so the ordinary way to use this is to call '
+      'SQLCreateTable in the application\'s On start script every time it runs: the first run makes the table and '
+      'every later one finds it. Nothing is altered, so a table whose columns have since changed is not brought '
+      'up to date.')
+    P('A **query** is a statement kept in the project by name, loaded with `SQLLoadStatement`. It lives in the '
+      'project rather than in a .sql file beside the installer, because a path names one PC\'s disk and a file '
+      'somebody can edit is a file somebody can edit. A `?` in a statement marks a parameter to be set before it '
+      'runs.')
+
+    H2('13.4  The script functions')
+    P('Every SQL function returns a **result code**: 0 when it worked, a negative number when it did not. '
+      '`SQLErrorMsg(code)` turns a code into words for a message tag, and `SQLErrorMsg(-1)` gives the database\'s '
+      'own words for the last failure. A failure also opens a **Database Error** window naming the call and the '
+      'reason, so an operator is never left with a number alone.')
+    code(doc, '''
+Res = SQLInsert(ConnId, "BatchLog", "BatchRow");
+IF Res <> 0 THEN
+    Db_Status = SQLErrorMsg(Res);
+ENDIF;
+''')
+    P('The functions that reach a database pause the script until it answers, like ShowRecipeSelect, so they must '
+      'be a statement on their own or the whole right side of an assignment. Moving through rows already fetched, '
+      'building a statement and setting a parameter are immediate.')
+    table(doc, 'Connecting', [
+        ['Function', 'What it does'],
+        ['SQLConnect(ConnIdTag, "DataSource")', 'Opens the data source and writes the connection number into '
+         'ConnIdTag, an analog tag. Up to 8 connections at once; everything is closed when the application stops'],
+        ['SQLDisconnect(ConnId)', 'Closes the connection'],
+    ])
+    table(doc, 'Reading rows', [
+        ['Function', 'What it does'],
+        ['SQLSelect(ConnId, "Table", "BindList", "Where", "OrderBy")', 'Fetches the bind list\'s columns. Either '
+         'expression may be "". The rows are held by the application, so walking them costs nothing'],
+        ['SQLFirst / SQLNext / SQLPrev / SQLLast (ConnId)', 'Moves the cursor and writes that row into the bind '
+         'list\'s tags. -5 when there is no such row, which is how a walk ends'],
+        ['SQLGetRecord(ConnId, n)', 'The row at number n, counting from 1'],
+        ['SQLNumRows(ConnId)', 'How many rows were found. This one returns the count, not a result code'],
+        ['SQLEnd(ConnId)', 'Lets the rows go'],
+    ])
+    table(doc, 'Writing rows and tables', [
+        ['Function', 'What it does'],
+        ['SQLInsert(ConnId, "Table", "BindList")', 'One new row from the current values of the bind list\'s tags'],
+        ['SQLUpdate(ConnId, "Table", "BindList", "Where")', 'Sets those columns in the rows the where expression '
+         'matches. An empty expression is refused, so an update cannot change every row by accident'],
+        ['SQLUpdateCurrent(ConnId)', 'Writes the bind list\'s tags back into the row the cursor is on'],
+        ['SQLDelete(ConnId, "Table", "Where")', 'The rows the expression matches; an empty one is refused'],
+        ['SQLClearTable(ConnId, "Table")', 'Every row, deliberately. The table stays'],
+        ['SQLCreateTable(ConnId, "Table", "Template")', 'A table shaped by one of the project\'s templates; a '
+         'table that is already there is left alone'],
+        ['SQLDropTable(ConnId, "Table")', 'The table and everything in it'],
+    ])
+    P('A script can also build statements of its own. `SQLSetStatement` starts the connection\'s statement buffer '
+      'and `SQLAppendStatement` adds to it (nothing is put between the pieces); `SQLLoadStatement` fills it from '
+      'one of the project\'s queries; `SQLPrepareStatement` turns it into a statement with a number, so it can be '
+      'run again with other values; and `SQLExecute(ConnId, "BindList", StmtId)` runs it, statement 0 being the '
+      'buffer itself. A statement that returns rows fills them in through the bind list named there, and "" says '
+      'the rows are not for tags.')
+    P('Each `?` in a prepared statement is given a value with the **SQLSetParam** family before it runs: '
+      '`SQLSetParamChar`, `SQLSetParamInt`, `SQLSetParamLong`, `SQLSetParamFloat`, `SQLSetParamDecimal`, '
+      '`SQLSetParamDate`, `SQLSetParamTime`, `SQLSetParamDateTime` and `SQLSetParamNull`, each taking the '
+      'statement number, the parameter number and the value. `SQLClearParam` unsets one, and `SQLClearStatement` '
+      'lets a statement go. For a loop that writes a row per pass, `SQLInsertPrepare`, `SQLInsertExecute` and '
+      '`SQLInsertEnd` do the same for an insert built from a bind list.')
+    P('`SQLTransact(ConnId)`, `SQLCommit(ConnId)` and `SQLRollback(ConnId)` put several writes together: '
+      'everything between the first and the second reaches the tables together, or not at all. An application '
+      'that stops with a transaction open rolls it back.')
+
+    H2('13.5  The batch log in LiquidWeighHMI')
+    P('LiquidWeighHMI writes a record of every batch to a SQLite file in the Documents folder of the PC that runs '
+      'it, and shows them again on its Batch History screen. Nothing has to be installed or set up for it: the '
+      'application makes its own file and its own table.')
+    P('Its **On start** application script opens the database and makes sure the table is there:')
+    code(doc, '''
+DIM res AS Analog;
+
+res = SQLConnect(Db_ConnId, "BatchDb");
+
+IF res <> 0 THEN
+    Db_Status = SQLErrorMsg(res);
+ELSE
+    res = SQLCreateTable(Db_ConnId, "BatchLog", "BatchLogTable");
+    Db_Status = "Logging batches to BatchDb";
+ENDIF;
+''')
+    P('Its **While running** script watches the controller\'s batch counter. When it moves on, a batch has '
+      'finished: the script stamps the row from the clock, notes who was logged in and writes it through the '
+      'BatchRow bind list.')
+    code(doc, '''
+IF Bat_Count <> Db_LastCount AND Db_ConnId > 0 THEN
+    Db_LastCount = Bat_Count;
+    Db_Stamp = _DateTime;
+    Db_Operator = _Username;
+    res = SQLInsert(Db_ConnId, "BatchLog", "BatchRow");
+
+    IF res == 0 THEN
+        Db_Status = "Batch " + StringFromIntg(Bat_Count) + " logged at " + _TimeString;
+    ELSE
+        Db_Status = SQLErrorMsg(res);
+    ENDIF;
+ENDIF;
+''')
+    P('The **Batch History** screen, opened by the BATCH HISTORY button on the Batch screen, runs the project\'s '
+      'RecentBatches query when it opens and shows one batch at a time. NEWEST, NEWER, OLDER and OLDEST move the '
+      'cursor through the rows the query found, and each row lands in the tags of the BatchHistoryRow bind list, '
+      'which is what the boxes show. REFRESH runs the query again.')
+    code(doc, '''
+res = SQLLoadStatement(Db_ConnId, "RecentBatches");
+
+IF res == 0 THEN
+    res = SQLExecute(Db_ConnId, "BatchHistoryRow", 0);
+ENDIF;
+
+Db_Rows = SQLNumRows(Db_ConnId);
+res = SQLFirst(Db_ConnId);
+''')
+    figure(doc, 'run-batch-history', 'The Batch History screen of LiquidWeighHMISim, showing the newest of the '
+           'batches it has logged')
+    P('LiquidWeighHMISim logs the same way and needs neither a PLC nor a server, so it is the quickest way to see '
+      'the whole thing work: open it, press START or AUTO CYCLE, and each batch appears on the Batch History '
+      'screen as it finishes. The file can be opened with any SQLite tool while the application is running.')
+
+    H2('13.6  Where the rows are kept')
+    P('Only the application itself talks to the database: the screens never do, and a password never reaches '
+      'them. A SQLite file lives beside the application\'s other data:')
+    table(doc, 'Where a SQLite file is kept', [
+        ['Running in', 'Folder'],
+        ['Append HMI Studio (Run)', 'databases in the Studio\'s settings folder, or Documents'],
+        ['A published application', '%APPDATA%\\<Product>\\databases, or Documents'],
+        ['Append HMI Desktop, Append HMI Web', 'databases in their settings folder, or Documents'],
+    ])
+    P('In Append HMI Web the application runs in the browser but the database work happens on the server, so the '
+      'browser needs no database access and the credentials never leave the server. Each browser gets its own '
+      'connections, as it gets its own login. Several browsers writing one table is what a database is for; for '
+      'more than a handful, a server database is a better answer than a SQLite file.')
+    note(doc, 'Microsoft SQL Server\'s datetime column keeps about 1/300 of a second, so a stamp written as .969 '
+         'reads back as .970. Where the exact millisecond matters, make the column datetime2 with a statement of '
+         'your own.')
+
+    # ------------------------------------------------------------ 14
+    H1('14  Testing')
+    H2('14.1  Validate')
     P('**HMI > Validate Expressions** checks every link, script and PLC address and lists any problem with the '
       'page and object; click a problem to go to it. Validate before every Run and Publish.')
     figure(doc, 'validate', 'Validation of LiquidWeighHMI: no problems found', max_width_in=4.0)
-    H2('13.2  Run')
+    H2('14.2  Run')
     P('**HMI > Run** (F5) runs the application inside the Studio: the drawing is locked, the start-up windows '
       'open, and the application connects to its PLCs. A green RUNNING banner shows that the screen is live and '
       'that touching it operates real equipment. **HMI > Stop** returns to editing.')
@@ -1381,8 +1645,8 @@ TrendSetPen(TrendName, PenTag);
     figure(doc, 'run-alarm-history', 'Alarm History screen')
     note(doc, 'HMI > Runtime Log lists connections, device errors, writes and script errors from the run.')
 
-    # ------------------------------------------------------------ 14
-    H1('14  Deploying')
+    # ------------------------------------------------------------ 15
+    H1('15  Deploying')
     P('An application can reach the plant floor in three ways.')
     table(doc, 'Deployment options', [
         ['Option', 'What the target gets', 'Best for'],
@@ -1393,18 +1657,18 @@ TrendSetPen(TrendName, PenTag);
         ['Append HMI Web', 'A web server; operators open the application in any browser', 'Viewing and operating from '
          'tablets, laptops and control-room PCs'],
     ])
-    H2('14.1  Publish')
+    H2('15.1  Publish')
     P('**HMI > Publish** builds a Windows installer from the open project. Give the product name, version and '
       'publisher, choose an icon, whether it installs for all users, and whether it adds a desktop shortcut or '
       'starts with Windows. Run the Setup.exe on the target PC; the application then starts full screen as set '
       'in Application Settings.')
     figure(doc, 'publish', 'The Publish dialog', max_width_in=4.0)
-    H2('14.2  Append HMI Desktop')
+    H2('15.2  Append HMI Desktop')
     P('Append HMI Desktop runs .ahmi files without the editor. Choose an application, then **Run now**, create a '
       'desktop shortcut or menu entry, or tick **Run this application automatically when I log in**. From the '
       'command line: `append-hmi-desktop LiquidWeighHMI.ahmi`.')
     figure(doc, 'desktop-launcher', 'The Append HMI Desktop launcher with LiquidWeighHMI selected', max_width_in=4.2)
-    H2('14.3  Append HMI Web')
+    H2('15.3  Append HMI Web')
     P('Append HMI Web serves an application to web browsers on the plant network. Choose the application and a port '
       '(8480 by default), then **Start web server**; the launcher shows the link to share, with a **Copy** button. '
       'If the port is already in use on the PC (by another web server, or another application being served), '
@@ -1418,8 +1682,8 @@ TrendSetPen(TrendName, PenTag);
         'second application running in the background', max_width_in=4.2)
     figure(doc, 'web-browser', 'LiquidWeighHMI in a web browser, with the view menu open')
 
-    # ------------------------------------------------------------ 15
-    H1('15  Tips and troubleshooting')
+    # ------------------------------------------------------------ 16
+    H1('16  Tips and troubleshooting')
     table(doc, 'Common problems', [
         ['Symptom', 'Cause and remedy'],
         ['Values show ####', 'The tag has bad quality: the PLC is not connected or the address is wrong. Check '

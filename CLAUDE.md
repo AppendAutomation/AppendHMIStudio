@@ -38,6 +38,7 @@ append-hmi-studio/
 │   ├── comms/                # hmi-comms supervisor (spawn/restart) and per-window WebSocket relay
 │   ├── runtime/RuntimeMode.js # Run-only mode for published HMI packages
 │   ├── alarms/, retentive/, security/, recipes/, trends/ # Run-time stores in userData (AlarmLog, RetentiveStore, UserStore, RecipeStore, TrendLog)
+│   ├── sql/                  # SQL* script functions: SqlClient (tedious, node:sqlite), SqlSession, DataSourceStore, Secret, ResultCodes
 │   ├── print/ScreenPdf.js    # ScreenToPDF: window capture fallback and the Save dialog
 │   └── publish/              # HMI > Publish: Publisher.js, NsisScript.js (also the editor installer)
 ├── src/test/                 # npm test (Node's test runner; files listed in package.json)
@@ -53,7 +54,7 @@ append-hmi-studio/
 │   ├── dist-linux.mjs        # Linux packages
 │   └── make-icons.mjs        # Icons from build/icon.svg
 ├── build/                    # icon.svg/icon-small.svg and generated icons, fuses.mjs, sign-trusted.mjs
-├── doc/                      # BUILDING.md, RELEASE_PROCESS.md, HMI_PUBLISH.md
+├── doc/                      # BUILDING.md, RELEASE_PROCESS.md, HMI_PUBLISH.md, HMI_SQL.md, …
 ├── electron-builder-win.json   # Windows x64 (unpacked; our NSIS makes the installer)
 ├── electron-builder-linux.json # Linux x64 AppImage + deb
 └── package.json
@@ -124,7 +125,7 @@ append-hmi-studio/
   - Both realpath-canonicalise first.
 - **HMI > Publish** writes installers only to Documents or a folder picked in the OS dialog, and takes an icon only if it was picked there (`publishOutputDirs`/`publishIcons` in electron-store). A published runtime reads its project in main (`hmiRuntime.project`).
 - **Built-in plugins only:** `isPluginsEnabled` is hardcoded `false`.
-- **No data leaves the machine** apart from PLC traffic through `hmi-comms`.
+- **No data leaves the machine** apart from what a project configures: PLC traffic through `hmi-comms`, and the databases its data sources name. Statements are sent only from main (`src/main/sql/`); a window never opens a socket, never names a file path and never gets a stored password back.
 
 ### IPC Pattern
 The renderer calls `electron.request({action: ...}, callback, error)`; main handles `rendererReq` (after `validateSender`) and replies on `mainResp`. Pushes use named channels: `hmiCommsEvent`, `hmiPublishEvent`, `hmiRuntimeExitPrompt`, `hmiShowAbout`.
@@ -213,6 +214,19 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - **The pausing calls:** `ShowRecipeSelect` and a waiting `ShowWindow` are refused in a body. A `ShowWindow` with nothing to wait for is marked `sync` on the node in quick mode only, so it runs through `eval_call`'s action branch and `HmiRuntime.context().call`'s new `ShowWindow` route; a plain script keeps the path it always had.
 - **The script tools** under the body (`HmiDialogs.scriptTools`, reusable by any script field): Validate reports the compile on demand into its own message line, New Tag opens `showTagEditor` on a free name and re-checks the body after a save (`scope.touch()` first, since the draft has its own revision), and Browse Tags opens `HmiDialogs.showTagBrowser` and copies the pick through `HmiDialogs.copyText` (the app's clipboard helper, with an `execCommand` fallback; when both refuse, the message names the tag).
 - **Elsewhere:** `HmiDialogs.showQuickFunctions` (the dialog, editing a copy against `HmiQuickFn.draftScope`), `HmiDialogs.scriptArea`'s optional `errorsOf`, `HmiMenus.checkQuickFunctions` and its `collectProblems` block, `HmiCli.buildQuickFunctions`/`dump`, and the `HmiTagRefs.eachProjectField` holder -- whose `shield` (the argument names) is threaded through `scanText`/`rewriteText`/`namesIn` so a tag rename cannot rewrite an argument.
+
+### SQL databases
+- **Documentation:** `doc/HMI_SQL.md`.
+- **Project:** `project.dataSources`, `bindLists`, `tableTemplates` and `queries`; XML `<dataSources><dataSource …>`, `<bindLists><bindList><bindItem tag field column delim/>`, `<tableTemplates><tableTemplate><templateColumn …/>`, `<queries><query name><querySql>` with the statement as a child text element (like a script, so a file round trips). A data source password is wrapped (`hmi1:`), never plain.
+- **Renderer (`js/hmi/HmiSql.js`):** the providers (`mssql`, `sqlite`), the column types, the folder rule, the name and shape rules (`dataSourceProblem`, `bindListProblem`, `templateProblem`, `queryProblem`, shared by the dialog, the CLI and Validate), the result codes (`HmiSql.CODES`/`MESSAGES`, a test keeps them in step with `src/main/sql/ResultCodes.js`, which the renderer cannot import), the DDL builder (`tableSql`), parameter conversion (`paramFor`, `decimalParam`, `datePrecision`, `parseDateTime`) and `HmiSqlManager`.
+- **Manager:** `HmiSqlManager`, one per Run, owned by `HmiWindowManager` and passed to runtimes as `config.sql`. It subscribes every bind list's tags on its own hub client at `BIND_RATE_MS` (so an insert finds values for tags no window shows), holds each connection's results and cursor in the renderer (moving through rows is synchronous), keeps prepared statements for the Run, and closes every connection at stop (which rolls back an open transaction). `read()` asks the driver first and the cached batch second, because a script sets tags and inserts in the same pass. Failures go to the shared function error window, titled Database Error; `WARNINGS` (-4, -5, -1006) go to the runtime log instead, since a walk over rows ends by running off the end of them.
+- **Expressions:** the `SQL*` entries in `HmiExpr.FUNCTIONS` are `action: true`, and the ones that reach a database are `async: true`, so the parser allows them only as a statement or the whole right-hand side of an assignment. `tagArgs` marks the arguments that are tags written to (`SQLConnect`, `SQLPrepareStatement`, `SQLInsertPrepare`). `HmiSql.NAME_ARGS` and `WHERE_ARGS` drive the parser's literal checks and `HmiTagRefs`' `NAME_ARGS` rewriting.
+- **Main process (`src/main/sql/`):** `SqlClient.js` is the only code that talks to a database — tedious for SQL Server (imported lazily), `node:sqlite` for a file; `SqlSession.js` is one window's connections (`MAX_CONNECTIONS` 8, numbers count up, `validateSqlArgs` throws on a malformed request); `DataSourceStore.js` keeps per-PC credentials in `userData/datasources/<store>.json` (set and summarized, never read back to a window); `Secret.js` wraps a password; `ResultCodes.js` holds the numbers. `resolveFile` confines a SQLite file to `<userData>/databases` or Documents. Sessions are per `webContents` in `electron.js`, dropped when the window goes and at `will-quit`.
+- **Dialog:** `HmiDialogs.showDatabase` (HMI > Database), four tabs over one draft; Test Connection calls `hmiSql.probe`; a stored password is never shown, only kept or cleared. HMI > Clear Database Passwords forgets this computer's own (`hmiSql.clearOverrides`, refused in the runtime).
+- **Validate:** `HmiMenus.checkDatabase` (the shared rules, plus a bind list naming a tag the dictionary hasn't — a system tag gets its own wording — and `columnNote` for a reserved or bracket-needing column name) and the `SQL*` call checks in the parser.
+- **Packaging:** `tedious` ships; the Azure AD packages are excluded and `build/sql-stubs/*` is mapped over them by both electron-builder configs (see `build/sql-stubs/README.md`), and every glob must precede the first `{from, to}` entry. **Desktop and Web must name `tedious` in their own `package.json`:** they import these modules through the `studio` submodule, but npm resolves from the app's own `node_modules`.
+- **Date and time:** `HmiTypes.SYSTEM_TAGS` entries carry `provider` (`alarms` | `security` | `clock`), which `HmiRuntime.readField` routes on. The clock has no state: `HmiTypes.CLOCK_READERS` works each value out from a `Date` as it is read, and `HmiWindowManager.startClock` only invalidates `HmiTypes.CLOCK_NAMES` once a second to repaint. `HmiTypes.stampText` is the one definition of the database stamp (`HmiSql.dateText` is it).
+- **Tests:** `src/test/sql.test.js` (SQLite for real, the connect-spec builder, the stores, the code tables; the SQL Server tests run only with `HMI_SQL_HOST`, `HMI_SQL_USER` and `HMI_SQL_PASS` set, like the comms tests with `HMI_COMMS_EXE`). In-app: `sql.*`, `sqlDlg.*`, `clock.*` and `string.*`.
 
 ### Editor conveniences
 - **An HMI edit marks the file, not just the editor:** `HmiFile.markModified(ui)` sets `editor.modified` **and** calls `file.fileChanged()`. Everything in `js/hmi` that used to call `ui.editor.setModified(true)` goes through it. Without the file's own flag, a change to tags, devices, users, recipes, QuickFunctions, application settings or window properties left `getCurrentFile().isModified()` false, so the title showed nothing, no draft was written, and the close prompt the desktop main process raises (`isModified` -> the renderer -> Save / Discard Changes / Cancel) never appeared.
@@ -308,7 +322,7 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
   - Keep the runtime's IPC actions in step with AppendHMIDesktop and AppendHMIWeb, which use this repository as a submodule.
 
 ### Data Storage
-userData is `%APPDATA%\Append HMI Studio` (Windows) or `~/.config/Append HMI Studio` (Linux). It holds electron-store `config.json`, Local Storage, `logs/main.log` and `comms-cache`. A published runtime uses `%APPDATA%\<Product>`.
+userData is `%APPDATA%\Append HMI Studio` (Windows) or `~/.config/Append HMI Studio` (Linux). It holds electron-store `config.json`, Local Storage, `logs/main.log`, `comms-cache`, the run-time stores (`alarms/`, `retentive/`, `users/`, `recipes/`, `trends/`, `datasources/`) and `databases/` for a project's SQLite files. A published runtime uses `%APPDATA%\<Product>`.
 
 ## Testing
 
@@ -317,6 +331,7 @@ userData is `%APPDATA%\Append HMI Studio` (Windows) or `~/.config/Append HMI Stu
   - comms supervisor and session (with a real-binary run when `comms/publish/` has a build for this machine);
   - run-only mode;
   - Publish, including real makensis builds when `build/nsis` exists;
+  - SQL: SQLite for real, connect specs, the credential store and the result codes (live SQL Server with `HMI_SQL_HOST`, `HMI_SQL_USER`, `HMI_SQL_PASS`);
   - packaging and brand checks.
 - `npm run test-comms`: the hmi-comms xUnit suites. `HMI_COMMS_EXE=<published binary>` tests a trimmed build.
 - **In-app self test:** `urlParams.json` with `{"hmitest": 1}` next to `package.json`, then `HMI_ENV=dev npx electron .`. Results are logged as `HMITEST ...`. The log contains a NUL byte, so grep it with `-a`.
@@ -349,6 +364,7 @@ The results become artifacts; a tag also creates a draft release. `hash-gen.yml`
 | `electron-store` | Persistent settings |
 | `electron-log` | Logging |
 | `@cantoo/pdf-lib` | PDF export |
+| `tedious` | Microsoft SQL Server driver (`SQL*` script functions); SQLite is `node:sqlite` |
 | `resedit` | Windows exe version/icon resources for Publish |
 
 CLI argument parsing is hand-rolled in `src/main/args.js`.

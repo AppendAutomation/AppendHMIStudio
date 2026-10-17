@@ -1,6 +1,6 @@
 ---
 name: append-hmi-studio
-description: Create, modify, check, preview and publish HMI (operator screen / SCADA panel) applications with Append HMI Studio, entirely from the command line. Describe tags, PLC devices (Allen-Bradley Logix, SLC/MicroLogix, Modbus TCP, simulator), windows, objects with animation links, alarms and runtime settings as a JSON spec, build it into a .ahmi project, validate it, render the pages to PNG for review, and publish a Windows installer for the target PC. Use whenever asked to make, change or deploy an HMI application, operator screen, .ahmi project, or Append HMI Studio package.
+description: Create, modify, check, preview and publish HMI (operator screen / SCADA panel) applications with Append HMI Studio, entirely from the command line. Describe tags, PLC devices (Allen-Bradley Logix, SLC/MicroLogix, Modbus TCP, simulator), windows, objects with animation links, alarms, SQL database logging and runtime settings as a JSON spec, build it into a .ahmi project, validate it, render the pages to PNG for review, and publish a Windows installer for the target PC. Use whenever asked to make, change or deploy an HMI application, operator screen, .ahmi project, or Append HMI Studio package.
 ---
 
 # Append HMI Studio: build and publish HMI applications
@@ -25,6 +25,7 @@ The studio does the modeling, validation and packaging itself, so never write
 - **Indirect tags:** [indirect.md](indirect.md).
 - **Trends:** [trends.md](trends.md).
 - **QuickFunctions:** [quickfunctions.md](quickfunctions.md).
+- **Databases (the `SQL*` functions):** [database.md](database.md).
 - **A complete example:** [example-spec.json](example-spec.json). It has a
   Logix PLC, alarmed tags, an overview page with a tank, a pump button and a
   popup alarm window.
@@ -112,7 +113,11 @@ To **change an existing project**:
 - **Expressions are strings,** even numbers (`"atMax": "100"`). They are
   InTouch-style QuickScript:
   - operators: `AND OR NOT`, `== <> < <= > >=`, `+ - * / MOD`;
-  - functions: `Abs`, `Round`, `Min`, `Max`, `Text(x, "0.0")`, …
+  - functions: `Abs`, `Round`, `Min`, `Max`, `Text(x, "0.0")`, and the text
+    family `StringLeft`, `StringRight`, `StringMid`, `StringTrim`,
+    `StringUpper`, `StringLower`, `StringInString`, `StringReplace`,
+    `StringFromIntg`, `StringFromReal`, `StringToIntg`, `StringToReal`
+    (positions count from 1);
   - dotfields: `Tag.InAlarm`, `Tag.Acked`, `Tag.MaxEU`;
   - scripts (`pushbutton.action`, window `onShow`/`whileShowing`/`onHide`,
     application `settings.scripts`): statements end with `;`,
@@ -139,8 +144,12 @@ To **change an existing project**:
 - **Tags:**
   - types: `Memory…` (internal) or `IO…` (on a PLC: needs `device` and
     `address`), each Discrete, Integer, Real or Message;
-  - names are case-insensitive, and `_AlarmsActive`, `_AlarmsUnacked`,
-    `_AckAll`, `_Username` and `_AccessLevel` are reserved system tags;
+  - names are case-insensitive, and the system tags are reserved:
+    `_AlarmsActive`, `_AlarmsUnacked`, `_AckAll`, `_Username`,
+    `_AccessLevel`, and the clock — `_DateString` (`2026-10-17`),
+    `_TimeString` (`14:05:09`), `_DateTime` (`2026-10-17 14:05:09.270`),
+    `_Year`, `_Month`, `_Day`, `_Hour`, `_Minute`, `_Second`, `_Msec`.
+    They are read-only and worked out as they are read;
   - the `comment` is the alarm description;
   - `"retentive": true` on a memory tag keeps its last value between runs,
     for setpoints, modes and recipe names the operator changes.
@@ -200,6 +209,41 @@ To **change an existing project**:
     `TrendScrollBack(\"Main\");`, `TrendScrollForward(\"Main\");`, `TrendPause(\"Main\");`,
     `TrendPlay(\"Main\");` and `TrendSetPen(\"Main\", \"LIT100\");`;
   - every pen is recorded from the start of the Run, with 7 days of history on disk.
+- **Databases** (`SQL*` script functions, [database.md](database.md)):
+  - `dataSources` name the databases: `{"name": "BatchDb", "provider":
+    "sqlite", "file": "batches.db", "folder": "documents"}`, or `mssql` with
+    `host`, `database`, `user`, `password` and `options`. A SQLite source
+    names a file, never a path. Prefer SQLite unless the user names a server:
+    it needs no server, no credentials and no authorization;
+  - `bindLists` pair a tag with a column (`{tag, column}`, or a plain tag
+    name for a column of the same name). A select writes the columns into the
+    tags; an insert reads the tags into the columns. Dictionary tags only —
+    not a system tag;
+  - `tableTemplates` let the application create its own table, so nothing has
+    to be set up by hand on the target PC: `SQLCreateTable` on start, and
+    ignore the failure when it already exists;
+  - `queries` are statements kept by name, loaded with `SQLLoadStatement`.
+    Don't deploy `.sql` files;
+  - the shape of a logging script, in `settings.scripts.onStart` and the path
+    that completes the work:
+    ```
+    Res = SQLConnect(Db_ConnId, "BatchDb");
+    Res = SQLCreateTable(Db_ConnId, "BatchLog", "BatchLogTable");
+    ...
+    Batch_Stamp = _DateTime;
+    Res = SQLInsert(Db_ConnId, "BatchLog", "BatchRow");
+    IF Res <> 0 THEN Db_Status = SQLErrorMsg(Res); ENDIF;
+    ```
+  - every function returns a result code, 0 for success (`SQLNumRows` returns
+    the count, `SQLErrorMsg` the message text). The ones that reach a database
+    pause the script, so they may only be a statement or the whole
+    right-hand side of an assignment;
+  - a selection is walked with `SQLFirst` and `SQLNext`, which write each row
+    into the bind list's tags — so a "recent rows" screen is one bind list per
+    row of Message tags, or one row shown at a time with Prev and Next
+    buttons;
+  - `SQLUpdate` and `SQLDelete` refuse an empty where expression. Build one
+    with the `String*` functions, or use parameters.
 - **Runtime settings:**
   - `windowMode` `kiosk` (default, locked full screen), `fullscreen` or
     `window`;

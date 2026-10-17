@@ -6,7 +6,8 @@ LiquidWeighHMISim needs no PLC: every PLC tag becomes a memory tag, and the
 controller's 13 ladder routines are carried over as the application's While
 running script, run every 100 ms whichever screen is up. Its On start script
 does what the PLC did on its first scan: the setpoint defaults (on the first
-run only) and the simulation's starting values.
+run only) and the simulation's starting values. The project's own application
+scripts -- the batch log -- are kept, after the generated ones.
 
     python3 make_liquidweigh_sim.py <dump.json> <spec-out.json>
 
@@ -892,6 +893,17 @@ def relabel(spec):
 	return done
 
 
+def join(generated, own):
+	"""The generated script, then the project's own, in one script."""
+	a = (generated or '').rstrip()
+	b = (own or '').strip()
+
+	if a and b:
+		return a + '\n\n{ The project\'s own application script follows. }\n\n' + b
+
+	return a or b
+
+
 def main():
 	src, out = sys.argv[1], sys.argv[2]
 	spec = json.load(open(src))
@@ -905,8 +917,12 @@ def main():
 		assert t['name'].lower() not in names, t['name']
 		spec['tags'].append(t)
 
-	spec['settings']['scripts'] = {'onStart': on_start, 'whileRunning': engine, 'onShutdown': '',
-		'everyMs': WHILE_RUNNING_EVERY_MS}
+	# LiquidWeighHMI has application scripts of its own -- the batch log -- and
+	# they belong in the Sim too, after the controller program they watch
+	own = spec['settings'].get('scripts') or {}
+	spec['settings']['scripts'] = {'onStart': join(on_start, own.get('onStart')),
+		'whileRunning': join(engine, own.get('whileRunning')),
+		'onShutdown': join('', own.get('onShutdown')), 'everyMs': WHILE_RUNNING_EVERY_MS}
 
 	spec['settings']['publish']['productName'] = 'LiquidWeighHMISim'
 	spec['settings']['publish']['output'] = ''

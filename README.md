@@ -33,6 +33,7 @@ It then built the HMI on the program's real tags. The application has 419 PLC ta
 | [.claude/skills/append-hmi-studio](.claude/skills/append-hmi-studio/SKILL.md) | A Claude Code skill: the workflow, the rules that matter, and good screen practice (palette, text sizes, navigation, alarms) |
 | [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md) | Every command and exit code, every field of the JSON spec, every object and animation link type, and the expression and script syntax |
 | [HMI_ALARMS](doc/HMI_ALARMS.md), [HMI_SECURITY](doc/HMI_SECURITY.md), [HMI_RECIPES](doc/HMI_RECIPES.md), [HMI_INDIRECT](doc/HMI_INDIRECT.md) | How alarms, users, recipes and indirect tags behave, with their spec fields and script functions |
+| [HMI_TRENDS](doc/HMI_TRENDS.md), [HMI_SQL](doc/HMI_SQL.md) | Trends and pens; databases, bind lists and the `SQL*` script functions |
 | [HMI_TAG_REFERENCES](doc/HMI_TAG_REFERENCES.md) | Where tag names live, Find/Replace Tag References, and what a rename reaches |
 | [HMI_QUICKFUNCTIONS](doc/HMI_QUICKFUNCTIONS.md) | Defining and calling QuickFunctions, and what a body may do |
 | [example-spec.json](.claude/skills/append-hmi-studio/example-spec.json) | A complete small application to start from |
@@ -55,6 +56,8 @@ Features
 - **Indirect tags**: `IndirectDiscrete`, `IndirectAnalog` and `IndirectMessage` tags that a script points at any tag with `LinkIndirectTag("Indirect", "Tag")`, so one faceplate serves many devices. See [doc/HMI_INDIRECT.md](doc/HMI_INDIRECT.md).
 - **Recipes**: recipe books of tag values with optional paired PLC tags, script functions to save, load, upload, download, export, import, delete, rename and select recipes, and a Recipe List object. Recipes saved at run time are kept on the running PC. See [doc/HMI_RECIPES.md](doc/HMI_RECIPES.md).
 - **Trends**: a Trend object with up to 8 analog or discrete pens, each on its own range, recorded from the start of the run with 7 days of history on disk. Scripts select the pen whose scale is shown, pause, scroll back and forward, and return to live. See [doc/HMI_TRENDS.md](doc/HMI_TRENDS.md).
+- **Databases**: read and write Microsoft SQL Server and SQLite from scripts with the `SQL*` function family — data sources, bind lists that pair a tag with a column, table templates the application creates its tables from, saved queries, prepared statements with parameters, and transactions. Managed in HMI > Database. See [doc/HMI_SQL.md](doc/HMI_SQL.md).
+- **Date and time system tags**: `_DateString`, `_TimeString`, `_DateTime`, `_Year`, `_Month`, `_Day`, `_Hour`, `_Minute`, `_Second` and `_Msec`, worked out as they are read, and a family of `String*` functions for building and picking apart text.
 - **Windows and printing from scripts**: `ShowWindow(...)` opens a window, optionally moved, modeless or waited on; `ScreenToPDF()` saves the screen, popups included, as a landscape PDF through a Save dialog.
 - **QuickFunctions**: name a piece of script logic once, with typed arguments and a `Return` value, and call it from scripts and from animation expressions. Managed in HMI > QuickFunctions. See [doc/HMI_QUICKFUNCTIONS.md](doc/HMI_QUICKFUNCTIONS.md).
 - **Tag find and replace**: HMI > Find/Replace Tag References lists every tag the page or the selection names and re-points them in one undoable step, with a text replace across the names, a validate pass and a single-tag editor for creating what is missing. Renaming a tag in the Tag Dictionary now carries every reference in the project with it. See [doc/HMI_TAG_REFERENCES.md](doc/HMI_TAG_REFERENCES.md).
@@ -86,6 +89,7 @@ Documentation
 | Recipe books, recipe functions and the Recipe List | [doc/HMI_RECIPES.md](doc/HMI_RECIPES.md) |
 | Indirect tags and LinkIndirectTag | [doc/HMI_INDIRECT.md](doc/HMI_INDIRECT.md) |
 | Trends, trend functions and the trend history | [doc/HMI_TRENDS.md](doc/HMI_TRENDS.md) |
+| Databases, bind lists and the `SQL*` script functions | [doc/HMI_SQL.md](doc/HMI_SQL.md) |
 | Finding and replacing tag references | [doc/HMI_TAG_REFERENCES.md](doc/HMI_TAG_REFERENCES.md) |
 | QuickFunctions | [doc/HMI_QUICKFUNCTIONS.md](doc/HMI_QUICKFUNCTIONS.md) |
 | Publishing a runtime installer | [doc/HMI_PUBLISH.md](doc/HMI_PUBLISH.md) |
@@ -116,7 +120,9 @@ Settings and logs are kept in `%APPDATA%\Append HMI Studio` (Windows) and `~/.co
 Security
 --------
 
-The app works offline. Diagram and project data never leave the machine, and the Content Security Policy forbids remotely loaded code. The only network traffic is to the PLCs a project is configured to talk to, through the local `hmi-comms` server.
+The app works offline. Diagram and project data never leave the machine, and the Content Security Policy forbids remotely loaded code. The only network traffic is what a project is configured to make: the PLCs it talks to, through the local `hmi-comms` server, and any database its data sources name. Nothing else is sent anywhere, and there is no telemetry.
+
+A database connection is made by the main process, never by the screens, and a data source password is kept in the project only in an obfuscated form — which hides it and no more. A site that needs better can leave it out of the project and give each PC its own instead; see [doc/HMI_SQL.md](doc/HMI_SQL.md).
 
 A diagram can still reference external media (an image or font by URL). That media is fetched when the diagram is opened, so the remote server sees the request, but no diagram content is sent.
 
@@ -138,7 +144,7 @@ The repository uses submodules; after a plain clone, run `git submodule update -
 
 | Path | Contents |
 |---|---|
-| `src/main/` | Electron main process: windows, IPC, run-only mode, Publish, alarm/retentive/user stores |
+| `src/main/` | Electron main process: windows, IPC, run-only mode, Publish, alarm/retentive/user stores, database access |
 | `drawio/` | Submodule: Append Automation's fork of the draw.io editor (branch `hmi`); the HMI code is in `src/main/webapp/js/hmi/` |
 | `comms/` | `hmi-comms`, the .NET 8 PLC communications server, with the `cslogix` and `cscomm3_slc` submodules in `comms/lib/` |
 | `scripts/` | Build scripts (`dist-win`, `dist-linux`, the Windows runtime template, icons, NSIS download) |
