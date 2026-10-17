@@ -640,6 +640,11 @@ def build(save=True):
     ])
     P('Numbers in links (ranges, limits) are expressions too, so they can come from tags. The sections below walk '
       'through the links LiquidWeighHMI uses.')
+    note(doc, 'Objects can be layered freely. A touch goes to the topmost object that has a touch link, and an object '
+         'drawn over it with no touch link of its own — a label, a panel, a pipe, the unfilled outline over a Percent '
+         'Fill shape — is seen through, with the pointing hand showing over it as well. A touch link on a group covers '
+         'everything in the group. An object that does have a touch link keeps the touch even while its **Enable when** '
+         'condition or an **Enable** link blocks it, so a button the operator may not use does nothing.')
 
     H2('8.1  A valve: status color, fault blink and faceplate')
     P('Each valve symbol on the Process screen carries three links. SV-102 is selected in ' + F('animation-valve') + '.')
