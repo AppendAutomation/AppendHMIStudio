@@ -28,8 +28,9 @@ be called* below.
 ## The body
 
 The body is a script, so it can do what any script can: assign tags, `IF …
-THEN … ELSE … ENDIF`, declare local variables with `DIM`, and call built-in
-and other QuickFunctions.
+THEN … ELSE … ENDIF`, loop with `FOR … NEXT` or `WHILE … ENDWHILE`, declare
+local variables with `DIM`, and call built-in and other QuickFunctions. A
+`Return` inside a loop leaves the loop as well as the function.
 
 The arguments are read like variables:
 

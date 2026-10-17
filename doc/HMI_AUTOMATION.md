@@ -425,8 +425,19 @@ All fields that take numbers are expressions, as strings.
   - assignments: `Pump_Run = 1;`, `Tank_Level.Acked = 1;` (acknowledges),
     `_AckAll = 1;`;
   - `IF cond THEN … ELSE … ENDIF;`;
+  - loops: `FOR tag_or_variable = start TO end [STEP by] … NEXT;` and
+    `WHILE cond … ENDWHILE;`. A FOR reads its bounds once, counts them itself
+    (a tag as the loop variable is written every pass, so prefer a `DIM`
+    variable) and refuses a `STEP` of 0; a WHILE evaluates its condition
+    before every pass, and bad quality ends it, as it stops an IF from
+    branching. All the loops in one run of a script may take 100,000 passes
+    together, after which the script reports the cap in the runtime log and
+    stops — so a condition that never comes false cannot hang the window.
+    `FOR`, `TO`, `STEP`, `NEXT`, `WHILE` and `ENDWHILE` are keywords only
+    where a loop can put them, so a tag named `Step` or `Next` keeps working;
   - local variables: `DIM name[, name …] AS Analog | Discrete | Message;` at
-    the top level of the script (not inside IF), before the names are used.
+    the top level of the script (not inside IF, FOR or WHILE), before the
+    names are used.
     They start at 0 or `""` each time the script runs, have no dotfields, and
     may not share a name with a tag or system tag (Validate reports it). An
     Analog holds a number, a Discrete 0 or 1, a Message text;

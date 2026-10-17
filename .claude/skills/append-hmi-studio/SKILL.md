@@ -116,9 +116,11 @@ To **change an existing project**:
   - dotfields: `Tag.InAlarm`, `Tag.Acked`, `Tag.MaxEU`;
   - scripts (`pushbutton.action`, window `onShow`/`whileShowing`/`onHide`,
     application `settings.scripts`): statements end with `;`,
-    `IF … THEN … ELSE … ENDIF;`, and `DIM a, b AS Analog;` (or `Discrete`,
-    `Message`) declares local variables at the top level, which may not
-    share a tag's name.
+    `IF … THEN … ELSE … ENDIF;`, the loops
+    `FOR i = 1 TO n [STEP by] … NEXT;` and `WHILE cond … ENDWHILE;` (100,000
+    passes per run of a script, then it reports and stops), and
+    `DIM a, b AS Analog;` (or `Discrete`, `Message`) declares local variables
+    at the top level, which may not share a tag's name.
 - **QuickFunctions** (`quickFunctions`): functions the project defines, with
   typed arguments and a body that gives a value back with
   `Return <expression>;`. Call one like any built-in, from a script or from an
