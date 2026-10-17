@@ -41,6 +41,11 @@ export const LIMITS = {
 export const PARAM_TYPES = ['char', 'varchar', 'int', 'smallint', 'long', 'float',
 	'double', 'decimal', 'date', 'datetime', 'time', 'null'];
 
+// What a decimal parameter is declared as when the statement does not say.
+// Scale 0 is what the driver would assume, and it would quietly drop the
+// digits after the point of every value a plant sends.
+export const DECIMAL = {precision: 18, scale: 6, maxPrecision: 38};
+
 function isPlainObject(v)
 {
 	return v != null && typeof v === 'object' && !Array.isArray(v);
@@ -336,6 +341,23 @@ function checkRequest(req)
 		{
 			throw new Error('bad arg: params');
 		}
+
+		if (p.nullType != null && PARAM_TYPES.indexOf(String(p.nullType)) < 0)
+		{
+			throw new Error('bad arg: params');
+		}
+
+		if (p.precision != null && !(Number.isInteger(p.precision) &&
+			p.precision >= 1 && p.precision <= DECIMAL.maxPrecision))
+		{
+			throw new Error('bad arg: params');
+		}
+
+		if (p.scale != null && !(Number.isInteger(p.scale) &&
+			p.scale >= 0 && p.scale <= DECIMAL.maxPrecision))
+		{
+			throw new Error('bad arg: params');
+		}
 	}
 
 	let maxRows = (req.maxRows == null) ? DEFAULTS.maxRows : Number(req.maxRows);
@@ -499,6 +521,26 @@ function mssqlParamType(types, type)
 	}
 }
 
+/**
+ * The declaration a typed parameter needs beyond its type. A decimal is the
+ * one that matters: tedious defaults a DECIMAL parameter to scale 0, so
+ * 123.456 would reach the table as 123 unless the scale is stated.
+ */
+function mssqlParamOptions(p)
+{
+	const type = (p.type === 'null') ? (p.nullType || 'varchar') : p.type;
+
+	if (type !== 'decimal')
+	{
+		return undefined;
+	}
+
+	const precision = Number.isInteger(p.precision) ? p.precision : DECIMAL.precision;
+	const scale = Number.isInteger(p.scale) ? p.scale : DECIMAL.scale;
+
+	return {precision: precision, scale: Math.min(scale, precision)};
+}
+
 function mssqlParamValue(type, value)
 {
 	if (value == null)
@@ -588,11 +630,13 @@ async function mssqlExec(conn, req)
 
 			if (p.type === 'null')
 			{
-				request.addParameter(name, mssqlParamType(TYPES, p.nullType || 'varchar'), null);
+				request.addParameter(name, mssqlParamType(TYPES, p.nullType || 'varchar'), null,
+					mssqlParamOptions(p));
 			}
 			else
 			{
-				request.addParameter(name, mssqlParamType(TYPES, p.type), mssqlParamValue(p.type, p.value));
+				request.addParameter(name, mssqlParamType(TYPES, p.type), mssqlParamValue(p.type, p.value),
+					mssqlParamOptions(p));
 			}
 		}
 

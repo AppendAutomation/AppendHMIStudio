@@ -45,6 +45,7 @@ export const NO_QUERY = -1105;
 export const TRANSACTION_STATE = -1106;
 export const FILE_NOT_ALLOWED = -1107;
 export const ROW_GONE = -1108;
+export const NO_STATEMENT = -1109;
 
 export const MESSAGES = {
 	[OK]: 'No errors occurred',
@@ -53,7 +54,7 @@ export const MESSAGES = {
 	[NULL_VALUE]: 'The value read was null',
 	[NO_MORE_ROWS]: 'There are no more rows to fetch',
 	[INVALID_PARAM_ID]: 'That parameter number is not valid',
-	[INVALID_PARAM_LIST]: 'The statement has a gap in its parameter numbers',
+	[INVALID_PARAM_LIST]: 'The statement\'s parameters have not all been set',
 	[INVALID_NULL_TYPE]: 'That type cannot be used for a null parameter',
 	[PARAM_TYPE_CHANGED]: "A parameter's type cannot be changed once it is set",
 	[PARAM_AFTER_EXECUTE]: 'A parameter cannot be added after the statement has run',
@@ -80,7 +81,8 @@ export const MESSAGES = {
 	[NO_QUERY]: 'There is no query of that name',
 	[TRANSACTION_STATE]: 'That does not suit the current transaction',
 	[FILE_NOT_ALLOWED]: 'A database file must be in Documents or the application data folder',
-	[ROW_GONE]: 'The row the cursor is on is no longer in the table'
+	[ROW_GONE]: 'The row the cursor is on is no longer in the table',
+	[NO_STATEMENT]: 'There is no prepared statement of that number'
 };
 
 /** The message for a code. A code we do not know still reads sensibly. */

@@ -301,6 +301,53 @@ beside the installer. `SQLLoadStatement(ConnectionID, "Name")` loads one.
 | `name` | What `SQLLoadStatement` names |
 | `sql` | The statement. Any length, line breaks and all. A `?` marks a parameter to be set before the statement runs |
 
+`SQLLoadStatement` names a query of the project rather than a file on disk: a
+path belongs to one machine's account, and a published application runs on
+another PC. The statement travels in the project, so there is nothing to
+deploy beside the installer.
+
+A statement a script runs for itself is built with `SQLSetStatement` and
+`SQLAppendStatement`, or loaded with `SQLLoadStatement`, into the one
+statement buffer each connection carries. Nothing is put between the pieces an
+append joins, because a statement is as often continued in the middle of a
+name or a quoted value as between words.
+
+`SQLExecute(ConnectionID, BindList, StatementID)` runs it. Statement 0 is the
+buffer, which runs as it stands and is emptied afterwards; a statement
+prepared with `SQLPrepareStatement` has a number of its own and can be run
+again and again. A `?` in a statement has to be filled in, so the buffer
+cannot carry one — a statement with parameters is prepared first, and the
+`SQLSetParam*` family addresses it by its number.
+
+A statement that returns rows fills the results table, walked with `SQLFirst`
+and the rest through the bind list named in the call; a zero-length bind list
+says the rows are not for tags, and they are still counted by `SQLNumRows`. A
+statement that returns no rows leaves a selection already in hand alone, so
+one can be run in the middle of walking another's rows. Where the columns a
+statement returns do not line up with the bind list, the rows that did come
+back are still written as far as they go, and the runtime log says so once.
+`SQLUpdateCurrent` works only on the rows of a `SQLSelect`, which is the call
+that names the table to write back to.
+
+A parameter keeps the type it was first given, because the statement was
+prepared for a shape; `SQLClearParam` forgets one, so a different type may
+then be set. A character parameter set again adds to what is there, which is
+how a value longer than one call's worth is assembled, and once the statement
+has run the next value replaces it rather than lengthening it. The advisory
+arguments of the older call forms — a character parameter's `MaxLength`, a
+decimal's `Precision` and `Scale`, a date and time's `Precision` — may be left
+off. `MaxLength` chose between two character types for a driver that no longer
+needs telling. `Precision` and `Scale` are passed on to the database, because a
+decimal parameter that declares no scale arrives rounded to whole numbers; left
+off, they are taken from the digits the value itself has. A date and time's
+`Precision` is how many characters of `2026-10-17 14:05:09.270` to keep — 10
+the date, 16 to the minute, 19 to the second — and a length that falls inside a
+field keeps the fields before it.
+
+`SQLTransact` opens a transaction on a connection, and `SQLCommit` or
+`SQLRollback` ends it. A Run that stops with one open rolls it back, as
+closing the connection does.
+
 ### devices
 
 | Field | Meaning |

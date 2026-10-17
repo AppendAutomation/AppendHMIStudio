@@ -337,6 +337,36 @@ describe('bindPlaceholders', () =>
 	});
 });
 
+// What a parameter may declare beyond its type. The checks live with the
+// types themselves, so a session's own validation can stay shallow.
+describe('typed parameters', () =>
+{
+	const run = (param) => client.exec({provider: 'sqlite', db: null},
+		{sql: 'SELECT ?', params: [param]});
+
+	test('a decimal may state its precision and scale', async () =>
+	{
+		await assert.rejects(() => run({type: 'decimal', value: 1, precision: 0}),
+			/bad arg: params/);
+		await assert.rejects(() => run({type: 'decimal', value: 1, precision: 39}),
+			/bad arg: params/);
+		await assert.rejects(() => run({type: 'decimal', value: 1, scale: 1.5}),
+			/bad arg: params/);
+	});
+
+	test('a null states the type it stands in for', async () =>
+	{
+		await assert.rejects(() => run({type: 'null', nullType: 'nonsense'}),
+			/bad arg: params/);
+	});
+
+	test('the default declaration keeps the digits a plant value has', () =>
+	{
+		assert.equal(client.DECIMAL.scale > 0, true);
+		assert.equal(client.DECIMAL.precision, 18);
+	});
+});
+
 describe('the per-PC credential store', () =>
 {
 	test('saves, summarizes and never gives the password back', async () =>
@@ -655,6 +685,10 @@ describe('validateSqlArgs', () =>
 		validateSqlArgs('hmiSql.exec', {connectionId: 1, sql: 'SELECT 1'});
 		validateSqlArgs('hmiSql.exec', {connectionId: 1, sql: 'SELECT ?', params: [{type: 'int', value: 1}],
 			maxRows: 10});
+		validateSqlArgs('hmiSql.exec', {connectionId: 1, sql: 'SELECT ?',
+			params: [{type: 'decimal', value: 1.5, precision: 10, scale: 3}]});
+		validateSqlArgs('hmiSql.exec', {connectionId: 1, sql: 'SELECT ?',
+			params: [{type: 'null', nullType: 'datetime'}]});
 		validateSqlArgs('hmiSql.close', {connectionId: 2});
 		validateSqlArgs('hmiSql.begin', {connectionId: 2});
 		validateSqlArgs('hmiSql.probe', {dataSource: {provider: 'sqlite', file: 'a.db'}});
@@ -734,6 +768,20 @@ describe('SQL Server', {skip: !liveHost ? 'set HMI_SQL_HOST, HMI_SQL_USER and HM
 		assert.equal(note.length, 4000, 'a long string is not truncated');
 		assert.equal(stamp, '2026-10-16 13:04:05', 'a local time round trips as itself');
 		assert.equal(flag, true);
+	});
+
+	// A DECIMAL parameter the driver is told nothing about is scale 0, so
+	// 123.456 would reach the column as 123
+	test('a decimal parameter keeps the digits after its point', async () =>
+	{
+		await client.exec(conn, {sql: 'ALTER TABLE ' + table + ' ADD Amount decimal(10, 3)'});
+		await client.exec(conn, {sql: 'INSERT INTO ' + table + ' (Name, Amount) VALUES (?, ?)',
+			params: [{type: 'varchar', value: 'Decimal'},
+				{type: 'decimal', value: 123.456, precision: 10, scale: 3}]});
+
+		const got = await client.exec(conn, {sql: 'SELECT Amount FROM ' + table +
+			" WHERE Name = 'Decimal'"});
+		assert.equal(Number(got.rows[0][0]), 123.456);
 	});
 
 	test('nulls read as null', async () =>
