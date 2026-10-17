@@ -224,10 +224,27 @@ into the tags; an insert or an update reads the tags into the columns.
 | `name` | What the functions that take a bind list name |
 | `items` | `{tag, column}`, in order. A plain string is a tag written to a column of the same name |
 | `field` | A tag dotfield, so a bind list can carry `InAlarm` or `Acked` |
-| `delim` | What to wrap the value in for databases that want a date delimited, for example `"''"` |
+| `delim` | Accepted for projects brought over from elsewhere, and otherwise ignored: see below |
 
 Every item needs a tag and a column, and a column may appear only once in a
 list.
+
+A value goes into an insert or an update **as a bound parameter**, never as
+text pasted into the statement, so nothing has to be quoted or delimited and a
+tag holding a quotation mark cannot rewrite the statement. `delim` exists for
+projects whose bind lists carry one; it is kept on load and on save, and it
+changes nothing.
+
+`SQLInsert` and `SQLUpdate` send the tags' **current** values, which the Run
+watches from its start whether or not any window shows them. A value of bad
+quality is written as a null and noted in the runtime log: one tag of twenty
+may be on a link that is down, and a record with a null in it still says what
+was known. A `NOT NULL` column makes the database refuse such a row, which is
+the schema's decision to make.
+
+A `TimeDate` dotfield is sent as a date and time rather than as the
+millisecond number it is, so it can stamp a `datetime` column. The other
+dotfields go as they read.
 
 ### tableTemplates
 
@@ -258,6 +275,14 @@ A column name may appear only once in a template. Validate warns if a column
 is named after a keyword that SQL Server or SQLite reserves, such as `USER`,
 `KEY` or `ORDER`, and if a name needs square brackets around it wherever a
 script mentions it.
+
+`SQLCreateTable` creates the table and then one index per column that asks for
+one, named `<table>_<column>_idx`. The types become SQL Server's
+`NVARCHAR(n)`, `INT`, `FLOAT`, `DECIMAL(p,s)`, `BIT`, `DATE`, `TIME` and
+`DATETIME`. SQLite has no date type of its own and treats types as
+preferences, so there a date column is `TEXT`, holding what the application
+writes into it — ISO 8601 text, which SQLite's own date functions understand —
+and a number column is `REAL`.
 
 ### queries
 

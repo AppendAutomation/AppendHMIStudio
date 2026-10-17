@@ -44,6 +44,7 @@ export const PROVIDER_UNAVAILABLE = -1104;
 export const NO_QUERY = -1105;
 export const TRANSACTION_STATE = -1106;
 export const FILE_NOT_ALLOWED = -1107;
+export const ROW_GONE = -1108;
 
 export const MESSAGES = {
 	[OK]: 'No errors occurred',
@@ -78,7 +79,8 @@ export const MESSAGES = {
 	[PROVIDER_UNAVAILABLE]: 'That kind of database is not supported',
 	[NO_QUERY]: 'There is no query of that name',
 	[TRANSACTION_STATE]: 'That does not suit the current transaction',
-	[FILE_NOT_ALLOWED]: 'A database file must be in Documents or the application data folder'
+	[FILE_NOT_ALLOWED]: 'A database file must be in Documents or the application data folder',
+	[ROW_GONE]: 'The row the cursor is on is no longer in the table'
 };
 
 /** The message for a code. A code we do not know still reads sensibly. */
