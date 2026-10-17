@@ -89,9 +89,16 @@ fields name a tag:
 | An expression | `expr`, `enableExpr`, `min`, `max`, `rateMs`, a color link's `bands[].max`, `atMin`, `atMax`, `offsetMin`, `offsetMax`, `pctMin`, `pctMax`, `angleMin`, `angleMax`, `travelMin`, `travelMax`, `everyMs` |
 | A script | Pushbutton Action's `onDown`, `whileDown`, `onUp`; a window's On show, While showing and On hide; the application scripts |
 
+Outside the objects on a page, the project's own holders name tags too: a
+recipe book's items and the tag names inside its saved recipes, a
+QuickFunction's body, and a **bind list's `tag`** — the database side of a
+bind list (the column, the dotfield and the delimiter) names nothing in the
+project and is left as it is.
+
 Free text is never searched for tag names: a Value Display's prefix, suffix,
-format, On/Off text, a User Input's prompt, a window name, a recipe book name
-and a trend's own name and title are left exactly as they are.
+format, On/Off text, a User Input's prompt, a window name, a recipe book name,
+a data source, bind list, table template or query name, and a trend's own name
+and title are left exactly as they are.
 
 In an expression or a script the names are taken from the language's own
 lexer, not matched as text, so:
@@ -115,8 +122,9 @@ rather than guessed at.
 
 HMI > Tag Dictionary's **Name** field still renames a tag, and now carries
 every reference in the **whole project** with it: every page's objects, the
-window scripts, the application scripts, recipe book items and the tag names
-inside saved recipes. The dialog reports what it changed.
+window scripts, the application scripts, QuickFunction bodies, recipe book
+items, the tag names inside saved recipes and bind list items. The dialog
+reports what it changed.
 
 Only the current page's objects are part of the drawing, so only those come
 back with one Undo. The rest is the project's own state: the note says so when

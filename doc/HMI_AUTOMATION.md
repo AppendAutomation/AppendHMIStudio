@@ -45,7 +45,15 @@ append-hmi-studio --hmi-publish line3.ahmi   --product "Line 3 HMI" --app-versio
 - Show/Hide Window targets;
 - window sizes against the screen;
 - each I/O tag's device and address, validated by the comms server for the
-  device's protocol.
+  device's protocol;
+- the database sections: a bind list naming a tag the dictionary does not
+  have, a column name one of the databases reserves or that needs brackets
+  around it, and the same rules the Database dialog applies to a name, a
+  data source, a template column and a query;
+- the names a database call writes as text — a data source, bind list, table
+  template or query that does not exist — and a literal empty where
+  expression on `SQLUpdate` or `SQLDelete`, which would act on every row in
+  the table.
 
 Each problem is printed as `PROBLEM <page> | <object> | <link> | <message>`,
 where the object is the cell id and its label. Project-level problems have
@@ -223,7 +231,7 @@ into the tags; an insert or an update reads the tags into the columns.
 |---|---|
 | `name` | What the functions that take a bind list name |
 | `items` | `{tag, column}`, in order. A plain string is a tag written to a column of the same name |
-| `field` | A tag dotfield, so a bind list can carry `InAlarm` or `Acked` |
+| `field` | A tag dotfield, so a bind list can carry `InAlarm` or `Acked`. It must be one a tag has |
 | `delim` | Accepted for projects brought over from elsewhere, and otherwise ignored: see below |
 
 Every item needs a tag and a column, and a column may appear only once in a
@@ -266,8 +274,8 @@ The shape of a table the application creates for itself with
 | `name` | What `SQLCreateTable` names |
 | `columns` | `{name, type}` and the fields below. A plain string is a text column |
 | `type` | `text`, `integer`, `number`, `decimal`, `boolean`, `date`, `time` or `datetime`. These are the studio's own types; the statement that creates the table maps them to whatever the data source wants |
-| `length` | Characters for `text`, total digits for `decimal` |
-| `scale` | `decimal` only: digits after the point, 0 to 38 |
+| `length` | Characters for `text`, total digits for `decimal`. Left out, a text column is created 255 characters wide and a decimal as 18 digits |
+| `scale` | `decimal` only: digits after the point, 0 to 38. Default 2 |
 | `index` | `none` (default), `nonunique` or `unique` |
 | `allowNull` | False to refuse an empty value. Default true |
 

@@ -230,6 +230,8 @@ describe('hmi command line', {skip}, () =>
 				/needs a column name/],
 			[{bindLists: [{name: 'L', items: [{tag: 'Level', column: 'X'},
 				{tag: 'Pump', column: 'x'}]}]}, /uses the column "x" twice/],
+			[{bindLists: [{name: 'L', items: [{tag: 'Level', field: 'Nonsense', column: 'X'}]}]},
+				/is not one of a tag's fields/],
 			[{tableTemplates: [{name: 'T', columns: []}]}, /has no columns/],
 			[{tableTemplates: [{name: 'T', columns: [{name: 'A', type: 'text', length: 'wide'}]}]},
 				/must be a number of characters/],
