@@ -254,6 +254,13 @@ A `TimeDate` dotfield is sent as a date and time rather than as the
 millisecond number it is, so it can stamp a `datetime` column. The other
 dotfields go as they read.
 
+A bind list names tags from the dictionary, so there are three ways to stamp a
+row with the time it was written: a tag's `TimeDate` dotfield, which is when
+the value was read; a Message tag a script sets from `_DateTime` just before
+the insert, which is when the row was built; or the database's own clock in a
+statement of your own (`GETDATE()` on SQL Server,
+`CURRENT_TIMESTAMP` on SQLite), which is when it landed.
+
 ### tableTemplates
 
 The shape of a table the application creates for itself with
@@ -373,7 +380,7 @@ published package.
 
 | Field | Meaning |
 |---|---|
-| `name` | Letters, digits, `_`, `$`; starting with a letter, `_` or `$`; up to 63 characters; case-insensitive. `_AlarmsActive`, `_AlarmsUnacked`, `_AckAll`, `_Username` and `_AccessLevel` are reserved |
+| `name` | Letters, digits, `_`, `$`; starting with a letter, `_` or `$`; up to 63 characters; case-insensitive. The system tag names are reserved: `_AlarmsActive`, `_AlarmsUnacked`, `_AckAll`, `_Username`, `_AccessLevel`, `_DateString`, `_TimeString`, `_DateTime`, `_Year`, `_Month`, `_Day`, `_Hour`, `_Minute`, `_Second` and `_Msec` |
 | `type` | `MemoryDiscrete`, `MemoryInteger`, `MemoryReal`, `MemoryMessage`, `IODiscrete`, `IOInteger`, `IOReal`, `IOMessage`, or the indirect types `IndirectDiscrete`, `IndirectAnalog` and `IndirectMessage` (only `comment` besides; see [HMI_INDIRECT.md](HMI_INDIRECT.md)) |
 | `comment` | Description; also the alarm description |
 | `initial` | Starting value (memory tags) |
@@ -495,11 +502,39 @@ All fields that take numbers are expressions, as strings.
   `.Quality`, `.TimeDate`, `.MinEU`, `.MaxEU`, `.MinRaw`, `.MaxRaw`,
   `.EngUnits`, `.Comment`, `.InAlarm`, `.Acked`.
 - **System tags:** `_AlarmsActive`, `_AlarmsUnacked`, `_AckAll`, `_Username`
-  (`None` when logged out), `_AccessLevel` (0 when logged out).
+  (`None` when logged out), `_AccessLevel` (0 when logged out), and the date
+  and the time:
+  - `_DateString` (`2026-10-17`), `_TimeString` (`14:05:09`) and `_DateTime`
+    (`2026-10-17 14:05:09.270`) are text; `_Year`, `_Month` (1-12), `_Day`,
+    `_Hour` (0-23), `_Minute`, `_Second` and `_Msec` are numbers.
+  - They are plant-local time, and `_DateTime` is the text a `datetime`
+    column takes as it stands, so a script can stamp a row with it.
+  - They are worked out as they are read, so a script reading `_Msec` gets
+    the millisecond it ran in. A screen showing one is repainted once a
+    second.
+  - All of them are read-only.
 - **Operators:** `+ - * / MOD`, `== <> < <= > >=`, `AND OR NOT`, parentheses.
 - **Literals:** numbers and `"text"`.
 - **Functions:** `Abs`, `Sqrt`, `Int`, `Round`, `Min(a, b)`, `Max(a, b)`,
   `Sqr`, `StringLen`, `Text(value, "0.00")`.
+- **Text functions**, in links as well as scripts. A character position counts
+  from 1:
+  - `StringLeft(text, count)`, `StringRight(text, count)`,
+    `StringMid(text, start, count)` -- a count that runs past the end stops
+    there;
+  - `StringTrim(text)` (the spaces at either end), `StringUpper(text)`,
+    `StringLower(text)`;
+  - `StringInString(text, find)`: where `find` starts, or 0 when it is not
+    there;
+  - `StringReplace(text, find, with)`: every occurrence, not just the first;
+  - `StringFromIntg(number[, base])`: the digits, in base 2 to 36 (10 by
+    default; base 16 gives `ff`, so wrap it in `StringUpper` for `FF`);
+  - `StringFromReal(number, decimals[, kind])`: `"f"` a plain number (the
+    default), `"e"` exponential, `"g"` the shorter of the two with trailing
+    zeros dropped and `decimals` counting significant digits;
+  - `StringToIntg(text)`, `StringToReal(text)`: the number the text starts
+    with, or 0 when it holds none -- an operator's typing reaches these, so
+    they do not fail on it.
 - **Scripts** (application scripts, window scripts, `pushbutton.action`) are
   statements separated by `;`:
   - assignments: `Pump_Run = 1;`, `Tank_Level.Acked = 1;` (acknowledges),
