@@ -9,7 +9,7 @@ LiquidWeighHMI
 It was written from scratch by an AI agent, from the system's control narrative, I/O list and electrical drawings, after the agent had written the controller's PLC program from the same documents. See [HMI applications built by AI agents](../README.md#hmi-applications-built-by-ai-agents).
 
 - **Screen:** 1920 × 1080, full screen.
-- **Windows:** ten screens (Process, Batch, Supply, Devices, Setpoints, Recipes, Trends, Batch History, Alarm History, IO Sim) over the middle of the display, Header and Footer over the top and bottom strips, and five popups: one Device Faceplate for all 11 valves and 3 pumps (through indirect tags) and 4 confirmations.
+- **Windows:** ten screens (Process, Batch, Supply, Devices, Setpoints, Recipes, Trends, Batch History, Alarm History, IO Sim) over the middle of the display, Header and Footer over the top and bottom strips, and five popups: one Device Faceplate for all 11 valves and 3 pumps (through indirect tags) and 4 confirmations. The faceplate is **movable**: at Run the operator drags its title bar to slide it off the device it covers.
 - **Data:** 476 tags: 419 on one ControlLogix controller (`LiquidWeighPLC`), 34 of them alarmed, plus memory and indirect tags.
 - **Users:** Operator (level 1000), Maintenance (2000) and Engineer (9999).
 - **Recipes:** the Plasticizer Blends recipe book and a Recipes screen.

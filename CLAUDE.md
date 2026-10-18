@@ -271,6 +271,14 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - `js/hmi/HmiFlip.js` replaces `Graph.flipChildren`, which upstream moved only a group's direct children. A group now mirrors about its center: every descendant vertex moves to its mirrored place, toggles its own flip (one cell at a time, since `toggleCellStyles` sets all cells from the first), has its rotation reversed and gets `legacyAnchorPoints=0`. Edge points are mirrored too. A single object still flips in place.
 - Arrange > Direction's Flip items call `graph.flipCells`, like the Arrange tab's buttons; upstream they only toggled the selected cell's style.
 
+### Windows and the title bar
+- **Documentation:** `doc/HMI_WINDOWS.md`.
+- **Properties:** `HmiProject.getWindow` fills in `movable`, `titleHeight` (default `HmiProject.TITLE_BAR_HEIGHT`, 24), `titleFont`, `titleFontSize` (default `TITLE_FONT_SIZE`, 13), `titleFill` and `titleColor` beside the older ones; `setWindow` stores none of them at its default, so a file round trips. They are XML attributes of `<window>`.
+- **An unset color or font gets no inline style**, so `css/hmi.css` still draws the bar (`HmiProject.TITLE_BAR_FILL`/`TITLE_BAR_COLOR` name what it draws, for the dialog's swatches and preview only -- the two must change together). The same rule as the table objects' colors.
+- **The height is per window**: `HmiWindowManager.titleHeightOf(props)` is what `place()`, `HmiFrame` and the dialog read, and it is part of the window's height, so the content's top and the graph translate both follow it.
+- **Movable** (`HmiWindowManager.isMovable`) is for a popup with a title bar. `installWindowDrag` listens on the bar and on the document (removed in `close`), divides pointer distances by `this.scale` and the fill view's `hmiStretch` read per move, leaves `pageX`/`pageY` alone so the window shows the same part of its page, and clamps to `MIN_ON_SCREEN` (48 px of width on screen, the bar never off the top or bottom). Nothing is remembered: `showPage` copies the window's properties for each showing.
+- **Validate** (`HmiMenus.checkWindow`) reports a bar taller than its window, a height or font size out of range, and `movable` without a popup or without a bar.
+
 ### ShowWindow (script function)
 - **`ShowWindow(name[, left, top[, modal[, wait]]])`** is `async` in `HmiExpr` (statement or assignment only). `HmiRuntime`'s `ctx.callAsync` hands it to `HmiWindowManager.callShowWindow`, which checks its arguments, shows the window with `propsWith` overrides and calls `done(1)` at once, or from `close()` with wait (`win.onClosed`). A resume is dropped when the caller's window or the Run has stopped.
 - **Moved windows** keep showing their defined part of the page (`pageX`/`pageY`). A popup with `modal: false` gets no blocker.

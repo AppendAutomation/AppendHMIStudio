@@ -58,7 +58,9 @@ const spec = {
 				links: {showWindow: {window: 'Alarms'}}},
 			{edge: true, source: 'tank', target: 'go'}
 		]},
-		{name: 'Alarms', window: {type: 'popup', titleBar: true, x: 100, y: 100, width: 600, height: 300},
+		{name: 'Alarms', window: {type: 'popup', titleBar: true, movable: true, titleHeight: 36,
+			titleFont: 'Verdana', titleFontSize: 16, titleFill: '#204060', titleColor: '#f0f0f0',
+			x: 100, y: 100, width: 600, height: 300},
 			objects: [{id: 'list', type: 'alarmList', x: 100, y: 124, width: 600, height: 276}]}
 	]
 };
@@ -173,6 +175,18 @@ describe('hmi command line', {skip}, () =>
 		assert.equal(studio('--hmi-build', d1, '-o', again).status, 0);
 		assert.equal(studio('--hmi-dump', again, '-o', d2).status, 0);
 		assert.deepEqual(JSON.parse(fs.readFileSync(d2, 'utf8')), JSON.parse(fs.readFileSync(d1, 'utf8')));
+	});
+
+	test('a movable popup keeps its title bar settings', () =>
+	{
+		const d = path.join(dir, 'win.json');
+
+		assert.equal(studio('--hmi-dump', project, '-o', d).status, 0);
+		const page = JSON.parse(fs.readFileSync(d, 'utf8')).pages.find((p) => p.name === 'Alarms');
+
+		assert.deepEqual(page.window, {titleBar: true, movable: true, titleHeight: 36,
+			titleFont: 'Verdana', titleFontSize: 16, titleFill: '#204060', titleColor: '#f0f0f0',
+			type: 'popup', x: 100, y: 100, width: 600, height: 300});
 	});
 
 	test('a data source password is wrapped, never written as it was given', () =>

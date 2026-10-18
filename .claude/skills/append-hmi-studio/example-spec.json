@@ -185,6 +185,8 @@
       "window": {
         "type": "popup",
         "titleBar": true,
+        "titleHeight": 32,
+        "movable": true,
         "x": 112,
         "y": 184,
         "width": 800,

@@ -34,6 +34,7 @@ It then built the HMI on the program's real tags. The application has 419 PLC ta
 | [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md) | Every command and exit code, every field of the JSON spec, every object and animation link type, and the expression and script syntax |
 | [HMI_ALARMS](doc/HMI_ALARMS.md), [HMI_SECURITY](doc/HMI_SECURITY.md), [HMI_RECIPES](doc/HMI_RECIPES.md), [HMI_INDIRECT](doc/HMI_INDIRECT.md) | How alarms, users, recipes and indirect tags behave, with their spec fields and script functions |
 | [HMI_TRENDS](doc/HMI_TRENDS.md), [HMI_SQL](doc/HMI_SQL.md), [HMI_LISTS](doc/HMI_LISTS.md) | Trends and pens; databases, bind lists and the `SQL*` script functions; list boxes and the `List*` script functions |
+| [HMI_WINDOWS](doc/HMI_WINDOWS.md) | Window types, the title bar and its look, movable popups, and window scripts |
 | [HMI_TAG_REFERENCES](doc/HMI_TAG_REFERENCES.md) | Where tag names live, Find/Replace Tag References, and what a rename reaches |
 | [HMI_QUICKFUNCTIONS](doc/HMI_QUICKFUNCTIONS.md) | Defining and calling QuickFunctions, and what a body may do |
 | [example-spec.json](.claude/skills/append-hmi-studio/example-spec.json) | A complete small application to start from |
@@ -44,6 +45,7 @@ Features
 --------
 
 - **Design** screens on a diagram canvas, with tags, animation links, window properties and scripts.
+- **Windows**: replace, overlay and modal popup windows, each showing its own part of its page, with an optional title bar whose height, font, text color and background are yours to set, and popups the operator can move by dragging that bar. See [doc/HMI_WINDOWS.md](doc/HMI_WINDOWS.md).
 - **Run** them in the editor against real devices through the bundled comms server:
   - EtherNet/IP ControlLogix/CompactLogix;
   - SLC 5/05 and MicroLogix;
@@ -85,6 +87,7 @@ Documentation
 | Topic | Document |
 |---|---|
 | Building HMI applications, step by step | [User Manual (PDF)](doc/Append-HMI-Studio-User-Manual.pdf) |
+| Windows, title bars and movable popups | [doc/HMI_WINDOWS.md](doc/HMI_WINDOWS.md) |
 | Alarms, system tags, alarm objects and history | [doc/HMI_ALARMS.md](doc/HMI_ALARMS.md) |
 | Users, access levels and login | [doc/HMI_SECURITY.md](doc/HMI_SECURITY.md) |
 | Recipe books, recipe functions and the Recipe List | [doc/HMI_RECIPES.md](doc/HMI_RECIPES.md) |

@@ -5320,7 +5320,7 @@ ENDIF;
           ScreenTitle = "PLASTICIZER SUPPLY"; ScreenNo = 3;
         </onShow>
       </window>
-      <window page="fDd28fjtMX3yIzDkScfZ" titleBar="1" type="popup" x="730" y="150" width="460" height="560" everyMs="250">
+      <window page="fDd28fjtMX3yIzDkScfZ" titleBar="1" movable="1" type="popup" x="730" y="150" width="460" height="560" everyMs="250">
         <onShow>
           { Points the faceplate's indirect tags at the tags of the device
   the opening button chose: FP_Prefix + "_Status" is SV100_Status, ... }

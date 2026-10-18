@@ -420,7 +420,7 @@ Each page is a window of the application.
 |---|---|
 | `name` | Unique; used by `startup` and Show/Hide Window links |
 | `background` | Page (window) color, e.g. `#ffffff` |
-| `window` | Window properties. `type`: `replace` (default; closes windows it overlaps), `overlay` or `popup` (modal). Also `titleBar` (true adds a 24 px bar inside the height), `x`, `y`, `width`, `height` (default: the whole screen), and the scripts `onShow`, `whileShowing` (every `everyMs`, default 1000) and `onHide` |
+| `window` | Window properties. `type`: `replace` (default; closes windows it overlaps), `overlay` or `popup` (modal). Also `titleBar` (true adds a bar inside the height), `x`, `y`, `width`, `height` (default: the whole screen), and the scripts `onShow`, `whileShowing` (every `everyMs`, default 1000) and `onHide`. With a title bar: `titleHeight` (24), `titleFont`, `titleFontSize` (13), `titleFill`, `titleColor` -- an empty font or color keeps the built-in one -- and `movable` (false; a popup the operator can move by dragging its title bar). See [HMI_WINDOWS.md](HMI_WINDOWS.md) |
 | `objects` | The objects on the page |
 
 A window shows the part of its page under its rectangle, so draw a popup's

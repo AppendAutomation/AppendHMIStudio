@@ -23,6 +23,7 @@ The studio does the modeling, validation and packaging itself, so never write
 - **Users and access levels:** [security.md](security.md).
 - **Recipes:** [recipes.md](recipes.md).
 - **Indirect tags:** [indirect.md](indirect.md).
+- **Windows, title bars and movable popups:** [windows.md](windows.md).
 - **Trends:** [trends.md](trends.md).
 - **List boxes:** [lists.md](lists.md).
 - **QuickFunctions:** [quickfunctions.md](quickfunctions.md).
