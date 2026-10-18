@@ -149,8 +149,9 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
   - `Tag.Acked = 1` is the one allowed dotfield assignment.
 - **Objects:**
   - Alarm List and Alarm History are vertices `shape=hmiAlarmList` and `shape=hmiAlarmHistory`, from the HMI sidebar palette.
-  - Their settings are style keys (`hmiTitle`, `hmiTitleBar`, `hmiColumns`, `hmiMaxEvents`, `fontSize`).
+  - Their settings are style keys (`hmiTitle`, `hmiTitleBar`, `hmiColumns`, `hmiMaxEvents`, `fontSize`, and the colors in `HmiAlarms.COLORS`).
   - **The title bar is optional** (Show title bar in the Animation tab, `HmiAlarms.titleBarOf`): with it off the preview and the Run view draw no heading at all, so an Alarm List loses its counts and its Ack All button and a script acknowledges through `_AckAll`. With no `hmiTitleBar` key, having a title means having a bar, which is how the objects behaved before — and an empty title now takes the bar off the Run view too, not just the preview.
+  - **Colors are style keys too**, so the preview shows them: `HmiAlarms.COLORS` pairs a fill and a text key per group, with the built-in look as its default, and `LIST_COLOR_KEYS`/`HISTORY_COLOR_KEYS` say which groups each kind offers. A key that is not set gets **no inline style** at Run, so `css/hmi.css` still decides and an existing project is untouched — the stronger shade of an unacknowledged HiHi/LoLo row included, which a color set for the state deliberately covers. The list has three row states (`ROW_COLORS`), not four: ISA-18.2 deletes a cleared and acknowledged alarm; the history is colored by event (`EVENT_COLORS`).
   - `HmiAlarmView` draws the live HTML table at Run.
 - **History:** main-process `src/main/alarms/AlarmLog.js` writes one CSV per day under `userData/alarms/<store>/`, pruned after 90 days, via `hmiAlarms.append`/`hmiAlarms.recent`.
   - The renderer names the store and never passes a path.
@@ -182,10 +183,15 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
   - `HmiRecipeManager`, one per Run, owned by `HmiWindowManager` and passed to runtimes as `config.recipes`. It subscribes to every book tag on its own hub client and handles the `Recipe*` script functions (routed by name in `HmiRuntime`'s `ctx.call`).
   - Saving is debounced and merges: it loads what the PC has and applies only its own changes since it last synchronized. Append HMI Web's browsers also refresh every 5 s (`REFRESH_MS`).
   - Failures go to the Recipe Error window (`HmiDialogs.queueRecipeError`), shown after the script, coalesced.
-  - `HmiRecipeListView` draws the Recipe List (`shape=hmiRecipeList`, hidden link `recipeList`, milestone 99) at Run; `HmiRuntime.TAG_FIELDS` subscribes its tag fields.
+  - `HmiRecipeListView` draws the Recipe List (`shape=hmiRecipeList`, hidden link `recipeList`, milestone 99) at Run; `HmiRuntime.TAG_FIELDS` subscribes its tag fields. Its colors are link fields (`HmiRecipes.LIST_COLORS`: `titleFill`/`titleColor`, `selFill`/`selColor`), and `HmiRecipes.cellConfig` lets the preview shape read them as `HmiTrend.cellConfig` does.
 - **Asynchronous scripts:** `ShowRecipeSelect` is the one `async: true` function. `HmiExpr`'s script evaluator is a resumable frame stack (`ctx.callAsync`), and the parser allows async calls only as a statement or the whole right-hand side of an assignment.
 - **Main process:** `src/main/recipes/RecipeStore.js` keeps `userData/recipes/<store>.json` (atomic) behind `hmiRecipes.load/save/clear`, and writes or reads the CSV files of RecipeExport/RecipeImport through the OS dialog (`hmiRecipes.exportCsv/importCsv`; the generic file IPC refuses CSV). In Append HMI Web these two have no answer and the browser downloads or picks the file.
 - **Store:** the same as the alarm history (`HmiMenus.alarmStore`). HMI > Clear Runtime Recipes forgets it.
+
+### The frame of the table objects
+- **Alarm List, Alarm History and Recipe List take their background, border, border width, font and text color from the draw.io style**, as a Trend does. `HmiRuntime.OBJECT_FRAME` holds the built-in values (the same ones `css/hmi.css` draws), `objectFrame(graph, cell)` reads the cell over them and `applyObjectStyle`/`placeObjectBorder` put them on the overlay; `stateFrame(state)` is the preview shape's way in, and `objectFrameStyle()` is the style string the palette entries and `HmiCli.TYPES` start a new object with.
+- **The unresolved style is what is read** (`graph.getCellStyle(cell, false)`): `getCellStyle` resolves a color of `default` — what the default vertex style gives a cell nobody has colored — to the app's theme colors, and deletes a key set to `none` (`mxStylesheet.getCellStyle`). Read the resolved way, an object drawn before these settings existed would follow the theme instead of keeping its look, and Fill or Line set to None could not be told from unset.
+- **Row stripes and separators are `rgba(0, 0, 0, …)`**, so they work over any background the designer picks.
 
 ### Indirect tags
 - **Documentation:** `doc/HMI_INDIRECT.md`.

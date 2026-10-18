@@ -62,9 +62,9 @@ The **HMI** palette in the shape sidebar has two objects:
   - shows alarm events newest first, colored by event;
   - it starts with the events already logged on this PC, then adds new ones.
 
-Select one and open the **Animation** tab to set its title, font size, columns
-and, for the history, how many events it shows. In the editor the object shows
-a preview; the live table appears at Run.
+Select one and open the **Animation** tab to set its title, font size, columns,
+colors and, for the history, how many events it shows. In the editor the object
+shows a preview in those colors; the live table appears at Run.
 
 **Show title bar** turns the heading off, for a table that sits under a title
 of your own or inside a framed panel. The title text is kept while the bar is
@@ -72,6 +72,38 @@ off, so ticking the box brings it back. An Alarm List's counts and its **Ack
 All** button live in that bar and go with it; each unacknowledged row keeps its
 own **Ack** button, and a button of your own can set `_AckAll` to acknowledge
 everything.
+
+### Colors
+
+The **Colors** rows in the Animation tab give each part of the table a
+background and a text color, in that order. **Default colors** puts every one
+of them back.
+
+| Alarm List | Alarm History | Default |
+|---|---|---|
+| Title bar | Title bar | Dark slate, white text |
+| Column header | Column header | Pale grey-blue, dark text |
+| Active unack | | Red |
+| Active acked | | Amber |
+| Cleared unack | | Grey |
+| | Alarm | Pale red |
+| | Return | Pale green |
+| | Ack | Pale blue |
+| | Change | Pale amber |
+
+An Alarm List has three row states, not four: an alarm stays listed until it
+has both returned to normal and been acknowledged, so a cleared and
+acknowledged alarm has left the list. An Alarm History's rows are events, so
+they are colored by event instead.
+
+A color you set covers every priority. By default an unacknowledged Hi-Hi or
+Lo-Lo row is a stronger shade than a Hi or Lo one, and that shading stays
+until you give the state a color of its own.
+
+The frame is the object's own, from the **Style** and **Text** tabs: **Fill**
+is the background behind the rows, **Line** the border and its width, and the
+font family, size and color the text. An object you have never colored keeps
+the look it has always had.
 
 ## History files
 

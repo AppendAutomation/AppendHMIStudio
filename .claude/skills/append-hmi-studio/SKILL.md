@@ -163,7 +163,9 @@ To **change an existing project**:
 - **Alarms:**
   - analog `alarms: {loLo, low, high, hiHi, deadband}`, discrete
     `alarms: {state: "on"|"off"}`;
-  - show them with `type: "alarmList"` / `"alarmHistory"` objects;
+  - show them with `type: "alarmList"` / `"alarmHistory"` objects, colored
+    through their `style` (`hmiActUnackFill`, `hmiHeadColor`, … in
+    reference.md) and framed by `fillColor`, `strokeColor` and the font keys;
   - flash until acknowledged with a `blink` link on
     `Tag.InAlarm AND NOT Tag.Acked`;
   - an Ack All button is a `pushbutton.action` with `onDown: "_AckAll = 1;"`.
@@ -200,7 +202,9 @@ To **change an existing project**:
     Save and Download: `RecipeSave(\"Book\", RecipeName);
     RecipeDownload(\"Book\", RecipeName);`;
   - a `recipeList` object with a `recipeList` link `{book, selectedTag}` lists
-    the recipes on screen.
+    the recipes on screen; `titleFill`, `titleColor`, `selFill` and `selColor`
+    color its heading and selection, and `fillColor`, `strokeColor` and the
+    font keys its frame.
 - **Trends:**
   - a `trend` object with a `trend` link `{name, title, spanSec, pens: [{tag, min, max, color}]}`;
     pens are analog or discrete tags, each on its own range (empty: the tag's); give

@@ -456,14 +456,26 @@ The alarm objects are settings in `style`:
 - `hmiTitleBar`: `0` for no heading bar at all, `1` to keep it; by default an object has a bar unless its `hmiTitle` is empty;
 - `hmiColumns`: comma list of `time`, `tag`, `description`, `condition`, `value`, `state` (list) or `time`, `event`, `tag`, `description`, `condition`, `value`, `limit` (history);
 - `hmiMaxEvents`: history only, default 200;
-- `fontSize`.
+- `fontSize`;
+- the colors, each a background and a text key: `hmiTitleFill`/`hmiTitleColor`
+  (title bar), `hmiHeadFill`/`hmiHeadColor` (column header), and for a list
+  `hmiActUnackFill`/`hmiActUnackColor`, `hmiActAckFill`/`hmiActAckColor`,
+  `hmiClrUnackFill`/`hmiClrUnackColor`, or for a history
+  `hmiAlmFill`/`hmiAlmColor`, `hmiRtnFill`/`hmiRtnColor`,
+  `hmiAckFill`/`hmiAckColor`, `hmiChgFill`/`hmiChgColor`. A key you leave out
+  keeps the built-in color. A list has three row states, not four: an alarm
+  stays listed until it has both returned to normal and been acknowledged.
+
+The background, border and text font of an alarm object are its style's
+`fillColor`, `strokeColor`, `strokeWidth`, `fontFamily`, `fontSize` and
+`fontColor`, as a trend's are.
 
 At Run the Alarm List's heading already has the counts and an **Ack All**
 button, and each unacknowledged row has **Ack**. With `hmiTitleBar=0` there is
 no heading, so the counts and Ack All go with it; the rows keep their own Ack
 buttons and a script can acknowledge through `_AckAll`.
 
-A `recipeList` object takes its settings from a `recipeList` link, and a `trend` object from a `trend` link (below). A trend's background, border, pen line width and axis font are its style's `fillColor`, `strokeColor`, `strokeWidth`, `fontFamily`, `fontSize` and `fontColor`.
+A `recipeList` object takes its settings from a `recipeList` link, and a `trend` object from a `trend` link (below). Their background, border, line width and font are their style's `fillColor`, `strokeColor`, `strokeWidth`, `fontFamily`, `fontSize` and `fontColor`.
 
 The arcs are open curves along an ellipse (`arc`, filling the box) or a circle (`circleArc`, kept round). Set them in `style`:
 - `arcStart`, `arcEnd`: degrees as on a protractor, 0 at the right and counterclockwise, the arc running counterclockwise from start to end (default 0 to 180, the top half; a start greater than the end sweeps through 0);
@@ -498,7 +510,7 @@ All fields that take numbers are expressions, as strings.
 | `pushbutton.action` | Scripts `onDown`, `whileDown` (every `everyMs`), `onUp` |
 | `showWindow`, `hideWindow` | `window` (page name), `enableExpr` |
 | `slider.horizontal`, `slider.vertical` | `tag`, `atMin`, `atMax`, `travelMin`, `travelMax` (pixels) |
-| `recipeList` | On a `recipeList` object only: `book`, `title` (empty: the book's name), `selectedTag` (message tag the selection follows and touch writes), `upTag`, `downTag` (discrete tags; a 0 to 1 change moves the selection), `arrows` (false; ▲▼ buttons in the heading) |
+| `recipeList` | On a `recipeList` object only: `book`, `title` (empty: the book's name), `selectedTag` (message tag the selection follows and touch writes), `upTag`, `downTag` (discrete tags; a 0 to 1 change moves the selection), `arrows` (false; ▲▼ buttons in the heading), `titleFill`, `titleColor` (the heading's colors), `selFill`, `selColor` (the highlighted row's); an empty color keeps the built-in one |
 | `trend` | On a `trend` object only: `name` (unique; empty gets the next free `TrendN`), `title` (`""`), `spanSec` (600; 10 to 86400), `sampleMs` (1000; at least 100), `refreshMs` (1000), `gridColor`, `pens` (up to 8: `[{tag, min, max, color}]`, analog or discrete tags; `min`/`max` `""` for the tag's range, -0.5 to 1.5 for a discrete tag). See [HMI_TRENDS.md](HMI_TRENDS.md) |
 
 ### Expressions and scripts

@@ -49,12 +49,12 @@ Features
   - SLC 5/05 and MicroLogix;
   - Modbus TCP;
   - a built-in simulator.
-- **Alarms**: analog and discrete alarms with acknowledgement, the `_AlarmsActive`, `_AlarmsUnacked` and `_AckAll` system tags, Alarm List and Alarm History objects, and daily CSV history. See [doc/HMI_ALARMS.md](doc/HMI_ALARMS.md).
+- **Alarms**: analog and discrete alarms with acknowledgement, the `_AlarmsActive`, `_AlarmsUnacked` and `_AckAll` system tags, Alarm List and Alarm History objects with colors of your own for each alarm state and event, and daily CSV history. See [doc/HMI_ALARMS.md](doc/HMI_ALARMS.md).
 - **Scripts**: action and window scripts, plus application scripts that run On start, While running and On shutdown, with `DIM` local variables. They can carry a whole controller's logic, as in the LiquidWeighHMISim example.
 - **Retentive memory tags** keep their last value from one run to the next.
 - **Users and security**: users with access levels 0–9999, a built-in login window, the `_Username` and `_AccessLevel` system tags, login script functions, masked password entry and the Enable animation. See [doc/HMI_SECURITY.md](doc/HMI_SECURITY.md).
 - **Indirect tags**: `IndirectDiscrete`, `IndirectAnalog` and `IndirectMessage` tags that a script points at any tag with `LinkIndirectTag("Indirect", "Tag")`, so one faceplate serves many devices. See [doc/HMI_INDIRECT.md](doc/HMI_INDIRECT.md).
-- **Recipes**: recipe books of tag values with optional paired PLC tags, script functions to save, load, upload, download, export, import, delete, rename and select recipes, and a Recipe List object. Recipes saved at run time are kept on the running PC. See [doc/HMI_RECIPES.md](doc/HMI_RECIPES.md).
+- **Recipes**: recipe books of tag values with optional paired PLC tags, script functions to save, load, upload, download, export, import, delete, rename and select recipes, and a Recipe List object with colors of your own for its heading and selection. Recipes saved at run time are kept on the running PC. See [doc/HMI_RECIPES.md](doc/HMI_RECIPES.md).
 - **Trends**: a Trend object with up to 8 analog or discrete pens, each on its own range, recorded from the start of the run with 7 days of history on disk. Scripts select the pen whose scale is shown, pause, scroll back and forward, and return to live. See [doc/HMI_TRENDS.md](doc/HMI_TRENDS.md).
 - **Databases**: read and write Microsoft SQL Server and SQLite from scripts with the `SQL*` function family — data sources, bind lists that pair a tag with a column, table templates the application creates its tables from, saved queries, prepared statements with parameters, and transactions. Managed in HMI > Database. See [doc/HMI_SQL.md](doc/HMI_SQL.md).
 - **Date and time system tags**: `_DateString`, `_TimeString`, `_DateTime`, `_Year`, `_Month`, `_Day`, `_Hour`, `_Minute`, `_Second` and `_Msec`, worked out as they are read, and a family of `String*` functions for building and picking apart text.

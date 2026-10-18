@@ -126,9 +126,17 @@ are in the Animation tab:
 | SelectedRecipe | A message tag: the highlighted recipe follows it, and touching a row writes the row's name to it |
 | SelectUp, SelectDown | Discrete tags: each change from 0 to 1 moves the selection up or down. With none selected, Down selects the first recipe and Up the last |
 | Up/Down arrows | Draws ▲ and ▼ buttons in the heading that do the same |
+| Title bar | The heading's background and text colors, in that order |
+| Selected recipe | The highlighted row's background and text colors |
 
 Buttons that load or delete the selected recipe use the same tag:
 `RecipeLoad("Plasticizers", SelectedRecipe);`.
+
+The rest of the look is the object's own, from the **Style** and **Text**
+tabs: **Fill** is the list's background, **Line** the border and its width,
+and the font family, size and color the rows' text. A list you have never
+colored keeps the look it has always had: a dark heading, a blue selection
+and lightly striped rows.
 
 ## Where recipes are kept
 
