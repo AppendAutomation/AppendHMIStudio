@@ -432,9 +432,9 @@ def build(save=True):
         ['Recipes...', 'Recipe books: the tags a recipe holds and the starting recipes (chapter 11)'],
         ['Application Settings...', 'Target screen, start-up windows, runtime, security and application scripts (chapter 3)'],
         ['Window Properties...', 'Type, position, size and scripts of the current window (chapter 6)'],
-        ['Validate Expressions', 'Check every link, script and address for errors (chapter 14)'],
-        ['Publish...', 'Build a Windows installer of the application (chapter 15)'],
-        ['Run / Stop (F5)', 'Run the application in the Studio against live or simulated data (chapter 14)'],
+        ['Validate Expressions', 'Check every link, script and address for errors (chapter 15)'],
+        ['Publish...', 'Build a Windows installer of the application (chapter 16)'],
+        ['Run / Stop (F5)', 'Run the application in the Studio against live or simulated data (chapter 15)'],
         ['Runtime Log...', 'Messages from the last runs: connections, writes, script errors'],
         ['Clear Retentive Values...', 'Forget the saved values of retentive tags on this computer'],
         ['Clear Runtime User Changes...', 'Forget user changes made while running on this computer'],
@@ -610,10 +610,11 @@ def build(save=True):
     ])
     P('Arcs are objects like any other: animation links such as Line Color, Blink, Visibility and Orientation work '
       'on them, for example to show a gauge sweep or a flow direction.')
-    P('The **HMI** palette adds four objects: the **Alarm List**, the live list of active alarms at the bottom of '
+    P('The **HMI** palette adds five objects: the **Alarm List**, the live list of active alarms at the bottom of '
       'every LiquidWeighHMI screen, the **Alarm History**, used on the Alarm History screen, the **Recipe List** '
-      '(chapter 11) and the **Trend** (chapter 12).')
-    figure(doc, 'hmi-palette', 'The HMI palette: Alarm List, Alarm History, Recipe List and Trend', max_width_in=2.2)
+      '(chapter 11), the **Trend** (chapter 12) and the **List Box** (chapter 14).')
+    figure(doc, 'hmi-palette', 'The HMI palette: Alarm List, Alarm History, Recipe List, Trend and List Box',
+           max_width_in=2.2)
     note(doc, 'Keep objects inside the Screen frame, and group repeated symbols (a valve with its tag label) so '
          'they can be copied with their links.')
     P('To mirror an object, select it and choose **Arrange > Direction > Flip Horizontal** or **Flip Vertical**, or '
@@ -912,6 +913,21 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
     P('Each one returns 0 when it worked and a negative result code when it did not, except SQLNumRows, which '
       'returns the number of rows, and SQLErrorMsg, which returns text. A failure also opens a Database Error '
       'window.')
+    P('The **list functions** fill and work a List Box object (chapter 14). In them, `list` is the name of a list '
+      'box, set in its Animation tab, as text: a literal in quotes or a message tag holding the name. An item is '
+      'text too, so a message tag or a literal, and an item is found whatever its case.')
+    table(doc, 'List functions (scripts only)', [
+        ['Function', 'Arguments', 'What it does'],
+        ['ListClear(list)', 'list', 'Removes every item and clears the selection'],
+        ['ListAdd(list, item)', 'list, item', 'Adds the item to the bottom of the list'],
+        ['ListLoad(list, text)', 'list, text', 'Adds the comma-separated, trimmed items in text to the bottom'],
+        ['ListRemove(list, item)', 'list, item', 'Removes the item; does nothing if the list has not got it'],
+        ['ListSelect(list, item)', 'list, item', 'Selects the item; does nothing if the list has not got it'],
+        ['ListSort(list, order)', 'list\norder: "ASC", "A", "DESC" or "D", in any case',
+         'Sorts the items alphabetically, ignoring case, keeping the selection in view'],
+    ])
+    P('Each one returns 1, or 0 with a List Error window naming the call and the reason, such as a list that does '
+      'not exist or a sort order it does not know.')
 
     H2('9.4  Indirect tags: one faceplate for every device')
     P('LiquidWeighHMI has 11 valves and 3 pumps, and one **Device Faceplate** for all of them. Its objects use '
@@ -1658,12 +1674,116 @@ res = SQLFirst(Db_ConnId);
          'your own.')
 
     # ------------------------------------------------------------ 14
-    H1('14  Testing')
-    H2('14.1  Validate')
+    H1('14  List boxes')
+    P('A **List Box** shows a list of text items the operator picks from. Unlike the Alarm List, the Recipe List '
+      'and the Trend, which each show something the application already keeps, a list box holds whatever the '
+      'scripts put in it: the batches waiting to run, the lots a query returned, the faults logged since the '
+      'shift started. Whatever the operator touches is written to a message tag, and the rest of the screen '
+      'follows that tag like any other.')
+
+    H2('14.1  The List Box object')
+    P('Drop a **List Box** from the HMI palette onto a window, select it and open the Animation tab. Its settings '
+      'come first:')
+    figure(doc, 'list-panel', 'The settings of a list box', max_width_in=1.8)
+    table(doc, 'List Box settings', [
+        ['Setting', 'Where', 'Meaning'],
+        ['Name', 'Animation tab', 'The name scripts use. Each list gets List1, List2, ... and can be renamed; '
+         'names are unique in the project, so a pasted or duplicated list gets the next free one'],
+        ['Title', 'Animation tab', 'The heading, when the title bar is shown; empty uses the list\'s name'],
+        ['Show title bar', 'Animation tab', 'Draws the heading, and holds the arrow buttons. Off by default: a '
+         'plain list of items is what most screens want'],
+        ['Items', 'Animation tab', 'Starting items, one per line. The list holds these when the application '
+         'starts, before any script has run'],
+        ['Selected item', 'Animation tab', 'A message tag the selection is written to'],
+        ['Select up, Select down', 'Animation tab', 'Discrete tags: a change from 0 to 1 moves the selection one '
+         'item, so a pair of buttons or physical inputs can drive the list'],
+        ['Up and down arrow buttons', 'Animation tab', 'Two buttons in the title bar that do the same'],
+        ['Title bar background, text', 'Animation tab', 'The heading\'s colors'],
+        ['Selected row background, text', 'Animation tab', 'The selected item\'s colors'],
+        ['Fill, Line, Line width', 'Style tab', 'The background behind the rows and the border'],
+        ['Font', 'Text tab', 'The font, size and color of the rows'],
+    ])
+    P('A color left unset keeps the built-in look, so setting one of them leaves the rest as they were. The rows '
+      'scroll when there are more than fit, and the selected row is always brought back into view: after a sort, '
+      'after an item above it is removed, and when a script selects something off screen.')
+    P('Touching a row selects it and writes it to the **Selected item** tag at once, so a value display, a '
+      'button\'s Enable when or a script sees the choice immediately. With nothing selected, Select down picks '
+      'the first item and Select up the last.')
+
+    H2('14.2  Filling and working the list from scripts')
+    P('Six functions work a list by its name, as text: a literal in quotes or a message tag holding the name. '
+      'They sit with the other script functions in section 9.3.')
+    table(doc, 'List functions (scripts only)', [
+        ['Function', 'What it does'],
+        ['ListClear(list)', 'Removes every item and clears the selection'],
+        ['ListAdd(list, item)', 'Adds the item to the bottom of the list'],
+        ['ListLoad(list, text)', 'Adds the comma-separated items in text to the bottom'],
+        ['ListRemove(list, item)', 'Removes the item'],
+        ['ListSelect(list, item)', 'Selects the item'],
+        ['ListSort(list, order)', 'Sorts the items alphabetically: "ASC" or "A", "DESC" or "D"'],
+    ])
+    code(doc, """
+ListClear("Batches");
+ListLoad("Batches", "B-1024, B-1025, B-1026");
+ListAdd("Batches", NewBatch);
+ListSort("Batches", "ASC");
+ListSelect("Batches", NewBatch);
+""")
+    bullets(doc, [
+        '**Items are text.** An item is trimmed as it goes in, and an empty one is refused. Duplicates are '
+        'allowed: the script decides what the list holds.',
+        '**Finding an item ignores case**, so ListRemove("Flavors", "vanilla") removes Vanilla. ListRemove and '
+        'ListSelect **do nothing and still succeed** when the list has not got the item, so a script that tidies '
+        'up after the operator raises no errors. ListRemove takes the first match when an item appears twice.',
+        '**ListLoad splits on commas and trims**, dropping empty entries: " Red , Green ,, Blue, " loads Red, '
+        'Green and Blue. There is no quoting, so an item that contains a comma goes in with ListAdd.',
+        '**Sorting ignores case** and keeps the selection: the selected item stays selected, and the list '
+        'scrolls so it is still in view.',
+        '**Removing the selected item clears the selection**, and so does ListClear; the Selected item tag is '
+        'set to empty.',
+    ])
+    P('Each function returns 1, or 0 with a List Error window naming the call and the reason, such as a list that '
+      'does not exist, a sort order that is not ASC, DESC, A or D, or an item too many: a list holds at most '
+      '5000. Validate reports a quoted list name that no screen has, and a bare tag where a name belongs.')
+
+    H2('14.3  The list belongs to the application, not to a window')
+    P('Every list box exists from the moment the application starts, whether or not a window shows it. So an **On '
+      'start** application script (section 9.1) can fill a list the operator opens later; two windows showing the '
+      'same list show the same items and the same selection; and closing a window and opening it again leaves the '
+      'list as it was. The Selected item tag follows the selection even with no window open, and is written only '
+      'when the selection moves, so filling a list does not write the tag item by item.')
+    P('Items are **not** kept between runs. Each run starts with the Items box\'s own lines and whatever the '
+      'scripts add. To hold a choice across runs, write the Selected item tag to a retentive memory tag '
+      '(section 5.1) and select it again in an On start script.')
+
+    H2('14.4  A list filled from a database')
+    P('A list box and the database functions (chapter 13) go together: a query\'s rows become the items the '
+      'operator picks from. This On show script fills a list named Lots with the open lots:')
+    code(doc, """
+DIM Res AS Analog;
+
+ListClear("Lots");
+Res = SQLSelect(ConnId, "Lots", "LotRow", "Status = 'Open'", "LotId");
+Res = SQLFirst(ConnId);
+
+WHILE Res == 0
+    ListAdd("Lots", LotId);
+    Res = SQLNext(ConnId);
+ENDWHILE;
+
+Res = SQLEnd(ConnId);
+""")
+    P('Each move writes the row into the bind list\'s tags, so LotId holds the value of the row the cursor is on. '
+      'The operator then picks a lot, its name goes to the Selected item tag, and a Touch Pushbutton loads it.')
+    figure(doc, 'run-lists', 'A list box at Run: the items a script loaded, with one selected')
+
+    # ------------------------------------------------------------ 15
+    H1('15  Testing')
+    H2('15.1  Validate')
     P('**HMI > Validate Expressions** checks every link, script and PLC address and lists any problem with the '
       'page and object; click a problem to go to it. Validate before every Run and Publish.')
     figure(doc, 'validate', 'Validation of LiquidWeighHMI: no problems found', max_width_in=4.0)
-    H2('14.2  Run')
+    H2('15.2  Run')
     P('**HMI > Run** (F5) runs the application inside the Studio: the drawing is locked, the start-up windows '
       'open, and the application connects to its PLCs. A green RUNNING banner shows that the screen is live and '
       'that touching it operates real equipment. **HMI > Stop** returns to editing.')
@@ -1682,8 +1802,8 @@ res = SQLFirst(Db_ConnId);
     figure(doc, 'run-alarm-history', 'Alarm History screen')
     note(doc, 'HMI > Runtime Log lists connections, device errors, writes and script errors from the run.')
 
-    # ------------------------------------------------------------ 15
-    H1('15  Deploying')
+    # ------------------------------------------------------------ 16
+    H1('16  Deploying')
     P('An application can reach the plant floor in three ways.')
     table(doc, 'Deployment options', [
         ['Option', 'What the target gets', 'Best for'],
@@ -1694,18 +1814,18 @@ res = SQLFirst(Db_ConnId);
         ['Append HMI Web', 'A web server; operators open the application in any browser', 'Viewing and operating from '
          'tablets, laptops and control-room PCs'],
     ])
-    H2('15.1  Publish')
+    H2('16.1  Publish')
     P('**HMI > Publish** builds a Windows installer from the open project. Give the product name, version and '
       'publisher, choose an icon, whether it installs for all users, and whether it adds a desktop shortcut or '
       'starts with Windows. Run the Setup.exe on the target PC; the application then starts full screen as set '
       'in Application Settings.')
     figure(doc, 'publish', 'The Publish dialog', max_width_in=4.0)
-    H2('15.2  Append HMI Desktop')
+    H2('16.2  Append HMI Desktop')
     P('Append HMI Desktop runs .ahmi files without the editor. Choose an application, then **Run now**, create a '
       'desktop shortcut or menu entry, or tick **Run this application automatically when I log in**. From the '
       'command line: `append-hmi-desktop LiquidWeighHMI.ahmi`.')
     figure(doc, 'desktop-launcher', 'The Append HMI Desktop launcher with LiquidWeighHMI selected', max_width_in=4.2)
-    H2('15.3  Append HMI Web')
+    H2('16.3  Append HMI Web')
     P('Append HMI Web serves an application to web browsers on the plant network. Choose the application and a port '
       '(8480 by default), then **Start web server**; the launcher shows the link to share, with a **Copy** button. '
       'If the port is already in use on the PC (by another web server, or another application being served), '
@@ -1719,8 +1839,8 @@ res = SQLFirst(Db_ConnId);
         'second application running in the background', max_width_in=4.2)
     figure(doc, 'web-browser', 'LiquidWeighHMI in a web browser, with the view menu open')
 
-    # ------------------------------------------------------------ 16
-    H1('16  Tips and troubleshooting')
+    # ------------------------------------------------------------ 17
+    H1('17  Tips and troubleshooting')
     table(doc, 'Common problems', [
         ['Symptom', 'Cause and remedy'],
         ['Values show ####', 'The tag has bad quality: the PLC is not connected or the address is wrong. Check '
