@@ -1114,9 +1114,34 @@ Return Raw * 100 / Span;
         'acknowledge with `_AckAll = 1;` or `Tag.Acked = 1;`.',
         'Every alarm event is written to a daily history file kept for 90 days; the Alarm History object shows '
         'it (' + F('run-alarm-history') + ').',
-        'Both objects take their title, font size and columns from the **Animation** tab. **Show title bar** '
-        'turns the heading off for a table that sits under a title of your own; the Alarm List\'s counts and '
+        'Both objects take their title, font size, columns and colors from the **Animation** tab. **Show title '
+        'bar** turns the heading off for a table that sits under a title of your own; the Alarm List\'s counts and '
         'its Ack All button are in that bar and go with it, so acknowledge from a button that sets `_AckAll`.',
+    ])
+    P('The **Colors** rows give each part of the table a background and a text color, in that order '
+      '(' + F('alarm-colors-panel') + '). An Alarm List colors its title bar, its column header and its three row '
+      'states; an Alarm History colors its title bar, its column header and its four events. **Default colors** '
+      'puts every one of them back.')
+    figure(doc, 'alarm-colors-panel', 'The colors of an Alarm List, in the Animation tab', max_width_in=2.4)
+    table(doc, 'What an alarm object colors', [
+        ['Alarm List', 'Alarm History', 'Shown when'],
+        ['Title bar', 'Title bar', 'The heading, while Show title bar is ticked'],
+        ['Column header', 'Column header', 'The row of column names'],
+        ['Active unack', '', 'The alarm is active and not yet acknowledged'],
+        ['Active acked', '', 'The alarm is active and has been acknowledged'],
+        ['Cleared unack', '', 'The alarm has returned to normal but is not acknowledged'],
+        ['', 'Alarm', 'The tag entered alarm, or escalated'],
+        ['', 'Return', 'The tag returned to normal'],
+        ['', 'Ack', 'An operator or a script acknowledged it'],
+        ['', 'Change', 'The alarm eased back to a lower limit'],
+    ], first_col_bold=False)
+    bullets(doc, [
+        'An Alarm List has three row states, not four: an alarm leaves the list once it has both returned to '
+        'normal and been acknowledged, so there is no cleared and acknowledged row to color.',
+        'A color you set covers every priority. Until you set one, an unacknowledged HiHi or LoLo row keeps the '
+        'stronger shade that marks it out from a Hi or Lo one.',
+        'The frame is the object\'s own, from the **Style** and **Text** tabs: **Fill** is the background behind '
+        'the rows, **Line** the border and its width, and the font family, size and color the text.',
     ])
     H2('10.2  Users and access levels')
     P('Open **HMI > Users** to define who can log in. Each user has a name, a password (stored only as a salted '
@@ -1243,8 +1268,12 @@ ENDIF;
         ['Select up, Select down', 'Discrete tags. Each change from 0 to 1 moves the selection up or down, for '
          'selection from PLC pushbuttons. With nothing selected, down selects the first recipe and up the last'],
         ['Up and down arrow buttons', 'Draws arrow buttons in the heading that move the selection the same way'],
+        ['Title bar', 'The heading\'s background and text colors, in that order'],
+        ['Selected recipe colors', 'The highlighted row\'s background and text colors'],
     ])
-    P('The list is sorted by name and updates as soon as a recipe is saved, renamed or deleted.')
+    P('The list is sorted by name and updates as soon as a recipe is saved, renamed or deleted. The rest of its '
+      'look is the object\'s own, from the **Style** and **Text** tabs: **Fill** is the list\'s background, '
+      '**Line** the border and its width, and the font family, size and color the rows\' text.')
 
     H2('11.4  Selecting a recipe in a window')
     P('`ShowRecipeSelect` opens a window listing a book\'s recipes, for screens without a Recipe List or for a '
