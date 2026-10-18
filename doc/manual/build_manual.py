@@ -416,7 +416,8 @@ def build(save=True):
          'specific to HMI applications'],
         ['Toolbar', 'Zoom, undo, delete, arrange, and quick access to fill, line and shadow'],
         ['Shapes', 'Shape libraries (General, Misc, Advanced and more under More Shapes, including the P&ID '
-         'libraries) and the HMI palette with the Alarm List, Alarm History, Recipe List and Trend objects'],
+         'libraries) and the HMI palette with the Alarm List, Alarm History, Recipe List, Trend and List Box '
+         'objects'],
         ['Canvas', 'The page being edited. The dashed Screen frame shows the target screen (1920 × 1080 here)'],
         ['Format panel', 'Style, Text and Arrange for the selected object, and the Animation tab for its links'],
         ['Page tabs', 'One tab per window of the application; + adds one'],
@@ -453,6 +454,9 @@ def build(save=True):
         'type, size and position. LiquidWeighHMI opens the Process screen and the Header and Footer windows that '
         'go with every screen (section 6.2). With none ticked, the page being edited opens.',
     ])
+    note(doc, 'After zooming or scrolling around a large page, **View > Reset** brings the whole screen area '
+         'back: it is centered in the window and scaled to fit, never larger than life. Pressing Enter with '
+         'nothing selected does the same.')
     figure(doc, 'app-settings-runtime', 'Application Settings: runtime, security and scripts', max_width_in=4.6)
     bullets(doc, [
         '**Window**: how a published application runs on the target PC: **Kiosk** (full screen, locked, taskbar '
@@ -558,8 +562,35 @@ def build(save=True):
     ])
     H2('6.1  Window properties')
     P('Select a page and open **HMI > Window Properties**. The Device Faceplate is a popup with a title bar, '
-      '460 × 560 pixels at 730, 150 on the screen. The preview shows where it appears.')
+      '460 × 560 pixels at 730, 150 on the screen, and the operator may move it. Further down the dialog, a '
+      'preview shows where it falls on the screen, and the window\'s scripts follow it.')
     figure(doc, 'window-popup', 'Window Properties of the Device Faceplate popup', max_width_in=4.4)
+    P('**Title bar** draws a bar across the top of the window with its name and a close button. The bar is part '
+      'of the window\'s height, as it is on the panel, so a 560 pixel window with a 24 pixel bar leaves 536 '
+      'pixels of the page below it. What the bar looks like is yours to set:')
+    table(doc, 'Title bar settings', [
+        ['Setting', 'Default', 'Meaning'],
+        ['Height', '24 px', 'The height of the bar, 8 to 400, and never taller than the window'],
+        ['Font, Font size', 'built-in, 13 px', 'The title\'s font and size, 6 to 72; the size scales with the '
+         'screen like everything else'],
+        ['Text color', 'white', 'The title and the close button'],
+        ['Background', 'dark blue', 'The bar itself'],
+        ['Movable', 'off', 'The operator may move the window at run time (below)'],
+    ])
+    P('An empty font or color keeps the built-in one, so a window built before these settings existed looks '
+      'exactly as it did, and setting one of them changes only that one.')
+    P('**Movable** lets the operator move the window while the application runs, by dragging its title bar with '
+      'a mouse or a finger. It is offered for **Popup** windows: a popup is the window that lands over the part '
+      'of the plant the operator is watching, and the one worth sliding aside. LiquidWeighHMI\'s Device '
+      'Faceplate is movable, so a faceplate covering the vessel behind it can be pushed out of the way.')
+    bullets(doc, [
+        'The window moves; what it shows does not. It keeps showing the same part of its page.',
+        'A window may hang off the edge of the screen, but not out of reach: a strip of it stays on screen, and '
+        'the title bar never leaves it.',
+        'Nothing is remembered. Close the window and open it again and it is back where it is defined, or where '
+        'the `ShowWindow` call puts it (section 9.5).',
+        'The project is not changed: where the operator drags a window is not a design change.',
+    ])
     P('A window shows the part of its page under its rectangle, so a popup\'s objects are drawn at the popup\'s '
       'position on its page. ' + F('faceplate-edit') + ' shows the Device Faceplate page in the editor. It serves '
       'every valve and pump (section 9.4), so a few objects for valves and for pumps share a place; visibility links '
