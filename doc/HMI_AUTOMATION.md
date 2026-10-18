@@ -452,13 +452,16 @@ libraries.
 A **connector** is `{"edge": true, "id", "source": <object id>, "target": <object id>, "style", "label", "sourcePoint": [x, y], "targetPoint": [x, y], "points": [[x, y], …]}`. Give ends by `source`/`target` or by points.
 
 The alarm objects are settings in `style`:
-- `hmiTitle`: the heading, empty for none;
+- `hmiTitle`: the heading's text;
+- `hmiTitleBar`: `0` for no heading bar at all, `1` to keep it; by default an object has a bar unless its `hmiTitle` is empty;
 - `hmiColumns`: comma list of `time`, `tag`, `description`, `condition`, `value`, `state` (list) or `time`, `event`, `tag`, `description`, `condition`, `value`, `limit` (history);
 - `hmiMaxEvents`: history only, default 200;
 - `fontSize`.
 
 At Run the Alarm List's heading already has the counts and an **Ack All**
-button, and each unacknowledged row has **Ack**.
+button, and each unacknowledged row has **Ack**. With `hmiTitleBar=0` there is
+no heading, so the counts and Ack All go with it; the rows keep their own Ack
+buttons and a script can acknowledge through `_AckAll`.
 
 A `recipeList` object takes its settings from a `recipeList` link, and a `trend` object from a `trend` link (below). A trend's background, border, pen line width and axis font are its style's `fillColor`, `strokeColor`, `strokeWidth`, `fontFamily`, `fontSize` and `fontColor`.
 

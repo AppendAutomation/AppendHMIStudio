@@ -66,6 +66,13 @@ Select one and open the **Animation** tab to set its title, font size, columns
 and, for the history, how many events it shows. In the editor the object shows
 a preview; the live table appears at Run.
 
+**Show title bar** turns the heading off, for a table that sits under a title
+of your own or inside a framed panel. The title text is kept while the bar is
+off, so ticking the box brings it back. An Alarm List's counts and its **Ack
+All** button live in that bar and go with it; each unacknowledged row keeps its
+own **Ack** button, and a button of your own can set `_AckAll` to acknowledge
+everything.
+
 ## History files
 
 - **Format:** events are logged as CSV, one file per day, readable in a

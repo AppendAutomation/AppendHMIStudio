@@ -149,7 +149,8 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
   - `Tag.Acked = 1` is the one allowed dotfield assignment.
 - **Objects:**
   - Alarm List and Alarm History are vertices `shape=hmiAlarmList` and `shape=hmiAlarmHistory`, from the HMI sidebar palette.
-  - Their settings are style keys (`hmiTitle`, `hmiColumns`, `hmiMaxEvents`, `fontSize`).
+  - Their settings are style keys (`hmiTitle`, `hmiTitleBar`, `hmiColumns`, `hmiMaxEvents`, `fontSize`).
+  - **The title bar is optional** (Show title bar in the Animation tab, `HmiAlarms.titleBarOf`): with it off the preview and the Run view draw no heading at all, so an Alarm List loses its counts and its Ack All button and a script acknowledges through `_AckAll`. With no `hmiTitleBar` key, having a title means having a bar, which is how the objects behaved before — and an empty title now takes the bar off the Run view too, not just the preview.
   - `HmiAlarmView` draws the live HTML table at Run.
 - **History:** main-process `src/main/alarms/AlarmLog.js` writes one CSV per day under `userData/alarms/<store>/`, pruned after 90 days, via `hmiAlarms.append`/`hmiAlarms.recent`.
   - The renderer names the store and never passes a path.

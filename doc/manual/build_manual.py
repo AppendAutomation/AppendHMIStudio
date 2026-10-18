@@ -1114,6 +1114,9 @@ Return Raw * 100 / Span;
         'acknowledge with `_AckAll = 1;` or `Tag.Acked = 1;`.',
         'Every alarm event is written to a daily history file kept for 90 days; the Alarm History object shows '
         'it (' + F('run-alarm-history') + ').',
+        'Both objects take their title, font size and columns from the **Animation** tab. **Show title bar** '
+        'turns the heading off for a table that sits under a title of your own; the Alarm List\'s counts and '
+        'its Ack All button are in that bar and go with it, so acknowledge from a button that sets `_AckAll`.',
     ])
     H2('10.2  Users and access levels')
     P('Open **HMI > Users** to define who can log in. Each user has a name, a password (stored only as a salted '
