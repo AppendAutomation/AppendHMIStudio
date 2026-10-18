@@ -140,6 +140,23 @@ describe('hmi command line', {skip}, () =>
 		assert.match(r.out, /unknown tag "Nope"/);
 	});
 
+	// "sim": "ramp" used to be written out a character at a time
+	// (<sim 0="r" 1="a" .../>), making a project the app could not open
+	// again, and the build still said it was fine.
+	test('build refuses a field with fields of its own given as text', () =>
+	{
+		const bad = JSON.parse(JSON.stringify(spec));
+		bad.tags[0].sim = 'ramp';
+		const bf = path.join(dir, 'bad-sim.json');
+		fs.writeFileSync(bf, JSON.stringify(bad));
+		const out = path.join(dir, 'bad-sim.ahmi');
+		const r = studio('--hmi-build', bf, '-o', out);
+
+		assert.equal(r.status, 1, r.out + r.err);
+		assert.match(r.err, /"sim" takes fields of its own/);
+		assert.equal(fs.existsSync(out), false);
+	});
+
 	test('spec errors write nothing', () =>
 	{
 		const bad = JSON.parse(JSON.stringify(spec));

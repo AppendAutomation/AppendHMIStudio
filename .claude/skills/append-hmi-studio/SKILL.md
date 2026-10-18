@@ -112,6 +112,9 @@ To **change an existing project**:
 - **Navigation:** `showWindow`/`hideWindow` links name pages. A `replace`
   window closes windows it overlaps, `overlay` opens on top, and `popup` is
   modal.
+- **Fields with fields of their own are objects,** never text: `sim`
+  (`{"mode": "ramp", "periodMs": 5000}`), `alarms`, a device's `options`. The
+  build refuses text there.
 - **Expressions are strings,** even numbers (`"atMax": "100"`). They are
   InTouch-style QuickScript:
   - operators: `AND OR NOT`, `== <> < <= > >=`, `+ - * / MOD`;
