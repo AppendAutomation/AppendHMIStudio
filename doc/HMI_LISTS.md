@@ -73,7 +73,7 @@ Every list box in the project exists from the moment the Run starts, whether or 
 - an **On start** application script can fill a list the operator opens later;
 - two windows showing the same list name show the same items and the same selection;
 - closing a window and opening it again leaves the list as it was;
-- the Selected item tag is written even with no window open.
+- the Selected item tag is written even with no window open — only when the selection moves, so filling a list does not write it item by item.
 
 Items are **not** kept between Runs. Each Run starts with the Items box's own lines and whatever the scripts add. To hold a choice across Runs, write the Selected item tag to a retentive memory tag and select it again in an On start script.
 
