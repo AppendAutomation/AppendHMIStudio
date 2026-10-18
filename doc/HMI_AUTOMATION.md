@@ -432,7 +432,7 @@ bar shows the page name and a × close button.
 | Field | Meaning |
 |---|---|
 | `id` | Optional, unique on the page; needed for connector ends |
-| `type` | Shorthand style: `rect`, `roundedRect`, `ellipse`, `text`, `button`, `line`, `arrow`, `triangle`, `cylinder`, `arc`, `circleArc`, `alarmList`, `alarmHistory`, `recipeList` or `trend`. Optional when `style` names a shape |
+| `type` | Shorthand style: `rect`, `roundedRect`, `ellipse`, `text`, `button`, `line`, `arrow`, `triangle`, `cylinder`, `arc`, `circleArc`, `alarmList`, `alarmHistory`, `recipeList`, `list` or `trend`. Optional when `style` names a shape |
 | `style` | draw.io style keys added after the type's (later keys win), e.g. `fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1;rounded=1;` |
 | `x`, `y`, `width`, `height` | Position and size |
 | `label` | Text (HTML allowed with `html=1`, which the types set) |
@@ -475,7 +475,7 @@ button, and each unacknowledged row has **Ack**. With `hmiTitleBar=0` there is
 no heading, so the counts and Ack All go with it; the rows keep their own Ack
 buttons and a script can acknowledge through `_AckAll`.
 
-A `recipeList` object takes its settings from a `recipeList` link, and a `trend` object from a `trend` link (below). Their background, border, line width and font are their style's `fillColor`, `strokeColor`, `strokeWidth`, `fontFamily`, `fontSize` and `fontColor`.
+A `recipeList` object takes its settings from a `recipeList` link, a `list` object from a `list` link, and a `trend` object from a `trend` link (below). Their background, border, line width and font are their style's `fillColor`, `strokeColor`, `strokeWidth`, `fontFamily`, `fontSize` and `fontColor`.
 
 The arcs are open curves along an ellipse (`arc`, filling the box) or a circle (`circleArc`, kept round). Set them in `style`:
 - `arcStart`, `arcEnd`: degrees as on a protractor, 0 at the right and counterclockwise, the arc running counterclockwise from start to end (default 0 to 180, the top half; a start greater than the end sweeps through 0);
@@ -511,6 +511,7 @@ All fields that take numbers are expressions, as strings.
 | `showWindow`, `hideWindow` | `window` (page name), `enableExpr` |
 | `slider.horizontal`, `slider.vertical` | `tag`, `atMin`, `atMax`, `travelMin`, `travelMax` (pixels) |
 | `recipeList` | On a `recipeList` object only: `book`, `title` (empty: the book's name), `selectedTag` (message tag the selection follows and touch writes), `upTag`, `downTag` (discrete tags; a 0 to 1 change moves the selection), `arrows` (false; ▲▼ buttons in the heading), `titleFill`, `titleColor` (the heading's colors), `selFill`, `selColor` (the highlighted row's); an empty color keeps the built-in one |
+| `list` | On a `list` object only: `name` (unique; empty gets the next free `ListN`), `title` (the list's name), `titleBar` (false), `items` (starting items, one per line), `selectedTag` (message tag the selection is written to), `upTag`, `downTag` (discrete tags; a 0 to 1 change moves the selection), `arrows` (false; ▲▼ buttons in the heading), `titleFill`, `titleColor`, `selFill`, `selColor`; an empty color keeps the built-in one. See [HMI_LISTS.md](HMI_LISTS.md) |
 | `trend` | On a `trend` object only: `name` (unique; empty gets the next free `TrendN`), `title` (`""`), `spanSec` (600; 10 to 86400), `sampleMs` (1000; at least 100), `refreshMs` (1000), `gridColor`, `pens` (up to 8: `[{tag, min, max, color}]`, analog or discrete tags; `min`/`max` `""` for the tag's range, -0.5 to 1.5 for a discrete tag). See [HMI_TRENDS.md](HMI_TRENDS.md) |
 
 ### Expressions and scripts
@@ -611,6 +612,15 @@ All fields that take numbers are expressions, as strings.
     shows (drawn 1 px thicker); the scrolls move the shown times by half the
     span (back pauses a live trend; forward stops at now); Play returns to
     live. 1, or 0 with a function error. See [HMI_TRENDS.md](HMI_TRENDS.md);
+  - `ListClear(list)`, `ListAdd(list, item)`, `ListRemove(list, item)`,
+    `ListSelect(list, item)`, `ListLoad(list, text)` and
+    `ListSort(list, order)`, in scripts only: names and items as text. Add
+    puts an item at the bottom and Load the comma-separated, trimmed items
+    of its text; Remove and Select find an item whatever its case and do
+    nothing (still 1) when the list hasn't got it; Sort takes `"ASC"`,
+    `"DESC"`, `"A"` or `"D"` in any case, ignores case and keeps the
+    selection in view. 1, or 0 with a List Error. See
+    [HMI_LISTS.md](HMI_LISTS.md);
   - **the `SQL*` family**, in scripts only: `SQLConnect(ConnIdTag,
     "DataSource")` and `SQLDisconnect`; `SQLSelect(ConnId, "Table",
     "BindList", "WhereExpr", "OrderByExpr")` with `SQLFirst`, `SQLNext`,

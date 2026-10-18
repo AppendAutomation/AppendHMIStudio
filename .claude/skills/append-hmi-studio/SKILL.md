@@ -24,6 +24,7 @@ The studio does the modeling, validation and packaging itself, so never write
 - **Recipes:** [recipes.md](recipes.md).
 - **Indirect tags:** [indirect.md](indirect.md).
 - **Trends:** [trends.md](trends.md).
+- **List boxes:** [lists.md](lists.md).
 - **QuickFunctions:** [quickfunctions.md](quickfunctions.md).
 - **Databases (the `SQL*` functions):** [database.md](database.md).
 - **A complete example:** [example-spec.json](example-spec.json). It has a
@@ -213,6 +214,19 @@ To **change an existing project**:
     `TrendScrollBack(\"Main\");`, `TrendScrollForward(\"Main\");`, `TrendPause(\"Main\");`,
     `TrendPlay(\"Main\");` and `TrendSetPen(\"Main\", \"LIT100\");`;
   - every pen is recorded from the start of the Run, with 7 days of history on disk.
+- **List boxes** ([lists.md](lists.md)):
+  - a `list` object with a `list` link `{name, selectedTag}` shows items the
+    operator picks from; add `titleBar: true` with a `title` for a heading,
+    `items` for starting items (one per line), `arrows` or `upTag`/`downTag`
+    to step the selection, and `selFill`/`selColor` to color it;
+  - scripts fill and work it by name: `ListClear(\"Lots\");`,
+    `ListLoad(\"Lots\", \"A, B, C\");`, `ListAdd(\"Lots\", NewLot);`,
+    `ListRemove(\"Lots\", SelLot);`, `ListSelect(\"Lots\", NewLot);` and
+    `ListSort(\"Lots\", \"ASC\");`;
+  - the list belongs to the Run, so an On start script can fill one the
+    operator opens later; items are not kept between Runs;
+  - a list box and a `SQLSelect` walk go together: clear the list, then
+    `ListAdd` the bind list's tag as the cursor moves down the rows.
 - **Databases** (`SQL*` script functions, [database.md](database.md)):
   - `dataSources` name the databases: `{"name": "BatchDb", "provider":
     "sqlite", "file": "batches.db", "folder": "documents"}`, or `mssql` with

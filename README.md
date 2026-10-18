@@ -33,7 +33,7 @@ It then built the HMI on the program's real tags. The application has 419 PLC ta
 | [.claude/skills/append-hmi-studio](.claude/skills/append-hmi-studio/SKILL.md) | A Claude Code skill: the workflow, the rules that matter, and good screen practice (palette, text sizes, navigation, alarms) |
 | [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md) | Every command and exit code, every field of the JSON spec, every object and animation link type, and the expression and script syntax |
 | [HMI_ALARMS](doc/HMI_ALARMS.md), [HMI_SECURITY](doc/HMI_SECURITY.md), [HMI_RECIPES](doc/HMI_RECIPES.md), [HMI_INDIRECT](doc/HMI_INDIRECT.md) | How alarms, users, recipes and indirect tags behave, with their spec fields and script functions |
-| [HMI_TRENDS](doc/HMI_TRENDS.md), [HMI_SQL](doc/HMI_SQL.md) | Trends and pens; databases, bind lists and the `SQL*` script functions |
+| [HMI_TRENDS](doc/HMI_TRENDS.md), [HMI_SQL](doc/HMI_SQL.md), [HMI_LISTS](doc/HMI_LISTS.md) | Trends and pens; databases, bind lists and the `SQL*` script functions; list boxes and the `List*` script functions |
 | [HMI_TAG_REFERENCES](doc/HMI_TAG_REFERENCES.md) | Where tag names live, Find/Replace Tag References, and what a rename reaches |
 | [HMI_QUICKFUNCTIONS](doc/HMI_QUICKFUNCTIONS.md) | Defining and calling QuickFunctions, and what a body may do |
 | [example-spec.json](.claude/skills/append-hmi-studio/example-spec.json) | A complete small application to start from |
@@ -56,6 +56,7 @@ Features
 - **Indirect tags**: `IndirectDiscrete`, `IndirectAnalog` and `IndirectMessage` tags that a script points at any tag with `LinkIndirectTag("Indirect", "Tag")`, so one faceplate serves many devices. See [doc/HMI_INDIRECT.md](doc/HMI_INDIRECT.md).
 - **Recipes**: recipe books of tag values with optional paired PLC tags, script functions to save, load, upload, download, export, import, delete, rename and select recipes, and a Recipe List object with colors of your own for its heading and selection. Recipes saved at run time are kept on the running PC. See [doc/HMI_RECIPES.md](doc/HMI_RECIPES.md).
 - **Trends**: a Trend object with up to 8 analog or discrete pens, each on its own range, recorded from the start of the run with 7 days of history on disk. Scripts select the pen whose scale is shown, pause, scroll back and forward, and return to live. See [doc/HMI_TRENDS.md](doc/HMI_TRENDS.md).
+- **List boxes**: a List Box object the operator picks from, filled by scripts with `ListAdd`, `ListLoad`, `ListRemove`, `ListSelect`, `ListSort` and `ListClear`, with its own selection colors and an optional title bar. The selection goes to a message tag. See [doc/HMI_LISTS.md](doc/HMI_LISTS.md).
 - **Databases**: read and write Microsoft SQL Server and SQLite from scripts with the `SQL*` function family — data sources, bind lists that pair a tag with a column, table templates the application creates its tables from, saved queries, prepared statements with parameters, and transactions. Managed in HMI > Database. See [doc/HMI_SQL.md](doc/HMI_SQL.md).
 - **Date and time system tags**: `_DateString`, `_TimeString`, `_DateTime`, `_Year`, `_Month`, `_Day`, `_Hour`, `_Minute`, `_Second` and `_Msec`, worked out as they are read, and a family of `String*` functions for building and picking apart text.
 - **Windows and printing from scripts**: `ShowWindow(...)` opens a window, optionally moved, modeless or waited on; `ScreenToPDF()` saves the screen, popups included, as a landscape PDF through a Save dialog.
@@ -90,6 +91,7 @@ Documentation
 | Indirect tags and LinkIndirectTag | [doc/HMI_INDIRECT.md](doc/HMI_INDIRECT.md) |
 | Trends, trend functions and the trend history | [doc/HMI_TRENDS.md](doc/HMI_TRENDS.md) |
 | Databases, bind lists and the `SQL*` script functions | [doc/HMI_SQL.md](doc/HMI_SQL.md) |
+| List boxes and the `List*` script functions | [doc/HMI_LISTS.md](doc/HMI_LISTS.md) |
 | Finding and replacing tag references | [doc/HMI_TAG_REFERENCES.md](doc/HMI_TAG_REFERENCES.md) |
 | QuickFunctions | [doc/HMI_QUICKFUNCTIONS.md](doc/HMI_QUICKFUNCTIONS.md) |
 | Publishing a runtime installer | [doc/HMI_PUBLISH.md](doc/HMI_PUBLISH.md) |
