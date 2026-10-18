@@ -28,8 +28,8 @@ The studio does the modeling, validation and packaging itself, so never write
 - **QuickFunctions:** [quickfunctions.md](quickfunctions.md).
 - **Databases (the `SQL*` functions):** [database.md](database.md).
 - **A complete example:** [example-spec.json](example-spec.json). It has a
-  Logix PLC, alarmed tags, an overview page with a tank, a pump button and a
-  popup alarm window.
+  Logix PLC, alarmed tags, an overview page with a tank, a pump button, a list
+  box an On start script fills, and a popup alarm window.
 
 ## 1. Find the studio
 

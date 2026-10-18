@@ -10,6 +10,9 @@
       "windowMode": "kiosk",
       "exit": "password",
       "exitPassword": "change-me"
+    },
+    "scripts": {
+      "onStart": "ListLoad(\"Batches\", \"B-1024, B-1025, B-1026\");"
     }
   },
   "devices": [
@@ -44,6 +47,11 @@
       "comment": "Pump running",
       "onMsg": "Running",
       "offMsg": "Stopped"
+    },
+    {
+      "name": "Batch_Name",
+      "type": "MemoryMessage",
+      "comment": "The batch the operator picked from the list"
     }
   ],
   "pages": [
@@ -126,6 +134,40 @@
           "links": {
             "showWindow": {
               "window": "Alarms"
+            }
+          }
+        },
+        {
+          "id": "batches",
+          "type": "list",
+          "x": 440,
+          "y": 80,
+          "width": 260,
+          "height": 240,
+          "links": {
+            "list": {
+              "name": "Batches",
+              "title": "BATCHES",
+              "titleBar": true,
+              "selectedTag": "Batch_Name",
+              "arrows": true,
+              "selFill": "#1a7fc1",
+              "selColor": "#ffffff"
+            }
+          }
+        },
+        {
+          "id": "picked",
+          "type": "rect",
+          "x": 440,
+          "y": 336,
+          "width": 260,
+          "height": 36,
+          "links": {
+            "valueDisplay": {
+              "kind": "string",
+              "expr": "Batch_Name",
+              "prefix": "Batch: "
             }
           }
         },
