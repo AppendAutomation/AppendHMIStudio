@@ -28,6 +28,8 @@ The studio does the modeling, validation and packaging itself, so never write
 - **List boxes:** [lists.md](lists.md).
 - **QuickFunctions:** [quickfunctions.md](quickfunctions.md).
 - **Databases (the `SQL*` functions):** [database.md](database.md).
+- **The date and time, `Now()` and the time formats:**
+  [datetime.md](datetime.md).
 - **A complete example:** [example-spec.json](example-spec.json). It has a
   Logix PLC, alarmed tags, an overview page with a tank, a pump button, a list
   box an On start script fills, and a popup alarm window.
@@ -123,6 +125,11 @@ To **change an existing project**:
     `StringUpper`, `StringLower`, `StringInString`, `StringReplace`,
     `StringFromIntg`, `StringFromReal`, `StringToIntg`, `StringToReal`
     (positions count from 1);
+  - the time as text: `Now()` is `HH:mm:ss` and `Now(format)` takes a pattern
+    (`yyyy-MM-dd HH:mm:ss`, `MM/dd/yyyy hh:mm tt`) or a name (`TIME`,
+    `TIME12`, `HHMM`, `DATE`, `US`, `EU`, `DATETIME`, `STAMP`, `ISO`,
+    `LONG`). A format has to hold at least one token and no stray letter, so
+    build text by joining strings: `"Run " + Now("DATETIME")`;
   - dotfields: `Tag.InAlarm`, `Tag.Acked`, `Tag.MaxEU`;
   - scripts (`pushbutton.action`, window `onShow`/`whileShowing`/`onHide`,
     application `settings.scripts`): statements end with `;`,
@@ -153,8 +160,11 @@ To **change an existing project**:
     `_AlarmsActive`, `_AlarmsUnacked`, `_AckAll`, `_Username`,
     `_AccessLevel`, and the clock — `_DateString` (`2026-10-17`),
     `_TimeString` (`14:05:09`), `_DateTime` (`2026-10-17 14:05:09.270`),
-    `_Year`, `_Month`, `_Day`, `_Hour`, `_Minute`, `_Second`, `_Msec`.
-    They are read-only and worked out as they are read;
+    `_Year`, `_Month`, `_Day`, `_Hour`, `_Minute`, `_Second`, `_Msec`,
+    `_Now` (the time in the format `_TimeFormat` holds) and `_TimeFormat`
+    (`HH:mm:ss` at the start of every run; a script sets it for the whole
+    application, usually in `onStart`). They are worked out as they are read,
+    and read-only apart from `_AckAll` and `_TimeFormat`;
   - the `comment` is the alarm description;
   - `"retentive": true` on a memory tag keeps its last value between runs,
     for setpoints, modes and recipe names the operator changes.

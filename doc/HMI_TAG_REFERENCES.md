@@ -22,7 +22,9 @@ name to use instead.
   a name that is not in the dictionary yet, or why the name cannot be used.
 
 System tags (`_AlarmsActive`, `_AckAll`, `_Username`, …) are not listed: they
-are supplied by the runtime and cannot be replaced.
+are supplied by the runtime and cannot be replaced. The Tag Dictionary does
+list them, marked **System** and read-only, so the names are written down
+somewhere.
 
 ### Replacing text in the names
 

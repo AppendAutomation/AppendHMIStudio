@@ -382,7 +382,7 @@ published package.
 
 | Field | Meaning |
 |---|---|
-| `name` | Letters, digits, `_`, `$`; starting with a letter, `_` or `$`; up to 63 characters; case-insensitive. The system tag names are reserved: `_AlarmsActive`, `_AlarmsUnacked`, `_AckAll`, `_Username`, `_AccessLevel`, `_DateString`, `_TimeString`, `_DateTime`, `_Year`, `_Month`, `_Day`, `_Hour`, `_Minute`, `_Second` and `_Msec` |
+| `name` | Letters, digits, `_`, `$`; starting with a letter, `_` or `$`; up to 63 characters; case-insensitive. The system tag names are reserved: `_AlarmsActive`, `_AlarmsUnacked`, `_AckAll`, `_Username`, `_AccessLevel`, `_DateString`, `_TimeString`, `_DateTime`, `_Year`, `_Month`, `_Day`, `_Hour`, `_Minute`, `_Second`, `_Msec`, `_Now` and `_TimeFormat` |
 | `type` | `MemoryDiscrete`, `MemoryInteger`, `MemoryReal`, `MemoryMessage`, `IODiscrete`, `IOInteger`, `IOReal`, `IOMessage`, or the indirect types `IndirectDiscrete`, `IndirectAnalog` and `IndirectMessage` (only `comment` besides; see [HMI_INDIRECT.md](HMI_INDIRECT.md)) |
 | `comment` | Description; also the alarm description |
 | `initial` | Starting value (memory tags) |
@@ -525,16 +525,29 @@ All fields that take numbers are expressions, as strings.
   - `_DateString` (`2026-10-17`), `_TimeString` (`14:05:09`) and `_DateTime`
     (`2026-10-17 14:05:09.270`) are text; `_Year`, `_Month` (1-12), `_Day`,
     `_Hour` (0-23), `_Minute`, `_Second` and `_Msec` are numbers.
+  - `_Now` is the date and time in the format `_TimeFormat` holds, which is
+    `HH:mm:ss` at the start of every Run. See
+    [HMI_DATETIME.md](HMI_DATETIME.md) for the formats.
   - They are plant-local time, and `_DateTime` is the text a `datetime`
     column takes as it stands, so a script can stamp a row with it.
   - They are worked out as they are read, so a script reading `_Msec` gets
     the millisecond it ran in. A screen showing one is repainted once a
     second.
-  - All of them are read-only.
+  - All of them are read-only but `_AckAll` and `_TimeFormat`, which a script
+    writes.
+  - The Tag Dictionary and Browse Tags list them, marked **System**; they
+    cannot be edited or deleted there.
 - **Operators:** `+ - * / MOD`, `== <> < <= > >=`, `AND OR NOT`, parentheses.
 - **Literals:** numbers and `"text"`.
 - **Functions:** `Abs`, `Sqrt`, `Int`, `Round`, `Min(a, b)`, `Max(a, b)`,
   `Sqr`, `StringLen`, `Text(value, "0.00")`.
+- **The time as text:** `Now()` is `HH:mm:ss`, and `Now(format)` is the date
+  and time in a format of your own -- a pattern (`yyyy-MM-dd HH:mm:ss`,
+  `MM/dd/yyyy hh:mm tt`) or the name of a popular one (`TIME`, `TIME12`,
+  `HHMM`, `DATE`, `US`, `EU`, `DATETIME`, `STAMP`, `ISO`, `LONG`). It is not
+  an action, so a link may show it, and it is repainted once a second. A
+  format that means nothing gives `HH:mm:ss`, and `--hmi-check` reports a
+  literal one that does. See [HMI_DATETIME.md](HMI_DATETIME.md).
 - **Text functions**, in links as well as scripts. A character position counts
   from 1:
   - `StringLeft(text, count)`, `StringRight(text, count)`,

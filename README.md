@@ -34,6 +34,7 @@ It then built the HMI on the program's real tags. The application has 419 PLC ta
 | [doc/HMI_AUTOMATION.md](doc/HMI_AUTOMATION.md) | Every command and exit code, every field of the JSON spec, every object and animation link type, and the expression and script syntax |
 | [HMI_ALARMS](doc/HMI_ALARMS.md), [HMI_SECURITY](doc/HMI_SECURITY.md), [HMI_RECIPES](doc/HMI_RECIPES.md), [HMI_INDIRECT](doc/HMI_INDIRECT.md) | How alarms, users, recipes and indirect tags behave, with their spec fields and script functions |
 | [HMI_TRENDS](doc/HMI_TRENDS.md), [HMI_SQL](doc/HMI_SQL.md), [HMI_LISTS](doc/HMI_LISTS.md) | Trends and pens; databases, bind lists and the `SQL*` script functions; list boxes and the `List*` script functions |
+| [HMI_DATETIME](doc/HMI_DATETIME.md) | The date and time system tags, `Now()`, `_Now` and `_TimeFormat`, and the format patterns and names |
 | [HMI_WINDOWS](doc/HMI_WINDOWS.md) | Window types, the title bar and its look, movable popups, and window scripts |
 | [HMI_TAG_REFERENCES](doc/HMI_TAG_REFERENCES.md) | Where tag names live, Find/Replace Tag References, and what a rename reaches |
 | [HMI_QUICKFUNCTIONS](doc/HMI_QUICKFUNCTIONS.md) | Defining and calling QuickFunctions, and what a body may do |
@@ -60,7 +61,7 @@ Features
 - **Trends**: a Trend object with up to 8 analog or discrete pens, each on its own range, recorded from the start of the run with 7 days of history on disk. Scripts select the pen whose scale is shown, pause, scroll back and forward, and return to live. See [doc/HMI_TRENDS.md](doc/HMI_TRENDS.md).
 - **List boxes**: a List Box object the operator picks from, filled by scripts with `ListAdd`, `ListLoad`, `ListRemove`, `ListSelect`, `ListSort` and `ListClear`, with its own selection colors and an optional title bar. The selection goes to a message tag. See [doc/HMI_LISTS.md](doc/HMI_LISTS.md).
 - **Databases**: read and write Microsoft SQL Server and SQLite from scripts with the `SQL*` function family — data sources, bind lists that pair a tag with a column, table templates the application creates its tables from, saved queries, prepared statements with parameters, and transactions. Managed in HMI > Database. See [doc/HMI_SQL.md](doc/HMI_SQL.md).
-- **Date and time system tags**: `_DateString`, `_TimeString`, `_DateTime`, `_Year`, `_Month`, `_Day`, `_Hour`, `_Minute`, `_Second` and `_Msec`, worked out as they are read, and a family of `String*` functions for building and picking apart text.
+- **Date and time**: the `_DateString`, `_TimeString`, `_DateTime`, `_Year`, `_Month`, `_Day`, `_Hour`, `_Minute`, `_Second` and `_Msec` system tags, worked out as they are read; `Now(format)` for the time in a format of your own, from a pattern such as `MM/dd/yyyy hh:mm tt` or a name such as `ISO`; and `_Now` with `_TimeFormat` for a format the whole application follows. Plus a family of `String*` functions for building and picking apart text. See [doc/HMI_DATETIME.md](doc/HMI_DATETIME.md).
 - **Windows and printing from scripts**: `ShowWindow(...)` opens a window, optionally moved, modeless or waited on; `ScreenToPDF()` saves the screen, popups included, as a landscape PDF through a Save dialog.
 - **QuickFunctions**: name a piece of script logic once, with typed arguments and a `Return` value, and call it from scripts and from animation expressions. Managed in HMI > QuickFunctions. See [doc/HMI_QUICKFUNCTIONS.md](doc/HMI_QUICKFUNCTIONS.md).
 - **Tag find and replace**: HMI > Find/Replace Tag References lists every tag the page or the selection names and re-points them in one undoable step, with a text replace across the names, a validate pass and a single-tag editor for creating what is missing. Renaming a tag in the Tag Dictionary now carries every reference in the project with it. See [doc/HMI_TAG_REFERENCES.md](doc/HMI_TAG_REFERENCES.md).
@@ -94,6 +95,7 @@ Documentation
 | Indirect tags and LinkIndirectTag | [doc/HMI_INDIRECT.md](doc/HMI_INDIRECT.md) |
 | Trends, trend functions and the trend history | [doc/HMI_TRENDS.md](doc/HMI_TRENDS.md) |
 | Databases, bind lists and the `SQL*` script functions | [doc/HMI_SQL.md](doc/HMI_SQL.md) |
+| The date and time tags, `Now()` and the time formats | [doc/HMI_DATETIME.md](doc/HMI_DATETIME.md) |
 | List boxes and the `List*` script functions | [doc/HMI_LISTS.md](doc/HMI_LISTS.md) |
 | Finding and replacing tag references | [doc/HMI_TAG_REFERENCES.md](doc/HMI_TAG_REFERENCES.md) |
 | QuickFunctions | [doc/HMI_QUICKFUNCTIONS.md](doc/HMI_QUICKFUNCTIONS.md) |

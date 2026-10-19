@@ -497,6 +497,9 @@ def build(save=True):
       'shows every tag with its type; type in **Filter** to find one. Select a tag to edit it, or choose a type '
       'under **New tag...** to create one.')
     figure(doc, 'tag-dictionary', 'The Tag Dictionary with PT001, the weigh hopper pressure', max_width_in=5.8)
+    P('The **system tags** are listed with them, at the top and marked System: the names the runtime answers by '
+      'itself, such as _AlarmsActive, _Username and the date and time (section 9). Select one to see what it '
+      'reads. They cannot be edited or deleted, and no tag of your own may take one of their names.')
     table(doc, 'Tag types', [
         ['Type', 'Holds', 'LiquidWeighHMI example'],
         ['IODiscrete', 'On/off from a PLC', 'SV001_Opened (valve open limit)'],
@@ -708,6 +711,12 @@ def build(save=True):
       '`Rcp_TotalVol` accepts 0 to 12 gallons with the prompt "Total batch volume (gal, max 12)" and shows an '
       'on-screen keypad. A **Value Display** on the same object shows the current value.')
     figure(doc, 'animation-input', 'User Input and Value Display on the batch volume', max_width_in=2.4)
+    P('**On-screen keypad** gives the operator somewhere to type without a keyboard: a numeric keypad for an '
+      'analog input and a letter keyboard for a message one. The keys are sized for a finger on a touch screen, '
+      'and the window grows to hold them; on a panel too narrow for it, the window is as wide as the screen and '
+      'the keys shrink to fit. The same keyboard is offered by the login and user management windows '
+      '(chapter 10).')
+    figure(doc, 'touch-keyboard', 'The on-screen keyboard for a text entry')
 
     H2('8.5  Commands: pushbutton and enable')
     P('The START button on the Batch screen is a **Pushbutton** that sets `PB_Start` when touched, allowed only '
@@ -746,10 +755,19 @@ def build(save=True):
          '2026-10-17 14:05:09.270. The last is what a date and time column takes as it stands'],
         ['_Year, _Month, _Day', 'Numbers: the month 1 to 12'],
         ['_Hour, _Minute, _Second, _Msec', 'Numbers: the hour 0 to 23'],
+        ['_Now', 'The date and time in the format _TimeFormat holds'],
+        ['_TimeFormat', 'That format. HH:mm:ss at the start of every run; a script sets it for the whole '
+         'application, usually in On start'],
     ])
     P('The date and time tags are this PC\'s local time, worked out as they are read, so a script reading _Msec '
       'gets the millisecond it ran in; a box showing one is repainted once a second. All the system tags are '
-      'read-only, apart from _AckAll.')
+      'read-only, apart from _AckAll and _TimeFormat.')
+    P('LiquidWeighHMI sets the format on start and shows _Now in the heading of the Batch Record panel:')
+    code(doc, '''
+_TimeFormat = "DATETIME";                   On start
+
+"As of " + _Now                             Value Display on the heading
+''')
     H2('9.1  Window and application scripts')
     P('A window can run a script when it opens (**On show**), repeatedly while it is open (**While showing**, every '
       'n ms) and when it closes (**On hide**). LiquidWeighHMI\'s **Header** window, open for as long as the '
@@ -823,6 +841,42 @@ IF _Username == "None" THEN ShowLogin(); ELSE Logout(); ENDIF;
          'The digits after the point in format give the decimals, and the digits before it the minimum number of '
          'whole digits, padded with zeros. `Text(3.14159, "0.00")` is "3.14" and `Text(7, "000")` is "007"'],
     ])
+    P('**Now** gives the date and time as text, in a format of your choice. It is not an action, so it can be '
+      'used in an animation link as well as in a script, and an object showing it is repainted once a second.')
+    table(doc, 'The time as text (links and scripts)', [
+        ['Function', 'Arguments', 'What it does'],
+        ['Now()', 'none', 'The time of day, as HH:mm:ss. `Now()` is 14:05:09'],
+        ['Now(format)', 'format: text', 'The date and time in that format: a name from the table below, or a '
+         'pattern built from the tokens. `Now("US")` is 10/18/2026 and `Now("HH:mm")` is 14:05'],
+    ])
+    P('The same formats go in **_TimeFormat**, which chooses what _Now reads for the whole application.')
+    table(doc, 'Named formats', [
+        ['Name', 'Pattern', '18 October 2026 at 14:05:09.270'],
+        ['TIME', 'HH:mm:ss', '14:05:09'],
+        ['TIME12', 'hh:mm:ss tt', '02:05:09 PM'],
+        ['HHMM', 'HH:mm', '14:05'],
+        ['DATE', 'yyyy-MM-dd', '2026-10-18'],
+        ['US', 'MM/dd/yyyy', '10/18/2026'],
+        ['EU', 'dd/MM/yyyy', '18/10/2026'],
+        ['DATETIME', 'yyyy-MM-dd HH:mm:ss', '2026-10-18 14:05:09'],
+        ['STAMP', 'yyyy-MM-dd HH:mm:ss.fff', '2026-10-18 14:05:09.270'],
+        ['ISO', 'yyyy-MM-ddTHH:mm:ss', '2026-10-18T14:05:09'],
+        ['LONG', 'dddd, MMMM d, yyyy', 'Sunday, October 18, 2026'],
+    ])
+    table(doc, 'Format tokens', [
+        ['Token', 'Reads', 'Token', 'Reads'],
+        ['yyyy, yy', 'The year: 2026, 26', 'HH, H', 'The hour, 0 to 23: 14'],
+        ['MMMM, MMM', 'The month name: October, Oct', 'hh, h', 'The hour, 1 to 12: 02, 2'],
+        ['MM, M', 'The month, 1 to 12: 10', 'mm, m', 'The minute: 05, 5'],
+        ['dddd, ddd', 'The day name: Sunday, Sun', 'ss, s', 'The second: 09, 9'],
+        ['dd, d', 'The day of the month: 18', 'fff', 'The millisecond: 270'],
+        ['tt, t', 'AM or PM; A or P', '\\', 'Takes the next letter as itself'],
+    ])
+    P('The doubled spelling pads with a zero and the single one does not. Case matters: MM is the month and mm '
+      'the minute, HH the 24-hour clock and hh the 12-hour one. Separators and digits come through as they are '
+      '(dd.MM.yyyy, yyyyMMdd_HHmmss), but every letter has to belong to a token, so words are built by joining '
+      'text instead: `"Run " + Now("DATETIME")`. A format the Studio does not recognize gives HH:mm:ss, and '
+      'Validate reports one written out in full.')
     P('The text functions below work on message tags and literals. A character position counts from 1, and a '
       'count that runs past the end of the text stops there.')
     table(doc, 'Text functions (links and scripts)', [

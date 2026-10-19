@@ -1,5 +1,5 @@
 <mxfile hmiVersion="1" host="Electron" pages="17">
-  <diagram id="0Q1GVsLLrKAXdyKcHSv6" name="Process">
+  <diagram id="lp-om_dATLsoEiw4N6ko" name="Process">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="0" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -785,7 +785,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="ZEzXCej97IKBTC3pzuHd" name="Batch">
+  <diagram id="6DAzbUqPzXEb8smGLl8M" name="Batch">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -1329,7 +1329,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="ASqpA1QEQMQc5U9KEX2f" name="Supply">
+  <diagram id="ihOgAMVEwk1VjRl3v7me" name="Supply">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -1733,7 +1733,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="AVNCAlfiXrIPuMQKxF8X" name="Devices">
+  <diagram id="alglXSpw70OV1voy_KDK" name="Devices">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -2769,7 +2769,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="I5JLPYaEZjMt9qn6uwWr" name="Setpoints">
+  <diagram id="ggczG9D5IiihDz0ajODk" name="Setpoints">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -3120,7 +3120,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="g8kByQG2m57mMogtpWAs" name="Recipes">
+  <diagram id="Ek1aEjTupd3jp847F2SN" name="Recipes">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -3322,7 +3322,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="0-cVkHk5S6K01HjMzXhH" name="Trends">
+  <diagram id="J5xbKMtt0lEz4uSubk3h" name="Trends">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -3435,7 +3435,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="-mySc85yGFYIGZkToDNw" name="Batch History">
+  <diagram id="SJgOrXz6ZVbJ49l-P16s" name="Batch History">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -3449,6 +3449,11 @@
         <mxCell id="bh_p1t" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#34495e;strokeColor=#34495e;fontSize=15;fontStyle=1;fontColor=#ffffff;align=left;spacingLeft=12;" value="BATCH RECORD" vertex="1">
           <mxGeometry height="32" width="1180" x="20" y="84" as="geometry" />
         </mxCell>
+        <UserObject label="As of ----" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;valueDisplay&quot;:{&quot;kind&quot;:&quot;string&quot;,&quot;expr&quot;:&quot;\&quot;As of \&quot; + _Now&quot;,&quot;format&quot;:&quot;&quot;,&quot;prefix&quot;:&quot;&quot;,&quot;suffix&quot;:&quot;&quot;,&quot;onText&quot;:&quot;&quot;,&quot;offText&quot;:&quot;&quot;}}}" id="bh_clock">
+          <mxCell parent="1" style="text;html=1;whiteSpace=wrap;fontSize=14;fontStyle=0;align=right;verticalAlign=middle;fontColor=#ffffff;" vertex="1">
+            <mxGeometry height="28" width="368" x="820" y="86" as="geometry" />
+          </mxCell>
+        </UserObject>
         <UserObject label="NEWEST" hmi="{&quot;v&quot;:&quot;1&quot;,&quot;links&quot;:{&quot;pushbutton.action&quot;:{&quot;onDown&quot;:&quot;DIM res AS Analog;\n\nres = SQLFirst(Db_ConnId);\n\nIF res == 0 THEN\n    Hist_Row = 1;\n    Db_Status = \&quot;Batch \&quot; + StringFromIntg(Hist_Row) + \&quot; of \&quot; + StringFromIntg(Db_Rows);\nELSE\n    Db_Status = \&quot;No batches have been logged yet\&quot;;\nENDIF;\n&quot;,&quot;whileDown&quot;:&quot;&quot;,&quot;onUp&quot;:&quot;&quot;,&quot;everyMs&quot;:&quot;1000&quot;}}}" id="bh_b0">
           <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dfe4ea;strokeColor=#7b8794;fontSize=15;fontStyle=1;fontColor=#1b1f24;arcSize=10;shadow=0;" vertex="1">
             <mxGeometry height="56" width="200" x="40" y="132" as="geometry" />
@@ -3631,7 +3636,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="ldm28B1uHMIQeISDOZp2" name="Alarm History">
+  <diagram id="mHqE6aNdGbXWVuaCtS8X" name="Alarm History">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -3648,7 +3653,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="7BpO8A0dd3lkAMEx7i6K" name="IO Sim">
+  <diagram id="5JFJKrtpoiZg4PsbOgFf" name="IO Sim">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#e3e7ec" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4135,7 +4140,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="O1MPkxFyux8isFxuqRaK" name="Header">
+  <diagram id="_tdoCQYdBXSDfLTCzsBr" name="Header">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#1f2d3a" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4208,7 +4213,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="8S2Xy_63T1sNQMFoPE9a" name="Footer">
+  <diagram id="TiWkYgL8NcrRh-0Erkub" name="Footer">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#1f2d3a" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4264,7 +4269,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="Bz-c5RGMylcz9Irpy5aU" name="Device Faceplate">
+  <diagram id="suyMWpBJcDNwz4YIDY6l" name="Device Faceplate">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4444,7 +4449,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="tCZU7AfkIO2_YygX4WRs" name="Confirm Abort">
+  <diagram id="EY1_ZfFUeg6yc3p_wF0F" name="Confirm Abort">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4468,7 +4473,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="GPx-j_YmMZ4slp6INLKN" name="Confirm Empty Hopper">
+  <diagram id="Y7wNoZjtcfYs8IadZOA9" name="Confirm Empty Hopper">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4492,7 +4497,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="NxRGbGdu8oq6FEhBfYZd" name="Confirm Load Defaults">
+  <diagram id="tcxR3EOPlWQMfjzAI6mW" name="Confirm Load Defaults">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -4516,7 +4521,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="LuRe8LBaBAIzvS3XvTWU" name="Confirm Reset Counter">
+  <diagram id="-KeBZCrcuy0fU4SiO80z" name="Confirm Reset Counter">
     <mxGraphModel dx="398" dy="139" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#f5f6f8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -5209,9 +5214,9 @@
       <tag name="Alm_OS3" type="MemoryDiscrete" comment="Alarm one-shot storage" initial="0" onMsg="On" offMsg="Off" />
     </tags>
     <settings width="1920" height="1080">
-      <startup page="0Q1GVsLLrKAXdyKcHSv6" />
-      <startup page="O1MPkxFyux8isFxuqRaK" />
-      <startup page="8S2Xy_63T1sNQMFoPE9a" />
+      <startup page="lp-om_dATLsoEiw4N6ko" />
+      <startup page="_tdoCQYdBXSDfLTCzsBr" />
+      <startup page="TiWkYgL8NcrRh-0Erkub" />
       <runtime windowMode="fullscreen" exit="shortcut" />
       <publish productName="LiquidWeighHMISim" version="1.0.2" publisher="" icon="" scope="machine" desktop="true" autostart="false" compression="small" output="" />
       <appScripts everyMs="100">
@@ -5291,6 +5296,8 @@ Sim_DischRate = 6.0;
 Sim_RefillRate = 10.0;
 
 { The project's own application script follows. }
+
+_TimeFormat = "DATETIME";
 
 DIM res AS Analog;
 
@@ -7831,7 +7838,29 @@ ORDER BY Stamp DESC
       </query>
     </queries>
     <windows>
-      <window page="-mySc85yGFYIGZkToDNw" y="70" height="942">
+      <window page="-KeBZCrcuy0fU4SiO80z" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="5JFJKrtpoiZg4PsbOgFf" y="70" height="942">
+        <onShow>
+          ScreenTitle = "I/O  &amp;  SIMULATION"; ScreenNo = 9;
+        </onShow>
+      </window>
+      <window page="6DAzbUqPzXEb8smGLl8M" y="70" height="942">
+        <onShow>
+          ScreenTitle = "BATCH CONTROL"; ScreenNo = 2;
+        </onShow>
+      </window>
+      <window page="EY1_ZfFUeg6yc3p_wF0F" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="Ek1aEjTupd3jp847F2SN" y="70" height="942">
+        <onShow>
+          ScreenTitle = "RECIPES"; ScreenNo = 6;
+        </onShow>
+      </window>
+      <window page="J5xbKMtt0lEz4uSubk3h" y="70" height="942">
+        <onShow>
+          ScreenTitle = "TRENDS"; ScreenNo = 7;
+        </onShow>
+      </window>
+      <window page="SJgOrXz6ZVbJ49l-P16s" y="70" height="942">
         <onShow>
           ScreenTitle = "BATCH HISTORY"; ScreenNo = 2;
 DIM res AS Analog;
@@ -7864,33 +7893,42 @@ ELSE
 ENDIF;
         </onShow>
       </window>
-      <window page="0-cVkHk5S6K01HjMzXhH" y="70" height="942">
+      <window page="TiWkYgL8NcrRh-0Erkub" type="overlay" y="1012" height="68" />
+      <window page="Y7wNoZjtcfYs8IadZOA9" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="_tdoCQYdBXSDfLTCzsBr" type="overlay" height="70" everyMs="250">
         <onShow>
-          ScreenTitle = "TRENDS"; ScreenNo = 7;
+          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
         </onShow>
+        <whileShowing>
+          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
+        </whileShowing>
       </window>
-      <window page="0Q1GVsLLrKAXdyKcHSv6" y="70" height="942">
-        <onShow>
-          ScreenTitle = "PROCESS OVERVIEW"; ScreenNo = 1;
-        </onShow>
-      </window>
-      <window page="7BpO8A0dd3lkAMEx7i6K" y="70" height="942">
-        <onShow>
-          ScreenTitle = "I/O  &amp;  SIMULATION"; ScreenNo = 9;
-        </onShow>
-      </window>
-      <window page="8S2Xy_63T1sNQMFoPE9a" type="overlay" y="1012" height="68" />
-      <window page="ASqpA1QEQMQc5U9KEX2f" y="70" height="942">
-        <onShow>
-          ScreenTitle = "PLASTICIZER SUPPLY"; ScreenNo = 3;
-        </onShow>
-      </window>
-      <window page="AVNCAlfiXrIPuMQKxF8X" y="70" height="942">
+      <window page="alglXSpw70OV1voy_KDK" y="70" height="942">
         <onShow>
           ScreenTitle = "DEVICES"; ScreenNo = 4;
         </onShow>
       </window>
-      <window page="Bz-c5RGMylcz9Irpy5aU" titleBar="1" movable="1" type="popup" x="730" y="150" width="460" height="560" everyMs="250">
+      <window page="ggczG9D5IiihDz0ajODk" y="70" height="942">
+        <onShow>
+          ScreenTitle = "SETPOINTS"; ScreenNo = 5;
+        </onShow>
+      </window>
+      <window page="ihOgAMVEwk1VjRl3v7me" y="70" height="942">
+        <onShow>
+          ScreenTitle = "PLASTICIZER SUPPLY"; ScreenNo = 3;
+        </onShow>
+      </window>
+      <window page="lp-om_dATLsoEiw4N6ko" y="70" height="942">
+        <onShow>
+          ScreenTitle = "PROCESS OVERVIEW"; ScreenNo = 1;
+        </onShow>
+      </window>
+      <window page="mHqE6aNdGbXWVuaCtS8X" y="70" height="942">
+        <onShow>
+          ScreenTitle = "ALARM HISTORY"; ScreenNo = 8;
+        </onShow>
+      </window>
+      <window page="suyMWpBJcDNwz4YIDY6l" titleBar="1" movable="1" type="popup" x="730" y="150" width="460" height="560" everyMs="250">
         <onShow>
           { Points the faceplate's indirect tags at the tags of the device
   the opening button chose: FP_Prefix + "_Status" is SV100_Status, ... }
@@ -7948,38 +7986,7 @@ ELSE
 ENDIF;
         </whileShowing>
       </window>
-      <window page="GPx-j_YmMZ4slp6INLKN" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
-      <window page="I5JLPYaEZjMt9qn6uwWr" y="70" height="942">
-        <onShow>
-          ScreenTitle = "SETPOINTS"; ScreenNo = 5;
-        </onShow>
-      </window>
-      <window page="LuRe8LBaBAIzvS3XvTWU" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
-      <window page="NxRGbGdu8oq6FEhBfYZd" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
-      <window page="O1MPkxFyux8isFxuqRaK" type="overlay" height="70" everyMs="250">
-        <onShow>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </onShow>
-        <whileShowing>
-          IF Seq_Step == 0 THEN StepText = "IDLE"; ENDIF; IF Seq_Step == 5 THEN StepText = "TARE"; ENDIF; IF Seq_Step == 10 THEN StepText = "PLAST #1 SETUP"; ENDIF; IF Seq_Step == 11 THEN StepText = "PLAST #1 FAST FILL"; ENDIF; IF Seq_Step == 12 THEN StepText = "PLAST #1 DRIBBLE"; ENDIF; IF Seq_Step == 13 THEN StepText = "PLAST #1 SETTLING"; ENDIF; IF Seq_Step == 14 THEN StepText = "PLAST #1 OUT OF TOL"; ENDIF; IF Seq_Step == 20 THEN StepText = "PLAST #2 SETUP"; ENDIF; IF Seq_Step == 21 THEN StepText = "PLAST #2 FAST FILL"; ENDIF; IF Seq_Step == 22 THEN StepText = "PLAST #2 DRIBBLE"; ENDIF; IF Seq_Step == 23 THEN StepText = "PLAST #2 SETTLING"; ENDIF; IF Seq_Step == 24 THEN StepText = "PLAST #2 OUT OF TOL"; ENDIF; IF Seq_Step == 30 THEN StepText = "PLAST #3 SETUP"; ENDIF; IF Seq_Step == 31 THEN StepText = "PLAST #3 FAST FILL"; ENDIF; IF Seq_Step == 32 THEN StepText = "PLAST #3 DRIBBLE"; ENDIF; IF Seq_Step == 33 THEN StepText = "PLAST #3 SETTLING"; ENDIF; IF Seq_Step == 34 THEN StepText = "PLAST #3 OUT OF TOL"; ENDIF; IF Seq_Step == 40 THEN StepText = "FILL COMPLETE"; ENDIF; IF Seq_Step == 50 THEN StepText = "CLOSING VENT"; ENDIF; IF Seq_Step == 55 THEN StepText = "PRESSURIZING"; ENDIF; IF Seq_Step == 60 THEN StepText = "CHARGED - WAIT MIXER"; ENDIF; IF Seq_Step == 70 THEN StepText = "DISCHARGING"; ENDIF; IF Seq_Step == 80 THEN StepText = "VENTING"; ENDIF; IF Seq_Step == 90 THEN StepText = "COMPLETE"; ENDIF; IF Seq_Step == 100 THEN StepText = "HELD"; ENDIF; IF Seq_Step == 110 THEN StepText = "ABORTING"; ENDIF; IF Seq_Step.Quality &lt; 192 THEN StepText = "NO PLC DATA"; ENDIF;
-        </whileShowing>
-      </window>
-      <window page="ZEzXCej97IKBTC3pzuHd" y="70" height="942">
-        <onShow>
-          ScreenTitle = "BATCH CONTROL"; ScreenNo = 2;
-        </onShow>
-      </window>
-      <window page="g8kByQG2m57mMogtpWAs" y="70" height="942">
-        <onShow>
-          ScreenTitle = "RECIPES"; ScreenNo = 6;
-        </onShow>
-      </window>
-      <window page="ldm28B1uHMIQeISDOZp2" y="70" height="942">
-        <onShow>
-          ScreenTitle = "ALARM HISTORY"; ScreenNo = 8;
-        </onShow>
-      </window>
-      <window page="tCZU7AfkIO2_YygX4WRs" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
+      <window page="tcxR3EOPlWQMfjzAI6mW" titleBar="1" type="popup" x="700" y="300" width="520" height="250" />
     </windows>
   </hmiProject>
 </mxfile>
