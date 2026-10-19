@@ -5095,7 +5095,7 @@
       <tag name="Hist_Target3" type="MemoryReal" comment="History: Plast #3 target" engUnits="lb" initial="0" minEU="0" maxEU="10000" />
       <tag name="Hist_Actual3" type="MemoryReal" comment="History: Plast #3 actual" engUnits="lb" initial="0" minEU="0" maxEU="10000" />
     </tags>
-    <settings width="1920" height="1080">
+    <settings width="1920" height="1080" touchFill="#4fc3f7">
       <startup page="GsFnevKc3otyZJGm1s--" />
       <startup page="hp6m3lRESOHaQSzojbi-" />
       <startup page="YD8gUmmq9QypWh5yKMhu" />

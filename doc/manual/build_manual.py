@@ -431,7 +431,8 @@ def build(save=True):
         ['Devices...', 'Configure the PLCs (chapter 4)'],
         ['Users...', 'Users, passwords and access levels (chapter 10)'],
         ['Recipes...', 'Recipe books: the tags a recipe holds and the starting recipes (chapter 11)'],
-        ['Application Settings...', 'Target screen, start-up windows, runtime, security and application scripts (chapter 3)'],
+        ['Application Settings...', 'Target screen, start-up windows, touch color, runtime, security and '
+         'application scripts (chapter 3)'],
         ['Window Properties...', 'Type, position, size and scripts of the current window (chapter 6)'],
         ['Validate Expressions', 'Check every link, script and address for errors (chapter 15)'],
         ['Publish...', 'Build a Windows installer of the application (chapter 16)'],
@@ -457,8 +458,14 @@ def build(save=True):
     note(doc, 'After zooming or scrolling around a large page, **View > Reset** brings the whole screen area '
          'back: it is centered in the window and scaled to fit, never larger than life. Pressing Enter with '
          'nothing selected does the same.')
-    figure(doc, 'app-settings-runtime', 'Application Settings: runtime, security and scripts', max_width_in=4.6)
+    figure(doc, 'app-settings-runtime', 'Application Settings: the touch color, runtime, security and scripts',
+           max_width_in=4.6)
     bullets(doc, [
+        '**Touch background color**: the color an object is drawn in while the operator holds it down, so a '
+        'touch screen with no click to feel still answers every press. It applies to every object that has a '
+        'touch animation, and only while the touch would do something: an object the operator may not use just '
+        'now is left alone. **Default** sets no color, and a press changes nothing. LiquidWeighHMI uses a '
+        'light blue.',
         '**Window**: how a published application runs on the target PC: **Kiosk** (full screen, locked, taskbar '
         'hidden), **Full screen**, or a **window** at the target resolution. LiquidWeighHMI uses Full screen.',
         '**Exit**: the exit shortcut Ctrl+Alt+Shift+Q; the shortcut followed by a password; or never (the PC must '
@@ -730,6 +737,9 @@ def build(save=True):
         ['Reset', 'Writes 0'],
         ['Direct', '1 while pressed, 0 when released (jog buttons)'],
     ])
+    note(doc, 'A **Touch background color** in Application Settings (chapter 3) draws every object with a touch '
+         'animation in one color while the operator holds it down, which is the feedback a touch screen cannot '
+         'give by feel. It is one setting for the whole application, so no button needs anything of its own.')
 
     # ------------------------------------------------------------ 9
     H1('9  Expressions and scripts')

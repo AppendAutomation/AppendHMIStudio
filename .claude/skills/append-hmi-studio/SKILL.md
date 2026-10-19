@@ -283,6 +283,11 @@ To **change an existing project**:
     `exitPassword`; only a hash is stored) or `never`;
   - never choose `never` unless the user asks. It can only be stopped by
     shutting Windows down.
+- **Touch feedback:** `settings.touchFill` is one color for the whole
+  application. Every object with a touch animation is drawn in it while the
+  operator holds it down, and only while the touch would do something, so a
+  touch screen answers a press. Unset (the default) a press changes nothing;
+  set it on a touch-panel project.
 - **Labels** are plain text; `html=1` is already in every `type`'s style. Add
   style keys with `style`, e.g. `"fontSize=16;fontStyle=1;fillColor=#dae8fc;"`.
   - A `valueDisplay` replaces the label at Run (a button can show Start/Stop).

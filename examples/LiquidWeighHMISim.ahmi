@@ -5213,7 +5213,7 @@
       <tag name="Alm_OS2" type="MemoryDiscrete" comment="Alarm one-shot storage" initial="0" onMsg="On" offMsg="Off" />
       <tag name="Alm_OS3" type="MemoryDiscrete" comment="Alarm one-shot storage" initial="0" onMsg="On" offMsg="Off" />
     </tags>
-    <settings width="1920" height="1080">
+    <settings width="1920" height="1080" touchFill="#4fc3f7">
       <startup page="lp-om_dATLsoEiw4N6ko" />
       <startup page="_tdoCQYdBXSDfLTCzsBr" />
       <startup page="TiWkYgL8NcrRh-0Erkub" />
