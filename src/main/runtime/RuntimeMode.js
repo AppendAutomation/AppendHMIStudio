@@ -9,8 +9,8 @@
 //   project      project file name inside the runtime folder
 //   windowMode   'kiosk' (default), 'fullscreen' or 'window'
 //   width/height project resolution, used by the 'window' mode
-//   exit         {mode: 'shortcut' (default) | 'password' | 'never', salt, hash}
-//                hash = hex SHA-256 of (salt + password)
+//   exit         {mode: 'shortcut' (default) | 'close' | 'password' | 'never',
+//                salt, hash}; hash = hex SHA-256 of (salt + password)
 // An icon.ico beside it, when present, is the window icon.
 
 import crypto from 'crypto';
@@ -23,7 +23,7 @@ export const RUNTIME_FOLDER = 'hmi-runtime';
 export const RUNTIME_CONFIG = 'runtime.json';
 
 export const WINDOW_MODES = ['kiosk', 'fullscreen', 'window'];
-export const EXIT_MODES = ['shortcut', 'password', 'never'];
+export const EXIT_MODES = ['shortcut', 'close', 'password', 'never'];
 
 const MAX_PROJECT_BYTES = 64 * 1024 * 1024;
 
@@ -163,6 +163,13 @@ export function hashExitPassword(salt, password)
 	return crypto.createHash('sha256').update(salt + password, 'utf8').digest('hex');
 }
 
+// Whether the window closes as any program's does, with its close button or
+// Alt+F4. The other modes hold the close until the exit policy is satisfied.
+export function closesNormally(config)
+{
+	return config.exit.mode === 'close';
+}
+
 // Whether the operator may close the runtime. The renderer asks after the
 // exit shortcut (and the password prompt, for 'password').
 export function mayExit(config, password)
@@ -170,6 +177,7 @@ export function mayExit(config, password)
 	switch (config.exit.mode)
 	{
 		case 'shortcut':
+		case 'close':
 			return true;
 		case 'password':
 		{

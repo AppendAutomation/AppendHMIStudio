@@ -279,8 +279,11 @@ To **change an existing project**:
 - **Runtime settings:**
   - `windowMode` `kiosk` (default, locked full screen), `fullscreen` or
     `window`;
-  - `exit` `shortcut` (Ctrl+Alt+Shift+Q, default), `password` (give
+  - `exit` `shortcut` (Ctrl+Alt+Shift+Q, default), `close` (the window's
+    close button, or Alt+F4, and the shortcut too), `password` (give
     `exitPassword`; only a hash is stored) or `never`;
+  - `close` suits a project run on an office PC beside other programs;
+    `shortcut` or `password` suit a dedicated panel;
   - never choose `never` unless the user asks. It can only be stopped by
     shutting Windows down.
 - **Touch feedback:** `settings.touchFill` is one color for the whole

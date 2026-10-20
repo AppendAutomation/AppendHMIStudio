@@ -116,7 +116,7 @@ The window mode and exit policy come from the project's runtime settings. See
 | `startup` | Page names opened when the application starts, in order (none: the first page) |
 | `touchFill` | The touch background color: what an object with a touch animation is drawn in while the operator holds it down (unset, the default: a press changes nothing) |
 | `runtime.windowMode` | `kiosk` (default; full screen, no taskbar), `fullscreen` or `window` (fixed, at the resolution) |
-| `runtime.exit` | `shortcut` (default, Ctrl+Alt+Shift+Q), `password` (shortcut then password) or `never` |
+| `runtime.exit` | `shortcut` (default, Ctrl+Alt+Shift+Q), `close` (the window's close button or Alt+F4, and the shortcut), `password` (shortcut then password) or `never` |
 | `runtime.exitPassword` | With `exit: password`, the password in plain text; only a salted hash is stored. A dumped spec carries `salt`/`hash` instead |
 | `publish` | Remembered Publish dialog options (`productName`, `version`, `publisher`, `scope`, …); optional |
 | `security.autoLogoutMin` | Minutes without a touch or key press before the user is logged out (0, the default: never) |

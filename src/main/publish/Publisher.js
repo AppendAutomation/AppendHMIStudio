@@ -18,6 +18,7 @@ import os from 'os';
 import path from 'path';
 import * as resedit from 'resedit';
 import {WINDOWS_EXE} from '../brand.js';
+import {WINDOW_MODES, EXIT_MODES} from '../runtime/RuntimeMode.js';
 import {buildNsisScript, parseFileBytes, windowsFileName, fourPartVersion, SKIP_ROOT, SKIP_RESOURCES} from './NsisScript.js';
 
 export const SCOPES = ['user', 'machine'];
@@ -115,7 +116,7 @@ export function normaliseOptions(o)
 	}
 
 	const runtime = o.runtime != null && typeof o.runtime === 'object' ? o.runtime : {};
-	const exit = ['shortcut', 'password', 'never'].includes(runtime.exit) ? runtime.exit : 'shortcut';
+	const exit = EXIT_MODES.includes(runtime.exit) ? runtime.exit : 'shortcut';
 
 	if (exit === 'password' && (typeof runtime.salt !== 'string' || !/^[0-9a-f]{64}$/i.test(runtime.hash || '')))
 	{
@@ -133,7 +134,7 @@ export function normaliseOptions(o)
 		width: Number.isInteger(o.width) ? o.width : 1024,
 		height: Number.isInteger(o.height) ? o.height : 768,
 		runtime: {
-			windowMode: ['kiosk', 'fullscreen', 'window'].includes(runtime.windowMode) ? runtime.windowMode : 'kiosk',
+			windowMode: WINDOW_MODES.includes(runtime.windowMode) ? runtime.windowMode : 'kiosk',
 			exit: exit,
 			salt: exit === 'password' ? runtime.salt : undefined,
 			hash: exit === 'password' ? runtime.hash.toLowerCase() : undefined

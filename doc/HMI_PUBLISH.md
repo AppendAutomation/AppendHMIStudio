@@ -11,9 +11,17 @@ with no Windows machine and no wine.
 1. Set up the runtime in **HMI > Application Settings > Runtime**:
    - **Window**: *Kiosk* (full screen, no taskbar; the default), *Full
      screen*, or *Window* at the target resolution.
-   - **Exit**: *Exit shortcut* (Ctrl+Alt+Shift+Q; the default), *Exit
-     shortcut and password*, or *Never* (shut Windows down to stop it). The
-     password is stored in the project only as a salted SHA-256 hash.
+   - **Exit**: *Exit shortcut* (Ctrl+Alt+Shift+Q; the default), *Close the
+     window normally*, *Exit shortcut and password*, or *Never* (shut Windows
+     down to stop it). The password is stored in the project only as a salted
+     SHA-256 hash.
+
+     *Close the window normally* lets the operator close the application as
+     any program's: its close button, which only *Window* has, or Alt+F4 in
+     any window mode. The exit shortcut keeps working as well. Whichever way
+     it is closed, the application stops its Run first, so the windows' On
+     hide scripts, the On shutdown script and the last retentive save all
+     run.
 2. Choose **HMI > Publish...**. The project is validated first, as
    **Validate Expressions** does; problems can be reviewed or published anyway.
 3. Fill in the dialog:

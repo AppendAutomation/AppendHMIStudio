@@ -5,7 +5,7 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { findRuntimeDir, loadRuntimeConfig, runtimeUserDataDir, runtimeWindowOptions, mayExit,
-	hashExitPassword, readRuntimeProject, publicRuntimeInfo } from '../main/runtime/RuntimeMode.js';
+	closesNormally, hashExitPassword, readRuntimeProject, publicRuntimeInfo } from '../main/runtime/RuntimeMode.js';
 
 const tempDirs = [];
 
@@ -165,6 +165,28 @@ describe('exit policy', () =>
 	{
 		assert.equal(mayExit({exit: {mode: 'shortcut'}}), true);
 		assert.equal(mayExit({exit: {mode: 'never'}}, 'anything'), false);
+	});
+
+	test('close exits, and is the only mode the window closes itself', () =>
+	{
+		assert.equal(mayExit({exit: {mode: 'close'}}), true);
+		assert.equal(closesNormally({exit: {mode: 'close'}}), true);
+
+		for (const mode of ['shortcut', 'password', 'never'])
+		{
+			assert.equal(closesNormally({exit: {mode: mode}}), false);
+		}
+	});
+
+	test('close is kept from runtime.json, and needs no password', () =>
+	{
+		const dir = tempDir();
+		writeRuntime(dir, {productName: 'P', windowMode: 'window', exit: {mode: 'close'}});
+		const config = loadRuntimeConfig(dir);
+
+		assert.equal(config.exit.mode, 'close');
+		assert.equal(config.exit.hash, null);
+		assert.equal(publicRuntimeInfo(config).exitMode, 'close');
 	});
 
 	test('password mode checks the salted hash', () =>

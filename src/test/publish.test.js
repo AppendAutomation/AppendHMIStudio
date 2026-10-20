@@ -257,6 +257,18 @@ describe('options', () =>
 		assert.equal(mayExit(c, 'nope'), false);
 	});
 
+	test('a close exit survives runtime.json', () =>
+	{
+		const dir = tempDir();
+		const o = normaliseOptions(Object.assign({}, baseOptions, {runtime: {windowMode: 'window', exit: 'close'}}));
+
+		fs.writeFileSync(path.join(dir, 'runtime.json'), runtimeJson(o));
+		const c = loadRuntimeConfig(dir);
+
+		assert.equal(c.exit.mode, 'close');
+		assert.equal(mayExit(c), true);
+	});
+
 	test('installer file name', () =>
 	{
 		assert.equal(installerName({productName: 'Line: 3', version: '2.0'}), 'Line 3-2.0-Setup.exe');

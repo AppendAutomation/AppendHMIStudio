@@ -468,8 +468,10 @@ def build(save=True):
         'light blue.',
         '**Window**: how a published application runs on the target PC: **Kiosk** (full screen, locked, taskbar '
         'hidden), **Full screen**, or a **window** at the target resolution. LiquidWeighHMI uses Full screen.',
-        '**Exit**: the exit shortcut Ctrl+Alt+Shift+Q; the shortcut followed by a password; or never (the PC must '
-        'be shut down to stop it).',
+        '**Exit**: the exit shortcut Ctrl+Alt+Shift+Q; closing the window normally, as any program is closed, '
+        'with its close button or Alt+F4; the shortcut followed by a password; or never (the PC must be shut '
+        'down to stop it). The shortcut works in every setting but the last, and however the application is '
+        'closed it stops its Run first, so the On shutdown script and the last retentive save always run.',
         '**Log out after (min)**: logs the operator out after this many minutes without a touch or key press. '
         '0 never logs out.',
         '**Scripts**: the application scripts, which run whichever windows are open: **On start**, **While '

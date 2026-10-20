@@ -28,7 +28,7 @@ import * as sqlClient from './sql/SqlClient.js';
 import * as sqlSecret from './sql/Secret.js';
 import {PRODUCT_NAME, ISSUES_URL} from './brand.js';
 import {findRuntimeDir, loadRuntimeConfig, runtimeUserDataDir, runtimeWindowOptions, mayExit,
-		readRuntimeProject, publicRuntimeInfo} from './runtime/RuntimeMode.js';
+		closesNormally, readRuntimeProject, publicRuntimeInfo} from './runtime/RuntimeMode.js';
 import {createShutdownState, holdClose, finishShutdown} from './runtime/RuntimeShutdown.js';
 
 // Run-only mode for a published HMI package (see runtime/RuntimeMode.js). Its
@@ -1891,6 +1891,11 @@ function startHmiRuntime()
 		hmiRuntimeExitAllowed = true;
 		hmiRuntimeShutdown.stopped = true;
 	}
+	else if (closesNormally(hmiRuntime))
+	{
+		// The close button and Alt+F4 work; the Run still stops first
+		hmiRuntimeExitAllowed = true;
+	}
 
 	menu.setApplicationMenu(null);
 	const win = createRuntimeWindow();
@@ -1991,6 +1996,7 @@ function createRuntimeWindow()
 		switch (hmiRuntime.exit.mode)
 		{
 			case 'shortcut':
+			case 'close':
 				log.info('HMI runtime: exit by shortcut');
 				hmiRuntimeExitAllowed = true;
 				app.quit();

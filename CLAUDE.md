@@ -334,7 +334,9 @@ The renderer calls `electron.request({action: ...}, callback, error)`; main hand
 - **Run-only switch:** `resources/hmi-runtime/runtime.json` (or `--hmi-runtime <dir>`) starts the app in run-only mode (`RuntimeMode.js`, `js/hmi/HmiRuntimeApp.js`):
   - its own userData;
   - a kiosk, full-screen or fixed window;
-  - the exit policy (Ctrl+Alt+Shift+Q, optionally with a password hash).
+  - the exit policy: Ctrl+Alt+Shift+Q, the shortcut with a password hash,
+    closing the window normally (`close`, which is the one mode the OS close
+    is let through: `closesNormally`), or never.
 - **Publish** (`Publisher.js`): the template is the Windows editor's own install, or `resources/runtime/win-x64` on Linux, or `dist-win-runtime` from source. Its steps:
   - rebrand the exe with resedit;
   - stage `hmi-runtime/`;
